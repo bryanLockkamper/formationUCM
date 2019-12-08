@@ -2,6 +2,7 @@ package com.company.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Map {
     protected List<List<Case>> map;
@@ -18,7 +19,7 @@ public class Map {
         for (int i = 0; i < 10; i++) {
             map.add(new ArrayList<>());
             for (int j = 0; j < 10; j++) {
-                map.get(i).add(new Case("P", new Biome("plaine")));
+                map.get(i).add(new Case((new Random().nextInt(5) == 0) ? new Paysan(100, "payon", 5) : " ", new Biome("plaine")));
             }
         }
     }

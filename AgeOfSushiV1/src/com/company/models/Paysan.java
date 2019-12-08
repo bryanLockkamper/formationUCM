@@ -12,4 +12,9 @@ public class Paysan extends Personnage {
     public int construire(Batiment batiment, Case cases) {
         return 0;
     }
+
+    @Override
+    public String toString() {
+        return "P";
+    }
 }
