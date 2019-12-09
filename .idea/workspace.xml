@@ -2,6 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cc4acfb9-726a-46df-989d-06b008cdb889" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgeOfSushi/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgeOfSushi/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgeOfSushi/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgeOfSushi/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgeOfSushi/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgeOfSushi/IdeaFutur.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgeOfSushi/analyse/AgeOfSushi.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgeOfSushi/analyse/AgeOfSushi.vpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgeOfSushi/analyse/AgeOfSushi.vpp.bak_000f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgeOfSushi/analyse/AgeOfSushi.vpp.bak_001d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgeOfSushi/analyse/AgeOfSushi.vpp.bak_002d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgeOfSushi/analyse/AgeOfSushi.vpp.bak_003d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgeOfSushi/analyse/AgeOfSushi.vpp.bak_004d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgeOfSushi/analyse/AgeOfSushi.vpp.bak_005d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgeOfSushi/analyse/IMG_20191206_155334.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgeOfSushi/src/View/Main.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/AgeOfSushiV1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AgeOfSushiV1/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,7 +32,12 @@
   </component>
   <component name="ProjectId" id="1Uk1i4R15k5ENmiiLnlBDKUxQ5Y" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/AgeOfSushiV1" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Student\Desktop\FormationUCM\chessProject\formationUCM\AgeOfSushiV1" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -55,7 +77,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
