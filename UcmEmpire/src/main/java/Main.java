@@ -1,7 +1,7 @@
 
 
 import models.Case;
-import models.Map;
+import models.Plateau;
 
 import java.util.List;
 
@@ -9,10 +9,10 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        Map map = new Map("Test");
+        Plateau plateau = new Plateau("Test");
 
         System.out.println("|---------------------|");
-        for (List<Case> cases : map.getMap()) {
+        for (List<Case> cases : plateau.getMap()) {
             System.out.print("| ");
             for (Case cas : cases) {
                 System.out.print(cas.getContent() + " ");

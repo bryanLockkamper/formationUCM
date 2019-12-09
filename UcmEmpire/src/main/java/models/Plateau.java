@@ -6,16 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Map {
+public class Plateau {
     protected List<List<Case>> map;
     protected String name;
 
-    public Map(List<List<Case>> map, String name) {
+    public Plateau(List<List<Case>> map, String name) {
         this.map = map;
         this.name = name;
     }
 
-    public Map(String name) {
+    public Plateau(String name) {
         this.name = name;
         map = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
