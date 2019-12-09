@@ -1,8 +1,11 @@
-package models;
+package models.batiments;
+
+import models.Entity;
+import models.Ressource;
 
 import java.util.List;
 
-public class Batiment  extends Entity{
+public class Batiment  extends Entity {
     List<Entity> entities;
     Entity prod;
     List<Ressource> requirement;

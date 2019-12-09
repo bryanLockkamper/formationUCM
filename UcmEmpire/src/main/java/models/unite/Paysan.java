@@ -1,4 +1,8 @@
-package models;
+package models.unite;
+
+import models.Case;
+import models.Personnage;
+import models.batiments.Batiment;
 
 public class Paysan extends Personnage {
     public Paysan(int pv, String name, int pa) {

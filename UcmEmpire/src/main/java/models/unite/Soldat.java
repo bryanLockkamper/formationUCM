@@ -1,4 +1,7 @@
-package models;
+package models.unite;
+
+import models.Entity;
+import models.Personnage;
 
 public class Soldat extends Personnage {
     public Soldat(int pv, String name, int pa) {
