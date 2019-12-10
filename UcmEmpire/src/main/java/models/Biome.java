@@ -1,10 +1,27 @@
 package models;
 
-public class Biome {
-    String name;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Biome(String name) {
+public class Biome {
+
+    private ArrayList<Case> biomes;
+    private String name;
+    private Boolean isWalkable;
+    private int dimension;
+
+    public Biome(String name, Boolean isWalkable, int dimension) {
         this.name = name;
+        this.isWalkable = isWalkable;
+        this.dimension = dimension;
+    }
+
+    public ArrayList<Case> getBiomes() {
+        return biomes;
+    }
+
+    public void setBiomes(ArrayList<Case> biomes) {
+        this.biomes = biomes;
     }
 
     public String getName() {
@@ -13,5 +30,21 @@ public class Biome {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean getWalkable() {
+        return isWalkable;
+    }
+
+    public void setWalkable(Boolean walkable) {
+        isWalkable = walkable;
+    }
+
+    public int getDimension() {
+        return dimension;
+    }
+
+    public void setDimension(int dimension) {
+        this.dimension = dimension;
     }
 }

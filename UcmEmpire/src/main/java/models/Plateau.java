@@ -26,6 +26,8 @@ public class Plateau {
         }
     }
 
+
+
     public List<List<Case>> getMap() {
         return map;
     }

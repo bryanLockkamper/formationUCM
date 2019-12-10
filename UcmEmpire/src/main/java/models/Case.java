@@ -2,13 +2,11 @@ package models;
 
 public class Case<T> {
     protected T content;
-    protected Biome biome;
     protected boolean isWalk;
     protected boolean isBuild;
 
-    public Case(T content, Biome biome) {
+    public Case(T content) {
         this.content = content;
-        this.biome = biome;
         isBuild = true;
         isWalk = true;
     }
@@ -19,14 +17,6 @@ public class Case<T> {
 
     public void setContent(T content) {
         this.content = content;
-    }
-
-    public Biome getBiome() {
-        return biome;
-    }
-
-    public void setBiome(Biome biome) {
-        this.biome = biome;
     }
 
     public boolean isWalk() {
