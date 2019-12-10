@@ -38,4 +38,24 @@ public class Joueur {
     public int getRessources(RessourceName ressourceName){
             return ressources.get(ressourceName);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Entity> getEntities() {
+        return entities;
+    }
+
+    public void setEntities(List<Entity> entities) {
+        this.entities = entities;
+    }
+
+    public boolean aPerdu() {
+        return true;
+    }
 }
