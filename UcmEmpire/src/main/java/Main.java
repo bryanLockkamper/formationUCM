@@ -1,7 +1,7 @@
 
 
 import models.Case;
-import models.Carte;
+import models.Plateau;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        Carte carte = new Carte("Test");
+        Plateau carte = new Plateau("Test");
 
         System.out.println("|---------------------|");
         for (List<Case> cases : carte.getCarte()) {
