@@ -1,5 +1,6 @@
 
 
+import controllers.Jeu;
 import models.Case;
 import models.Plateau;
 import models.batiments.Caserne;
@@ -15,6 +16,8 @@ public class Main {
     public static void main(String[] args) {
 	// write your code here
         Plateau plateau = new Plateau("Test");
+        Jeu jeu = new Jeu();
+        /*Map map = new Map("Test");
 
         System.out.println("|---------------------|");
         for (List<Case> cases : plateau.getPlateau()) {
@@ -42,5 +45,6 @@ public class Main {
         constructeur.construire(null,null);
 
         System.out.println();
+        System.out.println("|---------------------|");*/
     }
 }

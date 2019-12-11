@@ -6,6 +6,7 @@ import models.ressources.RessourceName;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -57,5 +58,24 @@ public class Joueur {
 
     public boolean aPerdu() {
         return true;
+    }
+
+    public void deplacementUniteAuto() {
+        for (Entity entity : entities) {
+            if (entity instanceof Personnage)
+                ((Personnage) entity).deplacementAuto();
+        }
+    }
+
+    public void construireEntite() {
+        for (Entity entity : entities) {
+            if (entity instanceof IBatimentProd)
+                if (((IBatimentProd) entity).decrementCompteur() != null)
+                    entities.add(entity);
+        }
+    }
+
+    public void recolteRessourcesAuto() {
+
     }
 }
