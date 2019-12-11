@@ -6,11 +6,11 @@ import models.ressources.RessourceName;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.ArrayList;
 import models.batiments.BatimentInterfaces.IBatimentProd;
 import models.unite.Paysan;
 import models.unite.UnitInterface.IPaysan;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
