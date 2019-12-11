@@ -3,27 +3,17 @@ import models.Entity;
 import models.Ressource;
 import models.batiments.BatimentInterfaces.IBatimentProd;
 import models.batiments.BatimentInterfaces.IForum;
+import models.unite.Constructeur;
+import models.unite.Paysan;
+import models.unite.UnitInterface.IConstructeur;
+import models.unite.UnitInterface.IPaysan;
 
 import java.util.List;
 
-public class Forum extends Batiment implements IBatimentProd , IForum {
+public class Forum extends BatimentProd implements IForum {
 
-    public Forum(int pv, String name, Entity prod, List<Ressource> requirement) {
-        super(pv, name, prod, requirement);
+    public Forum(int pv, String name, List<Ressource> requirement) {
+        super(pv, name, requirement);
     }
-
-    private List<Entity> entities;
-
-    @Override
-    public List<Entity> getEntities() {
-        return entities;
-    }
-
-    @Override
-    public void setEntities(List<Entity> entities) {
-        this.entities = entities;
-    }
-
-    
 
 }

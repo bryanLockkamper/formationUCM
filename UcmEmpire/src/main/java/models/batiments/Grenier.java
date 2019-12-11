@@ -8,8 +8,8 @@ import java.util.List;
 
 public class Grenier extends Batiment implements IGrenier {
 
-    public Grenier(int pv, String name, Entity prod, List<Ressource> requirement) {
-        super(pv, name, prod, requirement);
+    public Grenier(int pv, String name, List<Ressource> requirement) {
+        super(pv, name, requirement);
     }
 
     @Override
