@@ -7,9 +7,8 @@ import java.util.List;
 public interface IBatimentProd {
 
     List<Entity> getEntities();
+    Entity decrementCompteur();
 
     void setEntities(List<Entity> entities);
-
-
 
 }

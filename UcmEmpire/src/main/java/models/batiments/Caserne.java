@@ -4,22 +4,14 @@ import models.Entity;
 import models.Ressource;
 import models.batiments.BatimentInterfaces.IBatimentProd;
 import models.batiments.BatimentInterfaces.ICaserne;
+import models.unite.Soldat;
 
 import java.util.List;
 
-public class Caserne extends Batiment implements IBatimentProd , ICaserne {
+public class Caserne extends BatimentProd implements ICaserne {
 
-    public Caserne(int pv, String name, Entity prod, List<Ressource> requirement) {
-        super(pv, name, prod, requirement);
+    public Caserne(int pv, String name, List<Ressource> requirement) {
+        super(pv, name, requirement);
     }
 
-    @Override
-    public List<Entity> getEntities() {
-        return null;
-    }
-
-    @Override
-    public void setEntities(List<Entity> entities) {
-
-    }
 }
