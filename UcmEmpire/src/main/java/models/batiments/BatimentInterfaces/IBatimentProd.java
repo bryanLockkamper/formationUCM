@@ -11,5 +11,5 @@ public interface IBatimentProd {
     void setEntities(List<Entity> entities);
 
 
-
+    Entity decrementCompteur();
 }

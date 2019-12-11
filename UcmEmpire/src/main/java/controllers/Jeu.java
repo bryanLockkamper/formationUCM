@@ -2,6 +2,7 @@ package controllers;
 
 import models.Entity;
 import models.Joueur;
+import models.Position;
 
 import java.util.List;
 import java.util.Scanner;
@@ -15,27 +16,37 @@ public class Jeu {
         Joueur ia = new Joueur();
         boolean victoire = false;
         boolean perdu = false;
-        Scanner scanner = new Scanner(System.in);
+        Timer timer = new Timer();
         while (!victoire | !perdu) {
             //AVANT TOUR
             joueur.construireEntite();
             joueur.recolteRessourcesAuto();
+
             //TOUR
             finTour = false;
-            Timer timer = new Timer();
+
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
                     finTour = true;
-                    timer.cancel();
                 }
             }, 500);
+
+            Position firstPos = new Position(0,0);
+            String action = "deplacer";
+            Position secondPos = new Position(1,2);
+
             while (!finTour) {
+
             }
+            timer.purge();
+
             //APRES TOUR
             joueur.deplacementUniteAuto();
+            joueur.maxPa();
             perdu = joueur.aPerdu();
             victoire = ia.aPerdu();
         }
+        timer.cancel();
     }
 }

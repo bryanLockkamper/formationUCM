@@ -1,6 +1,9 @@
 package models;
 
-import java.util.ArrayList;
+import models.batiments.BatimentInterfaces.IBatimentProd;
+import models.unite.Paysan;
+import models.unite.UnitInterface.IPaysan;
+
 import java.util.List;
 
 public class Joueur {
@@ -52,6 +55,17 @@ public class Joueur {
     }
 
     public void recolteRessourcesAuto() {
+        for (Entity entity : entities) {
+            if (entity instanceof IPaysan);
+                //getRessource dans map puis add int
+//                ((Paysan) entity).recolter();
+        }
+    }
 
+    public void maxPa() {
+        for (Entity entity : entities) {
+            if (entity instanceof Personnage)
+                ((Personnage)entity).setPaMAx();
+        }
     }
 }
