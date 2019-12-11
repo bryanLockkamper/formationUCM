@@ -6,16 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Map {
+public class Carte {
     protected List<List<Case>> map;
     protected String name;
 
-    public Map(List<List<Case>> map, String name) {
+    public Carte(List<List<Case>> map, String name) {
         this.map = map;
         this.name = name;
     }
 
-    public Map(String name) {
+    public Carte(String name) {
         this.name = name;
         map = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -26,11 +26,11 @@ public class Map {
         }
     }
 
-    public List<List<Case>> getMap() {
+    public List<List<Case>> getCarte() {
         return map;
     }
 
-    public void setMap(List<List<Case>> map) {
+    public void setCarte(List<List<Case>> map) {
         this.map = map;
     }
 
