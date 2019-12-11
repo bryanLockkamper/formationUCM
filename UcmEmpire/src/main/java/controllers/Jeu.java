@@ -6,7 +6,6 @@ import models.Joueur;
 import models.Personnage;
 import models.unite.Soldat;
 
-import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 

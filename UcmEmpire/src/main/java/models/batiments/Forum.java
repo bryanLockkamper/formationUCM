@@ -1,12 +1,8 @@
 package models.batiments;
+
 import models.Entity;
-import models.ressources.Ressource;
-import models.batiments.BatimentInterfaces.IBatimentProd;
 import models.batiments.BatimentInterfaces.IForum;
-import models.unite.Constructeur;
-import models.unite.Paysan;
-import models.unite.UnitInterface.IConstructeur;
-import models.unite.UnitInterface.IPaysan;
+import models.ressources.Ressource;
 
 import java.util.List;
 
