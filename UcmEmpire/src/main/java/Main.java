@@ -15,10 +15,10 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        Plateau carte = new Plateau("Test");
+        Plateau plateau = new Plateau("Test");
 
         System.out.println("|---------------------|");
-        for (List<Case> cases : carte.getCarte()) {
+        for (List<Case> cases : plateau.getPlateau()) {
             System.out.print("| ");
             for (Case cas : cases) {
                 System.out.print(cas.getContent() + " ");
