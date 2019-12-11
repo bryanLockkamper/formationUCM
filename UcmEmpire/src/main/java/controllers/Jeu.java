@@ -17,6 +17,7 @@ public class Jeu {
         boolean victoire = false;
         boolean perdu = false;
         Timer timer = new Timer();
+        Scanner scanner = new Scanner(System.in);
         while (!victoire | !perdu) {
             //AVANT TOUR
             joueur.construireEntite();
@@ -24,7 +25,6 @@ public class Jeu {
 
             //TOUR
             finTour = false;
-
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
