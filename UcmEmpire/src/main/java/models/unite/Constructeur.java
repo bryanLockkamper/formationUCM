@@ -7,8 +7,6 @@ import models.unite.UnitInterface.IConstructeur;
 
 public class Constructeur extends Personnage implements IConstructeur {
 
-    public Constructeur(){}
-
     public Constructeur(int pv, String name, int pa) {
         super(pv, name, pa);
     }

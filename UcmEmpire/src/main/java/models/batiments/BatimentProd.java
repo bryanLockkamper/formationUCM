@@ -16,7 +16,7 @@ import models.unite.UnitInterface.ISoldat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BatimentProd extends Batiment implements IBatimentProd {
+public abstract class BatimentProd extends Batiment implements IBatimentProd {
 
     public static final int PAYSAN_ENTITY =1;
     public static final int CONSTRUCTEUR_ENTITY =2;
@@ -33,18 +33,30 @@ public class BatimentProd extends Batiment implements IBatimentProd {
     public Entity getUnit(int typeProd){
         Personnage personnage = null;
 
-        switch (typeProd){
-            case PAYSAN_ENTITY:
-                personnage = new Paysan();
-                break;
-            case CONSTRUCTEUR_ENTITY:
-                personnage = new Constructeur();
-                break;
-            case SOLDAT_ENTITY:
-                personnage = new Soldat();
-                break;
-            default:
-                throw new IllegalArgumentException("Type incorrecte");
+        if (this instanceof IForum)
+        {
+            switch (typeProd){
+                case PAYSAN_ENTITY:
+                    personnage = new Paysan( 10 , "Guetno" , 10);
+                    break;
+                case CONSTRUCTEUR_ENTITY:
+                    personnage = new Constructeur(10 , "Constructeur" , 10);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Type incorrecte");
+            }
+
+        }
+         else if (this instanceof ICaserne)
+        {
+            switch (typeProd)
+            {
+                case SOLDAT_ENTITY:
+                    personnage = new Soldat(15 , "Perceval" , 10);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Type incorrecte");
+            }
         }
 
         return personnage;

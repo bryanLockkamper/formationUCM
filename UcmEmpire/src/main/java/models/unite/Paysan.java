@@ -7,10 +7,6 @@ import models.unite.UnitInterface.IPaysan;
 
 public class Paysan extends Personnage implements IPaysan {
 
-    public Paysan(){
-
-    }
-
     public Paysan(int pv, String name, int pa) {
         super(pv, name, pa);
     }
