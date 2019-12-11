@@ -24,6 +24,10 @@ public class Forum extends Batiment implements IBatimentProd , IForum {
         this.entities = entities;
     }
 
-    
+    @Override
+    public Entity decrementCompteur() {
+        return null;
+    }
+
 
 }

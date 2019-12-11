@@ -22,4 +22,9 @@ public class Caserne extends Batiment implements IBatimentProd , ICaserne {
     public void setEntities(List<Entity> entities) {
 
     }
+
+    @Override
+    public Entity decrementCompteur() {
+        return null;
+    }
 }
