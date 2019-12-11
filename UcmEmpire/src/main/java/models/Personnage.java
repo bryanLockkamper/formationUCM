@@ -3,10 +3,7 @@ package models;
 public class Personnage extends Entity{
     protected int pa;
     protected int deplacementRestant;
-<<<<<<< HEAD
     private int paMax;
-=======
->>>>>>> 43ba58ee63c026fac2f39da833f421584149cef0
 
     public Personnage(int pv, String name, int pa) {
         super(pv, name);
@@ -36,11 +33,7 @@ public class Personnage extends Entity{
     public void deplacementAuto() {
 
     }
-<<<<<<< HEAD
-
     public void setPaMAx() {
         pa = paMax;
     }
-=======
->>>>>>> 43ba58ee63c026fac2f39da833f421584149cef0
 }
