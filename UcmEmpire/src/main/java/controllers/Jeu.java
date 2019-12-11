@@ -3,6 +3,8 @@ package controllers;
 import models.Case;
 import models.Entity;
 import models.Joueur;
+import models.Personnage;
+import models.unite.Soldat;
 
 import java.util.Scanner;
 import java.util.Timer;
@@ -44,6 +46,23 @@ public class Jeu {
                     // TODO: 11-12-19 event selection ressources
                 }
                 // TODO: 11-12-19 switch sur les actions
+                switch (action) {
+                    case "deplacer":
+                        // TODO: 11-12-19 event deplacement
+                        break;
+                    case "suicide":
+                        if (first.getContent() instanceof Personnage);
+                        ((Personnage)first.getContent()).suicide();
+                        break;
+                    case "attaque":
+                        if (first.getContent() instanceof Soldat);
+                        // TODO: 11-12-19 event attaquer
+                        break;
+                    case "creer":
+                        break;
+//                        ((Soldat)first.getContent()).attaquer(second.getContent());
+//                        ((Personnage)first.getContent()).move(1);
+                }
                 // TODO: 11-12-19 verifier si action possible
             }
             timer.purge();
