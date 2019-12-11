@@ -1,6 +1,7 @@
 
 
 import models.Case;
+import models.Plateau;
 import models.batiments.Caserne;
 import models.batiments.Forum;
 import models.unite.Constructeur;
@@ -14,7 +15,7 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        Carte carte = new Carte("Test");
+        Plateau carte = new Plateau("Test");
 
         System.out.println("|---------------------|");
         for (List<Case> cases : carte.getCarte()) {
@@ -37,7 +38,7 @@ public class Main {
         System.out.println("Constructeur " + constructeur.getName());
         System.out.println("Soldat " + soldat.getName() + " " + soldat.getPv() +" PV ");
 
-        paysan.recolter(null);
+        paysan.recolter();
         soldat.attaquer(paysan);
         constructeur.construire(null,null);
 
