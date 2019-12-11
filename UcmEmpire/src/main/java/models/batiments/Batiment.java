@@ -1,7 +1,7 @@
 package models.batiments;
 
 import models.Entity;
-import models.Ressource;
+import models.ressources.Ressource;
 
 import java.util.List;
 
