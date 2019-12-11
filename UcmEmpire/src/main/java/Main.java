@@ -1,7 +1,7 @@
 
 
 import models.Case;
-import models.Map;
+import models.Plateau;
 import models.batiments.Caserne;
 import models.batiments.Forum;
 import models.unite.Constructeur;
@@ -14,10 +14,10 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        Map map = new Map("Test");
+        Plateau plateau = new Plateau("Test");
 
         System.out.println("|---------------------|");
-        for (List<Case> cases : map.getMap()) {
+        for (List<Case> cases : plateau.getPlateau()) {
             System.out.print("| ");
             for (Case cas : cases) {
                 System.out.print(cas.getContent() + " ");
@@ -37,7 +37,7 @@ public class Main {
         System.out.println("Constructeur " + constructeur.getName());
         System.out.println("Soldat " + soldat.getName() + " " + soldat.getPv() +" PV ");
 
-        paysan.recolter(null);
+        paysan.recolter();
         soldat.attaquer(paysan);
         constructeur.construire(null,null);
 

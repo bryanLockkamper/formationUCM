@@ -1,7 +1,7 @@
 package models.batiments;
 
 import models.Entity;
-import models.Ressource;
+import models.ressources.Ressource;
 import models.batiments.BatimentInterfaces.IGrenier;
 
 import java.util.List;
@@ -12,13 +12,4 @@ public class Grenier extends Batiment implements IGrenier {
         super(pv, name, requirement);
     }
 
-    @Override
-    public int getRessource() {
-        return 0;
-    }
-
-    @Override
-    public void setRessource(int ressource) {
-
-    }
 }

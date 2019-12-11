@@ -1,19 +1,21 @@
-package models;
+package models.ressources;
+
+import models.ressources.RessourceName;
 
 public class Ressource {
-    private String name;
+    private RessourceName name;
     private int number;
 
-    public Ressource(String name, int number) {
+    public Ressource(RessourceName name, int number) {
         this.name = name;
         this.number = number;
     }
 
-    public String getName() {
+    public RessourceName getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(RessourceName name) {
         this.name = name;
     }
 
@@ -24,4 +26,6 @@ public class Ressource {
     public void setNumber(int number) {
         this.number = number;
     }
+
+
 }
