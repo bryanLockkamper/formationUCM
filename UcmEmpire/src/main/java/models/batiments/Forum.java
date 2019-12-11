@@ -16,4 +16,15 @@ public class Forum extends BatimentProd implements IForum {
         super(pv, name, requirement);
     }
 
+    @Override
+    public void setEntities(List<Entity> entities) {
+        this.entities = entities;
+    }
+
+    @Override
+    public Entity decrementCompteur() {
+        return null;
+    }
+
+
 }
