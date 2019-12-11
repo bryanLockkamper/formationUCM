@@ -1,7 +1,7 @@
 
 
-import models.Case;
-import models.Plateau;
+import Case;
+import models.Plateau.Plateau;
 
 import java.util.List;
 

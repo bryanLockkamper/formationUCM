@@ -1,6 +1,6 @@
 package models.unite;
 
-import models.Case;
+import Case;
 import models.Personnage;
 import models.batiments.Batiment;
 

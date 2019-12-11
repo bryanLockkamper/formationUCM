@@ -1,7 +1,8 @@
-package models;
+package models.biomes;
+
+import Case;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Biome {
 

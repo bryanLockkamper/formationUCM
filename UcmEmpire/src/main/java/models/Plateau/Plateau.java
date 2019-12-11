@@ -1,5 +1,6 @@
-package models;
+package models.Plateau;
 
+import models.biomes.Biome;
 import models.unite.Paysan;
 
 import java.util.ArrayList;
