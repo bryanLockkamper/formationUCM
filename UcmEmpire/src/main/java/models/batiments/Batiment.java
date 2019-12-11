@@ -5,24 +5,14 @@ import models.Ressource;
 
 import java.util.List;
 
-public class Batiment  extends Entity {
-    List<Entity> entities;
+public abstract class Batiment  extends Entity {
     Entity prod;
     List<Ressource> requirement;
 
-    public Batiment(int pv, String name, List<Entity> entities, Entity prod, List<Ressource> requirement) {
+    public Batiment(int pv, String name, Entity prod, List<Ressource> requirement) {
         super(pv, name);
-        this.entities = entities;
         this.prod = prod;
         this.requirement = requirement;
-    }
-
-    public List<Entity> getEntities() {
-        return entities;
-    }
-
-    public void setEntities(List<Entity> entities) {
-        this.entities = entities;
     }
 
     public Entity getProd() {
