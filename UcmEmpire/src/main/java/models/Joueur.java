@@ -7,7 +7,6 @@ import models.ressources.RessourceName;
 import java.util.ArrayList;
 import java.util.HashMap;
 import models.batiments.BatimentInterfaces.IBatimentProd;
-import models.unite.Paysan;
 import models.unite.UnitInterface.IPaysan;
 
 import java.util.ArrayList;
@@ -92,5 +91,9 @@ public class Joueur {
             if (entity instanceof Personnage)
                 ((Personnage)entity).setPaMAx();
         }
+    }
+
+    public Entity getEntity(int i) {
+        return entities.get(i);
     }
 }

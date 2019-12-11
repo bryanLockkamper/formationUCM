@@ -1,10 +1,9 @@
 package controllers;
 
+import models.Case;
 import models.Entity;
 import models.Joueur;
-import models.Position;
 
-import java.util.List;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -32,12 +31,20 @@ public class Jeu {
                 }
             }, 500);
 
-            Position firstPos = new Position(0,0);
+            Case<Entity> first = new Case<>(joueur.getEntity(0));
             String action = "deplacer";
-            Position secondPos = new Position(1,2);
+            Case<Entity> second = new Case<>(null);
 
             while (!finTour) {
-                
+                if (first.getContent() instanceof Entity) {
+                    // TODO: 11-12-19 verifier entité appartient au joueur
+                    // TODO: 11-12-19 event selection entité
+                } else {
+                    //Case ressources
+                    // TODO: 11-12-19 event selection ressources
+                }
+                // TODO: 11-12-19 switch sur les actions
+                // TODO: 11-12-19 verifier si action possible
             }
             timer.purge();
 
