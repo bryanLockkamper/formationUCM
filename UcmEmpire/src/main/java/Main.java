@@ -1,5 +1,6 @@
 
 
+import controllers.Jeu;
 import models.Case;
 import models.Map;
 
@@ -9,7 +10,8 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        Map map = new Map("Test");
+        Jeu jeu = new Jeu();
+        /*Map map = new Map("Test");
 
         System.out.println("|---------------------|");
         for (List<Case> cases : map.getMap()) {
@@ -19,6 +21,6 @@ public class Main {
             }
             System.out.println("|");
         }
-        System.out.println("|---------------------|");
+        System.out.println("|---------------------|");*/
     }
 }
