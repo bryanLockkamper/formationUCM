@@ -37,7 +37,7 @@ public class Jeu {
             Position secondPos = new Position(1,2);
 
             while (!finTour) {
-
+                
             }
             timer.purge();
 
