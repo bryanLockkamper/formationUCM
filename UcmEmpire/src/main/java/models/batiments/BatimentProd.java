@@ -2,7 +2,7 @@ package models.batiments;
 
 import models.Entity;
 import models.Personnage;
-import models.Ressource;
+import models.ressources.Ressource;
 import models.batiments.BatimentInterfaces.IBatimentProd;
 import models.batiments.BatimentInterfaces.ICaserne;
 import models.batiments.BatimentInterfaces.IForum;

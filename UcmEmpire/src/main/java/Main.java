@@ -7,7 +7,6 @@ import models.batiments.Forum;
 import models.unite.Constructeur;
 import models.unite.Paysan;
 import models.unite.Soldat;
-import models.Carte;
 
 import java.util.List;
 
