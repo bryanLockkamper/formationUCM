@@ -96,4 +96,7 @@ public class Joueur {
     public Entity getEntity(int i) {
         return entities.get(i);
     }
+
+    public void addEntity(Entity content) {
+    }
 }

@@ -48,4 +48,10 @@ public class Plateau {
 
     public void move(Case<Entity> first, Case<Entity> second) {
     }
+
+    public void remove(Case<Entity> second) {
+    }
+
+    public void setCase(Case<Entity> second) {
+    }
 }

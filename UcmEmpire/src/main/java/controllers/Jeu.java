@@ -12,8 +12,8 @@ public class Jeu {
         Joueur joueur = new Joueur();
         Joueur ia = new Joueur();
         Plateau map = new Plateau();
-        boolean victoire = false;
-        boolean perdu = false;
+        boolean victoire = false,
+                perdu = false;
         Timer timer = new Timer();
         while (!victoire | !perdu) {
             //AVANT TOUR
@@ -35,33 +35,39 @@ public class Jeu {
 
             while (!finTour) {
                 if (first.getContent() instanceof Entity) {
-                    // TODO: 11-12-19 verifier entité appartient au joueur
-                    // TODO: 11-12-19 event selection entité
-                    // TODO: 11-12-19 switch sur les actions
-                    switch (action) {
-                        case "deplacer":
-                            if (first.getContent() instanceof Personnage) {
-                                ((Personnage) first.getContent()).move(1);
-                                map.move(first, second);
+                    boolean exist = false;
+                    for (int i = 0; i < joueur.getEntities().size() & !exist; i++)
+                        if (joueur.getEntities().get(i).equals(first.getContent()))
+                            exist = true;
+                        if (exist)  {
+                            switch (action) {
+                                case "deplacer":
+                                    if (first.getContent() instanceof Personnage) {
+                                        ((Personnage) first.getContent()).move(1);
+                                        map.move(first, second);
+                                    }
+                                    // TODO: 11-12-19 event deplacement
+                                    break;
+                                case "suicide":
+                                     if (first.getContent() instanceof Entity)
+                                     first.getContent().suicide();
+                                     break;
+                                case "attaque":
+                                    if (first.getContent() instanceof Soldat) {
+                                        boolean mort = second.getContent().takeDamage(((Soldat)first.getContent()).attaquer());
+                                        if (mort) {
+                                         ia.getEntities().remove(second.getContent());
+                                         map.remove(second);
+                                        }
+                                    }
+                                    // TODO: 11-12-19 event attaquer
+                                     break;
+                                case "creer":
+                                     map.setCase(second);
+                                     joueur.addEntity(second.getContent());
+                                     break;
                             }
-                            // TODO: 11-12-19 event deplacement
-                            break;
-                        case "suicide":
-                            if (first.getContent() instanceof Entity)
-                                first.getContent().suicide();
-                            break;
-                        case "attaque":
-                            if (first.getContent() instanceof Soldat) {
-
-                            }
-                            // TODO: 11-12-19 event attaquer
-                            break;
-                        case "creer":
-                            break;
-                    }
-                } else {
-                    //Case ressources
-                    // TODO: 11-12-19 event selection ressources
+                        }
                 }
             }
             timer.purge();
