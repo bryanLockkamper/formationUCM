@@ -10,7 +10,7 @@ public class Soldat extends Personnage implements ISoldat {
         super(pv, name, pa);
     }
 
-    public int attaquer(Entity entity){
-        return 0;
+    public int attaquer(){
+        return getPa();
     }
 }
