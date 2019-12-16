@@ -18,10 +18,6 @@ public class Personnage extends Entity{
         this.pa = pa;
     }
 
-    public void suicide() {
-
-    }
-
     public int move(int deplacement) {
         int tmp = deplacement - pa;
         pa = Math.max(pa - deplacement, 0);

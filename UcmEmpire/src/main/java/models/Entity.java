@@ -24,4 +24,9 @@ public class Entity {
     public void setName(String name) {
         this.name = name;
     }
+
+    public void suicide() {
+        this.pv =0;
+    }
+
 }
