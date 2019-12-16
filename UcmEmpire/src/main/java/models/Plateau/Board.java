@@ -1,17 +1,20 @@
 package models.Plateau;
 
-
 import models.Constantes;
+import models.Entity;
 import models.biomes.*;
 
 import java.util.ArrayList;
 
-public class Plateau {
+public class Board {
 
     private String name;
     private ArrayList<ArrayList<Case>> board;
 
-    public Plateau(String name) {
+    public Board() {
+    }
+
+    public Board(String name) {
         this.name = name;
         this.board = boardGeneration();
     }
@@ -67,5 +70,44 @@ public class Plateau {
 
     public void setBoard(ArrayList<ArrayList<Case>> board) {
         this.board = board;
+    }
+
+    public void move(Case<Entity> first, Case<Entity> second) {
+    }
+
+    public void remove(Case<Entity> second) {
+    }
+
+    public void setCase(Case<Entity> second) {
+    }
+
+    private ArrayList<ArrayList<Case>> boardAutoGeneration ()
+    {
+        // init the x dimension
+        ArrayList<ArrayList<Case>> boardList = new ArrayList<>(Constantes.DIMENSION_BOARD);
+
+        BiomeFactory biomeFactory = new BiomeFactory();
+
+        // Init the y dimension
+        for (int i = 0; i < Constantes.DIMENSION_BOARD; i++) {
+            boardList.add(new ArrayList<>());
+
+        }
+
+        IBiomes biomes = biomeFactory.getBiome(BiomeType.PLAIN);
+
+        for (int i = 0; i < boardList.size() ; i++) {
+
+
+
+            for (int j = 0; j < boardList.get(i).size() ; j++) {
+
+
+
+            }
+
+        }
+
+        return boardList;
     }
 }

@@ -1,6 +1,5 @@
 package models.biomes;
 
-import models.Constantes;
 import models.Entity;
 import models.Plateau.Case;
 

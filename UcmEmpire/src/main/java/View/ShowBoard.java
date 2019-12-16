@@ -1,19 +1,18 @@
 package View;
 
-import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
+import models.Plateau.Board;
 import models.Plateau.CaseSpecial;
-import models.Plateau.Plateau;
 
 public class ShowBoard {
 
     public void showBoardV1() {
         //TODO : generation des cases
-        Plateau plateau = new Plateau("technobel");
-        for (int i = 0; i < plateau.getBoard().size(); i++) {
+        Board board = new Board("technobel");
+        for (int i = 0; i < board.getBoard().size(); i++) {
 
-            for (int j = 0; j < plateau.getBoard().get(i).size(); j++) {
+            for (int j = 0; j < board.getBoard().get(i).size(); j++) {
 
-                if (plateau.getBoard().get(i).get(j) instanceof CaseSpecial) {
+                if (board.getBoard().get(i).get(j) instanceof CaseSpecial) {
                     System.out.print(" S |   ");
 
                 } else {

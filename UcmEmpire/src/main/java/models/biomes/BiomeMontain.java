@@ -5,7 +5,6 @@ import models.Entity;
 import models.Plateau.Case;
 import models.Plateau.CaseSpecial;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class BiomeMontain implements IBiomes {

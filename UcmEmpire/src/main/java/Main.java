@@ -1,22 +1,16 @@
 
 
+import View.ShowBoard;
 import controllers.Jeu;
-import models.Case;
-import models.Plateau;
-import models.batiments.Caserne;
-import models.batiments.Forum;
-import models.unite.Constructeur;
-import models.unite.Paysan;
-import models.unite.Soldat;
-
-import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        Plateau plateau = new Plateau("Test");
-        Jeu jeu = new Jeu();
+
+        ShowBoard showBoard = new ShowBoard();
+        showBoard.showBoardV1();
+        //Jeu jeu = new Jeu();
         /*Map map = new Map("Test");
 
         System.out.println("|---------------------|");

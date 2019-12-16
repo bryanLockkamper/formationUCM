@@ -8,6 +8,8 @@ import java.util.List;
 
 public class Forum extends BatimentProd implements IForum {
 
+    private List<Entity> entities;
+
     public Forum(int pv, String name, List<Ressource> requirement) {
         super(pv, name, requirement);
     }
