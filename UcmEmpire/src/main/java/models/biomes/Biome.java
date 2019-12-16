@@ -1,6 +1,7 @@
 package models.biomes;
 
-import Case;
+
+import models.Plateau.Case;
 
 import java.util.ArrayList;
 

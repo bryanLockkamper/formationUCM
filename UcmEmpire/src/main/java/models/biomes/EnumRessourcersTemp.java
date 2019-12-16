@@ -1,9 +1,11 @@
 package models.biomes;
 
-public enum EnumRessourcersTemp {
+public enum EnumRessourcersTemp { // TODO : temporary enum, need to replace with the true enum
 
-    BOIS ("bois"),
-    PIERRE ("pierre");
+    BOIS("bois"),
+    PIERRE("pierre"),
+    EAU("water"),
+    DESERT("desert"); //TODO : quantity set to a number and not infinity
 
     private String type;
 

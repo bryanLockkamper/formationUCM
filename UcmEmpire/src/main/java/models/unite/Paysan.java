@@ -1,7 +1,7 @@
 package models.unite;
 
-import Case;
 import models.Personnage;
+import models.Plateau.Case;
 import models.batiments.Batiment;
 
 public class Paysan extends Personnage {
