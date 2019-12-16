@@ -32,7 +32,7 @@ public class Personnage extends Entity{
 
     }
 
-    public void setPaMAx() {
+    public void setPaMax() {
         pa = paMax;
     }
 }
