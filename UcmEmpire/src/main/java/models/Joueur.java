@@ -89,7 +89,7 @@ public class Joueur {
     public void maxPa() {
         for (Entity entity : entities) {
             if (entity instanceof Personnage)
-                ((Personnage)entity).setPaMAx();
+                ((Personnage)entity).setPaMax();
         }
     }
 
