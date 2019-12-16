@@ -6,6 +6,10 @@ import models.ressources.RessourceName;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import models.batiments.BatimentInterfaces.IBatimentProd;
+import models.unite.UnitInterface.IPaysan;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,5 +41,62 @@ public class Joueur {
 
     public int getRessources(RessourceName ressourceName){
             return ressources.get(ressourceName);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Entity> getEntities() {
+        return entities;
+    }
+
+    public void setEntities(List<Entity> entities) {
+        this.entities = entities;
+    }
+
+    public boolean aPerdu() {
+        return true;
+    }
+
+    public void deplacementUniteAuto() {
+        for (Entity entity : entities) {
+            if (entity instanceof Personnage)
+                ((Personnage) entity).deplacementAuto();
+        }
+    }
+
+    public void construireEntite() {
+        for (Entity entity : entities) {
+            if (entity instanceof IBatimentProd)
+                if (((IBatimentProd) entity).decrementCompteur() != null)
+                    entities.add(entity);
+        }
+    }
+
+    public void recolteRessourcesAuto() {
+        for (Entity entity : entities) {
+            if (entity instanceof IPaysan);
+                //getRessource dans map puis add int
+//                ((Paysan) entity).recolter();
+        }
+    }
+
+    public void maxPa() {
+        for (Entity entity : entities) {
+            if (entity instanceof Personnage)
+                ((Personnage)entity).setPaMAx();
+        }
+    }
+
+    public Entity getEntity(int i) {
+        return entities.get(i);
+    }
+
+    public void addEntity(Entity content) {
     }
 }

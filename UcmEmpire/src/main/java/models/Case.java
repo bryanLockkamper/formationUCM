@@ -6,6 +6,10 @@ public class Case<T> {
     protected boolean isWalk;
     protected boolean isBuild;
 
+    public Case(T content) {
+        this.content = content;
+    }
+
     public Case(T content, Biome biome) {
         this.content = content;
         this.biome = biome;

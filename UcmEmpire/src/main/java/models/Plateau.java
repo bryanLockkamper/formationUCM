@@ -26,6 +26,10 @@ public class Plateau {
         }
     }
 
+    public Plateau() {
+        
+    }
+
     public List<List<Case>> getPlateau() {
         return plateau;
     }
@@ -40,5 +44,14 @@ public class Plateau {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void move(Case<Entity> first, Case<Entity> second) {
+    }
+
+    public void remove(Case<Entity> second) {
+    }
+
+    public void setCase(Case<Entity> second) {
     }
 }

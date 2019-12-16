@@ -14,4 +14,13 @@ public class Caserne extends BatimentProd implements ICaserne {
         super(pv, name, requirement);
     }
 
+    @Override
+    public void setEntities(List<Entity> entities) {
+
+    }
+
+    @Override
+    public Entity decrementCompteur() {
+        return null;
+    }
 }
