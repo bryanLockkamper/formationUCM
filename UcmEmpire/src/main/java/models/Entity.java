@@ -14,7 +14,17 @@ public class Entity {
     }
 
     public void setPv(int pv) {
-        this.pv = pv;
+        this.pv = Math.max(this.pv - pv, 0);
+    }
+
+    /**
+     *
+     * @param damage damage done on this unit
+     * @return true if dead
+     */
+    public boolean takeDamage(int damage){
+        setPv(getPv()-damage);
+        return getPv() <= 0;
     }
 
     public String getName() {
