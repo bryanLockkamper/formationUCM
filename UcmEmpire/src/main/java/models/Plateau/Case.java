@@ -1,20 +1,21 @@
-package models;
+package models.Plateau;
+
+import models.biomes.Biome;
 
 public class Case<T> {
-    protected T content;
-    protected Biome biome;
-    protected boolean isWalk;
-    protected boolean isBuild;
+    private T content;
+    private boolean isWalk;
+    private boolean isBuild;
+    private Biome biome;
 
     public Case(T content) {
         this.content = content;
     }
 
-    public Case(T content, Biome biome) {
-        this.content = content;
-        this.biome = biome;
-        isBuild = true;
-        isWalk = true;
+    public Case(T content, boolean isBuild, boolean isWalk) {
+        this(content);
+        this.isBuild = isBuild;
+        this.isWalk = isWalk;
     }
 
     public T getContent() {
@@ -23,14 +24,6 @@ public class Case<T> {
 
     public void setContent(T content) {
         this.content = content;
-    }
-
-    public Biome getBiome() {
-        return biome;
-    }
-
-    public void setBiome(Biome biome) {
-        this.biome = biome;
     }
 
     public boolean isWalk() {
@@ -47,5 +40,13 @@ public class Case<T> {
 
     public void setBuild(boolean build) {
         isBuild = build;
+    }
+
+    public Biome getBiome() {
+        return biome;
+    }
+
+    public void setBiome(Biome biome) {
+        this.biome = biome;
     }
 }
