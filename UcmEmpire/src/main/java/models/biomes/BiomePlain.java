@@ -1,10 +1,7 @@
 package models.biomes;
 
-import models.Constantes;
 import models.Entity;
-import models.Plateau.Case;
-
-import java.util.ArrayList;
+import models.BoardPackage.Case;
 
 public class BiomePlain implements IBiomes {
 

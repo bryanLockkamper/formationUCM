@@ -2,10 +2,9 @@ package models.biomes;
 
 import models.Constantes;
 import models.Entity;
-import models.Plateau.Case;
-import models.Plateau.CaseSpecial;
+import models.BoardPackage.Case;
+import models.BoardPackage.CaseSpecial;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class BiomeMontain implements IBiomes {

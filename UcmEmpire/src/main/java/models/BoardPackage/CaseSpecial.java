@@ -1,4 +1,4 @@
-package models.Plateau;
+package models.BoardPackage;
 
 import models.unite.Paysan;
 

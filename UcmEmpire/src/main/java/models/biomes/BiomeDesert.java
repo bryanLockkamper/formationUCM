@@ -1,8 +1,7 @@
 package models.biomes;
 
-import models.Constantes;
 import models.Entity;
-import models.Plateau.Case;
+import models.BoardPackage.Case;
 
 import java.util.ArrayList;
 

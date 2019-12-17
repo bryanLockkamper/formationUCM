@@ -1,6 +1,8 @@
 package controllers;
 
 import models.*;
+import models.BoardPackage.Board;
+import models.BoardPackage.Case;
 import models.unite.Soldat;
 
 import java.util.Timer;
@@ -11,7 +13,7 @@ public class Jeu {
     public Jeu() {
         Joueur joueur = new Joueur();
         Joueur ia = new Joueur();
-        Plateau map = new Plateau();
+        Board map = new Board();
         boolean victoire = false,
                 perdu = false;
         Timer timer = new Timer();

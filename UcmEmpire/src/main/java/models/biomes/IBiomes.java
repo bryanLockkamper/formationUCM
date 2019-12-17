@@ -1,8 +1,6 @@
 package models.biomes;
 
-import models.Plateau.Case;
-
-import java.util.ArrayList;
+import models.BoardPackage.Case;
 
 public interface IBiomes {
 
