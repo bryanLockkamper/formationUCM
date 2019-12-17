@@ -1,18 +1,17 @@
 package controllers.Pathfinding;
 
-import models.Plateau;
+import models.BoardPackage.Board;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class AStarService {
     Map<Position, Node> openList, closedList;
-    private Plateau board;
+    private Board board;
     private Position start, finish;
 
-    public AStarService(Plateau board, Position start, Position finish) {
+    public AStarService(Board board, Position start, Position finish) {
         this.board = board;
         this.start = start;
         this.finish = finish;
@@ -73,9 +72,9 @@ public class AStarService {
     }
 
     private boolean isInsideBoundsAndWalkable(Position p) {
-        return (p.getX() >= 0 && p.getX() < board.getPlateau().size() // verifier borne horizontale
-                && p.getY() >= 0 && p.getY() < board.getPlateau().get(0).size()) // verifier borne verticale
-                && (board.getPlateau().get(p.getX()).get(p.getY()).isWalk()); // verifier  si marchable
+        return (p.getX() >= 0 && p.getX() < board.getBoard().size() // verifier borne horizontale
+                && p.getY() >= 0 && p.getY() < board.getBoard().get(0).size()) // verifier borne verticale
+                && (board.getBoard().get(p.getX()).get(p.getY()).isWalk()); // verifier  si marchable
     }
 
     private void addToList(Position actual, Position adj) {
