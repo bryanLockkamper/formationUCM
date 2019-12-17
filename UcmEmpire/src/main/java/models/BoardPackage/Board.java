@@ -78,7 +78,7 @@ public class Board {
     public void remove(Case<Entity> second) {
     }
 
-    public void setCase(Case<Entity> second) {
+    public void setCase(Case<Entity> second) { //TODO : Modifier l'entity pour ajouter une entity depuis la vue
     }
 
     private ArrayList<ArrayList<Case>> boardAutoGeneration () //TODO : work in progress by Damien
