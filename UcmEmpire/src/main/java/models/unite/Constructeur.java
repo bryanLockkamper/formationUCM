@@ -1,7 +1,7 @@
 package models.unite;
 
 import models.Personnage;
-import models.Plateau.Case;
+import models.BoardPackage.Case;
 import models.batiments.Batiment;
 import models.unite.UnitInterface.IConstructeur;
 

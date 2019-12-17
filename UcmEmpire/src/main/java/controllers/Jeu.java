@@ -1,8 +1,8 @@
 package controllers;
 
 import models.*;
-import models.Plateau.Board;
-import models.Plateau.Case;
+import models.BoardPackage.Board;
+import models.BoardPackage.Case;
 import models.unite.Soldat;
 
 import java.util.Timer;

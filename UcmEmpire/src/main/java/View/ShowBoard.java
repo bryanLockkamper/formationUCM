@@ -1,7 +1,7 @@
 package View;
 
-import models.Plateau.Board;
-import models.Plateau.CaseSpecial;
+import models.BoardPackage.Board;
+import models.BoardPackage.CaseSpecial;
 
 public class ShowBoard {
 

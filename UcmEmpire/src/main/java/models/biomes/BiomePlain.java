@@ -1,7 +1,7 @@
 package models.biomes;
 
 import models.Entity;
-import models.Plateau.Case;
+import models.BoardPackage.Case;
 
 public class BiomePlain implements IBiomes {
 

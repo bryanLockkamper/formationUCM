@@ -1,6 +1,6 @@
 package models.unite.UnitInterface;
 
-import models.Plateau.Case;
+import models.BoardPackage.Case;
 import models.batiments.Batiment;
 
 public interface IConstructeur {

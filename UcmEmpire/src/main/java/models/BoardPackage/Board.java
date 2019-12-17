@@ -1,4 +1,4 @@
-package models.Plateau;
+package models.BoardPackage;
 
 import models.Constantes;
 import models.Entity;
@@ -81,7 +81,7 @@ public class Board {
     public void setCase(Case<Entity> second) {
     }
 
-    private ArrayList<ArrayList<Case>> boardAutoGeneration ()
+    private ArrayList<ArrayList<Case>> boardAutoGeneration () //TODO : work in progress by Damien
     {
         // init the x dimension
         ArrayList<ArrayList<Case>> boardList = new ArrayList<>(Constantes.DIMENSION_BOARD);
