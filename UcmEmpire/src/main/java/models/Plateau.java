@@ -1,10 +1,11 @@
 package models;
 
+import controllers.Pathfinding.Node;
+import controllers.Pathfinding.Position;
+import javafx.geometry.Pos;
 import models.unite.Paysan;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Plateau {
     protected List<List<Case>> plateau;
@@ -47,6 +48,7 @@ public class Plateau {
     }
 
     public void move(Case<Entity> first, Case<Entity> second) {
+        HashMap<Map.Entry<Integer,Integer>, Node> l_node;
     }
 
     public void remove(Case<Entity> second) {
