@@ -1,9 +1,9 @@
 package models.biomes;
 
-import models.BoardPackage.Case;
+import models.boardPackage.Square;
 
 public interface IBiomes {
 
-    Case creationBiome();
+    Square biomeCreation();
 
 }

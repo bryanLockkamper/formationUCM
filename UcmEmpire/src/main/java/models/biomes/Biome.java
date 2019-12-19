@@ -1,13 +1,13 @@
 package models.biomes;
 
 
-import models.BoardPackage.Case;
+import models.boardPackage.Square;
 
 import java.util.ArrayList;
 
 public class Biome {
 
-    private ArrayList<Case> biomes;
+    private ArrayList<Square> biomes;
     private String name;
     private Boolean isWalkable;
     private int dimension;
@@ -18,11 +18,11 @@ public class Biome {
         this.dimension = dimension;
     }
 
-    public ArrayList<Case> getBiomes() {
+    public ArrayList<Square> getBiomes() {
         return biomes;
     }
 
-    public void setBiomes(ArrayList<Case> biomes) {
+    public void setBiomes(ArrayList<Square> biomes) {
         this.biomes = biomes;
     }
 

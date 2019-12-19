@@ -1,7 +1,6 @@
 
 
-import View.ShowBoard;
-import controllers.Jeu;
+import view.ShowBoard;
 
 public class Main {
 

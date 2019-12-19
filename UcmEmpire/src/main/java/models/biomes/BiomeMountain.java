@@ -8,11 +8,10 @@ import models.resources.ResourceName;
 
 import java.util.Random;
 
-public class BiomeForest implements IBiomes {
+public class BiomeMountain implements IBiomes {
 
 
-    public BiomeForest() {
-
+    public BiomeMountain() {
     }
 
     @Override
@@ -20,13 +19,15 @@ public class BiomeForest implements IBiomes {
 
         Random random = new Random();
 
-        if (random.nextInt(Constants.PROBA_TREE) == Constants.PROBA_TREE) {
-            SpecialSquare<ResourceName> squareResources = new SpecialSquare<>(ResourceName.WOOD);
+        if (random.nextInt(Constants.PROBA_STONE) == Constants.PROBA_STONE) {
+            SpecialSquare<ResourceName> squareResources = new SpecialSquare<>(ResourceName.STONE);
             return squareResources;
         } else {
+
             Square<Entity> squareEntity = new Square<>(null, true, true);
             return squareEntity;
         }
+
 
     }
 

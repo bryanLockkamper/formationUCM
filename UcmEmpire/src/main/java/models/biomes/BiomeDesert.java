@@ -1,7 +1,7 @@
 package models.biomes;
 
 import models.Entity;
-import models.BoardPackage.Case;
+import models.boardPackage.Square;
 
 import java.util.ArrayList;
 
@@ -12,13 +12,13 @@ public class BiomeDesert implements IBiomes {
     }
 
     @Override
-    public Case creationBiome() {
-        ArrayList<Case> biome = new ArrayList<>();
+    public Square biomeCreation() {
+        ArrayList<Square> biome = new ArrayList<>();
 
 
-        Case<Entity> entityCase = new Case<>(null, true, true);
+        Square<Entity> squareEntity = new Square<>(null, true, true);
 
-        return entityCase;
+        return squareEntity;
     }
 
 
