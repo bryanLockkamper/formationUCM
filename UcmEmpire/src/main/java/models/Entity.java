@@ -1,20 +1,20 @@
 package models;
 
 public class Entity {
-    protected int pv;
+    protected int hp;
     protected String name;
 
-    public Entity(int pv, String name) {
-        this.pv = pv;
+    public Entity(int hp, String name) {
+        this.hp = hp;
         this.name = name;
     }
 
-    public int getPv() {
-        return pv;
+    public int getHp() {
+        return hp;
     }
 
-    public void setPv(int pv) {
-        this.pv = Math.max(this.pv - pv, 0);
+    public void setHp(int hp) {
+        this.hp = Math.max(this.hp - hp, 0);
     }
 
     /**
@@ -23,8 +23,8 @@ public class Entity {
      * @return true if dead
      */
     public boolean takeDamage(int damage){
-        setPv(getPv()-damage);
-        return getPv() <= 0;
+        setHp(getHp()-damage);
+        return getHp() <= 0;
     }
 
     public String getName() {
@@ -36,7 +36,7 @@ public class Entity {
     }
 
     public void suicide() {
-        this.pv =0;
+        this.hp = 0;
     }
 
 }

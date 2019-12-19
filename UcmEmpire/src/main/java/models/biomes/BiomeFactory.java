@@ -8,11 +8,11 @@ public class BiomeFactory {
 
     public IBiomes getBiome(BiomeType biomeType) {
         switch (biomeType) {
-            case SEE:
-                return new BiomeSee();
+            case SEA:
+                return new BiomeSea();
 
-            case PLAIN:
-                return new BiomePlain();
+            case PLAINS:
+                return new BiomePlains();
 
             case DESERT:
                 return new BiomeDesert();
@@ -20,8 +20,8 @@ public class BiomeFactory {
             case FOREST:
                 return new BiomeForest();
 
-            case MONTAIN:
-                return new BiomeMontain();
+            case MOUNTAIN:
+                return new BiomeMountain();
 
             default:
                 return null;

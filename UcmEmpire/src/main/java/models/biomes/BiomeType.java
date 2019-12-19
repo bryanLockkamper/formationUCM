@@ -2,9 +2,9 @@ package models.biomes;
 
 public enum BiomeType {
 
-    PLAIN("plain"),
-    MONTAIN("montain"),
-    SEE("see"),
+    PLAINS("plains"),
+    MOUNTAIN("mountain"),
+    SEA("sea"),
     DESERT("desert"),
     FOREST("forest");
 
