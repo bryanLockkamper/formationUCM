@@ -12,7 +12,7 @@ public class BiomePlain implements IBiomes {
     @Override
     public Case creationBiome() {
 
-        Case<Entity> entityCase = new Case<>(null, true, true);
+        Case<Entity> entityCase = new Case<>(null, true, true,BiomeType.PLAIN);
         return entityCase;
     }
 

@@ -13,7 +13,7 @@ public class BiomeSee implements IBiomes {
     public Case creationBiome() {
 
 
-        Case<Entity> entityCase = new Case<>(null, false, false);
+        Case<Entity> entityCase = new Case<>(null, false, false,BiomeType.SEE);
 
         return entityCase;
     }

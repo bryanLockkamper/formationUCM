@@ -31,7 +31,7 @@ public class Jeu {
                 }
             }, 500);
 
-            Case<Entity> first = new Case<>(joueur.getEntity(0));
+            Case<Entity> first = new Case<>(joueur.getEntity(0)); //TODO : modif placement of the unity because constructor modified
             String action = "deplacer";
             Case<Entity> second = new Case<>(null);
 
@@ -59,7 +59,7 @@ public class Jeu {
                                         boolean mort = second.getContent().takeDamage(((Soldat)first.getContent()).attaquer());
                                         if (mort) {
                                          ia.getEntities().remove(second.getContent());
-                                         map.remove(second);
+                                         map.removeEntity(second);
                                         }
                                     }
                                     // TODO: 11-12-19 event attaquer

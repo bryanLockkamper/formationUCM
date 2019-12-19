@@ -23,7 +23,7 @@ public class BiomeForest implements IBiomes {
             CaseSpecial<EnumRessourcersTemp> ressourceCase = new CaseSpecial<>(EnumRessourcersTemp.BOIS);
             return ressourceCase;
         } else {
-            Case<Entity> entityCase = new Case<>(null, true, true);
+            Case<Entity> entityCase = new Case<>(null, true, true,BiomeType.FOREST);
             return entityCase;
         }
 

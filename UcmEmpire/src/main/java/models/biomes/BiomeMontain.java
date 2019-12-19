@@ -23,7 +23,7 @@ public class BiomeMontain implements IBiomes {
             return ressourceCase;
         } else {
 
-            Case<Entity> entityCase = new Case<>(null, true, true);
+            Case<Entity> entityCase = new Case<>(null, true, true,BiomeType.MONTAIN);
             return entityCase;
         }
 

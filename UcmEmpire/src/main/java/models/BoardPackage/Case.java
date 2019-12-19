@@ -1,21 +1,18 @@
 package models.BoardPackage;
 
-import models.biomes.Biome;
+import models.biomes.BiomeType;
 
 public class Case<T> {
     private T content;
     private boolean isWalk;
     private boolean isBuild;
-    private Biome biome;
+    private BiomeType biome;
 
-    public Case(T content) {
+    public Case(T content, boolean isBuild, boolean isWalk,BiomeType biome) {
         this.content = content;
-    }
-
-    public Case(T content, boolean isBuild, boolean isWalk) {
-        this(content);
         this.isBuild = isBuild;
         this.isWalk = isWalk;
+        this.biome = biome;
     }
 
     public T getContent() {
@@ -30,9 +27,6 @@ public class Case<T> {
         return isWalk;
     }
 
-    public void setWalk(boolean walk) {
-        isWalk = walk;
-    }
 
     public boolean isBuild() {
         return isBuild;
@@ -42,11 +36,7 @@ public class Case<T> {
         isBuild = build;
     }
 
-    public Biome getBiome() {
+    public BiomeType getBiome() {
         return biome;
-    }
-
-    public void setBiome(Biome biome) {
-        this.biome = biome;
     }
 }
