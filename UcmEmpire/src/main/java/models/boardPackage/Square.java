@@ -1,6 +1,5 @@
 package models.boardPackage;
 
-import models.biomes.Biome;
 import models.biomes.BiomeType;
 
 public class Square<T> {
