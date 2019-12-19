@@ -73,13 +73,15 @@ public class Board {
         this.board = board;
     }
 
-    public void move(Case<Entity> first, Case<Entity> second) {
+    public void removeEntity(int xPosition,int yPosition) {
+        board.get(xPosition).get(yPosition).setContent(null);
+
     }
 
-    public void remove(Case<Entity> second) {
-    }
+    public void setCase(int xPosition,int yPosition, Entity newEntity ) {
 
-    public void setCase(Case<Entity> second) {
+        board.get(xPosition).get(yPosition).setContent(newEntity);
+
     }
 
     private ArrayList<ArrayList<Case>> boardAutoGeneration () //TODO : work in progress by Damien

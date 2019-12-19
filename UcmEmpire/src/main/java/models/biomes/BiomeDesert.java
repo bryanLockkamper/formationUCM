@@ -16,7 +16,7 @@ public class BiomeDesert implements IBiomes {
         ArrayList<Case> biome = new ArrayList<>();
 
 
-        Case<Entity> entityCase = new Case<>(null, true, true);
+        Case<Entity> entityCase = new Case<>(null, true, true,BiomeType.DESERT);
 
         return entityCase;
     }
