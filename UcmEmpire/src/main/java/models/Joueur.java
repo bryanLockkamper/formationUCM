@@ -7,6 +7,7 @@ import models.ressources.RessourceName;
 import java.util.ArrayList;
 import java.util.HashMap;
 import models.batiments.BatimentInterfaces.IBatimentProd;
+import models.unite.Paysan;
 import models.unite.UnitInterface.IPaysan;
 
 import java.util.ArrayList;
@@ -80,9 +81,8 @@ public class Joueur {
 
     public void recolteRessourcesAuto() {
         for (Entity entity : entities) {
-            if (entity instanceof IPaysan);
-                //getRessource dans map puis add int
-//                ((Paysan) entity).recolter();
+            if (entity instanceof IPaysan)
+                ressources.put(((Paysan)entity).getRessourceARecolter(),((Paysan)entity).recolter());
         }
     }
 
