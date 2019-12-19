@@ -3,6 +3,7 @@ package models.BoardPackage;
 import models.Constantes;
 import models.Entity;
 import models.biomes.*;
+import models.ressources.RessourceName;
 
 import java.util.ArrayList;
 
@@ -45,10 +46,10 @@ public class Board {
         }
 
         // Hard code for ressource on map
-        CaseSpecial<EnumRessourcersTemp> ressourceCase = new CaseSpecial<>(EnumRessourcersTemp.BOIS);
+        CaseSpecial<RessourceName> ressourceCase = new CaseSpecial<>(RessourceName.BOIS);
         boardList.get(2).set(5, ressourceCase);
 
-        ressourceCase = new CaseSpecial<>(EnumRessourcersTemp.PIERRE);
+        ressourceCase = new CaseSpecial<>(RessourceName.PIERRE);
         boardList.get(2).set(2, ressourceCase);
 
 
