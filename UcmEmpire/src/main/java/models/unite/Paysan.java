@@ -28,4 +28,8 @@ public class Paysan extends Personnage implements IPaysan {
     public RessourceName getRessourceARecolter(){
         return ressourceARecolter;
     }
+
+    public void setRessourceARecolter(RessourceName ressourceARecolter){
+        this.ressourceARecolter = ressourceARecolter;
+    }
 }

@@ -11,16 +11,16 @@ public class ShowBoard {
         for (int i = 0; i < board.getBoard().size(); i++) {
 
             for (int j = 0; j < board.getBoard().get(i).size(); j++) {
-
+                System.out.print("| ");
                 if (board.getBoard().get(i).get(j) instanceof CaseSpecial) {
-                    System.out.print(" S |   ");
+                    System.out.print("S ");
 
                 } else {
-                    System.out.print("   |   ");
+                    System.out.print("  ");
                 }
 
             }
-            System.out.println();
+            System.out.println("|");
 
         }
 
