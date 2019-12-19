@@ -35,7 +35,7 @@ public class Board {
 
         // For the V1 init map in plain biome
 
-        IBiomes biomes = biomeFactory.getBiome(BiomeType.PLAIN);
+        IBiomes biomes = biomeFactory.getBiome(BiomeType.PLAINS);
 
         for (int i = 0; i < Constants.DIMENSION_BOARD; i++) {
 
@@ -73,13 +73,12 @@ public class Board {
         this.board = board;
     }
 
-    public void move(Square<Entity> first, Square<Entity> second) {
+    public void removeEntity(int xPosition,int yPosition) {
+        board.get(xPosition).get(yPosition).setContent(null);
     }
 
-    public void remove(Square<Entity> second) {
-    }
-
-    public void setSquare(Square<Entity> second) {
+    public void setSquare(int xPosition,int yPosition, Entity newEntity ) {
+        board.get(xPosition).get(yPosition).setContent(newEntity);
     }
 
     private ArrayList<ArrayList<Square>> boardAutoGeneration () //TODO : work in progress by Damien
@@ -95,18 +94,13 @@ public class Board {
 
         }
 
-        IBiomes biomes = biomeFactory.getBiome(BiomeType.PLAIN);
+        IBiomes biomes = biomeFactory.getBiome(BiomeType.PLAINS);
 
         for (int i = 0; i < boardList.size() ; i++) {
 
-
-
             for (int j = 0; j < boardList.get(i).size() ; j++) {
 
-
-
             }
-
         }
 
         return boardList;

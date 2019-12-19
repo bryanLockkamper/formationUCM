@@ -24,7 +24,7 @@ public class BiomeMountain implements IBiomes {
             return squareResources;
         } else {
 
-            Square<Entity> squareEntity = new Square<>(null, true, true);
+            Square<Entity> squareEntity = new Square<>(null, true, true, BiomeType.MOUNTAIN);
             return squareEntity;
         }
 

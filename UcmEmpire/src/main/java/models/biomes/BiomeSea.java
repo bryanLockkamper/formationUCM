@@ -13,7 +13,7 @@ public class BiomeSea implements IBiomes {
     public Square biomeCreation() {
 
 
-        Square<Entity> entityCase = new Square<>(null, false, false);
+        Square<Entity> entityCase = new Square<>(null, false, false, BiomeType.SEA);
 
         return entityCase;
     }

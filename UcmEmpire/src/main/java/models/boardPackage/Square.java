@@ -1,21 +1,23 @@
 package models.boardPackage;
 
 import models.biomes.Biome;
+import models.biomes.BiomeType;
 
 public class Square<T> {
     private T content;
     private boolean isWalkable;
     private boolean isBuildable;
-    private Biome biome;
+    private BiomeType biome;
 
     public Square(T content) {
         this.content = content;
     }
 
-    public Square(T content, boolean isBuildable, boolean isWalkable) {
+    public Square(T content, boolean isBuildable, boolean isWalkable, BiomeType biome) {
         this(content);
         this.isBuildable = isBuildable;
         this.isWalkable = isWalkable;
+        this.biome = biome;
     }
 
     public T getContent() {
@@ -42,11 +44,7 @@ public class Square<T> {
         isBuildable = buildable;
     }
 
-    public Biome getBiome() {
+    public BiomeType getBiome() {
         return biome;
-    }
-
-    public void setBiome(Biome biome) {
-        this.biome = biome;
     }
 }

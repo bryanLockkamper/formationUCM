@@ -24,7 +24,7 @@ public class BiomeForest implements IBiomes {
             SpecialSquare<ResourceName> squareResources = new SpecialSquare<>(ResourceName.WOOD);
             return squareResources;
         } else {
-            Square<Entity> squareEntity = new Square<>(null, true, true);
+            Square<Entity> squareEntity = new Square<>(null, true, true, BiomeType.FOREST);
             return squareEntity;
         }
 

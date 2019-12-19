@@ -11,7 +11,7 @@ public class BiomeFactory {
             case SEA:
                 return new BiomeSea();
 
-            case PLAIN:
+            case PLAINS:
                 return new BiomePlains();
 
             case DESERT:

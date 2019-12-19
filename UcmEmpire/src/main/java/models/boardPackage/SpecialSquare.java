@@ -11,7 +11,7 @@ public class SpecialSquare<T> extends Square<T> {
     private int resourceQuantity;
 
     public SpecialSquare(T content) {  //TODO : add the quantity ressource after the infinity
-        super(content, false, true);
+        super(content, false, true, null);
     }
 
     public ArrayList<Farmer> getFarmers() {

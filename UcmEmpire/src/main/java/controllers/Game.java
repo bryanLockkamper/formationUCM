@@ -32,7 +32,7 @@ public class Game {
                 }
             }, 500);
 
-            Square<Entity> first = new Square<>(player.getEntity(0));
+            Square<Entity> first = new Square<>(player.getEntity(0)); //TODO : modif placement of the entity because constructor modified
             String action = "move";
             Square<Entity> second = new Square<>(null);
 
@@ -47,7 +47,7 @@ public class Game {
                                 case "move":
                                     if (first.getContent() instanceof Character) {
                                         ((Character) first.getContent()).move(1);
-                                        map.move(first, second);
+                                        //map.move(first, second);
                                     }
                                     // TODO: 11-12-19 event deplacement
                                     break;
@@ -60,13 +60,13 @@ public class Game {
                                         boolean mort = second.getContent().takeDamage(((Soldier)first.getContent()).attack());
                                         if (mort) {
                                          ia.getEntities().remove(second.getContent());
-                                         map.remove(second);
+                                         //map.removeEntity(second.); //TODO : récupérer la position de la case
                                         }
                                     }
                                     // TODO: 11-12-19 event attaquer
                                      break;
                                 case "create":
-                                     map.setSquare(second);
+                                     // map.setSquare(second); //TODO : récupérer la position de la case
                                      player.addEntity(second.getContent());
                                      break;
                             }
