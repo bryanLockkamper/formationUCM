@@ -1,5 +1,6 @@
 
 
+import view.LayoutWindow;
 import view.ShowBoard;
 
 public class Main {
@@ -7,10 +8,12 @@ public class Main {
     public static void main(String[] args) {
 	// write your code here
 
+        LayoutWindow libiavelo = new LayoutWindow();
+/*
         ShowBoard showBoard = new ShowBoard();
         showBoard.showBoardV1();
         //Jeu jeu = new Jeu();
-        /*Map map = new Map("Test");
+        Map map = new Map("Test");
 
         System.out.println("|---------------------|");
         for (List<Case> cases : plateau.getPlateau()) {
