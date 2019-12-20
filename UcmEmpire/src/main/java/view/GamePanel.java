@@ -34,7 +34,7 @@ public class GamePanel extends JPanel {
 
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
-        cancel = new JButton("Annuler");
+        cancel = new JButton("Quitter");
         next = new JButton("Suivant");
 
         ButtonListener listener = new ButtonListener();
