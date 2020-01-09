@@ -1,14 +1,11 @@
-
-
 import view.LayoutWindow;
-import view.ShowBoard;
 
 public class Main {
 
     public static void main(String[] args) {
 	// write your code here
 
-        LayoutWindow libiavelo = new LayoutWindow();
+        LayoutWindow ucmEmpire = new LayoutWindow();
 /*
         ShowBoard showBoard = new ShowBoard();
         showBoard.showBoardV1();
