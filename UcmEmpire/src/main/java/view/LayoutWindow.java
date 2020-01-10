@@ -2,6 +2,7 @@ package view;
 
 import models.Entity;
 import models.Player;
+import models.boardPackage.Board;
 import models.units.Farmer;
 
 import javax.swing.*;
@@ -128,8 +129,10 @@ public class LayoutWindow extends JFrame {
                     player = new Player(); //TODO : Link with the game class in controller
                     Entity firstpaysan = new Farmer(100,"Premier paysan",100);
                     player.addEntity(firstpaysan);
+                    //TODO : need to harmonise the start game between the welcomPanel and this
+                    Board board = new Board("new board");
 
-                    gamePanel = new GamePanel(LayoutWindow.this,player);
+                    gamePanel = new GamePanel(LayoutWindow.this,player,board);
 
                 if (e.getSource() == exit)
 

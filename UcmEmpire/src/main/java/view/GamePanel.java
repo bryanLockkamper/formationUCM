@@ -1,8 +1,13 @@
 package view;
 
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
+import models.Character;
 import models.Constants;
 import models.Entity;
 import models.Player;
+import models.biomes.BiomeType;
+import models.boardPackage.Board;
+import models.boardPackage.SpecialSquare;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,8 +20,8 @@ import java.util.List;
 
 public class GamePanel extends JPanel {
 
-    private Container container;
-    private JButton cancel,next,confirm;
+    private Container container,boardcontainer;
+    private JButton cancel,next,confirm,square;
     private JLabel actionLabel, myEntitiesLabel,newEntitiesLabel,squareXLabel,squareYLabel ;
     private JComboBox actionCombo, myEntitiesCombo,newEntitiesCombo,squareXCombo,squareYCombo;
     private JPanel buttonPanel, boardPanel , actionPanel,titlePanel;
@@ -24,13 +29,13 @@ public class GamePanel extends JPanel {
     private Player player;
 
 
-    public GamePanel(LayoutWindow layoutWindow,Player player)
+    public GamePanel(LayoutWindow layoutWindow, Player player, Board board)
     {
         this.layoutWindow = layoutWindow;
         container = layoutWindow.getContentPane();
         container.removeAll();
 
-        //Region button
+        // region button
 
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
@@ -50,8 +55,100 @@ public class GamePanel extends JPanel {
 
         //endregion
 
+        // region Board
 
-        // Region Action
+        boardPanel = new JPanel();
+
+        boardPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.ipady = gridBagConstraints.anchor = GridBagConstraints.CENTER;
+        gridBagConstraints.weightx = board.getBoard().size();
+        gridBagConstraints.weighty = board.getBoard().size();
+
+        Icon iconMine = new ImageIcon("src/main/resources/images/mine.jpg");
+        Icon iconForest = new ImageIcon("src/main/resources/images/forest.jpg");
+        Icon iconPerso = new ImageIcon("src/main/resources/images/perso.jpg");
+
+
+        SquareListener squareListener = new SquareListener();
+
+        for (int x = 0; x < Constants.DIMENSION_BOARD ; x++) {
+
+            for (int y = 0; y < Constants.DIMENSION_BOARD ; y++) {
+
+                square = new JButton(); //TODO : bug to fix  : select only the last listener create but i need to listeen all the square to collect these infosmations
+                square.addActionListener(squareListener);
+                square.setBackground(Color.BLUE);
+
+                //TODO : take away in other class and color code in enum ?
+
+                switch (board.getBoard().get(x).get(y).getBiome().toString())
+                {
+                    case "PLAINS" :
+                        {
+                            square.setBackground(Color.WHITE);
+                        } break;
+                    case "MOUNTAIN" :
+                        {
+                            square.setBackground(Color.DARK_GRAY);
+                        } break;
+                    case "SEA" :
+                    {
+                        square.setBackground(Color.BLUE);
+                    } break;
+                    case "DESERT" :
+                    {
+                        square.setBackground(Color.ORANGE);
+                    } break;
+                    case "FOREST" :
+                    {
+                        square.setBackground(Color.GREEN);
+                    } break;
+                }
+
+                if (board.getBoard().get(x).get(y).getContent() instanceof SpecialSquare)
+                {
+
+                    switch (board.getBoard().get(x).get(y).getContent().toString())
+                    {
+                        case "STONE" :
+                        {
+                            square.setIcon(iconMine);
+                        } break;
+
+                        case "WOOD" :
+                        {
+                            square.setIcon(iconForest);
+                        } break;
+                    }
+
+                }
+
+                if (board.getBoard().get(x).get(y).getContent() instanceof Character)
+                {
+                    //TODO : continue with differents character
+                    square.setIcon(iconPerso);
+
+                }
+
+
+                    if (!board.getBoard().get(x).get(y).isWalkable())
+                {
+                    square.setEnabled(false);
+                }
+                gridBagConstraints.gridx = x;
+                gridBagConstraints.gridy = y;
+                boardPanel.add(square,gridBagConstraints);
+
+            }
+        }
+
+
+        //endregion
+
+
+        // region Action
 
         actionPanel = new JPanel();
         actionPanel.setLayout(new GridLayout(6,2));
@@ -77,7 +174,7 @@ public class GamePanel extends JPanel {
 
         //endregion
 
-        //Region select my entity
+        //region select my entity
 
         myEntitiesLabel = new JLabel("Selection mes entités");
         myEntitiesLabel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -96,7 +193,7 @@ public class GamePanel extends JPanel {
 
         // endregion
 
-        //Region add new entity
+        //region add new entity
 
         newEntitiesLabel = new JLabel("Selection nouvelle entité");
         newEntitiesLabel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -120,7 +217,7 @@ public class GamePanel extends JPanel {
 
         //endregion
 
-        //Region square
+        //region square
 
         squareXLabel = new JLabel("Coordonnée X");
         squareXLabel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -152,11 +249,11 @@ public class GamePanel extends JPanel {
 
         //endregion
 
-        //Region Container
+        //region Container
 
         container.add(buttonPanel,BorderLayout.NORTH);
 
-        //container.add(panelInformation,BorderLayout.CENTER);
+        container.add(boardPanel,BorderLayout.CENTER);
 
         container.add(actionPanel,BorderLayout.SOUTH);
 
@@ -182,7 +279,6 @@ public class GamePanel extends JPanel {
                 }
 
                 if (e.getSource() == next) {
-                    // Insert2Panel insert2Panel = new Insert2Panel(layoutWindow, employeeData, updateBool, returnBool);
 
 
                     switch (actionCombo.getSelectedIndex())
@@ -223,6 +319,24 @@ public class GamePanel extends JPanel {
             }
 
         }
+    }
+
+    private class SquareListener implements ActionListener {
+
+
+
+        public void actionPerformed(ActionEvent p) {
+
+
+            if (p.getSource() == square) {
+
+                square.setBackground(Color.YELLOW);
+                System.out.println(square.toString());
+            }
+
+
+        }
+
     }
 
 

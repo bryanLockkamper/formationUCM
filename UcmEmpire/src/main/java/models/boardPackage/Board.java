@@ -1,5 +1,6 @@
 package models.boardPackage;
 
+import models.Character;
 import models.Constants;
 import models.Entity;
 import models.biomes.*;
@@ -47,10 +48,16 @@ public class Board {
 
         // Hard code for ressource on map
         SpecialSquare<ResourceName> ressourceCase = new SpecialSquare<>(ResourceName.WOOD);
-        boardList.get(2).set(5, ressourceCase);
+        boardList.get(2).get(5).setContent(ressourceCase);
 
         ressourceCase = new SpecialSquare<>(ResourceName.STONE);
-        boardList.get(2).set(2, ressourceCase);
+        boardList.get(2).get(2).setContent(ressourceCase);
+
+        //TODO : need to delete this hard position of character
+        Character character = new Character(100,"JarJar",100);
+        boardList.get(0).get(0).setContent(character);
+
+
 
 
         return boardList;

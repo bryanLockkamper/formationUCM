@@ -1,5 +1,6 @@
 package view;
 import models.Player;
+import models.boardPackage.Board;
 
 import javax.swing.*;
 
@@ -11,7 +12,8 @@ import java.awt.event.ActionListener;
 public class WelcomPanel extends JPanel {
 
 
-    private JLabel introductionLabel;
+    private JLabel introductionLabel,creditLabel;
+    private JPanel buttonPanel;
     private LayoutWindow layoutWindow;
     private Container container;
     private JButton startGameButton;
@@ -31,8 +33,6 @@ public class WelcomPanel extends JPanel {
 
 
         introductionLabel = new JLabel("BIENVENU SUR UCM-EMPIRE");
-
-
         this.setLayout(new FlowLayout());
 
         introductionLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -42,11 +42,17 @@ public class WelcomPanel extends JPanel {
         startGameButton = new JButton("Lancer une nouvelle partie");
         ButtonListener buttonListener = new ButtonListener();
         startGameButton.addActionListener(buttonListener);
+        buttonPanel = new JPanel();
+        buttonPanel.add(startGameButton,BorderLayout.SOUTH); // NOK
 
-        container.add(startGameButton,BorderLayout.SOUTH);
+        //TODO : repaint welcom Panel with option menu
+        creditLabel = new JLabel("Alex, Bryan, Damien, Florent");
+        creditLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 
 
+        container.add(creditLabel,BorderLayout.SOUTH);
+        container.add(buttonPanel,BorderLayout.CENTER);
         container.add(introductionLabel,BorderLayout.NORTH);
 
         layoutWindow.getContentPane().repaint();
@@ -67,8 +73,9 @@ public class WelcomPanel extends JPanel {
             if (e.getSource() == startGameButton) {
 
                 Player newPlayer = new Player();
+                Board board = new Board("plateau");
 
-                GamePanel gamePanel = new GamePanel(layoutWindow,newPlayer);
+                GamePanel gamePanel = new GamePanel(layoutWindow,newPlayer,board);
             }
 
 
