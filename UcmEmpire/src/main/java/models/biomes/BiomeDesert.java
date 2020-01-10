@@ -16,7 +16,7 @@ public class BiomeDesert implements IBiomes {
         ArrayList<Square> biome = new ArrayList<>();
 
 
-        Square<Entity> squareEntity = new Square<>(null, true, true, BiomeType.DESERT);
+        Square squareEntity = new Square(null, true, true, BiomeType.DESERT);
 
         return squareEntity;
     }

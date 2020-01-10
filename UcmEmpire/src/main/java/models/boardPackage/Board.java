@@ -1,5 +1,6 @@
 package models.boardPackage;
 
+import controllers.pathfinding.Position;
 import models.Constants;
 import models.Entity;
 import models.biomes.*;
@@ -46,10 +47,10 @@ public class Board {
         }
 
         // Hard code for ressource on map
-        SpecialSquare<ResourceName> ressourceCase = new SpecialSquare<>(ResourceName.WOOD);
+        SpecialSquare ressourceCase = new SpecialSquare(ResourceName.WOOD);
         boardList.get(2).set(5, ressourceCase);
 
-        ressourceCase = new SpecialSquare<>(ResourceName.STONE);
+        ressourceCase = new SpecialSquare(ResourceName.STONE);
         boardList.get(2).set(2, ressourceCase);
 
 
@@ -77,8 +78,8 @@ public class Board {
         board.get(xPosition).get(yPosition).setContent(null);
     }
 
-    public void setSquare(int xPosition,int yPosition, Entity newEntity ) {
-        board.get(xPosition).get(yPosition).setContent(newEntity);
+    public void setSquare(Position position, Entity newEntity ) {
+        board.get(position.getX()).get(position.getY()).setContent(newEntity);
     }
 
     private ArrayList<ArrayList<Square>> boardAutoGeneration () //TODO : work in progress by Damien

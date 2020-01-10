@@ -13,6 +13,11 @@ public class Position {
 
     }
 
+    @Override
+    public String toString() {
+        return x +" " + y;
+    }
+
     public int getX() {
         return x;
     }

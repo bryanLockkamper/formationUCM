@@ -11,13 +11,17 @@ import java.util.TimerTask;
 
 public class Game {
     private boolean endRound;
-    public Game() {
+    public Game(Square first, Square second, String action) {
+
+        //region init
         Player player = new Player();
         Player ia = new Player();
         Board map = new Board();
         boolean victory = false,
                 lost = false;
         Timer timer = new Timer();
+        //endregion
+
         while (!victory | !lost) {
             //AVANT TOUR
             player.buildEntity();
@@ -32,12 +36,8 @@ public class Game {
                 }
             }, 500);
 
-            Square<Entity> first = new Square<>(player.getEntity(0)); //TODO : modif placement of the entity because constructor modified
-            String action = "move";
-            Square<Entity> second = new Square<>(null);
-
             while (!endRound) {
-                if (first.getContent() instanceof Entity) {
+                if (first.getContent() != null) {
                     boolean exist = false;
                     for (int i = 0; i < player.getEntities().size() & !exist; i++)
                         if (player.getEntities().get(i).equals(first.getContent()))
@@ -52,8 +52,8 @@ public class Game {
                                     // TODO: 11-12-19 event deplacement
                                     break;
                                 case "suicide":
-                                     if (first.getContent() instanceof Entity)
-                                     first.getContent().suicide();
+                                     if (first.getContent() != null)
+                                     ((Entity) first.getContent()).suicide();
                                      break;
                                 case "attack":
                                     if (first.getContent() instanceof Soldier) {
