@@ -1,13 +1,12 @@
 package view;
 
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 import models.Character;
 import models.Constants;
 import models.Entity;
 import models.Player;
-import models.biomes.BiomeType;
 import models.boardPackage.Board;
 import models.boardPackage.SpecialSquare;
+import models.boardPackage.Square;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,17 +19,18 @@ import java.util.List;
 
 public class GamePanel extends JPanel {
 
-    private Container container,boardcontainer;
-    private JButton cancel,next,confirm,square;
-    private JLabel actionLabel, myEntitiesLabel,newEntitiesLabel,squareXLabel,squareYLabel ;
-    private JComboBox actionCombo, myEntitiesCombo,newEntitiesCombo,squareXCombo,squareYCombo;
-    private JPanel buttonPanel, boardPanel , actionPanel,titlePanel;
+    private Container container, boardcontainer;
+    private JButton cancel, next, confirm, square;
+    private JLabel actionLabel, myEntitiesLabel, newEntitiesLabel, squareXLabel, squareYLabel;
+    private JComboBox actionCombo, myEntitiesCombo, newEntitiesCombo, squareXCombo, squareYCombo;
+    private JPanel buttonPanel, boardPanel, actionPanel, titlePanel;
     private LayoutWindow layoutWindow;
     private Player player;
+    private ArrayList<ArrayList<JButton>> buttonsBoard;
+    private Color color = Color.WHITE;
+    private int selectSquareIndex;
 
-
-    public GamePanel(LayoutWindow layoutWindow, Player player, Board board)
-    {
+    public GamePanel(LayoutWindow layoutWindow, Player player, Board board) {
         this.layoutWindow = layoutWindow;
         container = layoutWindow.getContentPane();
         container.removeAll();
@@ -47,8 +47,7 @@ public class GamePanel extends JPanel {
         next.addActionListener(listener);
 
 
-
-        buttonPanel.setLayout(new GridLayout(1,3,100,100));
+        buttonPanel.setLayout(new GridLayout(1, 3, 100, 100));
         buttonPanel.add(cancel);
         buttonPanel.add(next);
 
@@ -65,81 +64,62 @@ public class GamePanel extends JPanel {
         gridBagConstraints.ipady = gridBagConstraints.anchor = GridBagConstraints.CENTER;
         gridBagConstraints.weightx = board.getBoard().size();
         gridBagConstraints.weighty = board.getBoard().size();
-
+        //TODO : change image with a transparent alpha canal
         Icon iconMine = new ImageIcon("src/main/resources/images/mine.jpg");
         Icon iconForest = new ImageIcon("src/main/resources/images/forest.jpg");
         Icon iconPerso = new ImageIcon("src/main/resources/images/perso.jpg");
 
-
+        buttonsBoard = new ArrayList<>(Constants.DIMENSION_BOARD);
         SquareListener squareListener = new SquareListener();
 
-        for (int x = 0; x < Constants.DIMENSION_BOARD ; x++) {
+        for (int x = 0; x < Constants.DIMENSION_BOARD; x++) {
 
-            for (int y = 0; y < Constants.DIMENSION_BOARD ; y++) {
+            buttonsBoard.add(new ArrayList<>());
+
+            for (int y = 0; y < Constants.DIMENSION_BOARD; y++) {
 
                 square = new JButton(); //TODO : bug to fix  : select only the last listener create but i need to listeen all the square to collect these infosmations
                 square.addActionListener(squareListener);
-                square.setBackground(Color.BLUE);
 
                 //TODO : take away in other class and color code in enum ?
 
-                switch (board.getBoard().get(x).get(y).getBiome().toString())
-                {
-                    case "PLAINS" :
-                        {
-                            square.setBackground(Color.WHITE);
-                        } break;
-                    case "MOUNTAIN" :
-                        {
-                            square.setBackground(Color.DARK_GRAY);
-                        } break;
-                    case "SEA" :
-                    {
-                        square.setBackground(Color.BLUE);
-                    } break;
-                    case "DESERT" :
-                    {
-                        square.setBackground(Color.ORANGE);
-                    } break;
-                    case "FOREST" :
-                    {
-                        square.setBackground(Color.GREEN);
-                    } break;
-                }
+                squareModifierColor(board.getBoard().get(x).get(y));
 
-                if (board.getBoard().get(x).get(y).getContent() instanceof SpecialSquare)
-                {
 
-                    switch (board.getBoard().get(x).get(y).getContent().toString())
-                    {
-                        case "STONE" :
-                        {
+                if (board.getBoard().get(x).get(y).getContent() instanceof SpecialSquare) {
+
+                    switch (board.getBoard().get(x).get(y).getContent().toString()) {
+                        case "STONE": {
                             square.setIcon(iconMine);
-                        } break;
+                        }
+                        break;
 
-                        case "WOOD" :
-                        {
+                        case "WOOD": {
                             square.setIcon(iconForest);
-                        } break;
+                        }
+                        break;
+                        default:
+                            square.setIcon(null);
+
                     }
 
                 }
 
-                if (board.getBoard().get(x).get(y).getContent() instanceof Character)
-                {
+                if (board.getBoard().get(x).get(y).getContent() instanceof Character) {
                     //TODO : continue with differents character
                     square.setIcon(iconPerso);
 
                 }
 
 
-                    if (!board.getBoard().get(x).get(y).isWalkable())
-                {
+                if (!board.getBoard().get(x).get(y).isWalkable()) {
                     square.setEnabled(false);
                 }
+
+                buttonsBoard.get(x).add(square);
                 gridBagConstraints.gridx = x;
                 gridBagConstraints.gridy = y;
-                boardPanel.add(square,gridBagConstraints);
+                boardPanel.add(square, gridBagConstraints);
 
             }
         }
@@ -151,7 +131,7 @@ public class GamePanel extends JPanel {
         // region Action
 
         actionPanel = new JPanel();
-        actionPanel.setLayout(new GridLayout(6,2));
+        actionPanel.setLayout(new GridLayout(6, 2));
 
         actionLabel = new JLabel("Action");
         actionLabel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -184,7 +164,7 @@ public class GamePanel extends JPanel {
         myEntitiesCombo = new JComboBox(); //TODO : add listener to illuminate the entity select
 
         List<Entity> list = player.getEntities();
-        for (Entity entity: list) {
+        for (Entity entity : list) {
 
             myEntitiesCombo.addItem(entity.getName());
         }
@@ -251,11 +231,11 @@ public class GamePanel extends JPanel {
 
         //region Container
 
-        container.add(buttonPanel,BorderLayout.NORTH);
+        container.add(buttonPanel, BorderLayout.NORTH);
 
-        container.add(boardPanel,BorderLayout.CENTER);
+        container.add(boardPanel, BorderLayout.CENTER);
 
-        container.add(actionPanel,BorderLayout.SOUTH);
+        container.add(actionPanel, BorderLayout.SOUTH);
 
         layoutWindow.getContentPane().repaint();
 
@@ -264,34 +244,62 @@ public class GamePanel extends JPanel {
         //endregion
     }
 
+    public void squareModifierColor(Square boardSquare) {
+
+
+        switch (boardSquare.getBiome().toString()) {
+            case "PLAINS": {
+                square.setBackground(Color.WHITE);
+            }
+            break;
+            case "MOUNTAIN": {
+                square.setBackground(Color.DARK_GRAY);
+            }
+            break;
+            case "SEA": {
+                square.setBackground(Color.BLUE);
+            }
+            break;
+            case "DESERT": {
+                square.setBackground(Color.ORANGE);
+            }
+            break;
+            case "FOREST": {
+                square.setBackground(Color.GREEN);
+            }
+            break;
+            default:
+                square.setBackground(Color.BLACK);
+
+        }
+    }
+
 
     private class ButtonListener implements ActionListener {
-
 
 
         public void actionPerformed(ActionEvent e) {
 
 
-                if (e.getSource() == cancel) {
+            if (e.getSource() == cancel) {
 
-                    WelcomPanel welcomePanel = new WelcomPanel(layoutWindow);
+                WelcomPanel welcomePanel = new WelcomPanel(layoutWindow);
 
+            }
+
+            if (e.getSource() == next) {
+
+
+                switch (actionCombo.getSelectedIndex()) {
+                    case 0: //Deplacer
+                        break;
+                    case 1: //Ajouter
+                        break;
+                    case 2: //Suicide
+                        break;
                 }
 
-                if (e.getSource() == next) {
-
-
-                    switch (actionCombo.getSelectedIndex())
-                    {
-                        case 0 : //Deplacer
-                            break;
-                        case 1 : //Ajouter
-                            break;
-                        case 2: //Suicide
-                            break;
-                    }
-
-                }
+            }
 
         }
 
@@ -300,19 +308,17 @@ public class GamePanel extends JPanel {
     private class ComboListener implements ActionListener, ItemListener {
 
 
-        public void actionPerformed(ActionEvent a)
-        {
+        public void actionPerformed(ActionEvent a) {
 
         }
 
         @Override
         public void itemStateChanged(ItemEvent e) {
 
-            switch (actionCombo.getSelectedIndex())
-            {
-                case 0 : //Deplacer
+            switch (actionCombo.getSelectedIndex()) {
+                case 0: //Deplacer
                     break;
-                case 1 : //Ajouter
+                case 1: //Ajouter
                     break;
                 case 2: //Suicide
                     break;
@@ -324,15 +330,13 @@ public class GamePanel extends JPanel {
     private class SquareListener implements ActionListener {
 
 
-
         public void actionPerformed(ActionEvent p) {
 
-
-            if (p.getSource() == square) {
-
-                square.setBackground(Color.YELLOW);
-                System.out.println(square.toString());
-            }
+             //TODO : link between board and boardbutton
+            color = ((JButton) p.getSource()).getBackground();
+            selectSquareIndex = buttonsBoard.indexOf((p.getSource()));
+            ((JButton) p.getSource()).setBackground(Color.YELLOW);
+            System.out.println();
 
 
         }
