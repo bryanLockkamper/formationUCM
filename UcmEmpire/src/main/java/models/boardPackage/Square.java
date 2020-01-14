@@ -47,4 +47,9 @@ public class Square {
     public BiomeType getBiome() {
         return biome;
     }
+
+    @Override
+    public String toString() {
+        return content.toString() ;
+    }
 }
