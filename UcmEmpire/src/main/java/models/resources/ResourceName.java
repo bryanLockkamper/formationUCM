@@ -1,5 +1,7 @@
 package models.resources;
 
+import models.Entity;
+
 public enum ResourceName {
 
         WOOD("wood"),

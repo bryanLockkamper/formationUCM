@@ -1,17 +1,19 @@
 package models.boardPackage;
 
+import models.Entity;
+import models.resources.ResourceName;
 import models.units.Farmer;
 
 import java.util.ArrayList;
 
-public class SpecialSquare<T> extends Square<T> {
+public class SpecialSquare extends Square {
 
 
     private ArrayList<Farmer> farmers;
     private int resourceQuantity;
 
-    public SpecialSquare(T content) {  //TODO : add the quantity ressource after the infinity
-        super(content, false, true, null);
+    public SpecialSquare(ResourceName content) {  //TODO : add the quantity ressource after the infinity
+        super(new Entity(Integer.MAX_VALUE, content.getType()), false, true, null);
     }
 
     public ArrayList<Farmer> getFarmers() {

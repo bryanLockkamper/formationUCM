@@ -20,11 +20,11 @@ public class BiomeMountain implements IBiomes {
         Random random = new Random();
 
         if (random.nextInt(Constants.PROBA_STONE) == Constants.PROBA_STONE) {
-            SpecialSquare<ResourceName> squareResources = new SpecialSquare<>(ResourceName.STONE);
+            SpecialSquare squareResources = new SpecialSquare(ResourceName.STONE);
             return squareResources;
         } else {
 
-            Square<Entity> squareEntity = new Square<>(null, true, true, BiomeType.MOUNTAIN);
+            Square squareEntity = new Square(null, true, true, BiomeType.MOUNTAIN);
             return squareEntity;
         }
 

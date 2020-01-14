@@ -12,7 +12,7 @@ public class BiomePlains implements IBiomes {
     @Override
     public Square biomeCreation() {
 
-        Square<Entity> entityCase = new Square<>(null, true, true, BiomeType.PLAINS);
+        Square entityCase = new Square(null, true, true, BiomeType.PLAINS);
         return entityCase;
     }
 

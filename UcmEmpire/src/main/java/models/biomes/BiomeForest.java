@@ -21,10 +21,10 @@ public class BiomeForest implements IBiomes {
         Random random = new Random();
 
         if (random.nextInt(Constants.PROBA_TREE) == Constants.PROBA_TREE) {
-            SpecialSquare<ResourceName> squareResources = new SpecialSquare<>(ResourceName.WOOD);
+            SpecialSquare squareResources = new SpecialSquare(ResourceName.WOOD);
             return squareResources;
         } else {
-            Square<Entity> squareEntity = new Square<>(null, true, true, BiomeType.FOREST);
+            Square squareEntity = new Square(null, true, true, BiomeType.FOREST);
             return squareEntity;
         }
 
