@@ -1,7 +1,6 @@
 package models.buildings;
 
 import models.Entity;
-import models.resources.Resource;
 import models.buildings.buildingInterfaces.IBarracks;
 import models.resources.ResourceName;
 

@@ -1,6 +1,5 @@
 package controllers.pathfinding;
 
-import javafx.scene.Parent;
 
 public class Node {
     private int g;

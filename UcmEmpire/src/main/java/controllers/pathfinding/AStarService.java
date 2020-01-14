@@ -1,8 +1,6 @@
 package controllers.pathfinding;
 
-import javafx.geometry.Pos;
 import models.boardPackage.Board;
-import org.omg.PortableServer.POA;
 
 import java.util.ArrayList;
 import java.util.List;

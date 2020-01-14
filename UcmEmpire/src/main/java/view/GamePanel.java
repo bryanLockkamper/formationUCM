@@ -85,8 +85,8 @@ public class GamePanel extends JPanel {
 
                 squareModifierColor(board.getBoard().get(x).get(y));
 
-
-                if (board.getBoard().get(x).get(y).getContent() instanceof SpecialSquare) {
+                System.out.println(x+" "+y);
+                if (board.getBoard().get(x).get(y) instanceof SpecialSquare) {
 
                     switch (board.getBoard().get(x).get(y).getContent().toString()) {
                         case "STONE": {
@@ -246,7 +246,6 @@ public class GamePanel extends JPanel {
 
     public void squareModifierColor(Square boardSquare) {
 
-
         switch (boardSquare.getBiome().toString()) {
             case "PLAINS": {
                 square.setBackground(Color.WHITE);
@@ -336,7 +335,7 @@ public class GamePanel extends JPanel {
             color = ((JButton) p.getSource()).getBackground();
             selectSquareIndex = buttonsBoard.indexOf((p.getSource()));
             ((JButton) p.getSource()).setBackground(Color.YELLOW);
-            System.out.println();
+            System.out.println("huhu");
 
 
         }

@@ -42,16 +42,16 @@ public class Board {
 
             for (int j = 0; j < Constants.DIMENSION_BOARD; j++) {
 
-                boardList.get(i).add(j, biomes.biomeCreation());
+                boardList.get(i).add(j,biomes.biomeCreation());
             }
         }
 
         // Hard code for ressource on map
         SpecialSquare ressourceCase = new SpecialSquare(ResourceName.WOOD);
-        boardList.get(2).set(5, ressourceCase);
+        boardList.get(2).set(5,ressourceCase);
 
         ressourceCase = new SpecialSquare(ResourceName.STONE);
-        boardList.get(2).set(2, ressourceCase);
+        boardList.get(2).set(2,ressourceCase);
 
 
         return boardList;
