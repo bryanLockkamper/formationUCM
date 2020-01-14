@@ -1,9 +1,8 @@
 package controllers.pathfinding;
 
-import com.sun.xml.internal.ws.addressing.EPRSDDocumentFilter;
 import javafx.geometry.Pos;
-import javafx.util.Pair;
 import models.boardPackage.Board;
+import org.omg.PortableServer.POA;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,21 +22,22 @@ public class AStarService {
     }
 
     public Position run(int pa) {
-        Position current = start;
-        Node node = new Node();
-        node.position = start;
-        openList.add(node);
-        addClosedList(node);
-        addCaseNearby(node);
-        while (!current.equals(finish) || !openList.isEmpty()) {
-            node = bestNode();
-            current = node.position;
-            addClosedList(node);
-            addCaseNearby(node);
+        openList.add(new Node(start));
+        Node current = new Node();
+        current.setPosition(new Position());
+        while (!current.getPosition().equals(finish) && !openList.isEmpty()) {
+            current = bestNode();
+            addClosedList(current);
+            addCaseNearby(current);
         }
 
-        if (current.equals(finish)) {
-            return findPosition(pa);
+        if (current.getPosition().equals(finish) & pa > 0) {
+            List<Position> positions = findPath();
+            if (pa >= positions.size())
+                return positions.get(positions.size()-1);
+            else {
+                return positions.get(positions.size() - pa);
+            }
         } else {
             return start;
         }
@@ -48,31 +48,20 @@ public class AStarService {
     }
 
     private void addCaseNearby(Node node) {
-        /* on met tous les noeuds adjacents dans la liste ouverte (+vérif) */
-//        for (int i = position.getX() -1; i <= position.getX() +1 ; i++) {
-//            if (i>=0 && i<getPlateau().size()){ // en dehors de l'image, on oublie
-//                for (int j = position.getY()-1; j < position.getY() +1; j++) {
-//                    if (j >= 0 && j < getPlateau().get(0).size() // Test si on est pas en dehors du plateau
-//                            && !((i == position.getX()) && (j== position.getY())) /* case actuelle n, on oublie */
-//                              && !() ){
-//                    }
-//                }
-//            }
-//        }
-        Node node1 = new Node(node.position.getX() - 1, node.position.getY());
-        if (isInsideBoundsAndWalkable(node1.position))
+        Node node1 = new Node(node.getPosition().getX() - 1, node.getPosition().getY());
+        if (isInsideBoundsAndWalkable(node1.getPosition()))
             addToList(node, node1);
 
-        Node node2 = new Node(node.position.getX() + 1, node.position.getY());
-        if (isInsideBoundsAndWalkable(node2.position))
+        Node node2 = new Node(node.getPosition().getX() + 1, node.getPosition().getY());
+        if (isInsideBoundsAndWalkable(node2.getPosition()))
             addToList(node, node2);
 
-        Node node3 = new Node(node.position.getX(), node.position.getY() - 1);
-        if (isInsideBoundsAndWalkable(node3.position))
+        Node node3 = new Node(node.getPosition().getX(), node.getPosition().getY() - 1);
+        if (isInsideBoundsAndWalkable(node3.getPosition()))
             addToList(node, node3);
 
-        Node node4 = new Node(node.position.getX(), node.position.getY() + 1);
-        if (isInsideBoundsAndWalkable(node4.position))
+        Node node4 = new Node(node.getPosition().getX(), node.getPosition().getY() + 1);
+        if (isInsideBoundsAndWalkable(node4.getPosition()))
             addToList(node, node4);
     }
 
@@ -83,41 +72,42 @@ public class AStarService {
     }
 
     private boolean isClosedList(Position position) {
-        return closedList.stream().anyMatch(positionNodePair -> positionNodePair.position.equals(position));
+        return closedList.stream().anyMatch(positionNodePair -> positionNodePair.getPosition().equals(position));
     }
 
     private Node getClosedList(Position position) {
         return closedList.stream()
-                .filter(positionNodePair -> positionNodePair.position.equals(position))
+                .filter(positionNodePair -> positionNodePair.getPosition().equals(position))
                 .collect(Collectors.toList()).get(0);
     }
 
     private boolean isOpenList(Position position) {
-        return openList.stream().anyMatch(positionNodePair -> positionNodePair.position.equals(position));
+        return openList.stream().anyMatch(positionNodePair -> positionNodePair.getPosition().equals(position));
     }
 
     private Node getOpenList(Position position) {
         return closedList.stream()
-                .filter(positionNodePair -> positionNodePair.position.equals(position))
+                .filter(positionNodePair -> positionNodePair.getPosition().equals(position))
                 .collect(Collectors.toList())
                 .get(0);
     }
 
     private void addToList(Node actual, Node adj) {
-        if (!isClosedList(adj.position)) {
+        if (!isClosedList(adj.getPosition())) {
             /* le noeud n'est pas déjà présent dans la liste fermée */
             Node tmp = new Node();
             /* calcul du cout G du noeud en cours d'étude : cout du parent + distance jusqu'au parent */
-            tmp.cout_g = getClosedList(actual.position).cout_g + distanceCalculation(adj.position, actual.position);
+            tmp.setG(getClosedList(actual.getPosition()).getG() + distanceCalculation(adj.getPosition(), actual.getPosition()));
 
             /* calcul du cout H du noeud à la destination */
-            tmp.cout_h = distanceCalculation(adj.position, finish);
-            tmp.cout_f = tmp.cout_g + tmp.cout_h;
-            tmp.position = adj.position;
+            tmp.setH(distanceCalculation(adj.getPosition(), finish));
+            tmp.setF(tmp.getG() + tmp.getH());
+            tmp.setPosition(adj.getPosition());
+            tmp.setParent(actual);
 
-            if (isOpenList(adj.position)) {
+            if (isOpenList(adj.getPosition())) {
                 /* le noeud est déjà présent dans la liste ouverte, il faut comparer les couts */
-                if (tmp.cout_f < getOpenList(actual.position).cout_f)
+                if (tmp.getF() < getOpenList(actual.getPosition()).getF())
                     /* si le nouveau chemin est meilleur, on met à jour */
                     openList.add(tmp);
 
@@ -134,7 +124,7 @@ public class AStarService {
         Node node = openList.get(0);
         int i = 1;
         for (; i < openList.size(); i++)
-            if (openList.get(1).cout_f < node.cout_f)
+            if (openList.get(i).getF() < node.getF())
                 node = openList.get(i);
         return node;
     }
@@ -144,35 +134,13 @@ public class AStarService {
         openList.remove(node);
     }
 
-    private Position findPosition(int pa) {
-        closedList.forEach(node -> System.out.println(node.position));
-        int size = closedList.size();
-        if (pa >= size)
-            return closedList.get(size - pa).position;
-        else
-            return closedList.get(size - 1).position;
-    }
-
     private List<Position> findPath() {
         List<Position> way = new ArrayList<>();
-        Node tmp = getClosedList(finish);
-        Position p = new Position();
-        Position prec = new Position();
-        p.setX(finish.getX());
-        p.setY(finish.getY());
-        prec.setX(tmp.position.getX());
-        prec.setY(tmp.position.getY());
-        way.add(p);
-
-        while (!prec.equals(start)) {
-            p.setX(prec.getX());
-            p.setY(prec.getY());
-            way.add(p);
-            tmp = getClosedList(tmp.position);
-            prec.setX(tmp.position.getX());
-            prec.setY(tmp.position.getY());
+        Node node = closedList.get(closedList.size()-1);
+        while (!node.getPosition().equals(start)) {
+            way.add(node.getPosition());
+            node = node.getParent();
         }
-
         return way;
     }
 }
