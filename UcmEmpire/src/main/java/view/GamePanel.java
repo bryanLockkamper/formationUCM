@@ -7,6 +7,7 @@ import models.Player;
 import models.boardPackage.Board;
 import models.boardPackage.SpecialSquare;
 import models.boardPackage.Square;
+import models.resources.ResourceName;
 
 import javax.swing.*;
 import java.awt.*;
@@ -85,11 +86,12 @@ public class GamePanel extends JPanel {
 
                 squareModifierColor(board.getBoard().get(x).get(y));
 
-                System.out.println(x+" "+y);
                 if (board.getBoard().get(x).get(y) instanceof SpecialSquare) {
 
-                    switch (board.getBoard().get(x).get(y).getContent().toString()) {
+                    System.out.println(board.getBoard().get(x).get(y).getContent().toString());
+                    switch (board.getBoard().get(x).get(y).getContent().getName().toUpperCase()) { //TODO : need to decide if the content of a special case is an entity or a ressource type (code review by Bryan)
                         case "STONE": {
+                            System.out.println("stone");
                             square.setIcon(iconMine);
                         }
                         break;
@@ -335,7 +337,6 @@ public class GamePanel extends JPanel {
             color = ((JButton) p.getSource()).getBackground();
             selectSquareIndex = buttonsBoard.indexOf((p.getSource()));
             ((JButton) p.getSource()).setBackground(Color.YELLOW);
-            System.out.println("huhu");
 
 
         }
