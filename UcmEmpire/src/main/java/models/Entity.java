@@ -1,6 +1,8 @@
 package models;
 
-public class Entity {
+import models.units.IEntity;
+
+public class Entity implements IEntity {
     protected int hp;
     protected String name;
 

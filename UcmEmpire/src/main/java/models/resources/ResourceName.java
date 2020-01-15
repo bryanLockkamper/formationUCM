@@ -1,8 +1,6 @@
 package models.resources;
 
-import models.Entity;
-
-public enum ResourceName {
+public enum ResourceName{
 
         WOOD("wood"),
         STONE("stone"),

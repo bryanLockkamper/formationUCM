@@ -3,6 +3,7 @@ package models.boardPackage;
 import models.Entity;
 import models.biomes.BiomeType;
 import models.biomes.IBiomes;
+import models.resources.Resource;
 import models.resources.ResourceName;
 import models.units.Farmer;
 
@@ -15,7 +16,7 @@ public class SpecialSquare extends Square {
     private int resourceQuantity;
 
     public SpecialSquare(ResourceName content) {  //TODO : add the quantity ressource after the infinity
-        super(new Entity(Integer.MAX_VALUE, content.getType()), false, true, BiomeType.PLAINS ); //TODO : change the default biome by a neutral biome for specialSquare
+        super(new Resource(content), false, true, BiomeType.PLAINS ); //TODO : change the default biome by a neutral biome for specialSquare
     }
 
     public ArrayList<Farmer> getFarmers() {

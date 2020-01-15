@@ -7,7 +7,7 @@ import models.Player;
 import models.boardPackage.Board;
 import models.boardPackage.SpecialSquare;
 import models.boardPackage.Square;
-import models.resources.ResourceName;
+import models.resources.Resource;
 
 import javax.swing.*;
 import java.awt.*;
@@ -88,15 +88,13 @@ public class GamePanel extends JPanel {
 
                 if (board.getBoard().get(x).get(y) instanceof SpecialSquare) {
 
-                    System.out.println(board.getBoard().get(x).get(y).getContent().toString());
-                    switch (board.getBoard().get(x).get(y).getContent().getName().toUpperCase()) { //TODO : need to decide if the content of a special case is an entity or a ressource type (code review by Bryan)
-                        case "STONE": {
-                            System.out.println("stone");
+                    switch (((Resource)(board.getBoard().get(x).get(y).getContent())).getResourceName()) { //TODO : need to decide if the content of a special case is an entity or a ressource type (code review by Bryan)
+                        case STONE: {
                             square.setIcon(iconMine);
                         }
                         break;
 
-                        case "WOOD": {
+                        case WOOD: {
                             square.setIcon(iconForest);
                         }
                         break;
