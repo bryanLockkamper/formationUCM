@@ -21,10 +21,10 @@ import java.util.List;
 public class GamePanel extends JPanel {
 
     private Container container, boardcontainer;
-    private JButton cancel, next, confirm, square;
-    private JLabel actionLabel, myEntitiesLabel, newEntitiesLabel, squareXLabel, squareYLabel;
+    private JButton cancel, nextAction,nextRound, confirm, square;
+    private JLabel actionLabel, myEntitiesLabel, newEntitiesLabel, squareXLabel, squareYLabel,timerLabel, ressourceLabel, notifLabel;
     private JComboBox actionCombo, myEntitiesCombo, newEntitiesCombo, squareXCombo, squareYCombo;
-    private JPanel buttonPanel, boardPanel, actionPanel, titlePanel;
+    private JPanel northPanel, boardPanel, actionPanel, southPanel, southButtonPanel, centerPanel,notifPanel;
     private LayoutWindow layoutWindow;
     private Player player;
     private ArrayList<ArrayList<JButton>> buttonsBoard;
@@ -36,24 +36,30 @@ public class GamePanel extends JPanel {
         container = layoutWindow.getContentPane();
         container.removeAll();
 
-        // region button
+        // region North : exit - timer
 
-        buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout());
+        northPanel = new JPanel();
+        northPanel.setLayout(new GridLayout(1, 3, 100, 100));
+
         cancel = new JButton("Quitter");
-        next = new JButton("Suivant");
-
         ButtonListener listener = new ButtonListener();
         cancel.addActionListener(listener);
-        next.addActionListener(listener);
+        northPanel.add(cancel);
 
+        //TODO : ZONE RESSOURCE PLAYER
+        ressourceLabel = new JLabel("RESSOURCE PLAYER ZONE");
+        northPanel.add(ressourceLabel);
 
-        buttonPanel.setLayout(new GridLayout(1, 3, 100, 100));
-        buttonPanel.add(cancel);
-        buttonPanel.add(next);
+        //TODO : ZONE TIMER
+        timerLabel = new JLabel("TIMER ZONE");
+        northPanel.add(timerLabel);
 
 
         //endregion
+
+        // region Center
+
+        centerPanel = new JPanel(new GridLayout(2,1));
 
         // region Board
 
@@ -127,6 +133,21 @@ public class GamePanel extends JPanel {
 
         //endregion
 
+        // region Notification
+        notifPanel = new JPanel();
+        notifLabel = new JLabel("ZONE NOTIFICATION");
+        notifPanel.add(notifLabel);
+
+
+        // endregion
+
+        centerPanel.add(boardPanel);
+        centerPanel.add(notifPanel);
+        // endregion
+
+        // region South
+
+        southPanel = new JPanel();
 
         // region Action
 
@@ -229,13 +250,37 @@ public class GamePanel extends JPanel {
 
         //endregion
 
+        // region button
+
+        southButtonPanel = new JPanel();
+        southButtonPanel.setLayout(new FlowLayout());
+        southPanel.setMaximumSize(new Dimension(520,400));
+
+        nextAction = new JButton("Action Suivante");
+        nextAction.setPreferredSize(new Dimension(200,20));
+        nextAction.addActionListener(listener);
+
+        southButtonPanel.add(nextAction);
+
+        nextRound = new JButton("Terminer mon tour");
+        nextRound.setPreferredSize(new Dimension(200,20));
+        nextRound.addActionListener(listener);
+        southButtonPanel.add(nextRound);
+
+        // endregion
+
+        southPanel.add(actionPanel,BorderLayout.CENTER);
+        southPanel.add(southButtonPanel,BorderLayout.SOUTH);
+
+        // endregion
+
         //region Container
 
-        container.add(buttonPanel, BorderLayout.NORTH);
+        container.add(northPanel, BorderLayout.NORTH);
 
-        container.add(boardPanel, BorderLayout.CENTER);
+        container.add(centerPanel, BorderLayout.CENTER);
 
-        container.add(actionPanel, BorderLayout.SOUTH);
+        container.add(southPanel, BorderLayout.SOUTH);
 
         layoutWindow.getContentPane().repaint();
 
@@ -286,7 +331,7 @@ public class GamePanel extends JPanel {
 
             }
 
-            if (e.getSource() == next) {
+            if (e.getSource() == nextAction) {
 
 
                 switch (actionCombo.getSelectedIndex()) {
