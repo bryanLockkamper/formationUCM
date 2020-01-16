@@ -64,6 +64,7 @@ public class GamePanel extends JPanel {
         // region Board
 
         boardPanel = new JPanel();
+        boardPanel.setSize(new Dimension(700000,7000));
 
         boardPanel.setLayout(new GridBagLayout());
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -136,6 +137,7 @@ public class GamePanel extends JPanel {
         // region Notification
         notifPanel = new JPanel();
         notifLabel = new JLabel("ZONE NOTIFICATION");
+        notifPanel.setMaximumSize(new Dimension(50,50));
         notifPanel.add(notifLabel);
 
 
@@ -218,58 +220,25 @@ public class GamePanel extends JPanel {
 
         //endregion
 
-        //region square
-
-        squareXLabel = new JLabel("Coordonnée X");
-        squareXLabel.setHorizontalAlignment(SwingConstants.LEFT);
-
-        actionPanel.add(squareXLabel);
-
-        squareXCombo = new JComboBox(); //TODO : add listener to illuminate the entity select
-
-        for (int i = 0; i < Constants.DIMENSION_BOARD; i++) {
-            squareXCombo.addItem(i);
-
-        }
-
-        actionPanel.add(squareXCombo);
-
-        squareYLabel = new JLabel("Coordonnée Y");
-        squareYLabel.setHorizontalAlignment(SwingConstants.LEFT);
-
-        actionPanel.add(squareYLabel);
-
-        squareYCombo = new JComboBox();
-
-        for (int i = 0; i < Constants.DIMENSION_BOARD; i++) {
-            squareYCombo.addItem(i);
-
-        }
-
-        actionPanel.add(squareYCombo);
-
-        //endregion
 
         // region button
 
         southButtonPanel = new JPanel();
-        southButtonPanel.setLayout(new FlowLayout());
-        southPanel.setMaximumSize(new Dimension(520,400));
 
         nextAction = new JButton("Action Suivante");
         nextAction.setPreferredSize(new Dimension(200,20));
         nextAction.addActionListener(listener);
 
-        southButtonPanel.add(nextAction);
+        southButtonPanel.add(nextAction,BorderLayout.NORTH);
 
         nextRound = new JButton("Terminer mon tour");
         nextRound.setPreferredSize(new Dimension(200,20));
         nextRound.addActionListener(listener);
-        southButtonPanel.add(nextRound);
+        southButtonPanel.add(nextRound,BorderLayout.SOUTH);
 
         // endregion
 
-        southPanel.add(actionPanel,BorderLayout.CENTER);
+        southPanel.add(actionPanel,BorderLayout.NORTH);
         southPanel.add(southButtonPanel,BorderLayout.SOUTH);
 
         // endregion
