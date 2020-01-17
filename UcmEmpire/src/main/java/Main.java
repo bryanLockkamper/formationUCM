@@ -12,10 +12,10 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        Board board = new Board("test");
+    /*    Board board = new Board("test");
         board.setSquare(new Position(0,0), new Entity(20, "payon"));
-        ShowBoard.showBoardV1(board);
-//        LayoutWindow ucmEmpire = new LayoutWindow();
+        ShowBoard.showBoardV1(board);*/
+        LayoutWindow ucmEmpire = new LayoutWindow();
 /*
         ShowBoard showBoard = new ShowBoard();
         showBoard.showBoardV1();
