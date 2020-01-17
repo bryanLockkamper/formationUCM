@@ -32,7 +32,7 @@ public class AStarService {
         if (current.getPosition().equals(finish) & pa > 0) {
             List<Position> positions = findPath();
             if (pa >= positions.size())
-                return positions.get(positions.size()-1);
+                return positions.get(0);
             else {
                 return positions.get(positions.size() - pa);
             }
