@@ -59,12 +59,11 @@ public class GamePanel extends JPanel {
 
         // region Center
 
-        centerPanel = new JPanel(new GridLayout(2,1));
+        centerPanel = new JPanel();
 
         // region Board
 
         boardPanel = new JPanel();
-        boardPanel.setSize(new Dimension(700000,7000));
 
         boardPanel.setLayout(new GridBagLayout());
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -87,6 +86,7 @@ public class GamePanel extends JPanel {
             for (int y = 0; y < Constants.DIMENSION_BOARD; y++) {
 
                 square = new JButton(); //TODO : bug to fix  : select only the last listener create but i need to listeen all the square to collect these infosmations
+                square.setPreferredSize(new Dimension(100,100)); // dimension of a square in the board
                 square.addActionListener(squareListener);
 
                 //TODO : take away in other class and color code in enum ?
@@ -95,7 +95,7 @@ public class GamePanel extends JPanel {
 
                 if (board.getBoard().get(x).get(y) instanceof SpecialSquare) {
 
-                    switch (((Resource)(board.getBoard().get(x).get(y).getContent())).getResourceName()) { //TODO : need to decide if the content of a special case is an entity or a ressource type (code review by Bryan)
+                    switch (((Resource)(board.getBoard().get(x).get(y).getContent())).getResourceName()) {
                         case STONE: {
                             square.setIcon(iconMine);
                         }
@@ -134,27 +134,26 @@ public class GamePanel extends JPanel {
 
         //endregion
 
-        // region Notification
-        notifPanel = new JPanel();
-        notifLabel = new JLabel("ZONE NOTIFICATION");
-        notifPanel.setMaximumSize(new Dimension(50,50));
-        notifPanel.add(notifLabel);
-
-
-        // endregion
 
         centerPanel.add(boardPanel);
-        centerPanel.add(notifPanel);
         // endregion
 
         // region South
 
         southPanel = new JPanel();
 
+        // region Notification
+        notifPanel = new JPanel();
+        notifLabel = new JLabel("ZONE NOTIFICATION");
+        notifPanel.add(notifLabel);
+
+
+        // endregion
+
         // region Action
 
         actionPanel = new JPanel();
-        actionPanel.setLayout(new GridLayout(6, 2));
+        actionPanel.setLayout(new GridLayout(3, 2));
 
         actionLabel = new JLabel("Action");
         actionLabel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -238,7 +237,8 @@ public class GamePanel extends JPanel {
 
         // endregion
 
-        southPanel.add(actionPanel,BorderLayout.NORTH);
+        southPanel.add(notifPanel,BorderLayout.NORTH);
+        southPanel.add(actionPanel,BorderLayout.CENTER);
         southPanel.add(southButtonPanel,BorderLayout.SOUTH);
 
         // endregion
