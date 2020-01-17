@@ -1,11 +1,21 @@
+import controllers.pathfinding.Position;
+import models.Entity;
+import models.boardPackage.Board;
+import models.boardPackage.Square;
+import models.units.Soldier;
 import view.LayoutWindow;
+import view.ShowBoard;
+
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-
-        LayoutWindow ucmEmpire = new LayoutWindow();
+        Board board = new Board("test");
+        board.setSquare(new Position(0,0), new Entity(20, "payon"));
+        ShowBoard.showBoardV1(board);
+//        LayoutWindow ucmEmpire = new LayoutWindow();
 /*
         ShowBoard showBoard = new ShowBoard();
         showBoard.showBoardV1();
