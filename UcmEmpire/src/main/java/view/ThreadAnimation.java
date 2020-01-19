@@ -12,7 +12,7 @@ public class ThreadAnimation extends Thread {
         this.welcomPanel = welcomPanel;
         for (int i = 0 ; i<images.length ; i++)
         {
-            images[i] = new JLabel(new ImageIcon("giphy/giphy-00" + ((i<10)?"0":"") + i + ".jpg"));
+            images[i] = new JLabel(new ImageIcon("src/main/resources/giphy/giphy-00" + ((i<10)?"0":"") + i + ".jpg"));
         }
     }
     public void run()

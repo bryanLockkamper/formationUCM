@@ -86,7 +86,7 @@ public class GamePanel extends JPanel {
             for (int y = 0; y < Constants.DIMENSION_BOARD; y++) {
 
                 square = new JButton(); //TODO : bug to fix  : select only the last listener create but i need to listeen all the square to collect these infosmations
-                square.setPreferredSize(new Dimension(100,100)); // dimension of a square in the board
+                square.setPreferredSize(new Dimension(70,70)); // dimension of a square in the board
                 square.addActionListener(squareListener);
 
                 //TODO : take away in other class and color code in enum ?
@@ -134,15 +134,7 @@ public class GamePanel extends JPanel {
 
         //endregion
 
-
-        centerPanel.add(boardPanel);
-        // endregion
-
-        // region South
-
-        southPanel = new JPanel();
-
-        // region Notification
+           // region Notification
         notifPanel = new JPanel();
         notifLabel = new JLabel("ZONE NOTIFICATION");
         notifPanel.add(notifLabel);
@@ -150,9 +142,10 @@ public class GamePanel extends JPanel {
 
         // endregion
 
+
         // region Action
 
-        actionPanel = new JPanel();
+        actionPanel = new JPanel(new BorderLayout());
         actionPanel.setLayout(new GridLayout(3, 2));
 
         actionLabel = new JLabel("Action");
@@ -219,6 +212,15 @@ public class GamePanel extends JPanel {
 
         //endregion
 
+        centerPanel.add(actionPanel,BorderLayout.WEST);
+        centerPanel.add(boardPanel,BorderLayout.CENTER);
+        centerPanel.add(notifPanel,BorderLayout.EAST);
+        // endregion
+
+        // region South
+
+        southPanel = new JPanel();
+
 
         // region button
 
@@ -237,8 +239,6 @@ public class GamePanel extends JPanel {
 
         // endregion
 
-        southPanel.add(notifPanel,BorderLayout.NORTH);
-        southPanel.add(actionPanel,BorderLayout.CENTER);
         southPanel.add(southButtonPanel,BorderLayout.SOUTH);
 
         // endregion
