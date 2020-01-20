@@ -42,6 +42,7 @@ public class GamePanel extends JPanel {
         northPanel.setLayout(new GridLayout(1, 3, 100, 100));
 
         cancel = new JButton("Quitter");
+        cancel.setPreferredSize(new Dimension(200,40));
         ButtonListener listener = new ButtonListener();
         cancel.addActionListener(listener);
         northPanel.add(cancel);
@@ -86,7 +87,7 @@ public class GamePanel extends JPanel {
             for (int y = 0; y < Constants.DIMENSION_BOARD; y++) {
 
                 square = new JButton(); //TODO : bug to fix  : select only the last listener create but i need to listeen all the square to collect these infosmations
-                square.setPreferredSize(new Dimension(70,70)); // dimension of a square in the board
+                square.setPreferredSize(new Dimension(100,100)); // dimension of a square in the board
                 square.addActionListener(squareListener);
 
                 //TODO : take away in other class and color code in enum ?
@@ -227,13 +228,13 @@ public class GamePanel extends JPanel {
         southButtonPanel = new JPanel();
 
         nextAction = new JButton("Action Suivante");
-        nextAction.setPreferredSize(new Dimension(200,20));
+        nextAction.setPreferredSize(new Dimension(300,80));
         nextAction.addActionListener(listener);
 
         southButtonPanel.add(nextAction,BorderLayout.NORTH);
 
         nextRound = new JButton("Terminer mon tour");
-        nextRound.setPreferredSize(new Dimension(200,20));
+        nextRound.setPreferredSize(new Dimension(300,80));
         nextRound.addActionListener(listener);
         southButtonPanel.add(nextRound,BorderLayout.SOUTH);
 
