@@ -1,5 +1,7 @@
+import controllers.Game;
 import controllers.pathfinding.Position;
 import models.Entity;
+import models.Player;
 import models.boardPackage.Board;
 import models.boardPackage.Square;
 import models.units.Soldier;
@@ -14,7 +16,11 @@ public class Main {
 	// write your code here
         Board board = new Board("test");
         board.setSquare(new Position(0,0), new Entity(20, "payon"));
-        ShowBoard.showBoardV1(board);
+        Player p1 = new Player();
+        p1.setName("test");
+        Player p2 = new Player();
+        Game game = Game.getGame(p1, p2, board);
+        game.run();
 //        LayoutWindow ucmEmpire = new LayoutWindow();
 /*
         ShowBoard showBoard = new ShowBoard();
