@@ -26,12 +26,14 @@ public class GamePanel extends JPanel {
     private JPanel northPanel, boardPanel, actionPanel, southPanel, southButtonPanel, centerPanel,notifPanel;
     private LayoutWindow layoutWindow;
     private Player player;
-    private ArrayList<ArrayList<JButton>> buttonsBoard;
+    private List<JButton> buttonsBoard;
     private Color color = Color.WHITE;
     private int selectSquareIndex;
     private Square squareSelected;
+    private Board board;
 
     public GamePanel(LayoutWindow layoutWindow, Player player, Board board) {
+        this.board = board;
         this.layoutWindow = layoutWindow;
         container = layoutWindow.getContentPane();
         container.removeAll();
@@ -82,7 +84,6 @@ public class GamePanel extends JPanel {
 
         for (int x = 0; x < Constants.DIMENSION_BOARD; x++) {
 
-            buttonsBoard.add(new ArrayList<>());
 
             for (int y = 0; y < Constants.DIMENSION_BOARD; y++) {
 
@@ -94,7 +95,7 @@ public class GamePanel extends JPanel {
 
                 //TODO : take away in other class and color code in enum ?
 
-                squareModifierColor(board.getBoard().get(x).get(y));
+                squareModifierColor(board.getBoard().get(x).get(y),square);
 
                 if (board.getBoard().get(x).get(y) instanceof SpecialSquare) {
 
@@ -126,7 +127,7 @@ public class GamePanel extends JPanel {
                     square.setEnabled(false);
                 }
 
-                buttonsBoard.get(x).add(square);
+                buttonsBoard.add(square);
                 gridBagConstraints.gridx = x;
                 gridBagConstraints.gridy = y;
                 boardPanel.add(square, gridBagConstraints);
@@ -261,7 +262,7 @@ public class GamePanel extends JPanel {
         //endregion
     }
 
-    public void squareModifierColor(Square boardSquare) {
+    public void squareModifierColor(Square boardSquare, JButton square) {
 
         switch (boardSquare.getBiome().toString()) {
             case "PLAINS": {
@@ -351,7 +352,12 @@ public class GamePanel extends JPanel {
              //TODO : link between board and boardbutton
 
             selectSquareIndex = buttonsBoard.indexOf((p.getSource()));
-            System.out.println(((JLabel)(((JButton)(p.getSource())).getComponent(0))).getText());
+            String labelCoord = (((JLabel)(((JButton)(p.getSource())).getComponent(0))).getText());
+            String[] coord = (labelCoord.split(";"));
+            System.out.println(coord[0]+" ; "+coord[1]);
+            buttonsBoard.stream()
+                    .filter(b -> ((JLabel) b.getComponent(0)).getText().equals(labelCoord))
+                    .forEach(b -> squareModifierColor(board.getBoard().get(Integer.parseInt(coord[0])).get(Integer.parseInt(coord[1])),b));
             ((JButton) p.getSource()).setBackground(Color.YELLOW);
 
 
