@@ -13,10 +13,11 @@ public class WelcomPanel extends JPanel {
 
 
     private JLabel introductionLabel,creditLabel;
-    private JPanel buttonPanel;
+    private JPanel centerPanel,animationPanel;
     private LayoutWindow layoutWindow;
     private Container container;
     private JButton startGameButton;
+    private ThreadAnimation threadAnimation;
 
 
 
@@ -31,6 +32,7 @@ public class WelcomPanel extends JPanel {
         container.removeAll();
 
 
+        // region north Panel
 
         introductionLabel = new JLabel("BIENVENU SUR UCM-EMPIRE");
         this.setLayout(new FlowLayout());
@@ -39,21 +41,46 @@ public class WelcomPanel extends JPanel {
 
         this.add(introductionLabel);
 
+        // endregion
+
+        // region Center Panel
+
+        centerPanel = new JPanel();
+
+
+        animationPanel = new JPanel();
+       /* animationPanel.setBounds(600, 200, 450, 430);
+        animationPanel.setSize(getWidth()/3, getHeight()/2);
+        animationPanel.setPreferredSize(new Dimension(getWidth()/3, getHeight()/2));*/
+
+        threadAnimation = new ThreadAnimation(this);
+        threadAnimation.start();
+
+        centerPanel.add(animationPanel,BorderLayout.NORTH);
+
         startGameButton = new JButton("Lancer une nouvelle partie");
         ButtonListener buttonListener = new ButtonListener();
         startGameButton.addActionListener(buttonListener);
-        buttonPanel = new JPanel();
-        buttonPanel.add(startGameButton,BorderLayout.SOUTH); // NOK
+        centerPanel.add(startGameButton,BorderLayout.SOUTH);
+
+        // endregion
+
+        // region South Panel
 
         //TODO : repaint welcom Panel with option menu
         creditLabel = new JLabel("Alex, Bryan, Damien, Florent");
         creditLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 
+        // endregion
+
+        // region Conteneur
 
         container.add(creditLabel,BorderLayout.SOUTH);
-        container.add(buttonPanel,BorderLayout.CENTER);
+        container.add(centerPanel,BorderLayout.CENTER);
         container.add(introductionLabel,BorderLayout.NORTH);
+
+        // endregion
 
         layoutWindow.getContentPane().repaint();
 
@@ -62,6 +89,8 @@ public class WelcomPanel extends JPanel {
 
 
     }
+
+    public JPanel getAnimationPanel() { return animationPanel; }
 
     private class ButtonListener implements ActionListener {
 

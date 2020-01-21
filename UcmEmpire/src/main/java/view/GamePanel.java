@@ -21,10 +21,10 @@ import java.util.List;
 public class GamePanel extends JPanel {
 
     private Container container, boardcontainer;
-    private JButton cancel, next, confirm, square;
-    private JLabel actionLabel, myEntitiesLabel, newEntitiesLabel, squareXLabel, squareYLabel;
+    private JButton cancel, nextAction,nextRound, confirm, square;
+    private JLabel actionLabel, myEntitiesLabel, newEntitiesLabel, squareXLabel, squareYLabel,timerLabel, ressourceLabel, notifLabel;
     private JComboBox actionCombo, myEntitiesCombo, newEntitiesCombo, squareXCombo, squareYCombo;
-    private JPanel buttonPanel, boardPanel, actionPanel, titlePanel;
+    private JPanel northPanel, boardPanel, actionPanel, southPanel, southButtonPanel, centerPanel,notifPanel;
     private LayoutWindow layoutWindow;
     private Player player;
     private ArrayList<ArrayList<JButton>> buttonsBoard;
@@ -36,24 +36,30 @@ public class GamePanel extends JPanel {
         container = layoutWindow.getContentPane();
         container.removeAll();
 
-        // region button
+        // region North : exit - timer
 
-        buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout());
+        northPanel = new JPanel();
+        northPanel.setLayout(new GridLayout(1, 3, 100, 100));
+
         cancel = new JButton("Quitter");
-        next = new JButton("Suivant");
-
         ButtonListener listener = new ButtonListener();
         cancel.addActionListener(listener);
-        next.addActionListener(listener);
+        northPanel.add(cancel);
 
+        //TODO : ZONE RESSOURCE PLAYER
+        ressourceLabel = new JLabel("RESSOURCE PLAYER ZONE");
+        northPanel.add(ressourceLabel);
 
-        buttonPanel.setLayout(new GridLayout(1, 3, 100, 100));
-        buttonPanel.add(cancel);
-        buttonPanel.add(next);
+        //TODO : ZONE TIMER
+        timerLabel = new JLabel("TIMER ZONE");
+        northPanel.add(timerLabel);
 
 
         //endregion
+
+        // region Center
+
+        centerPanel = new JPanel();
 
         // region Board
 
@@ -80,6 +86,7 @@ public class GamePanel extends JPanel {
             for (int y = 0; y < Constants.DIMENSION_BOARD; y++) {
 
                 square = new JButton(); //TODO : bug to fix  : select only the last listener create but i need to listeen all the square to collect these infosmations
+                square.setPreferredSize(new Dimension(100,100)); // dimension of a square in the board
                 square.addActionListener(squareListener);
 
                 //TODO : take away in other class and color code in enum ?
@@ -88,7 +95,7 @@ public class GamePanel extends JPanel {
 
                 if (board.getBoard().get(x).get(y) instanceof SpecialSquare) {
 
-                    switch (((Resource)(board.getBoard().get(x).get(y).getContent())).getResourceName()) { //TODO : need to decide if the content of a special case is an entity or a ressource type (code review by Bryan)
+                    switch (((Resource)(board.getBoard().get(x).get(y).getContent())).getResourceName()) {
                         case STONE: {
                             square.setIcon(iconMine);
                         }
@@ -128,10 +135,25 @@ public class GamePanel extends JPanel {
         //endregion
 
 
+        centerPanel.add(boardPanel);
+        // endregion
+
+        // region South
+
+        southPanel = new JPanel();
+
+        // region Notification
+        notifPanel = new JPanel();
+        notifLabel = new JLabel("ZONE NOTIFICATION");
+        notifPanel.add(notifLabel);
+
+
+        // endregion
+
         // region Action
 
         actionPanel = new JPanel();
-        actionPanel.setLayout(new GridLayout(6, 2));
+        actionPanel.setLayout(new GridLayout(3, 2));
 
         actionLabel = new JLabel("Action");
         actionLabel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -197,45 +219,37 @@ public class GamePanel extends JPanel {
 
         //endregion
 
-        //region square
 
-        squareXLabel = new JLabel("Coordonnée X");
-        squareXLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        // region button
 
-        actionPanel.add(squareXLabel);
+        southButtonPanel = new JPanel();
 
-        squareXCombo = new JComboBox(); //TODO : add listener to illuminate the entity select
+        nextAction = new JButton("Action Suivante");
+        nextAction.setPreferredSize(new Dimension(200,20));
+        nextAction.addActionListener(listener);
 
-        for (int i = 0; i < Constants.DIMENSION_BOARD; i++) {
-            squareXCombo.addItem(i);
+        southButtonPanel.add(nextAction,BorderLayout.NORTH);
 
-        }
+        nextRound = new JButton("Terminer mon tour");
+        nextRound.setPreferredSize(new Dimension(200,20));
+        nextRound.addActionListener(listener);
+        southButtonPanel.add(nextRound,BorderLayout.SOUTH);
 
-        actionPanel.add(squareXCombo);
+        // endregion
 
-        squareYLabel = new JLabel("Coordonnée Y");
-        squareYLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        southPanel.add(notifPanel,BorderLayout.NORTH);
+        southPanel.add(actionPanel,BorderLayout.CENTER);
+        southPanel.add(southButtonPanel,BorderLayout.SOUTH);
 
-        actionPanel.add(squareYLabel);
-
-        squareYCombo = new JComboBox();
-
-        for (int i = 0; i < Constants.DIMENSION_BOARD; i++) {
-            squareYCombo.addItem(i);
-
-        }
-
-        actionPanel.add(squareYCombo);
-
-        //endregion
+        // endregion
 
         //region Container
 
-        container.add(buttonPanel, BorderLayout.NORTH);
+        container.add(northPanel, BorderLayout.NORTH);
 
-        container.add(boardPanel, BorderLayout.CENTER);
+        container.add(centerPanel, BorderLayout.CENTER);
 
-        container.add(actionPanel, BorderLayout.SOUTH);
+        container.add(southPanel, BorderLayout.SOUTH);
 
         layoutWindow.getContentPane().repaint();
 
@@ -286,7 +300,7 @@ public class GamePanel extends JPanel {
 
             }
 
-            if (e.getSource() == next) {
+            if (e.getSource() == nextAction) {
 
 
                 switch (actionCombo.getSelectedIndex()) {
