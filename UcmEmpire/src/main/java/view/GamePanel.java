@@ -8,7 +8,6 @@ import models.boardPackage.Board;
 import models.boardPackage.SpecialSquare;
 import models.boardPackage.Square;
 import models.resources.Resource;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,7 +21,7 @@ public class GamePanel extends JPanel {
 
     private Container container, boardcontainer;
     private JButton cancel, nextAction,nextRound, confirm, square;
-    private JLabel actionLabel, myEntitiesLabel, newEntitiesLabel, squareXLabel, squareYLabel,timerLabel, ressourceLabel, notifLabel;
+    private JLabel actionLabel, myEntitiesLabel, newEntitiesLabel, squareXLabel, squareYLabel,timerLabel, ressourceLabel, notifLabel,squareCoordSelected;
     private JComboBox actionCombo, myEntitiesCombo, newEntitiesCombo, squareXCombo, squareYCombo;
     private JPanel northPanel, boardPanel, actionPanel, southPanel, southButtonPanel, centerPanel,notifPanel;
     private LayoutWindow layoutWindow;
@@ -30,6 +29,7 @@ public class GamePanel extends JPanel {
     private ArrayList<ArrayList<JButton>> buttonsBoard;
     private Color color = Color.WHITE;
     private int selectSquareIndex;
+    private Square squareSelected;
 
     public GamePanel(LayoutWindow layoutWindow, Player player, Board board) {
         this.layoutWindow = layoutWindow;
@@ -89,6 +89,8 @@ public class GamePanel extends JPanel {
                 square = new JButton(); //TODO : bug to fix  : select only the last listener create but i need to listeen all the square to collect these infosmations
                 square.setPreferredSize(new Dimension(100,100)); // dimension of a square in the board
                 square.addActionListener(squareListener);
+                squareCoordSelected = new JLabel(x+";"+y);
+                square.add(squareCoordSelected);
 
                 //TODO : take away in other class and color code in enum ?
 
@@ -347,8 +349,9 @@ public class GamePanel extends JPanel {
         public void actionPerformed(ActionEvent p) {
 
              //TODO : link between board and boardbutton
-            color = ((JButton) p.getSource()).getBackground();
+
             selectSquareIndex = buttonsBoard.indexOf((p.getSource()));
+            System.out.println(((JLabel)(((JButton)(p.getSource())).getComponent(0))).getText());
             ((JButton) p.getSource()).setBackground(Color.YELLOW);
 
 
