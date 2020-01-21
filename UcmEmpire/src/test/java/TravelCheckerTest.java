@@ -1,5 +1,4 @@
-package controllers;
-
+import controllers.TravelChecker;
 import models.Character;
 import models.buildings.Forum;
 import models.units.Farmer;

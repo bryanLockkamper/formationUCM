@@ -1,5 +1,4 @@
-package controllers;
-
+import controllers.CreateEntityChecker;
 import models.Player;
 import models.buildings.Forum;
 import models.resources.Resource;
