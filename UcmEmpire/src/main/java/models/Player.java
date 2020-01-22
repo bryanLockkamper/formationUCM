@@ -1,28 +1,26 @@
 package models;
 
 import models.buildings.Granary;
-import models.resources.ResourceName;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import models.buildings.buildingInterfaces.IProdBuilding;
+import models.resources.Resource;
+import models.resources.ResourceName;
 import models.units.Farmer;
 import models.units.unitInterfaces.IFarmer;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Player {
     private final int granarySize = 20;
     protected String name;
-    protected Map<ResourceName, Integer> resources;
+    protected HashSet<Resource> resources;
     protected List<Entity> entities;
 
     public Player(){
-        resources = new HashMap<>();
-        resources.put(ResourceName.WOOD, 0);
-        resources.put(ResourceName.STONE, 0);
-        resources.put(ResourceName.FOOD, 0);
+        resources = new HashSet<>();
+        resources.add(new Resource(ResourceName.WOOD, 0));
+        resources.add(new Resource(ResourceName.STONE, 0));
+        resources.add(new Resource(ResourceName.FOOD, 0));
 
         entities = new ArrayList<>();
     }
@@ -39,7 +37,7 @@ public class Player {
     }
 
     public int getResources(ResourceName resourceName){
-            return resources.get(resourceName);
+            return Objects.requireNonNull(resources.stream().filter(resource -> resource.name.equals(resourceName.name())).findFirst().orElse(null)).hp;
     }
 
     public String getName() {
@@ -80,7 +78,7 @@ public class Player {
     public void autoHarvestResources() {
         for (Entity entity : entities) {
             if (entity instanceof IFarmer)
-                resources.put(((Farmer)entity).getResourceHarvesting(),((Farmer)entity).harvest());
+                resources.add(new Resource(((Farmer)entity).getResourceHarvesting(),((Farmer)entity).harvest()));
         }
     }
 
@@ -96,5 +94,17 @@ public class Player {
     }
 
     public void addEntity(Entity content) {
+    }
+
+    public int getGranarySize() {
+        return granarySize;
+    }
+
+    public HashSet<Resource> getResources() {
+        return resources;
+    }
+
+    public void setResources(HashSet<Resource> resources) {
+        this.resources = resources;
     }
 }

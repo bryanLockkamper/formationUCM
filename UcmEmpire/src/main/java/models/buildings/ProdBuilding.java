@@ -2,16 +2,18 @@ package models.buildings;
 
 import models.Entity;
 import models.Character;
-import models.resources.ResourceName;
 import models.buildings.buildingInterfaces.IProdBuilding;
 import models.buildings.buildingInterfaces.IBarracks;
 import models.buildings.buildingInterfaces.IForum;
+import models.resources.Resource;
+import models.resources.ResourceName;
 import models.units.Builder;
 import models.units.Farmer;
 import models.units.Soldier;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public abstract class ProdBuilding extends Building implements IProdBuilding {
@@ -23,7 +25,7 @@ public abstract class ProdBuilding extends Building implements IProdBuilding {
     private int compteur;
     private List<Entity> prod;
 
-    public ProdBuilding(int pv, String name, HashMap<ResourceName, Integer> requirement) {
+    public ProdBuilding(int pv, String name, HashSet<Resource> requirement) {
         super(pv, name, requirement);
         prod = new ArrayList<>();
     }

@@ -4,9 +4,15 @@ import models.Entity;
 
 public class Resource extends Entity implements IResource{
     private ResourceName resourceName;
+
     public Resource(ResourceName resourceName) {
-        super(Integer.MAX_VALUE, resourceName.getType());
+        this(resourceName, Integer.MAX_VALUE);
+    }
+
+    public Resource(ResourceName resourceName, Integer nb) {
         this.resourceName = resourceName;
+        this.hp = nb;
+        this.name = resourceName.name();
     }
 
     @Override

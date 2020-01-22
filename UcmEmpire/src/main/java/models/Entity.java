@@ -11,6 +11,10 @@ public class Entity implements IEntity {
         this.name = name;
     }
 
+    public Entity() {
+
+    }
+
     public int getHp() {
         return hp;
     }
