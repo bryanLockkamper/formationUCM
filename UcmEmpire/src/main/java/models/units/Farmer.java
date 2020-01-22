@@ -12,12 +12,6 @@ public class Farmer extends Character implements IFarmer {
         super(pv, name, pa);
     }
 
-    public int harvest() {
-        int harvest = getPa();
-        setPa(0);
-        return harvest;
-    }
-
     //TODO : override "move()" pour que si on tombe sur une case de ressources, on modifie l'attribut "ressourceARecolter" s'il y a un attribut.
 
     @Override

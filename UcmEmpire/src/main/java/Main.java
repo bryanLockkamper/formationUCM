@@ -3,6 +3,7 @@ import controllers.pathfinding.Position;
 import models.Entity;
 import models.Player;
 import models.boardPackage.Board;
+import view.LayoutWindow;
 
 public class Main {
 
@@ -23,7 +24,7 @@ public class Main {
             game.notify();
         }
 
-//        LayoutWindow ucmEmpire = new LayoutWindow();
+        LayoutWindow ucmEmpire = new LayoutWindow();
 /*
         ShowBoard showBoard = new ShowBoard();
         showBoard.showBoardV1();
