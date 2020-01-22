@@ -3,24 +3,26 @@ import controllers.pathfinding.Position;
 import models.Entity;
 import models.Player;
 import models.boardPackage.Board;
-import models.boardPackage.Square;
-import models.units.Soldier;
-import view.LayoutWindow;
-import view.ShowBoard;
-
-import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) {
-	// write your code here
+    public static void main(String[] args) throws InterruptedException {
+        // write your code here
         Board board = new Board("test");
-        board.setSquare(new Position(0,0), new Entity(20, "payon"));
+        board.setSquare(new Position(0, 0), new Entity(20, "payon"));
         Player p1 = new Player();
         p1.setName("test");
         Player p2 = new Player();
         Game game = Game.getGame(p1, p2, board);
-        game.run();
+        Thread thread = new Thread(game);
+
+        thread.start();
+        Thread.sleep(1000);
+        // TODO: 21-01-20 notifier à la fin du tour ou que le joueur termine son tour
+        synchronized (game) {
+            game.notify();
+        }
+
 //        LayoutWindow ucmEmpire = new LayoutWindow();
 /*
         ShowBoard showBoard = new ShowBoard();

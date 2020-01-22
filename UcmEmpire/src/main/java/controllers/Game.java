@@ -1,17 +1,9 @@
 package controllers;
 
-import models.*;
-import models.Character;
+import models.Player;
 import models.boardPackage.Board;
-import models.boardPackage.Square;
-import models.units.Soldier;
 
-import javax.swing.*;
-import javax.swing.text.html.HTMLDocument;
-import java.util.Timer;
-import java.util.TimerTask;
-
-public class Game {
+public class Game implements Runnable{
     private static Game game;
     private boolean endRound;
     private Player player1;
@@ -33,26 +25,36 @@ public class Game {
     }
 
     public static Game getGame() {
+        if (game == null)
+            game = new Game();
         return game;
     }
 
-    public void run() {
+    public synchronized void run() {
         beginRound();
-            // TODO: 21-01-20 Attendre la fin du timer ou que le joueur termine son tour(bouton)
+        try {
+            this.wait();// Attend qu'on le réveil
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         endRound();
     }
 
     private void beginRound() {
+        System.out.println("debut tour");
         player1.buildEntity();
         player1.autoHarvestResources();
+        endRound = false;
     }
 
     private void endRound() {
+        System.out.println("fin tour");
         player1.autoMoveUnits();
         player1.maxPa();
     }
 
-    private boolean nextRound() {
+    public boolean nextRound() {
+        endRound = true;
         return !(player1.hasLost() || player2.hasLost());
     }
 
