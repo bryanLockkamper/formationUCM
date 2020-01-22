@@ -50,7 +50,7 @@ public abstract class ProdBuilding extends Building implements IProdBuilding {
             switch (prodType)
             {
                 case SOLDIER_ENTITY:
-                    character = new Soldier(15 , "Perceval" , 10);
+                    character = new Soldier(15 , "Perceval" , 10 , 10);
                     break;
                 default:
                     throw new IllegalArgumentException("Incorrect type");
