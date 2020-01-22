@@ -17,11 +17,14 @@ import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static models.Constants.ACTION_AJOUTER_ENTITE;
+
 public class GamePanel extends JPanel {
 
     private Container container, boardcontainer;
     private JButton cancel, nextAction,nextRound, confirm, square;
     private JLabel actionLabel, myEntitiesLabel, newEntitiesLabel,timerLabel, ressourceLabel, notifLabel,squareCoordSelected;
+    private JTextArea notifArea;
     private JComboBox actionCombo, myEntitiesCombo, newEntitiesCombo, squareXCombo, squareYCombo;
     private JPanel northPanel, boardPanel, actionPanel, southPanel, southButtonPanel, centerPanel,notifPanel;
     private LayoutWindow layoutWindow;
@@ -87,10 +90,11 @@ public class GamePanel extends JPanel {
 
             for (int y = 0; y < Constants.DIMENSION_BOARD; y++) {
 
-                square = new JButton(); //TODO : bug to fix  : select only the last listener create but i need to listeen all the square to collect these infosmations
-                square.setPreferredSize(new Dimension(100,100)); // dimension of a square in the board
+                square = new JButton();
+                square.setPreferredSize(new Dimension(70,70)); // dimension of a square in the board
                 square.addActionListener(squareListener);
                 squareCoordSelected = new JLabel(x+";"+y);
+                squareCoordSelected.setVisible(false);
                 square.add(squareCoordSelected);
 
                 //TODO : take away in other class and color code in enum ?
@@ -140,8 +144,9 @@ public class GamePanel extends JPanel {
 
            // region Notification
         notifPanel = new JPanel();
-        notifLabel = new JLabel("ZONE NOTIFICATION");
-        notifPanel.add(notifLabel);
+        notifArea = new JTextArea();
+        notifArea.setEditable(false);
+        notifPanel.add(notifArea);
 
 
         // endregion
@@ -158,12 +163,7 @@ public class GamePanel extends JPanel {
         actionPanel.add(actionLabel);
 
         actionCombo = new JComboBox();
-        String action1 = "Deplacer";
-        String action2 = "Ajouter entity";
-        String action3 = "Suicide";
-        actionCombo.addItem(action1);
-        actionCombo.addItem(action2);
-        actionCombo.addItem(action3);
+        actionCombo.setEnabled(false);
 
         ComboListener listenerCombo = new ComboListener();
 
@@ -175,12 +175,12 @@ public class GamePanel extends JPanel {
 
         //region select my entity
 
-        myEntitiesLabel = new JLabel("Selection mes entités");
+       /* myEntitiesLabel = new JLabel("Selection mes entités");
         myEntitiesLabel.setHorizontalAlignment(SwingConstants.LEFT);
 
         actionPanel.add(myEntitiesLabel);
 
-        myEntitiesCombo = new JComboBox(); //TODO : add listener to illuminate the entity select
+        myEntitiesCombo = new JComboBox();
 
         List<Entity> list = player.getEntities();
         for (Entity entity : list) {
@@ -188,7 +188,7 @@ public class GamePanel extends JPanel {
             myEntitiesCombo.addItem(entity.getName());
         }
 
-        actionPanel.add(myEntitiesCombo);
+        actionPanel.add(myEntitiesCombo);*/
 
         // endregion
 
@@ -199,19 +199,8 @@ public class GamePanel extends JPanel {
 
         actionPanel.add(newEntitiesLabel);
 
-        newEntitiesCombo = new JComboBox(); //TODO : add listener to the entity select
-
-        String entity1 = "Paysan";  //TODO : create a list of entities the player can add
-        String entity2 = "Soldat";
-        String entity3 = "Grenier";
-        String entity4 = "Maison";
-        String entity5 = "Caserne";
-        newEntitiesCombo.addItem(entity1);
-        newEntitiesCombo.addItem(entity2);
-        newEntitiesCombo.addItem(entity3);
-        newEntitiesCombo.addItem(entity4);
-        newEntitiesCombo.addItem(entity5);
-
+        newEntitiesCombo = new JComboBox();
+        newEntitiesCombo.setEnabled(false); //TODO : add an item listener for the combo-Box
         actionPanel.add(newEntitiesCombo);
 
         //endregion
@@ -292,6 +281,21 @@ public class GamePanel extends JPanel {
         }
     }
 
+    public void updateActionCombo (JComboBox actionCombo,Square square)
+    {
+        actionCombo.setEnabled(true);
+        actionCombo.removeAllItems();
+
+
+        if (square.getContent() == null)
+        {
+            actionCombo.addItem(ACTION_AJOUTER_ENTITE);
+        } else if (square.getContent() instanceof Character) {
+            actionCombo.addItem(Constants.ACTION_DEPLACER_ENTITE);
+            actionCombo.addItem(Constants.ACTION_SUICIDER_ENTITE);
+
+        }
+    }
 
     private class ButtonListener implements ActionListener {
 
@@ -333,12 +337,27 @@ public class GamePanel extends JPanel {
         @Override
         public void itemStateChanged(ItemEvent e) {
 
-            switch (actionCombo.getSelectedIndex()) {
-                case 0: //Deplacer
+            newEntitiesCombo.setEnabled(false);
+
+
+            switch (actionCombo.getSelectedItem()) {
+                case Constants.ACTION_DEPLACER_ENTITE :
+                {
+                    //Deplacer
+                }
                     break;
-                case 1: //Ajouter
+                case ACTION_AJOUTER_ENTITE: //Ajouter
+                {
+                    newEntitiesCombo.setEnabled(true);
+                    //TODO : use the method to check if any ressource to create the entity, however enabled= false
+                    newEntitiesCombo.addItem(Constants.ENTITE_PAYSAN);
+                    newEntitiesCombo.addItem(Constants.ENTITE_SOLDAT);
+                    newEntitiesCombo.addItem(Constants.ENTITE_CASERNE);
+                    newEntitiesCombo.addItem(Constants.ENTITE_GRENIER);
+                    newEntitiesCombo.addItem(Constants.ENTITE_MAISON);
+                }
                     break;
-                case 2: //Suicide
+                case Constants.ACTION_SUICIDER_ENTITE: //Suicide
                     break;
             }
 
@@ -354,7 +373,6 @@ public class GamePanel extends JPanel {
 
             if (labelCoord != null)
             {
-                System.out.println("in");
                 String[] coord = (labelCoord.split(";"));
                 buttonsBoard.stream()
                         .filter(b -> ((JLabel) b.getComponent(0)).getText().equals(labelCoord))
@@ -362,8 +380,11 @@ public class GamePanel extends JPanel {
                 labelCoord = (((JLabel)(((JButton)(p.getSource())).getComponent(0))).getText());
             } else labelCoord = (((JLabel)(((JButton)(p.getSource())).getComponent(0))).getText());
 
-
+            notifArea.setText("Vous avez séléctionné la case : "+labelCoord);
             ((JButton) p.getSource()).setBackground(Color.YELLOW);
+
+            String[] coord = (labelCoord.split(";"));
+            updateActionCombo(actionCombo,board.getBoard().get(Integer.parseInt(coord[0])).get(Integer.parseInt(coord[1])));
 
 
         }
