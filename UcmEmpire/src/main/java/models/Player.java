@@ -75,12 +75,12 @@ public class Player {
         }
     }
 
-    public void autoHarvestResources() {
-        for (Entity entity : entities) {
-            if (entity instanceof IFarmer)
-                resources.add(new Resource(((Farmer)entity).getResourceHarvesting(),((Farmer)entity).harvest()));
-        }
-    }
+//    public void autoHarvestResources() {
+//        for (Entity entity : entities) {
+//            if (entity instanceof IFarmer)
+//                resources.add(new Resource(((Farmer)entity).getResourceHarvesting(),((Farmer)entity).harvest()));
+//        }
+//    }
 
     public void maxPa() {
         for (Entity entity : entities) {

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 public class SpecialSquare extends Square {
 
-
     private ArrayList<Farmer> farmers;
     private int resourceQuantity;
 
