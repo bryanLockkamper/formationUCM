@@ -21,7 +21,7 @@ public class GamePanel extends JPanel {
 
     private Container container, boardcontainer;
     private JButton cancel, nextAction,nextRound, confirm, square;
-    private JLabel actionLabel, myEntitiesLabel, newEntitiesLabel, squareXLabel, squareYLabel,timerLabel, ressourceLabel, notifLabel,squareCoordSelected;
+    private JLabel actionLabel, myEntitiesLabel, newEntitiesLabel,timerLabel, ressourceLabel, notifLabel,squareCoordSelected;
     private JComboBox actionCombo, myEntitiesCombo, newEntitiesCombo, squareXCombo, squareYCombo;
     private JPanel northPanel, boardPanel, actionPanel, southPanel, southButtonPanel, centerPanel,notifPanel;
     private LayoutWindow layoutWindow;
@@ -29,8 +29,8 @@ public class GamePanel extends JPanel {
     private List<JButton> buttonsBoard;
     private Color color = Color.WHITE;
     private int selectSquareIndex;
-    private Square squareSelected;
     private Board board;
+    private String labelCoord;
 
     public GamePanel(LayoutWindow layoutWindow, Player player, Board board) {
         this.board = board;
@@ -264,6 +264,7 @@ public class GamePanel extends JPanel {
 
     public void squareModifierColor(Square boardSquare, JButton square) {
 
+
         switch (boardSquare.getBiome().toString()) {
             case "PLAINS": {
                 square.setBackground(Color.WHITE);
@@ -351,13 +352,17 @@ public class GamePanel extends JPanel {
 
              //TODO : link between board and boardbutton
 
-            selectSquareIndex = buttonsBoard.indexOf((p.getSource()));
-            String labelCoord = (((JLabel)(((JButton)(p.getSource())).getComponent(0))).getText());
-            String[] coord = (labelCoord.split(";"));
-            System.out.println(coord[0]+" ; "+coord[1]);
-            buttonsBoard.stream()
-                    .filter(b -> ((JLabel) b.getComponent(0)).getText().equals(labelCoord))
-                    .forEach(b -> squareModifierColor(board.getBoard().get(Integer.parseInt(coord[0])).get(Integer.parseInt(coord[1])),b));
+            if (labelCoord != null)
+            {
+                System.out.println("in");
+                String[] coord = (labelCoord.split(";"));
+                buttonsBoard.stream()
+                        .filter(b -> ((JLabel) b.getComponent(0)).getText().equals(labelCoord))
+                        .forEach(b -> squareModifierColor(board.getBoard().get(Integer.parseInt(coord[0])).get(Integer.parseInt(coord[1])),b));
+                labelCoord = (((JLabel)(((JButton)(p.getSource())).getComponent(0))).getText());
+            } else labelCoord = (((JLabel)(((JButton)(p.getSource())).getComponent(0))).getText());
+
+
             ((JButton) p.getSource()).setBackground(Color.YELLOW);
 
 
