@@ -10,6 +10,8 @@ public class Constants {
     public static final String ACTION_AJOUTER_ENTITE = "Ajouter une entité";
     public static final String ACTION_DEPLACER_ENTITE = "Deplacer l'entité";
     public static final String ACTION_SUICIDER_ENTITE = "Suicider l'entité";
+    public static final String ACTION_SORTIR_ENTITY_SPSQUARE = "Sortir une entité";
+
     public static final String ENTITE_PAYSAN = "Paysan";
     public static final String ENTITE_SOLDAT = "Soldat";
     public static final String ENTITE_GRENIER = "Grenier";

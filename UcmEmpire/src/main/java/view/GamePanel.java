@@ -8,6 +8,8 @@ import models.boardPackage.Board;
 import models.boardPackage.SpecialSquare;
 import models.boardPackage.Square;
 import models.resources.Resource;
+import models.resources.ResourceName;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -285,7 +287,7 @@ public class GamePanel extends JPanel {
     {
         actionCombo.setEnabled(true);
         actionCombo.removeAllItems();
-
+        System.out.println("test");
 
         if (square.getContent() == null)
         {
@@ -294,7 +296,11 @@ public class GamePanel extends JPanel {
             actionCombo.addItem(Constants.ACTION_DEPLACER_ENTITE);
             actionCombo.addItem(Constants.ACTION_SUICIDER_ENTITE);
 
-        }
+        } else if (square instanceof SpecialSquare) {
+            actionCombo.addItem(Constants.ACTION_SORTIR_ENTITY_SPSQUARE);
+
+        } else actionCombo.setEnabled(false);
+
     }
 
     private class ButtonListener implements ActionListener {
@@ -327,38 +333,45 @@ public class GamePanel extends JPanel {
 
     }
 
-    private class ComboListener implements ActionListener, ItemListener {
+    private class ComboListener implements ItemListener {
 
-
-        public void actionPerformed(ActionEvent a) {
-
-        }
 
         @Override
         public void itemStateChanged(ItemEvent e) {
 
             newEntitiesCombo.setEnabled(false);
 
+            if (e.getSource().equals(actionCombo))
+            {
+                System.out.println("coucou"+e.getSource().toString()); //TODO : problems with onclick on square to show the actionComboBox option, two call in the itemStateChanged
+                if (actionCombo.getSelectedItem() != null)
+                {
+                    switch (actionCombo.getSelectedItem().toString()) {
+                        case Constants.ACTION_DEPLACER_ENTITE :
+                        {
+                            //Deplacer
 
-            switch (actionCombo.getSelectedItem()) {
-                case Constants.ACTION_DEPLACER_ENTITE :
-                {
-                    //Deplacer
+                        }
+                        break;
+                        case ACTION_AJOUTER_ENTITE: //Ajouter
+                        {
+                            newEntitiesCombo.setEnabled(true);
+                            //TODO : use the method to check if any ressource to create the entity, however enabled= false
+                            newEntitiesCombo.removeAllItems();
+                            newEntitiesCombo.addItem(Constants.ENTITE_PAYSAN);
+                            newEntitiesCombo.addItem(Constants.ENTITE_SOLDAT);
+                            newEntitiesCombo.addItem(Constants.ENTITE_CASERNE);
+                            newEntitiesCombo.addItem(Constants.ENTITE_GRENIER);
+                            newEntitiesCombo.addItem(Constants.ENTITE_MAISON);
+                        }
+                        break;
+                        case Constants.ACTION_SUICIDER_ENTITE: //Suicide
+                            break;
+                    }
+
                 }
-                    break;
-                case ACTION_AJOUTER_ENTITE: //Ajouter
-                {
-                    newEntitiesCombo.setEnabled(true);
-                    //TODO : use the method to check if any ressource to create the entity, however enabled= false
-                    newEntitiesCombo.addItem(Constants.ENTITE_PAYSAN);
-                    newEntitiesCombo.addItem(Constants.ENTITE_SOLDAT);
-                    newEntitiesCombo.addItem(Constants.ENTITE_CASERNE);
-                    newEntitiesCombo.addItem(Constants.ENTITE_GRENIER);
-                    newEntitiesCombo.addItem(Constants.ENTITE_MAISON);
-                }
-                    break;
-                case Constants.ACTION_SUICIDER_ENTITE: //Suicide
-                    break;
+
+
             }
 
         }
@@ -370,20 +383,22 @@ public class GamePanel extends JPanel {
         public void actionPerformed(ActionEvent p) {
 
              //TODO : link between board and boardbutton
-
+            String [] coord;
             if (labelCoord != null)
             {
-                String[] coord = (labelCoord.split(";"));
+                coord = (labelCoord.split(";"));
                 buttonsBoard.stream()
                         .filter(b -> ((JLabel) b.getComponent(0)).getText().equals(labelCoord))
                         .forEach(b -> squareModifierColor(board.getBoard().get(Integer.parseInt(coord[0])).get(Integer.parseInt(coord[1])),b));
                 labelCoord = (((JLabel)(((JButton)(p.getSource())).getComponent(0))).getText());
-            } else labelCoord = (((JLabel)(((JButton)(p.getSource())).getComponent(0))).getText());
+            } else {
+                labelCoord = (((JLabel) (((JButton) (p.getSource())).getComponent(0))).getText());
+                coord = (labelCoord.split(";"));
+
+            }
 
             notifArea.setText("Vous avez séléctionné la case : "+labelCoord);
             ((JButton) p.getSource()).setBackground(Color.YELLOW);
-
-            String[] coord = (labelCoord.split(";"));
             updateActionCombo(actionCombo,board.getBoard().get(Integer.parseInt(coord[0])).get(Integer.parseInt(coord[1])));
 
 
