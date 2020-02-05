@@ -1,6 +1,7 @@
-package dto;
+package models.dto;
 
 public class EntityDTO {
+
 
 
 
