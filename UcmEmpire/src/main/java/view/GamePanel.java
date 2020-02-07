@@ -9,6 +9,7 @@ import models.boardPackage.SpecialSquare;
 import models.boardPackage.Square;
 import models.resources.Resource;
 import models.resources.ResourceName;
+import models.units.Farmer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +28,7 @@ public class GamePanel extends JPanel {
     private JButton cancel, nextAction,nextRound, confirm, square;
     private JLabel actionLabel, myEntitiesLabel, newEntitiesLabel,timerLabel, ressourceLabel, notifLabel,squareCoordSelected;
     private JTextArea notifArea;
-    private JComboBox actionCombo, myEntitiesCombo, newEntitiesCombo, squareXCombo, squareYCombo;
+    private JComboBox actionCombo, myEntitiesCombo, newEntitiesCombo;
     private JPanel northPanel, boardPanel, actionPanel, southPanel, southButtonPanel, centerPanel,notifPanel;
     private LayoutWindow layoutWindow;
     private Player player;
@@ -35,9 +36,12 @@ public class GamePanel extends JPanel {
     private Color color = Color.WHITE;
     private int selectSquareIndex;
     private Board board;
-    private String labelCoord;
+    private String labelCoord, textSquare;
 
     public GamePanel(LayoutWindow layoutWindow, Player player, Board board) {
+        Entity firstpaysan = new Farmer(100,6,100);
+        player.addEntity(firstpaysan);
+        System.out.println("GP"+player.getEntities().toString());
         this.board = board;
         this.layoutWindow = layoutWindow;
         container = layoutWindow.getContentPane();
@@ -82,7 +86,9 @@ public class GamePanel extends JPanel {
         //TODO : change image with a transparent alpha canal
         Icon iconMine = new ImageIcon("src/main/resources/images/mine.jpg");
         Icon iconForest = new ImageIcon("src/main/resources/images/forest.jpg");
-        Icon iconPerso = new ImageIcon("src/main/resources/images/perso.jpg");
+        Icon iconPerso1 = new ImageIcon("src/main/resources/images/perso.jpg");
+        Icon iconPerso2 = new ImageIcon("src/main/resources/images/minion.png");
+
 
         buttonsBoard = new ArrayList<>(Constants.DIMENSION_BOARD);
         SquareListener squareListener = new SquareListener();
@@ -124,7 +130,7 @@ public class GamePanel extends JPanel {
 
                 if (board.getBoard().get(x).get(y).getContent() instanceof Character) {
                     //TODO : continue with differents character
-                    square.setIcon(iconPerso);
+                    square.setIcon(iconPerso1);
 
                 }
 
@@ -177,20 +183,21 @@ public class GamePanel extends JPanel {
 
         //region select my entity
 
-       /* myEntitiesLabel = new JLabel("Selection mes entités");
+        myEntitiesLabel = new JLabel("Selection entité"); //TODO : write a new method exit of the ctro to fill the combobox with the entities from the player present in the ressource square
         myEntitiesLabel.setHorizontalAlignment(SwingConstants.LEFT);
 
         actionPanel.add(myEntitiesLabel);
 
         myEntitiesCombo = new JComboBox();
+        myEntitiesCombo.setEnabled(false);
 
         List<Entity> list = player.getEntities();
         for (Entity entity : list) {
 
-            myEntitiesCombo.addItem(entity.getName());
+            myEntitiesCombo.addItem(entity.getId());
         }
 
-        actionPanel.add(myEntitiesCombo);*/
+        actionPanel.add(myEntitiesCombo);
 
         // endregion
 
@@ -285,9 +292,9 @@ public class GamePanel extends JPanel {
 
     public void updateActionCombo (JComboBox actionCombo,Square square)
     {
+        myEntitiesCombo.setEnabled(false);
         actionCombo.setEnabled(true);
         actionCombo.removeAllItems();
-        System.out.println("test");
 
         if (square.getContent() == null)
         {
@@ -295,9 +302,13 @@ public class GamePanel extends JPanel {
         } else if (square.getContent() instanceof Character) {
             actionCombo.addItem(Constants.ACTION_DEPLACER_ENTITE);
             actionCombo.addItem(Constants.ACTION_SUICIDER_ENTITE);
+            notifArea.setText ("Il s'agit de l'entité :"+square.getContent().getId()+" "+square.getContent().getClass());
 
         } else if (square instanceof SpecialSquare) {
             actionCombo.addItem(Constants.ACTION_SORTIR_ENTITY_SPSQUARE);
+            myEntitiesCombo.setEnabled(true);
+            notifArea.setText ("Il s'agit d'une case ressource :"+square.getContent().getClass()); //TODO : how to find the ressource name ?
+
 
         } else actionCombo.setEnabled(false);
 

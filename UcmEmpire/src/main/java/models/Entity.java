@@ -4,11 +4,11 @@ import models.units.IEntity;
 
 public class Entity implements IEntity {
     protected int hp;
-    protected String name;
+    protected Integer id;
 
-    public Entity(int hp, String name) {
+    public Entity(int hp, Integer id) {
         this.hp = hp;
-        this.name = name;
+        this.id = id;
     }
 
     public int getHp() {
@@ -29,12 +29,12 @@ public class Entity implements IEntity {
         return getHp() <= 0;
     }
 
-    public String getName() {
-        return name;
+    public Integer getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void suicide() {

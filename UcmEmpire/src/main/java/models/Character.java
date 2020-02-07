@@ -5,7 +5,7 @@ public class Character extends Entity{
     protected int moveLeft;
     private int maxPA;
 
-    public Character(int hp, String name, int pa) {
+    public Character(int hp, Integer name, int pa) {
         super(hp, name);
         this.pa = pa;
         maxPA = pa;

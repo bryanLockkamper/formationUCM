@@ -7,7 +7,7 @@ import models.units.unitInterfaces.IBuilder;
 
 public class Builder extends Character implements IBuilder {
 
-    public Builder(int pv, String name, int pa) {
+    public Builder(int pv, Integer name, int pa) {
         super(pv, name, pa);
     }
 

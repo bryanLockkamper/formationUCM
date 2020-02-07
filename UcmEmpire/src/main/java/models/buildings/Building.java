@@ -8,7 +8,7 @@ import java.util.HashMap;
 public abstract class Building extends Entity {
     private HashMap<ResourceName, Integer> requirement;
 
-    public Building(int pv, String name, HashMap<ResourceName, Integer> requirement) {
+    public Building(int pv, Integer name, HashMap<ResourceName, Integer> requirement) {
         super(pv, name);
         this.requirement = requirement;
     }

@@ -56,7 +56,7 @@ public class Board {
 
         // Hard code for ennemy
         //TODO : need to create a DTO to distinct an entity from player or computer/player 2
-        boardList.get(3).get(5).setContent(new Soldier(10,"Dark Vador",5));
+        boardList.get(3).get(5).setContent(new Soldier(10,5,5));
 
 
 

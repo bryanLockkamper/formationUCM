@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Barracks extends ProdBuilding implements IBarracks {
 
-    public Barracks(int hp, String name, HashMap<ResourceName, Integer> requirement) {
+    public Barracks(int hp, Integer name, HashMap<ResourceName, Integer> requirement) {
         super(hp, name, requirement);
     }
 

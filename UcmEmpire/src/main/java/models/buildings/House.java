@@ -6,7 +6,7 @@ import models.buildings.buildingInterfaces.IHouse;
 import java.util.HashMap;
 
 public class House extends Building implements IHouse {
-    public House(int hp, String name, HashMap<ResourceName, Integer> requirement) {
+    public House(int hp, Integer name, HashMap<ResourceName, Integer> requirement) {
         super(hp, name, requirement);
     }
 }
