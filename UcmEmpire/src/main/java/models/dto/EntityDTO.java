@@ -5,7 +5,5 @@ public class EntityDTO {
 
 
 
-    public EntityDTO() {
 
-    }
 }
