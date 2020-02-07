@@ -1,5 +1,6 @@
 package services;
 
+import com.sun.xml.internal.bind.v2.TODO;
 import models.Entity;
 import models.Player;
 import models.boardPackage.SpecialSquare;
@@ -10,7 +11,7 @@ import models.units.unitInterfaces.IFarmer;
 public class HarvestService {
 
     public int autoHarvestResources(Farmer farmer, SpecialSquare squareResource, Player player) {
-
+        //TODO retirer le farmer ou le remplacer
         if (farmer != null && squareResource != null) {
             for (Entity entity : player.getEntities()) {
                 if (entity instanceof IFarmer && squareResource.getResourceQuantity() >= 0) {
