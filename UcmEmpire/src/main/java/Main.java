@@ -12,7 +12,8 @@ public class Main {
         board.setSquare(new Position(0, 0), new Entity(20, "payon"));
         Player p1 = new Player();
         p1.setName("test");
-        Player p2 = new Player();
+        p1.autoHarvestResources();
+        /*Player p2 = new Player();
         Game game = Game.getGame(p1, p2, board);
         Thread thread = new Thread(game);
 
@@ -21,7 +22,7 @@ public class Main {
         // TODO: 21-01-20 notifier à la fin du tour ou que le joueur termine son tour
         synchronized (game) {
             game.notify();
-        }
+        }*/
 
 //        LayoutWindow ucmEmpire = new LayoutWindow();
 /*
