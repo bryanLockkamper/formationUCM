@@ -12,7 +12,6 @@ public class Resource extends Entity implements IResource{
     public Resource(ResourceName resourceName, Integer nb) {
         this.resourceName = resourceName;
         this.hp = nb;
-        this.name = resourceName.name();
     }
 
     @Override

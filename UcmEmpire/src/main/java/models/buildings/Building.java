@@ -10,8 +10,8 @@ import java.util.HashSet;
 public abstract class Building extends Entity {
     private HashSet<Resource> requirement;
 
-    public Building(int pv, String name, HashSet<Resource> requirement) {
-        super(pv, name);
+    public Building(int pv, Integer id, HashSet<Resource> requirement) {
+        super(pv, id);
         this.requirement = requirement;
     }
 

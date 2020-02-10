@@ -11,7 +11,7 @@ public class Forum extends ProdBuilding implements IForum {
 
     private List<Entity> entities;
 
-    public Forum(int hp, Integer name, HashSet<ResourceName, Integer> requirement) {
+    public Forum(int hp, Integer name, HashSet<Resource> requirement) {
         super(hp, name, requirement);
     }
 

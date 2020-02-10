@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 public class CreateEntityCheckerTest {
 
-    @Test
+   /* @Test //TODO : BRYAN
     public void createEntityChecker_Builder_20pa_true() {
         Assert.assertTrue(CreateEntityChecker.createEntityChecker(new Builder(20, "test", 20)));
     }
@@ -76,5 +76,5 @@ public class CreateEntityCheckerTest {
         map2.add(new Resource(ResourceName.WOOD, 5));
 
         assertFalse(CreateEntityChecker.createEntityChecker(player, new Forum(20, "test", map2)));
-    }
+    }*/
 }

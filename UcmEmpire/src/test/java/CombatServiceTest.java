@@ -9,7 +9,7 @@ public class CombatServiceTest {
 
     CombatService combatService = new CombatService();
 
-    @Test
+    /*@Test //TODO : ALEX
     public void fightNormalCase_True() {
 
         //Arrange
@@ -71,5 +71,5 @@ public class CombatServiceTest {
 
         assertFalse(isCorrect);
 
-    }
+    }*/
 }

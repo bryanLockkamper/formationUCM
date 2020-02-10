@@ -6,13 +6,11 @@ import models.buildings.buildingInterfaces.IProdBuilding;
 import models.buildings.buildingInterfaces.IBarracks;
 import models.buildings.buildingInterfaces.IForum;
 import models.resources.Resource;
-import models.resources.ResourceName;
 import models.units.Builder;
 import models.units.Farmer;
 import models.units.Soldier;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -25,8 +23,8 @@ public abstract class ProdBuilding extends Building implements IProdBuilding {
     private int compteur;
     private List<Entity> prod;
 
-    public ProdBuilding(int pv, String name, HashSet<Resource> requirement) {
-        super(pv, name, requirement);
+    public ProdBuilding(int pv, Integer id, HashSet<Resource> requirement) {
+        super(pv, id, requirement);
         prod = new ArrayList<>();
     }
 
