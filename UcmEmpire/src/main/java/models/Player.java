@@ -37,7 +37,10 @@ public class Player {
     }
 
     public int getResources(ResourceName resourceName){
-            return Objects.requireNonNull(resources.stream().filter(resource -> resource.name.equals(resourceName.name())).findFirst().orElse(null)).hp;
+
+            return Objects.requireNonNull(resources.stream()
+                    .filter(resource -> resource.name.equals(resourceName.getType()))
+                    .findFirst().orElse(null)).hp;
     }
 
     public String getName() {

@@ -12,7 +12,9 @@ public class Resource extends Entity implements IResource{
     public Resource(ResourceName resourceName, Integer nb) {
         this.resourceName = resourceName;
         this.hp = nb;
-        this.name = resourceName.name();
+        if (resourceName == null)
+            this.name = "Undefined";
+        //this.name = resourceName.getType();
     }
 
     @Override
