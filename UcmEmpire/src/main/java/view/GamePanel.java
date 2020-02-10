@@ -304,7 +304,7 @@ public class GamePanel extends JPanel {
         } else if (square instanceof SpecialSquare) {
             actionCombo.addItem(Constants.ACTION_SORTIR_ENTITY_SPSQUARE);
             myEntitiesCombo.setEnabled(true);
-            notifArea.setText ("Il s'agit d'une case ressource :"+square.getContent().getClass()); //TODO : how to find the ressource name ?
+            notifArea.setText ("Il s'agit d'une case ressource :"+square.getContent().getClass().getSimpleName()); //TODO : how to find the ressource name ?
 
 
         } else actionCombo.setEnabled(false);
@@ -405,7 +405,7 @@ public class GamePanel extends JPanel {
 
             }
 
-            notifArea.setText("Vous avez séléctionné la case : "+labelCoord);
+            notifArea.setText("Vous avez séléctionné la case : "+labelCoord+" ");
             ((JButton) p.getSource()).setBackground(Color.YELLOW);
             updateActionCombo(actionCombo,board.getBoard().get(Integer.parseInt(coord[0])).get(Integer.parseInt(coord[1])));
 

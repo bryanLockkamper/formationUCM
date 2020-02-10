@@ -2,7 +2,7 @@ package controllers.pathfinding;
 
 import models.Entity;
 import models.boardPackage.Board;
-import org.junit.Assert;
+import org.junit.*;
 import org.junit.Before;
 import org.junit.Test;
 
