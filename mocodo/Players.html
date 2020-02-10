@@ -1,0 +1,79 @@
+<html>
+<head>
+<meta charset='utf-8'>
+<style>
+  #mld .relation { font-variant: small-caps; font-weight: bold }
+  #mld .primary { text-decoration: underline }
+  #mld .foreign { font-style: oblique }
+  #mld .normal { }
+</style>
+</head>
+<body>
+<div id='mld'>
+<div>
+  <span class='relation'>CHARACTER</span> (
+    <span class='primary'>id</span>,
+    <span class='normal'>hp</span>,
+    <span class='normal'>pa</span>,
+    <span class='normal'>maxPA</span>,
+    <span class='foreign'>id.1</span>,
+    <span class='foreign'>id.2</span>
+  )
+</div>
+<div>
+  <span class='relation'>SQUARE</span> (
+    <span class='primary'>id</span>,
+    <span class='normal'>isWalkable</span>,
+    <span class='normal'>isBuilding</span>,
+    <span class='normal'>biomeType</span>,
+    <span class='normal'>isSpecial</span>,
+    <span class='foreign'>id.1</span>
+  )
+</div>
+<div>
+  <span class='relation'>CONTENTR</span> (
+    <span class='foreign primary'>id</span>,
+    <span class='foreign primary'>id.1</span>,
+    <span class='normal'>QUANTITY_HARVEST</span>
+  )
+</div>
+<div>
+  <span class='relation'>RESSOURCE</span> (
+    <span class='primary'>id</span>,
+    <span class='normal'>quantity</span>,
+    <span class='normal'>type</span>
+  )
+</div>
+<div>
+  <span class='relation'>HASR</span> (
+    <span class='foreign primary'>id</span>,
+    <span class='foreign primary'>id.1</span>
+  )
+</div>
+<div>
+  <span class='relation'>PLAYER</span> (
+    <span class='primary'>id</span>,
+    <span class='normal'>lastName</span>,
+    <span class='normal'>firstName</span>,
+    <span class='normal'>login</span>,
+    <span class='normal'>password</span>,
+    <span class='foreign'>id.1</span>
+  )
+</div>
+<div>
+  <span class='relation'>BOARD</span> (
+    <span class='primary'>id</span>,
+    <span class='normal'>name</span>
+  )
+</div>
+<div>
+  <span class='relation'>BUILDING</span> (
+    <span class='primary'>id</span>,
+    <span class='normal'>hp</span>,
+    <span class='foreign'>id.1</span>,
+    <span class='foreign'>id.2</span>
+  )
+</div>
+</div>
+</body>
+</html>
