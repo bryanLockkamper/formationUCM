@@ -46,7 +46,7 @@ public class Game implements Runnable{
     private void beginRound() {
         System.out.println("debut tour");
         player1.buildEntity();
-        //TODO harvestService.autoHarvestResources(player1.getEntities());
+        //harvestService.autoHarvestResources(player1.getEntities());
         endRound = false;
     }
 

@@ -41,7 +41,6 @@ public class GamePanel extends JPanel {
     public GamePanel(LayoutWindow layoutWindow, Player player, Board board) {
         Entity firstpaysan = new Farmer(100,6,100);
         player.addEntity(firstpaysan);
-        System.out.println("GP"+player.getEntities().toString());
         this.board = board;
         this.layoutWindow = layoutWindow;
         container = layoutWindow.getContentPane();
@@ -58,11 +57,11 @@ public class GamePanel extends JPanel {
         cancel.addActionListener(listener);
         northPanel.add(cancel);
 
-        //TODO : ZONE RESSOURCE PLAYER
+        //TODO : ZONE RESSOURCE PLAYER (need Observer)
         ressourceLabel = new JLabel("RESSOURCE PLAYER ZONE");
         northPanel.add(ressourceLabel);
 
-        //TODO : ZONE TIMER
+        //TODO : ZONE TIMER (voir Florent)
         timerLabel = new JLabel("TIMER ZONE");
         northPanel.add(timerLabel);
 
