@@ -11,10 +11,9 @@ public class Forum extends ProdBuilding implements IForum {
 
     private List<Entity> entities;
 
-    public Forum(int hp, String name, HashSet<Resource> requirement) {
+    public Forum(int hp, Integer name, HashSet<ResourceName, Integer> requirement) {
         super(hp, name, requirement);
     }
-
 
     @Override
     public void setEntities(List<Entity> entities) {

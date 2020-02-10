@@ -49,9 +49,6 @@ public class WelcomPanel extends JPanel {
 
 
         animationPanel = new JPanel();
-       /* animationPanel.setBounds(600, 200, 450, 430);
-        animationPanel.setSize(getWidth()/3, getHeight()/2);
-        animationPanel.setPreferredSize(new Dimension(getWidth()/3, getHeight()/2));*/
 
         threadAnimation = new ThreadAnimation(this);
         threadAnimation.start();

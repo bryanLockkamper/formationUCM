@@ -4,11 +4,11 @@ import models.units.IEntity;
 
 public class Entity implements IEntity {
     protected int hp;
-    protected String name;
+    protected Integer id;
 
-    public Entity(int hp, String name) {
+    public Entity(int hp, Integer id) {
         this.hp = hp;
-        this.name = name;
+        this.id = id;
     }
 
     public Entity() {
@@ -23,11 +23,21 @@ public class Entity implements IEntity {
         this.hp = Math.max(this.hp - hp, 0);
     }
 
-    public String getName() {
-        return name;
+    /**
+     *
+     * @param damage damage done on this unit
+     * @return true if dead
+     */
+    public boolean takeDamage(int damage){
+        setHp(getHp()-damage);
+        return getHp() <= 0;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

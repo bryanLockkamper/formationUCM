@@ -8,7 +8,7 @@ public class Farmer extends Character implements IFarmer {
 
     private ResourceName resourceHarvesting;
 
-    public Farmer(int pv, String name, int pa) {
+    public Farmer(int pv, Integer name, int pa) {
         super(pv, name, pa);
     }
 

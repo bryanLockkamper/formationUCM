@@ -5,6 +5,7 @@ import models.units.unitInterfaces.ISoldier;
 
 public class Soldier extends Character implements ISoldier {
 
+    public Soldier(int hp, Integer name, int pa) {
     private int damage;
 
     public Soldier(int hp, String name, int pa , int damage)
