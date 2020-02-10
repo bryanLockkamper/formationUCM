@@ -20,7 +20,6 @@ public abstract class ProdBuilding extends Building implements IProdBuilding {
     public static final int BUILDER_ENTITY =2;
     public static final int SOLDIER_ENTITY =3;
 
-    private int compteur;
     private List<Entity> prod;
 
     public ProdBuilding(int pv, Integer id, HashSet<Resource> requirement) {

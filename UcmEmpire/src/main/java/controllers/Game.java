@@ -2,6 +2,7 @@ package controllers;
 
 import models.Player;
 import models.boardPackage.Board;
+import services.HarvestService;
 
 public class Game implements Runnable{
     private static Game game;
@@ -9,6 +10,7 @@ public class Game implements Runnable{
     private Player player1;
     private Player player2;
     private Board board;
+    HarvestService harvestService = new HarvestService();
 
     private Game() {
 
@@ -43,7 +45,7 @@ public class Game implements Runnable{
     private void beginRound() {
         System.out.println("debut tour");
         player1.buildEntity();
-        //player1.autoHarvestResources(); //TODO : harvestService.autoHarvest(square,player1) ALEX
+        //TODO harvestService.autoHarvestResources(player1.getEntities());
         endRound = false;
     }
 
