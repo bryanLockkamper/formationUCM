@@ -105,8 +105,6 @@ public class GamePanel extends JPanel {
                 squareCoordSelected.setVisible(false);
                 square.add(squareCoordSelected);
 
-                //TODO : take away in other class and color code in enum ?
-
                 squareModifierColor(board.getBoard().get(x).get(y),square);
 
                 if (board.getBoard().get(x).get(y) instanceof SpecialSquare) {
@@ -329,7 +327,7 @@ public class GamePanel extends JPanel {
             if (e.getSource() == nextAction) {
 
 
-                switch (actionCombo.getSelectedIndex()) {
+                switch (actionCombo.getSelectedIndex()) { //TODO : link with the controller
                     case 0: //Deplacer
                         break;
                     case 1: //Ajouter
@@ -354,7 +352,7 @@ public class GamePanel extends JPanel {
 
             if (e.getSource().equals(actionCombo))
             {
-                System.out.println("coucou"+e.getSource().toString()); //TODO : problems with onclick on square to show the actionComboBox option, two call in the itemStateChanged
+                System.out.println("coucou"+e.getSource().toString()); //TODO : problems with onclick on square to show the actionComboBox & textArea option, two call in the itemStateChanged
                 if (actionCombo.getSelectedItem() != null)
                 {
                     switch (actionCombo.getSelectedItem().toString()) {

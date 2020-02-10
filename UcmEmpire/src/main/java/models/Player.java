@@ -2,13 +2,11 @@ package models;
 
 import models.buildings.Granary;
 import models.resources.ResourceName;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import models.buildings.buildingInterfaces.IProdBuilding;
 import models.units.Farmer;
 import models.units.unitInterfaces.IFarmer;
-
 import java.util.List;
 import java.util.Map;
 
