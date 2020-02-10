@@ -19,7 +19,7 @@ public class Main {
 
         thread.start();
         Thread.sleep(1000);
-        // TODO: 21-01-20 notifier à la fin du tour ou que le joueur termine son tour
+        // TODO: 21-01-20 notifier que le joueur termine son tour manuellement
         synchronized (game) {
             game.notify();
         }*/

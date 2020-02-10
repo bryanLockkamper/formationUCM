@@ -5,6 +5,7 @@ import models.boardPackage.Board;
 import services.HarvestService;
 
 public class Game implements Runnable{
+    private final int MINUTES_TOUR = 2, SECONDES_TOUR = 0;
     private static Game game;
     private boolean endRound;
     private Player player1;
@@ -35,7 +36,7 @@ public class Game implements Runnable{
     public synchronized void run() {
         beginRound();
         try {
-            this.wait();// Attend qu'on le réveil
+            this.wait(this.MINUTES_TOUR*60*1000 + this.SECONDES_TOUR*1000);// Attend qu'on le réveil
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
