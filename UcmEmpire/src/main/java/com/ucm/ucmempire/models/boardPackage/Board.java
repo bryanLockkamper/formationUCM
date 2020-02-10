@@ -1,6 +1,8 @@
 package com.ucm.ucmempire.models.boardPackage;
 
+import com.ucm.ucmempire.controllers.TravelChecker;
 import com.ucm.ucmempire.controllers.pathfinding.Position;
+import com.ucm.ucmempire.models.Character;
 import com.ucm.ucmempire.models.Constants;
 import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.biomes.*;
@@ -111,5 +113,16 @@ public class Board {
         }
 
         return boardList;
+    }
+
+    public void moveEntity(Position position_old, Character character, Position position_new) {
+        Square square_old = board.get(position_old.getX()).get(position_old.getY());
+        Square square_new = board.get(position_new.getX()).get(position_new.getY());
+        if (TravelChecker.movableEntity(character) && character.equals(square_old.getContent()) && square_new.getContent() != null && square_new.isWalkable()) {
+            square_old.setContent(null);
+            square_old.setWalkable(true);
+            square_old.setBuildable(true);
+        }
+
     }
 }
