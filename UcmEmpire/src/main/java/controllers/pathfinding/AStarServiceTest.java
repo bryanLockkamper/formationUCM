@@ -15,7 +15,7 @@ public class AStarServiceTest {
         board = new Board("test");
     }
 
-    @Test
+   /* @Test //TODO : BRYAN
     public void run_start00_end55_pa20_55() {
         board.setSquare(new Position(0,0), new Entity(20, "payon"));
         aStarService = new AStarService(board, new Position(0,0), new Position(5,5));
@@ -93,5 +93,5 @@ public class AStarServiceTest {
         board.getBoard().get(4).get(5).setWalkable(false);
         board.getBoard().get(5).get(4).setWalkable(false);
         aStarService = new AStarService(board, new Position(0,0), new Position(5,5));
-    }
+    }*/
 }

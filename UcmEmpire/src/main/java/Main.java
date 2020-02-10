@@ -3,12 +3,13 @@ import controllers.pathfinding.Position;
 import models.Entity;
 import models.Player;
 import models.boardPackage.Board;
+import view.LayoutWindow;
 
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         // write your code here
-        Board board = new Board("test");
+        /*Board board = new Board("test");
         board.setSquare(new Position(0, 0), new Entity(20, "payon"));
         Player p1 = new Player();
         p1.setName("test");
@@ -21,9 +22,9 @@ public class Main {
         // TODO: 21-01-20 notifier à la fin du tour ou que le joueur termine son tour
         synchronized (game) {
             game.notify();
-        }
+        }*/
 
-//        LayoutWindow ucmEmpire = new LayoutWindow();
+        LayoutWindow ucmEmpire = new LayoutWindow();
 /*
         ShowBoard showBoard = new ShowBoard();
         showBoard.showBoardV1();

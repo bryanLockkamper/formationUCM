@@ -5,6 +5,7 @@ import models.Constants;
 import models.Entity;
 import models.biomes.*;
 import models.resources.ResourceName;
+import models.units.Soldier;
 
 import java.util.ArrayList;
 
@@ -52,6 +53,11 @@ public class Board {
 
         ressourceCase = new SpecialSquare(ResourceName.STONE);
         boardList.get(2).set(2,ressourceCase);
+
+        // Hard code for ennemy
+        //TODO : need to create a DTO to distinct an entity from player or computer/player 2
+        boardList.get(3).get(5).setContent(new Soldier(10,5,5));
+
 
 
         return boardList;

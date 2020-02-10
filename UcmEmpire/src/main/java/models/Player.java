@@ -37,7 +37,7 @@ public class Player {
     }
 
     public int getResources(ResourceName resourceName){
-            return Objects.requireNonNull(resources.stream().filter(resource -> resource.name.equals(resourceName.name())).findFirst().orElse(null)).hp;
+            return Objects.requireNonNull(resources.stream().filter(resource -> resource.getResourceName().equals(resourceName)).findFirst().orElse(null)).hp;
     }
 
     public String getName() {
@@ -75,12 +75,12 @@ public class Player {
         }
     }
 
-    public void autoHarvestResources() {
-        for (Entity entity : entities) {
-            if (entity instanceof IFarmer)
-                resources.add(new Resource(((Farmer)entity).getResourceHarvesting(),((Farmer)entity).harvest()));
-        }
-    }
+//    public void autoHarvestResources() {
+//        for (Entity entity : entities) {
+//            if (entity instanceof IFarmer)
+//                resources.add(new Resource(((Farmer)entity).getResourceHarvesting(),((Farmer)entity).harvest()));
+//        }
+//    }
 
     public void maxPa() {
         for (Entity entity : entities) {

@@ -43,7 +43,7 @@ public class Game implements Runnable{
     private void beginRound() {
         System.out.println("debut tour");
         player1.buildEntity();
-        player1.autoHarvestResources();
+        //player1.autoHarvestResources(); //TODO : harvestService.autoHarvest(square,player1) ALEX
         endRound = false;
     }
 

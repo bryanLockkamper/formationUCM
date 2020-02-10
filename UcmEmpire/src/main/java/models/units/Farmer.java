@@ -8,14 +8,8 @@ public class Farmer extends Character implements IFarmer {
 
     private ResourceName resourceHarvesting;
 
-    public Farmer(int pv, String name, int pa) {
+    public Farmer(int pv, Integer name, int pa) {
         super(pv, name, pa);
-    }
-
-    public int harvest() {
-        int harvest = getPa();
-        setPa(0);
-        return harvest;
     }
 
     //TODO : override "move()" pour que si on tombe sur une case de ressources, on modifie l'attribut "ressourceARecolter" s'il y a un attribut.

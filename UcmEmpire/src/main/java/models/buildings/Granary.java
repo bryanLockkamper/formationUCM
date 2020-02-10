@@ -9,8 +9,8 @@ import java.util.HashSet;
 
 public class Granary extends Building implements IGranary {
 
-    public Granary(int hp, String name, HashSet<Resource> requirement) {
-        super(hp, name, requirement);
+    public Granary(int hp, Integer id , HashSet<Resource> requirement) {
+        super(hp, id, requirement);
     }
 
 }

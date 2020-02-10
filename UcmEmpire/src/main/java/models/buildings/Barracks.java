@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Barracks extends ProdBuilding implements IBarracks {
 
-    public Barracks(int hp, String name, HashSet<Resource> requirement) {
+    public Barracks(int hp, Integer name, HashSet<Resource> requirement) {
         super(hp, name, requirement);
     }
 

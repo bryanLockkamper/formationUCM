@@ -6,13 +6,11 @@ import models.buildings.buildingInterfaces.IProdBuilding;
 import models.buildings.buildingInterfaces.IBarracks;
 import models.buildings.buildingInterfaces.IForum;
 import models.resources.Resource;
-import models.resources.ResourceName;
 import models.units.Builder;
 import models.units.Farmer;
 import models.units.Soldier;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -25,8 +23,8 @@ public abstract class ProdBuilding extends Building implements IProdBuilding {
     private int compteur;
     private List<Entity> prod;
 
-    public ProdBuilding(int pv, String name, HashSet<Resource> requirement) {
-        super(pv, name, requirement);
+    public ProdBuilding(int pv, Integer id, HashSet<Resource> requirement) {
+        super(pv, id, requirement);
         prod = new ArrayList<>();
     }
 
@@ -37,10 +35,10 @@ public abstract class ProdBuilding extends Building implements IProdBuilding {
         {
             switch (prodType){
                 case FARMER_ENTITY:
-                    character = new Farmer( 10 , "Guetno" , 10);
+                    character = new Farmer( 10 , 1 , 10);
                     break;
                 case BUILDER_ENTITY:
-                    character = new Builder(10 , "Builder" , 10);
+                    character = new Builder(10 , 2 , 10);
                     break;
                 default:
                     throw new IllegalArgumentException("Incorrect type");
@@ -52,7 +50,7 @@ public abstract class ProdBuilding extends Building implements IProdBuilding {
             switch (prodType)
             {
                 case SOLDIER_ENTITY:
-                    character = new Soldier(15 , "Perceval" , 10);
+                    character = new Soldier(15 ,3  , 10);
                     break;
                 default:
                     throw new IllegalArgumentException("Incorrect type");

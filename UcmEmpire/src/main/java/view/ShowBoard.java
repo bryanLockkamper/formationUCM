@@ -5,14 +5,14 @@ import models.boardPackage.SpecialSquare;
 
 public class ShowBoard {
 
-    public void showBoardV1() {
+    /*public void showBoardV1() {
         //TODO : generation des cases
         Board board = new Board("technobel");
         showBoardV1(board);
-    }
+    }*/
 
 
-    public static void showBoardV1(Board board) {
+   /* public static void showBoardV1(Board board) {
         //TODO : generation des cases
         for (int i = 0; i < board.getBoard().size(); i++) {
 
@@ -32,6 +32,6 @@ public class ShowBoard {
         }
 
     }
-
+*/
 
 }

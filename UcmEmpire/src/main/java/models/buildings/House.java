@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class House extends Building implements IHouse {
-    public House(int hp, String name, HashSet<Resource> requirement) {
-        super(hp, name, requirement);
+    public House(int hp, Integer id, HashSet<Resource> requirement) {
+        super(hp, id, requirement);
     }
 }

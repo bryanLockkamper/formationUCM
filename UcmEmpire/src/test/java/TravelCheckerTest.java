@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class TravelCheckerTest {
 
-    @Test
+    /*@Test //TODO : BRYAN
     public void movableEntity_Character_20pa_true() {
         assertTrue(TravelChecker.movableEntity(new Character(20, "test", 20)));
     }
@@ -27,5 +27,5 @@ public class TravelCheckerTest {
     @Test
     public void movableEntity_Forum_0pa_false() {
         assertFalse(TravelChecker.movableEntity(new Forum(20, "test", null)));
-    }
+    }*/
 }

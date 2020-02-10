@@ -2,17 +2,17 @@ package models.resources;
 
 public enum ResourceName{
 
-        WOOD("wood"),
-        STONE("stone"),
-        FOOD("food"); //TODO : quantity set to a number and not infinity
+        WOOD(1),
+        STONE(2),
+        FOOD(3); //TODO : quantity set to a number and not infinity
 
-        private String type;
+        private Integer type;
 
-        ResourceName(String type) {
+        ResourceName(Integer type) {
                 this.type = type;
         }
 
-        public String getType() {
+        public Integer getType() {
                 return type;
         }
 }
