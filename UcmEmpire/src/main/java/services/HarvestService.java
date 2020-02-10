@@ -16,12 +16,13 @@ public class HarvestService {
     public int autoHarvestResources( SpecialSquare squareResource, Player player) {
 
         List<Farmer> farmers = player.getEntities().stream().filter(entity -> entity instanceof Farmer).map(entity -> (Farmer)entity).collect(Collectors.toList());
+        int harvest =0;
 
         if (squareResource != null) {
             for (Farmer farmer : farmers) {
                 if (squareResource.getResourceQuantity() >= 0) {
                     int actualResource = player.getResources(((Resource) squareResource.getContent()).getResourceName());
-                    int harvest = farmer.getPa();
+                    harvest += farmer.getPa();
 
                     if (squareResource.getResourceQuantity() - harvest >= 0)
                         squareResource.setResourceQuantity(squareResource.getResourceQuantity() - harvest);
@@ -44,6 +45,6 @@ public class HarvestService {
                 }
             }
         }
-        return 0;
+        return harvest;
     }
 }

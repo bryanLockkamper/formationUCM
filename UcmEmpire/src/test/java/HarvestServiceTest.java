@@ -25,6 +25,7 @@ public class HarvestServiceTest {
         Farmer f2 = new Farmer(10,"peont1", 10 );
         Farmer f3 = new Farmer(10,"peont2", 10 );
         SpecialSquare square = new SpecialSquare(ResourceName.STONE);
+        square.setResourceQuantity(Integer.MAX_VALUE);
         List<Entity> list = new ArrayList<>();
 
         list.add(f1);
@@ -35,7 +36,7 @@ public class HarvestServiceTest {
         Integer nb = harvestService.autoHarvestResources(square,p1);
 
         //Assert
-        assertEquals(java.util.Optional.of(10),nb);
+        assertEquals(10, (int)nb);
     }
 
 }
