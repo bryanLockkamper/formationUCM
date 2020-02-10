@@ -126,7 +126,7 @@ public class LayoutWindow extends JFrame {
 
                 if (e.getSource() == game)
 
-                    player = new Player(); //TODO : Link with the game class in controller
+                    player = new Player(1); //TODO : Link with the game class in controller
 
                     //TODO : need to harmonise the start game between the welcomPanel and this
                     Board board = new Board("new board");

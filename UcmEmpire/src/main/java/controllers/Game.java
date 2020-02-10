@@ -20,8 +20,8 @@ public class Game implements Runnable{
     public static Game getGame(Player player1, Player player2, Board board) {
         if (game == null) {
             game = new Game();
-            game.player1 = new Player();
-            game.player2 = new Player();
+            game.player1 = new Player(1);
+            game.player2 = new Player(2);
             game.board = new Board();
         }
         return game;

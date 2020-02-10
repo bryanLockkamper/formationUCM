@@ -98,7 +98,7 @@ public class WelcomPanel extends JPanel {
 
             if (e.getSource() == startGameButton) {
 
-                Player newPlayer = new Player();
+                Player newPlayer = new Player(1);
                 Board board = new Board("plateau");
 
                 GamePanel gamePanel = new GamePanel(layoutWindow,newPlayer,board);

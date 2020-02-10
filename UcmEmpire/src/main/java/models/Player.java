@@ -12,11 +12,14 @@ import java.util.stream.Collectors;
 
 public class Player {
     private final int granarySize = 20;
+
+    private int id;
     protected String name;
     protected HashSet<Resource> resources;
     protected List<Entity> entities;
 
-    public Player(){
+    public Player(int id){
+        this.id = id;
         resources = new HashSet<>();
         resources.add(new Resource(ResourceName.WOOD, 0));
         resources.add(new Resource(ResourceName.STONE, 0));
@@ -98,6 +101,7 @@ public class Player {
     }
 
     public void addEntity(Entity content) {
+        this.entities.add(content);
     }
 
     public int getGranarySize() {
@@ -110,5 +114,9 @@ public class Player {
 
     public void setResources(HashSet<Resource> resources) {
         this.resources = resources;
+    }
+
+    public int getId() {
+        return id;
     }
 }

@@ -191,7 +191,7 @@ public class GamePanel extends JPanel {
         List<Entity> list = player.getEntities();
         for (Entity entity : list) {
 
-            myEntitiesCombo.addItem(entity.getId());
+            myEntitiesCombo.addItem(entity.getId()+" : "+entity.getClass().getSimpleName());
         }
 
         actionPanel.add(myEntitiesCombo);

@@ -20,7 +20,7 @@ public class HarvestServiceTest {
     public void harvestNormalCase_true(){
 
         //Arrange
-        Player p1 = new Player();
+        Player p1 = new Player(1);
         Farmer f1 = new Farmer(10,1, 10 );
         Farmer f2 = new Farmer(10,2, 10 );
         Farmer f3 = new Farmer(10,3, 10 );

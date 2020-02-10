@@ -37,7 +37,10 @@ public class Entity implements IEntity {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    @Override
+    public String toString() {
+        return "id=" + id +
+                "Class=" + getClass().getSimpleName()+
+                '}';
     }
 }
