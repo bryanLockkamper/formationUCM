@@ -1,10 +1,19 @@
 package com.ucm.ucmempire.dal.entity;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Entity
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Board")
 public class BoardEntity implements Serializable {
 
@@ -16,9 +25,6 @@ public class BoardEntity implements Serializable {
     @Column(name = "name_board")
     private String name;
 
-    @OneToMany(targetEntity = SquareEntity.class)
-    private List<SquareEntity> squareEntityList;
 
-    public BoardEntity() {
-    }
+
 }

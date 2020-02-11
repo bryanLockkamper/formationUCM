@@ -1,25 +1,22 @@
 package com.ucm.ucmempire.dal.entity;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table (name = "Building")
-@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode (callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class BuildingEntity extends EntityGame implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_building")
-    private Long id;
-    @Column (name = "hp_building",nullable = false)
-    private Integer hp;
+    @Column (name = "type_building")
+    private String type;
 
-    @ManyToOne(targetEntity = PlayerEntity.class)
-    private PlayerEntity player;
 
-    public BuildingEntity() {
-    }
 }

@@ -1,13 +1,18 @@
 package com.ucm.ucmempire.dal.entity;
 
 import com.ucm.ucmempire.models.boardPackage.Square;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "SquareContent")
 public class SquareContent implements Serializable {
     @Id
@@ -19,6 +24,5 @@ public class SquareContent implements Serializable {
     @Column(name = "quantity_square_resource")
     private Integer nbResources;
 
-    public SquareContent() {
-    }
+
 }

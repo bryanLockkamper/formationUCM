@@ -1,13 +1,20 @@
 package com.ucm.ucmempire.dal.entity;
 
 import com.ucm.ucmempire.models.units.IEntity;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class EntityGame implements IEntity, Serializable {
+public abstract class EntityGame implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
@@ -19,33 +26,6 @@ public abstract class EntityGame implements IEntity, Serializable {
         this.id = id;
     }
 
-    public EntityGame() {
 
-    }
 
-    public int getHp() {
-        return hp;
-    }
-
-    public void setHp(int hp) {
-        this.hp = Math.max(this.hp - hp, 0);
-    }
-
-    /**
-     *
-     * @param damage damage done on this unit
-     * @return true if dead
-     */
-    public boolean takeDamage(int damage){
-        setHp(getHp()-damage);
-        return getHp() <= 0;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 }

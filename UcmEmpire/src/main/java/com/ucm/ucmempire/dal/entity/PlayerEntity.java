@@ -2,7 +2,7 @@ package com.ucm.ucmempire.dal.entity;
 
 import com.ucm.ucmempire.dal.entity.BuildingEntity;
 import com.ucm.ucmempire.dal.entity.CharacterEntity;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,13 +10,18 @@ import java.util.Set;
 
 @Entity
 @Table (name = "player")
-@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 public class PlayerEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_player")
-    private Long id;
+    private Integer id;
     @Column (name = "lastName_player",nullable = false)
     private String lastName;
     @Column (name = "firstName_player",nullable = false)
@@ -26,18 +31,15 @@ public class PlayerEntity implements Serializable {
     @Column (name = "password_player",nullable = false)
     private String password;
 
-//    @OneToMany(targetEntity = BuildingEntity.class)
-//    private Set<BuildingEntity> buildingEntitySet;
-//
-//    @OneToMany (targetEntity = CharacterEntity.class)
-//    private Set<CharacterEntity> characterEntitySet;
 
     @OneToMany(targetEntity = EntityGame.class)
     private Set<EntityGame> entityGamesList;
 
-    public PlayerEntity() {
-    }
-//TODO : link with RESSOURCE table and BOARD table
+    @ManyToOne (targetEntity = BoardEntity.class)
+    private BoardEntity boardEntity;
+
+
+
 
 
 }
