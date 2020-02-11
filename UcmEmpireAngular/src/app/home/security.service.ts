@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { UserLogin } from './_models/user-login';
 import { UserRegister } from './_models/user-register';
 import { HttpClient } from '@angular/common/http';
+import { User } from './_models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -14,16 +15,16 @@ export class SecurityService {
     private httpClient: HttpClient
   ) { }
 
-  login(model: UserLogin): Observable<string> {
-    return this.httpClient.post<string>(environment.apiEndPoint + '/login', model);
+  login(model: UserLogin): Observable<User> {
+    return this.httpClient.post<User>(environment.apiEndPoint + 'login', model);
   }
 
   logout() {
     localStorage.clear();
   }
 
-  register(model: UserRegister): Observable<string> {
-    return this.httpClient.post<string>(environment.apiEndPoint + '/register', model);
+  register(model: UserRegister): Observable<User> {
+    return this.httpClient.post<User>(environment.apiEndPoint + '/register', model);
 
   }
 }
