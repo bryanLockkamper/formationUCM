@@ -1,7 +1,6 @@
 package com.ucm.ucmempire.models.biomes;
 
 import com.ucm.ucmempire.models.Constants;
-import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.boardPackage.Square;
 import com.ucm.ucmempire.models.boardPackage.SpecialSquare;
 import com.ucm.ucmempire.models.resources.ResourceName;

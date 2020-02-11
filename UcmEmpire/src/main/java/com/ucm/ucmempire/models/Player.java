@@ -89,7 +89,7 @@ public class Player {
     public void maxPa() {
         for (Entity entity : entities) {
             if (entity instanceof Character)
-                ((Character)entity).setMaxPA();
+                ((Character) entity).setMaxPA();
         }
     }
 

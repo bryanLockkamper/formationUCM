@@ -58,7 +58,8 @@ public class Board {
 
         // Hard code for ennemy
         //TODO : need to create a DTO to distinct an entity from player or computer/player 2
-        boardList.get(3).get(5).setContent(new Soldier(10,5,5));
+
+        //boardList.get(3).get(5).setContent(new Soldier(10,5,4));
 
 
 
@@ -86,8 +87,8 @@ public class Board {
         board.get(xPosition).get(yPosition).setContent(null);
     }
 
-    public void setSquare(Position position, Entity newEntity ) {
-        board.get(position.getX()).get(position.getY()).setContent(newEntity);
+    public void setSquare(Position position, Entity entity) {
+        board.get(position.getX()).get(position.getY()).setContent(entity);
     }
 
     private ArrayList<ArrayList<Square>> boardAutoGeneration () //TODO : work in progress by Damien
