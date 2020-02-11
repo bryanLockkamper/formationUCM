@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table (name = "character")
 @Getter
 @Setter
 @ToString
@@ -18,7 +17,7 @@ public class CharacterEntity extends EntityGame implements Serializable {
 
     @Column (name = "pa_character",nullable = false)
     private Integer pa;
-    @Column (name = "maxPa_character",nullable = false)
+    @Column (name = "max_Pa_character",nullable = false)
     private Integer maxPa;
 
 }

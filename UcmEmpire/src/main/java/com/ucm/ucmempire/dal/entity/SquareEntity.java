@@ -23,11 +23,11 @@ public class SquareEntity implements Serializable {
     @Column(name = "id_square" , nullable = false)
     private Integer id;
 
-    @Column(name = "isWalkable_square" , nullable = false)
+    @Column(name = "is_Walkable_square" , nullable = false)
     private boolean isWalkable;
-    @Column(name = "isBuildable_square", nullable = false)
+    @Column(name = "is_Buildable_square", nullable = false)
     private boolean isBuildable;
-    @Column(name = "isSpecial_square", nullable = false)
+    @Column(name = "is_Special_square", nullable = false)
     private boolean isSpecial;
     @Column(name = "square_type_square" , nullable = false)
     private BiomeType biome;

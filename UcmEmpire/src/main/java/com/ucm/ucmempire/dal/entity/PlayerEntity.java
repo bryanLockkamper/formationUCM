@@ -22,9 +22,9 @@ public class PlayerEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_player")
     private Integer id;
-    @Column (name = "lastName_player",nullable = false)
+    @Column (name = "last_Name_player",nullable = false)
     private String lastName;
-    @Column (name = "firstName_player",nullable = false)
+    @Column (name = "first_Name_player",nullable = false)
     private String firstName;
     @Column (name = "login_player",nullable = false,unique = true)
     private String login;
