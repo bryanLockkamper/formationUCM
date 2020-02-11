@@ -12,11 +12,10 @@ import java.io.Serializable;
 @EqualsAndHashCode (callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Resource")
 public class ResourceEntity extends EntityGame implements Serializable {
 
 
-    @Column(name = "name_resource")
+    @Column(name = "name_ressource")
      private String type;
 
 }
