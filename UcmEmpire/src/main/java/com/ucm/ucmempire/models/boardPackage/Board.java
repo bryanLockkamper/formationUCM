@@ -7,6 +7,7 @@ import com.ucm.ucmempire.models.Constants;
 import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.biomes.*;
 import com.ucm.ucmempire.models.resources.ResourceName;
+import com.ucm.ucmempire.models.units.Farmer;
 import com.ucm.ucmempire.models.units.Soldier;
 
 import java.util.ArrayList;
@@ -45,21 +46,20 @@ public class Board {
 
             for (int j = 0; j < Constants.DIMENSION_BOARD; j++) {
 
-                boardList.get(i).add(j,biomes.biomeCreation());
+                boardList.get(i).add(j, biomes.biomeCreation());
             }
         }
 
         // Hard code for ressource on map
         SpecialSquare ressourceCase = new SpecialSquare(ResourceName.WOOD);
-        boardList.get(2).set(5,ressourceCase);
+        boardList.get(2).set(5, ressourceCase);
 
         ressourceCase = new SpecialSquare(ResourceName.STONE);
-        boardList.get(2).set(2,ressourceCase);
+        boardList.get(2).set(2, ressourceCase);
 
         // Hard code for ennemy
         //TODO : need to create a DTO to distinct an entity from player or computer/player 2
-        boardList.get(3).get(5).setContent(new Soldier(10,5,5));
-
+        boardList.get(3).get(5).setContent(new Soldier(10, 5, 5));
 
 
         return boardList;
@@ -82,15 +82,15 @@ public class Board {
         this.board = board;
     }
 
-    public void removeEntity(int xPosition,int yPosition) {
+    public void removeEntity(int xPosition, int yPosition) {
         board.get(xPosition).get(yPosition).setContent(null);
     }
 
-    public void setSquare(Position position, Entity newEntity ) {
+    public void setSquare(Position position, Entity newEntity) {
         board.get(position.getX()).get(position.getY()).setContent(newEntity);
     }
 
-    private ArrayList<ArrayList<Square>> boardAutoGeneration () //TODO : work in progress by Damien
+    private ArrayList<ArrayList<Square>> boardAutoGeneration() //TODO : work in progress by Damien
     {
         // init the x dimension
         ArrayList<ArrayList<Square>> boardList = new ArrayList<>(Constants.DIMENSION_BOARD);
@@ -105,9 +105,9 @@ public class Board {
 
         IBiomes biomes = biomeFactory.getBiome(BiomeType.PLAINS);
 
-        for (int i = 0; i < boardList.size() ; i++) {
+        for (int i = 0; i < boardList.size(); i++) {
 
-            for (int j = 0; j < boardList.get(i).size() ; j++) {
+            for (int j = 0; j < boardList.get(i).size(); j++) {
 
             }
         }
@@ -115,14 +115,21 @@ public class Board {
         return boardList;
     }
 
-    public void moveEntity(Position position_old, Character character, Position position_new) {
-        Square square_old = board.get(position_old.getX()).get(position_old.getY());
-        Square square_new = board.get(position_new.getX()).get(position_new.getY());
-        if (TravelChecker.movableEntity(character) && character.equals(square_old.getContent()) && square_new.getContent() != null && square_new.isWalkable()) {
-            square_old.setContent(null);
-            square_old.setWalkable(true);
-            square_old.setBuildable(true);
-        }
+    /**
+     * @param position_old position actuelle du Character
+     * @param position_new Position où le caractère sera déplacer
+     */
+    public void moveEntity(Position position_old, Position position_new) {
+        Character character = (Character) board.get(position_old.getX()).get(position_old.getY()).getContent();
+        if (board.get(position_old.getX()).get(position_old.getY()) instanceof SpecialSquare)
+            ((SpecialSquare) board.get(position_old.getX()).get(position_old.getY())).removeFarmer((Farmer) character);
+        else
+            board.get(position_old.getX()).get(position_old.getY()).setContent(null);
 
+        if (board.get(position_new.getX()).get(position_new.getY()) instanceof SpecialSquare) {
+            if (character instanceof Farmer)
+                ((SpecialSquare) board.get(position_new.getX()).get(position_new.getY())).addFarmer((Farmer) character);
+        } else
+            board.get(position_new.getX()).get(position_new.getY()).setContent(character);
     }
 }
