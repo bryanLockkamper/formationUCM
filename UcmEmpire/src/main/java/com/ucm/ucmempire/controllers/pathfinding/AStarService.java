@@ -66,7 +66,8 @@ public class AStarService {
     private boolean isInsideBoundsAndWalkable(Position p) {
         return (p.getX() >= 0 && p.getX() < board.getBoard().size() // verifier borne horizontale
                 && p.getY() >= 0 && p.getY() < board.getBoard().get(0).size()) // verifier borne verticale
-                && (board.getBoard().get(p.getX()).get(p.getY()).isWalkable()); // verifier  si marchable
+                && board.getBoard().get(p.getX()).get(p.getY()).isWalkable() // verifier  si marchable
+                && board.getBoard().get(p.getX()).get(p.getY()).getContent() == null; // Verifier si dispo
     }
 
     private boolean isClosedList(Position position) {

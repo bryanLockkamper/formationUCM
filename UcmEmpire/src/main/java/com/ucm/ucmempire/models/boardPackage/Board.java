@@ -1,6 +1,5 @@
 package com.ucm.ucmempire.models.boardPackage;
 
-import com.ucm.ucmempire.controllers.TravelChecker;
 import com.ucm.ucmempire.controllers.pathfinding.Position;
 import com.ucm.ucmempire.models.Character;
 import com.ucm.ucmempire.models.Constants;
@@ -9,8 +8,12 @@ import com.ucm.ucmempire.models.biomes.*;
 import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.units.Farmer;
 import com.ucm.ucmempire.models.units.Soldier;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class Board {
 
@@ -132,4 +135,18 @@ public class Board {
         } else
             board.get(position_new.getX()).get(position_new.getY()).setContent(character);
     }
+
+    /*public List<Pair<Position, Square>> getBoardDTO() {
+        AtomicInteger i = new AtomicInteger();
+        AtomicInteger j = new AtomicInteger();
+        return board.stream()
+                .map(squares -> {
+                    j.set((j.intValue() + 1) % board.get(0).size());
+                    if (j.intValue() == 0)
+                        i.getAndIncrement();
+                    System.out.println(i.get() + j.get());
+                    return new Pair<>(new Position(i.get(), j.get()), squares.get(j.get()));
+                })
+                .collect(Collectors.toList());
+    }*/
 }
