@@ -16,12 +16,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class CharacterEntity extends EntityGame implements Serializable {
 
-
-
     @Column (name = "pa_character",nullable = false)
     private Integer pa;
     @Column (name = "maxPa_character",nullable = false)
     private Integer maxPa;
-
 
 }
