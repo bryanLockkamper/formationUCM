@@ -25,6 +25,14 @@ public class AStarServiceTest {
     }
 
     @Test
+    public void run_start00_end55_pa20_endIsOccupe_00() {
+        board.setSquare(new Position(0,0), new Entity(20, 0));
+        board.setSquare(new Position(5,5), new Entity(20, 1));
+        aStarService = new AStarService(board, new Position(0,0), new Position(5,5));
+        Assert.assertEquals(new Position(0,0), aStarService.run(20));
+    }
+
+    @Test
     public void run_start00_end55_pa2_20() {
         board.setSquare(new Position(0,0), new Entity(20, 0));
         aStarService = new AStarService(board, new Position(0,0), new Position(5,5));
