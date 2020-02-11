@@ -28,10 +28,12 @@ export class HomeComponent implements OnInit {
     const json = this.logForm.value;
     this.secService.login(json).subscribe(
       (token) => {
-        localStorage.setItem('token', token.pseudo);
+        localStorage.setItem('token', token);
         this.router.navigateByUrl('/home');
+        console.log('ok');
       },
-      () => {
+      (error) => {
+        console.log('error');
       },
       () => {
 

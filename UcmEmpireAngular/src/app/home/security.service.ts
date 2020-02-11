@@ -15,16 +15,16 @@ export class SecurityService {
     private httpClient: HttpClient
   ) { }
 
-  login(model: UserLogin): Observable<User> {
-    return this.httpClient.post<User>(environment.apiEndPoint + 'login', model);
+  login(model: UserLogin): Observable<string> {
+    return this.httpClient.post<string>(environment.apiEndPoint + 'login', model);
   }
 
   logout() {
     localStorage.clear();
   }
 
-  register(model: UserRegister): Observable<User> {
-    return this.httpClient.post<User>(environment.apiEndPoint + '/register', model);
+  register(model: UserRegister): Observable<string> {
+    return this.httpClient.post<string>(environment.apiEndPoint + 'register', model);
 
   }
 }
