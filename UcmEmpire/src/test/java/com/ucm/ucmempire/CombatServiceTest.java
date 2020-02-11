@@ -11,12 +11,12 @@ public class CombatServiceTest {
 
     CombatService combatService = new CombatService();
 
-    /*@Test //TODO : ALEX
+    @Test //TODO : ALEX
     public void fightNormalCase_True() {
 
         //Arrange
-        Soldier attack = new Soldier(5, "attack", 5, 5);
-        Soldier defense = new Soldier(5, "defense", 5, 5);
+        Soldier attack = new Soldier(5, 1, 5, 5);
+        Soldier defense = new Soldier(5, 2, 5, 5);
         //Act
 
         Boolean isCorrect = combatService.fight(attack, defense);
@@ -31,8 +31,8 @@ public class CombatServiceTest {
     public void fightNormalCase_False() {
 
         //Arrange
-        Soldier attack = new Soldier(10, "attack", 10, 5);
-        Soldier defense = new Soldier(10, "defense", 10, 5);
+        Soldier attack = new Soldier(10, 1, 10, 5);
+        Soldier defense = new Soldier(10, 2, 10, 5);
         //Act
 
         Boolean isCorrect = combatService.fight(attack, defense);
@@ -47,7 +47,7 @@ public class CombatServiceTest {
     public void fightAnormalCaseNullAttack_False() {
 
         //Arrange
-        Soldier defense = new Soldier(5, "defense", 5, 5);
+        Soldier defense = new Soldier(5, 2, 5, 5);
 
         //Act
 
@@ -63,7 +63,7 @@ public class CombatServiceTest {
     public void fightAnormalCaseNullDef_False() {
 
         //Arrange
-        Soldier attack = new Soldier(5, "attack", 5, 5);
+        Soldier attack = new Soldier(5, 1, 5, 5);
 
         //Act
 
@@ -73,5 +73,5 @@ public class CombatServiceTest {
 
         assertFalse(isCorrect);
 
-    }*/
+    }
 }
