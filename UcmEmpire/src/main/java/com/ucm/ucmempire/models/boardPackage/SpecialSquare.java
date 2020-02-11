@@ -32,4 +32,11 @@ public class SpecialSquare extends Square {
         this.resourceQuantity = resourceQuantity;
     }
 
+    public void removeFarmer(Farmer farmer) {
+        farmers.remove(farmer);
+    }
+
+    public void addFarmer(Farmer farmer) {
+        farmers.add(farmer);
+    }
 }
