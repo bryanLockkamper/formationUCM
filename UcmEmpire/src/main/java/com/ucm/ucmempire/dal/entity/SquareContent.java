@@ -13,7 +13,7 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "SquareContent")
+@Table(name = "Square_Content")
 public class SquareContent implements Serializable {
     @Id
     @ManyToOne(targetEntity = SquareEntity.class)

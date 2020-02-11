@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table (name = "entity_game")
 @Getter
 @Setter
 @ToString
