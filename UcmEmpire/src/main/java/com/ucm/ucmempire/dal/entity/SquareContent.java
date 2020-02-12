@@ -14,6 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Square_Content")
+@IdClass(SquareContent.class)
 public class SquareContent implements Serializable {
     @Id
     @ManyToOne(targetEntity = SquareEntity.class)

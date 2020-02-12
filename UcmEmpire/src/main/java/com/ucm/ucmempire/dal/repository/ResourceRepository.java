@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ResourceRepository extends CrudRepository<ResourceEntity ,Long> {
+public interface ResourceRepository extends CrudRepository<ResourceEntity ,Integer> {
 
     Optional<List<ResourceEntity>> findResourceEntitiesById(Integer player_id);
 }

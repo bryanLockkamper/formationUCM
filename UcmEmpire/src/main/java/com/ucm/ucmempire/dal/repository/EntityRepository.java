@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface EntityRepository extends CrudRepository<EntityGame , Long> {
+public interface EntityRepository extends CrudRepository<EntityGame , Integer> {
 
     Optional<List<EntityGame>> findEntityGamesById(Integer id_player);
 }

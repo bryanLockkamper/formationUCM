@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface BoardRepository extends CrudRepository<BoardEntity , Long> {
+public interface BoardRepository extends CrudRepository<BoardEntity , Integer> {
 
     // @Query(value = "Select b From BoardEntity b JOIN PlayerEntity p ON b.id = p.boardEntity.id Where p.id = :player_id")
     Optional<BoardEntity> findBoardEntityById (Integer id_player);
