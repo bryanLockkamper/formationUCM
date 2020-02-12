@@ -61,7 +61,6 @@ public class Board {
         boardList.get(2).set(2, ressourceCase);
 
         // Hard code for ennemy
-        //TODO : need to create a DTO to distinct an entity from player or computer/player 2
         boardList.get(3).get(5).setContent(new Soldier(10, 5, 5));
 
 

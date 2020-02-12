@@ -12,7 +12,7 @@ public class SpecialSquare extends Square {
     private ArrayList<Farmer> farmers;
     private int resourceQuantity;
 
-    public SpecialSquare(ResourceName content) {  //TODO : add the quantity ressource after the infinity
+    public SpecialSquare(ResourceName content) {
         super(new Resource(content), false, true, BiomeType.PLAINS ); //TODO : change the default biome by a neutral biome for specialSquare
     }
 

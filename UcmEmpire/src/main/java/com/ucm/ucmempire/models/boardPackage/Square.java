@@ -6,11 +6,8 @@ import java.util.List;
 
 public class Square {
 
-    private Integer id;
-
     private boolean isWalkable;
     private boolean isBuildable;
-    private boolean isSpecial;
     private BiomeType biome;
 
     private Entity contents;
@@ -48,14 +45,6 @@ public class Square {
 
     public void setBuildable(boolean buildable) {
         isBuildable = buildable;
-    }
-
-    public boolean isSpecial() {
-        return isSpecial;
-    }
-
-    public void setSpecial(boolean special) {
-        isSpecial = special;
     }
 
     public BiomeType getBiome() {

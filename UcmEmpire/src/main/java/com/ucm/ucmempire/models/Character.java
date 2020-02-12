@@ -2,16 +2,26 @@ package com.ucm.ucmempire.models;
 
 import lombok.EqualsAndHashCode;
 
-@EqualsAndHashCode
+
 public class Character extends Entity {
+    private Integer idUser;
     protected int pa;
-    protected int moveLeft;
+    protected int moveLeft; //TODO : Need to replace bay a list af move (ALEX & Bryan)
     private int maxPA;
 
-    public Character(int hp, Integer id, int pa) {
-        super(hp, id);
+    public Character(Integer idUser,int hp, int pa) {
+        super(hp);
+        this.idUser = idUser;
         this.pa = pa;
         maxPA = pa;
+    }
+
+    public Integer getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
     }
 
     public int getPa() {
@@ -29,7 +39,7 @@ public class Character extends Entity {
     }
 
 
-    public void autoMove() {
+    public void autoMove() { //TODO : autoMove is empty BRYAN
 
     }
 

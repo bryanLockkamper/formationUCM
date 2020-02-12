@@ -18,9 +18,9 @@ public class Player {
 
     public Player(){
         resources = new HashSet<>();
-        resources.add(new Resource(ResourceName.WOOD, 0));
-        resources.add(new Resource(ResourceName.STONE, 0));
-        resources.add(new Resource(ResourceName.FOOD, 0));
+        resources.add(new Resource(ResourceName.WOOD));
+        resources.add(new Resource(ResourceName.STONE));
+        resources.add(new Resource(ResourceName.FOOD));
 
         entities = new ArrayList<>();
     }
@@ -62,7 +62,7 @@ public class Player {
 
     public boolean hasLost() {
         return true;
-    }
+    } //TODO BRYAN : add condition for the victory
 
     public void autoMoveUnits() {
         for (Entity entity : entities) {
@@ -79,12 +79,6 @@ public class Player {
         }
     }
 
-//    public void autoHarvestResources() {
-//        for (Entity entity : entities) {
-//            if (entity instanceof IFarmer)
-//                resources.add(new Resource(((Farmer)entity).getResourceHarvesting(),((Farmer)entity).harvest()));
-//        }
-//    }
 
     public void maxPa() {
         for (Entity entity : entities) {
@@ -98,6 +92,7 @@ public class Player {
     }
 
     public void addEntity(Entity content) {
+        entities.add(content);
     }
 
     public int getGranarySize() {

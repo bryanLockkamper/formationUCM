@@ -4,11 +4,9 @@ import com.ucm.ucmempire.models.units.IEntity;
 
 public class Entity implements IEntity {
     protected int hp;
-    protected Integer id;
 
-    public Entity(int hp, Integer id) {
+    public Entity(int hp) {
         this.hp = hp;
-        this.id = id;
     }
 
     public Entity() {
@@ -33,11 +31,4 @@ public class Entity implements IEntity {
         return getHp() <= 0;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 }

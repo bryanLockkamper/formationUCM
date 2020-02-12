@@ -6,29 +6,21 @@ public class Resource extends Entity implements IResource{
     private ResourceName resourceName;
 
     public Resource(ResourceName resourceName) {
-        this(resourceName, Integer.MAX_VALUE);
+        this.resourceName = resourceName;
+        this.hp = resourceName.getQuantity();
     }
 
-    public Resource(ResourceName resourceName, Integer nb) {
-        this.resourceName = resourceName;
-        this.hp = nb;
-    }
+
+    //TODO DAMIEN : for the moment the player ressources is init with the quantity define in the enum, need to add an other metho/ctro with the init special for the player ?
 
     @Override
     public int getRessource(ResourceName resourceName) {
-        return 0;
+        return resourceName.getQuantity();
     }
 
-    @Override
-    public boolean addRessource(int nbRessourceAAjouter, ResourceName resourceName) {
-        return false;
-    }
 
     public ResourceName getResourceName() {
         return resourceName;
     }
 
-    public void setResourceName(ResourceName resourceName) {
-        this.resourceName = resourceName;
-    }
 }

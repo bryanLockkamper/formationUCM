@@ -18,6 +18,10 @@ public class Constants {
     public static final String ENTITE_MAISON = "Maison";
     public static final String ENTITE_CASERNE = "Caserne";
 
+    public static final int NB_RESSOURCE_INIT = 50;
+
+
+
 
 
 

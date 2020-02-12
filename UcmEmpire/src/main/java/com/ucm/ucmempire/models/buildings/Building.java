@@ -6,11 +6,20 @@ import com.ucm.ucmempire.models.resources.Resource;
 import java.util.HashSet;
 
 public abstract class Building extends Entity {
+    private Integer idUser;
     private HashSet<Resource> requirement;
 
-    public Building(int pv, Integer id, HashSet<Resource> requirement) {
-        super(pv, id);
+    public Building(int pv, Integer idUser, HashSet<Resource> requirement) {
+        super(pv);
         this.requirement = requirement;
+    }
+
+    public Integer getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
     }
 
     public HashSet<Resource> getRequirement() {
