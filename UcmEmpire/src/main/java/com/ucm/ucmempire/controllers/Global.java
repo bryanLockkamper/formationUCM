@@ -2,19 +2,32 @@ package com.ucm.ucmempire.controllers;
 
 import com.ucm.ucmempire.controllers.pathfinding.AStarService;
 import com.ucm.ucmempire.controllers.pathfinding.Position;
+import com.ucm.ucmempire.dal.entity.PlayerEntity;
+import com.ucm.ucmempire.dal.servicedal.PlayerDalService;
+import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.models.boardPackage.Board;
 import com.ucm.ucmempire.models.boardPackage.Square;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.ucm.ucmempire.models.dto.PlayerDTOLogin;
+import com.ucm.ucmempire.models.dto.PlayerDTORegister;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
+@CrossOrigin
 public class Global {
-    Board board = new Board("test");
+    private Board board = new Board("test");
+    private PlayerDalService playerDalService;
+
+    @Autowired
+    Global(PlayerDalService playerDalService) {
+        this.playerDalService = playerDalService;
+    }
 
     @PostMapping("/move")
     public void move(@RequestBody List<Position> positions) {
@@ -26,5 +39,20 @@ public class Global {
     @GetMapping("/")
     public ArrayList<ArrayList<Square>> getBoard() {
         return board.getBoard();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody PlayerDTOLogin playerDTO) {
+        Optional<PlayerEntity> player = playerDalService.findByLoginAndPassword(playerDTO.getPseudo(), playerDTO.getPwd());
+        if (player.isPresent())
+            return ResponseEntity.ok().body(player.get());
+        else
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
+    @PostMapping("/register")
+    public String register(@RequestBody PlayerDTORegister playerDTO) {
+        System.out.println(playerDTO);
+        return "200";
     }
 }

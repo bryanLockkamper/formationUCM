@@ -9,10 +9,11 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { HomeModule } from './home/home.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {BoardModule} from "./board/board.module";
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -27,8 +28,8 @@ import { HttpClientModule } from '@angular/common/http';
     NbButtonModule,
     FormsModule,
     HttpClientModule,
-    
     HomeModule,
+    BoardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

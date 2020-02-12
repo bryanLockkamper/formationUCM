@@ -1,6 +1,5 @@
 package com.ucm.ucmempire.models.biomes;
 
-import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.boardPackage.Square;
 
 public class BiomePlains implements IBiomes {

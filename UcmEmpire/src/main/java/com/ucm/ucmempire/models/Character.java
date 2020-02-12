@@ -3,7 +3,7 @@ package com.ucm.ucmempire.models;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
-public class Character extends Entity{
+public class Character extends Entity {
     protected int pa;
     protected int moveLeft;
     private int maxPA;

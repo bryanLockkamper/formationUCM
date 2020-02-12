@@ -1,8 +1,6 @@
 package com.ucm.ucmempire.models.boardPackage;
 
-import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.biomes.BiomeType;
-import com.ucm.ucmempire.models.biomes.IBiomes;
 import com.ucm.ucmempire.models.resources.Resource;
 import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.units.Farmer;
