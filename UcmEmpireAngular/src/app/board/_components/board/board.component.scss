@@ -1,0 +1,32 @@
+p {
+  font-family: Lato, serif;
+}
+
+.page {
+  margin: 1em auto;
+  width: 300px;
+}
+
+.square {
+  border: solid 1px #ddd;
+  margin: -1px;
+  min-height: 50px;
+  cursor: pointer;
+}
+
+.cellContent {
+  width: 48px;
+  height: 48px;
+}
+
+.blue {
+  background: #afceff;
+}
+
+.red {
+  background: #f9cfbd;
+}
+
+.green {
+  background: #c8f9ac;
+}

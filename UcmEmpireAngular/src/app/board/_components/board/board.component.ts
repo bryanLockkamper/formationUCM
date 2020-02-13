@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-board',
@@ -6,10 +6,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
+  @Input() dimension: number;
+  rows = [];
 
-  constructor() { }
+  constructor() {
+  }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.dimension = 6;
+    for (let i = 0; i < this.dimension; i++) {
+      this.rows.push({
+        dimension: this.dimension,
+        id: i
+      });
+    }
   }
 
 }
