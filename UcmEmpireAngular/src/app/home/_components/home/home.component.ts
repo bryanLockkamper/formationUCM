@@ -29,10 +29,11 @@ export class HomeComponent implements OnInit {
     this.secService.login(json).subscribe(
       (token) => {
         localStorage.setItem('token', token);
-        this.router.navigateByUrl('/board');
+        this.router.navigateByUrl('/home');
+        console.log('ok');
       },
       (error) => {
-
+        console.log('error');
       },
       () => {
 

@@ -1,16 +1,11 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'cell',
-  template: `
-  <div
-    [class]="style"
-    (click)="onClick()"
-  >
-  </div>`,
-  styleUrls: ['./board.component.scss']
+  templateUrl: './cell.component.html',
+  styleUrls: ['../board/board.component.scss']
 })
-export class CellComponent  {
+export class CellComponent implements OnInit {
   @Input() rowId: number;
   @Input() id: number;
   style: string;

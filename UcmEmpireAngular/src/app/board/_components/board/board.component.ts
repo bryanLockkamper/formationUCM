@@ -6,7 +6,6 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  name = 'Angular';
   @Input() dimension: number;
   rows = [];
 
@@ -14,6 +13,7 @@ export class BoardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dimension = 6;
     for (let i = 0; i < this.dimension; i++) {
       this.rows.push({
         dimension: this.dimension,

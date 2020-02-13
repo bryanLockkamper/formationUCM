@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface PlayerRepository extends CrudRepository<PlayerEntity , Integer> {
+public interface PlayerRepository extends CrudRepository<PlayerEntity , Integer > {
 
     Optional<PlayerEntity> findByLoginAndPassword(String login, String password);
 
