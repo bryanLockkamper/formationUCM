@@ -5,15 +5,12 @@ import com.ucm.ucmempire.models.buildings.buildingInterfaces.IProdBuilding;
 import com.ucm.ucmempire.models.resources.Resource;
 import com.ucm.ucmempire.models.resources.ResourceName;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Player {
     private final int granarySize = 20;
     protected String name;
-    protected HashSet<Resource> resources;
+    protected Set<Resource> resources;
     protected List<Entity> entities;
 
     public Player(){
@@ -99,11 +96,11 @@ public class Player {
         return granarySize;
     }
 
-    public HashSet<Resource> getResources() {
+    public Set<Resource> getResources() {
         return resources;
     }
 
-    public void setResources(HashSet<Resource> resources) {
+    public void setResources(Set<Resource> resources) {
         this.resources = resources;
     }
 }

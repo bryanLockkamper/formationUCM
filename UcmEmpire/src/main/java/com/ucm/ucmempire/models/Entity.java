@@ -31,4 +31,5 @@ public class Entity implements IEntity {
         return getHp() <= 0;
     }
 
+
 }

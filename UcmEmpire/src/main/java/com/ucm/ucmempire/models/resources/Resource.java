@@ -10,6 +10,11 @@ public class Resource extends Entity implements IResource{
         this.hp = resourceName.getQuantity();
     }
 
+    public Resource(ResourceName resourceName, int quantity) {
+        this.resourceName = resourceName;
+        this.hp = quantity;
+    }
+
 
     //TODO DAMIEN : for the moment the player ressources is init with the quantity define in the enum, need to add an other metho/ctro with the init special for the player ?
 
