@@ -21,4 +21,9 @@ public class PlayerDalServiceImpl implements PlayerDalService {
     public Optional<PlayerEntity> findByLoginAndPassword(String login, String password) {
         return playerRepository.findByLoginAndPassword(login,password);
     }
+
+    @Override
+    public Optional<PlayerEntity> save(PlayerEntity playerEntity) {
+        return playerRepository.save(playerEntity);
+    }
 }

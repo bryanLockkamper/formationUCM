@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { SecurityService } from '../../security.service';
+import { UserRegister } from '../../_models/user-register';
 
 @Component({
   selector: 'app-register',

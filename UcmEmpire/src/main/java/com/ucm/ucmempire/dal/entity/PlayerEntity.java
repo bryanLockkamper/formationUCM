@@ -39,7 +39,6 @@ public class PlayerEntity implements Serializable {
     private BoardEntity boardEntity;
 
 
-
-
-
+    public PlayerEntity(String lastname, String firstname, String pseudo, String pwd) {
+    }
 }

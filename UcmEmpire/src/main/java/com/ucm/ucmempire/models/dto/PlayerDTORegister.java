@@ -12,4 +12,5 @@ public class PlayerDTORegister {
     private String pwd;
     private String firstname;
     private String lastname;
+    private String email;
 }

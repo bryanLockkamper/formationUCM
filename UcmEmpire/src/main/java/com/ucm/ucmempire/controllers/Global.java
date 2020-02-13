@@ -52,7 +52,8 @@ public class Global {
 
     @PostMapping("/register")
     public String register(@RequestBody PlayerDTORegister playerDTO) {
-        System.out.println(playerDTO);
+        PlayerEntity playerEntity = new PlayerEntity(playerDTO.getLastname(), playerDTO.getFirstname() , playerDTO.getPseudo() , playerDTO.getPwd());
+        playerDalService.save(playerEntity);
         return "200";
     }
 }
