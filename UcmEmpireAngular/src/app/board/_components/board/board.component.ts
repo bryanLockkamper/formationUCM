@@ -13,7 +13,7 @@ export class BoardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dimension = 6;
+    this.dimension = 12;
     for (let i = 0; i < this.dimension; i++) {
       this.rows.push({
         dimension: this.dimension,
