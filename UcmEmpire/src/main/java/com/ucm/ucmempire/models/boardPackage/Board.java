@@ -125,17 +125,19 @@ public class Board {
      * @param position_new Position où le caractère sera déplacer
      */
     public void moveEntity(Position position_old, Position position_new) {
-        Character character = (Character) board.get(position_old.getX()).get(position_old.getY()).getContent();
-        if (board.get(position_old.getX()).get(position_old.getY()) instanceof SpecialSquare)
-            ((SpecialSquare) board.get(position_old.getX()).get(position_old.getY())).removeFarmer((Farmer) character);
-        else
-            board.get(position_old.getX()).get(position_old.getY()).setContent(null);
+        if (board.get(position_old.getX()).get(position_old.getY()).getContent() instanceof Character) {
+            Character character = (Character) board.get(position_old.getX()).get(position_old.getY()).getContent();
+            if (board.get(position_old.getX()).get(position_old.getY()) instanceof SpecialSquare)
+                ((SpecialSquare) board.get(position_old.getX()).get(position_old.getY())).removeFarmer((Farmer) character);
+            else
+                board.get(position_old.getX()).get(position_old.getY()).setContent(null);
 
-        if (board.get(position_new.getX()).get(position_new.getY()) instanceof SpecialSquare) {
-            if (character instanceof Farmer)
-                ((SpecialSquare) board.get(position_new.getX()).get(position_new.getY())).addFarmer((Farmer) character);
-        } else
-            board.get(position_new.getX()).get(position_new.getY()).setContent(character);
+            if (board.get(position_new.getX()).get(position_new.getY()) instanceof SpecialSquare) {
+                if (character instanceof Farmer)
+                    ((SpecialSquare) board.get(position_new.getX()).get(position_new.getY())).addFarmer((Farmer) character);
+            } else
+                board.get(position_new.getX()).get(position_new.getY()).setContent(character);
+        }
     }
 
     /*public List<Pair<Position, Square>> getBoardDTO() {
