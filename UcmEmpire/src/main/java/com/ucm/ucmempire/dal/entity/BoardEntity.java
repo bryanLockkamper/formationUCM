@@ -25,6 +25,7 @@ public class BoardEntity implements Serializable {
     @Column(name = "name_board")
     private String name;
 
+    //TODO : Relation square-Board
 
 
 }

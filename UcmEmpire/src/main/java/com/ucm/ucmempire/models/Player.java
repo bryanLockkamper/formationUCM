@@ -9,6 +9,8 @@ import java.util.*;
 
 public class Player {
     private final int granarySize = 20;
+
+    private int id;
     protected String name;
     protected Set<Resource> resources;
     protected List<Entity> entities;
@@ -102,5 +104,13 @@ public class Player {
 
     public void setResources(Set<Resource> resources) {
         this.resources = resources;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

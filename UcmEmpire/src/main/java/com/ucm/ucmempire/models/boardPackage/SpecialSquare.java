@@ -10,10 +10,14 @@ import java.util.ArrayList;
 public class SpecialSquare extends Square {
 
     private ArrayList<Farmer> farmers;
-    private int resourceQuantity;
 
     public SpecialSquare(ResourceName content) {
-        super(new Resource(content), false, true, BiomeType.PLAINS ); //TODO : change the default biome by a neutral biome for specialSquare
+        super(new Resource(content), false, true, BiomeType.PLAINS );
+    }
+
+    public SpecialSquare(Resource content,BiomeType biomeType,ArrayList<Farmer> farmers) {
+        super(content, false, true, biomeType );
+        this.farmers = farmers;
     }
 
     public ArrayList<Farmer> getFarmers() {
@@ -22,14 +26,6 @@ public class SpecialSquare extends Square {
 
     public void setFarmers(ArrayList<Farmer> farmers) {
         this.farmers = farmers;
-    }
-
-    public int getResourceQuantity() {
-        return resourceQuantity;
-    }
-
-    public void setResourceQuantity(int resourceQuantity) {
-        this.resourceQuantity = resourceQuantity;
     }
 
     public void removeFarmer(Farmer farmer) {

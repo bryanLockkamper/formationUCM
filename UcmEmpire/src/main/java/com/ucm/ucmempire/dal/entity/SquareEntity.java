@@ -29,8 +29,8 @@ public class SquareEntity implements Serializable {
     private boolean isBuildable;
     @Column(name = "is_Special_square", nullable = false)
     private boolean isSpecial;
-    @Column(name = "square_type_square" , nullable = false)
-    private BiomeType biome;
+    @Column(name = "biome_type_square" , nullable = false)
+    private String biome;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "square")
     private List<SquareContent> contents;

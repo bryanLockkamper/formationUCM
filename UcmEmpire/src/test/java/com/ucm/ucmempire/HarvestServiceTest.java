@@ -26,7 +26,7 @@ public class HarvestServiceTest {
         Farmer f2 = new Farmer(10,2, 10 );
         Farmer f3 = new Farmer(10,3, 10 );
         SpecialSquare square = new SpecialSquare(ResourceName.STONE);
-        square.setResourceQuantity(Integer.MAX_VALUE);
+        square.getContent().setHp(Integer.MAX_VALUE);
         List<Entity> list = new ArrayList<>();
 
         list.add(f1);

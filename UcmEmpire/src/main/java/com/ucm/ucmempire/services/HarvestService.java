@@ -18,18 +18,18 @@ public class HarvestService {
 
         if (squareResource != null) {
             for (Farmer farmer : farmers) {
-                if (squareResource.getResourceQuantity() >= 0) {
+                if (squareResource.getContent().getHp() >= 0) {
                     Resource actualResource = player.getResources().stream()
                             .filter(resource -> resource.getResourceName().getType().equals(squareResource.getContent().getClass().getSimpleName()))
                             .findFirst().orElseThrow(NullPointerException::new);
                     harvest += farmer.getPa();
 
-                    if (squareResource.getResourceQuantity() - harvest >= 0)
-                        squareResource.setResourceQuantity(squareResource.getResourceQuantity() - harvest);
+                    if (squareResource.getContent().getHp() - harvest >= 0)
+                        squareResource.getContent().setHp(squareResource.getContent().getHp() - harvest);
 
                     else {
-                        harvest = squareResource.getResourceQuantity();
-                        squareResource.setResourceQuantity(0);
+                        harvest = squareResource.getContent().getHp();
+                        squareResource.getContent().setHp(0);
                     }
 
                     player.getResources().remove(actualResource);
