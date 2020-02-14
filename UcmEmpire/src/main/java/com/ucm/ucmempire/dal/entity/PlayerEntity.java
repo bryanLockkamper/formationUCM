@@ -14,8 +14,7 @@ import java.util.Set;
 @Setter
 @ToString
 @EqualsAndHashCode
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class PlayerEntity implements Serializable {
 
     @Id
@@ -35,10 +34,24 @@ public class PlayerEntity implements Serializable {
     @OneToMany(targetEntity = EntityGame.class)
     private Set<EntityGame> entityGamesList;
 
-    @ManyToOne (targetEntity = BoardEntity.class)
+    @ManyToOne (targetEntity = BoardEntity.class, optional = true)
+   // @JoinColumn(name = "board_entity_id_board",referencedColumnName = "id_board")
     private BoardEntity boardEntity;
 
+    public PlayerEntity() {
+    }
 
     public PlayerEntity(String lastname, String firstname, String pseudo, String pwd) {
+        this.lastName = lastname;
+        this.firstName = firstname;
+        this.password = pwd;
+        this.login = pseudo;
+    }
+
+    public PlayerEntity(String lastname, String firstname, String pseudo, String pwd,Integer id, BoardEntity boardEntity, Set<EntityGame> entityGamesList) {
+        this(lastname,firstname,pseudo,pwd);
+        this.id = id;
+        this.boardEntity = boardEntity;
+        this.entityGamesList = entityGamesList;
     }
 }

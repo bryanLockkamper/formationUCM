@@ -3,7 +3,7 @@ import {Component, Input, OnInit} from '@angular/core';
 @Component({
   selector: 'row',
   templateUrl: './row.component.html',
-    styleUrls: [ '../board/board.component.scss', '../css/pure-min.css' ]
+    styleUrls: [ '../board/board.component.scss']
 })
 
 export class RowComponent implements OnInit {

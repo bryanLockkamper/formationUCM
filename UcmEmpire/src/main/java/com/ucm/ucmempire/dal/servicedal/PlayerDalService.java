@@ -8,5 +8,4 @@ import java.util.Optional;
 @Service
 public interface PlayerDalService {
     Optional<PlayerEntity> findByLoginAndPassword(String login , String password);
-    Optional<PlayerEntity> save(PlayerEntity playerEntity);
 }

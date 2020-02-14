@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { SecurityService } from '../../security.service';
 import { UserRegister } from '../../_models/user-register';
+import { SecurityService } from '../../security.service';
 
 @Component({
   selector: 'app-register',
@@ -32,7 +32,18 @@ export class RegisterComponent implements OnInit {
   {
     this.usermodel = this.userform.value;
 
-    this.userServ.register(this.usermodel);
+    this.userServ.register(this.usermodel).subscribe(
+      (token) => {
+       
+      },
+      (error) => {
+       
+      },
+      () => {
+
+      }
+    );
   }
+
 
 }
