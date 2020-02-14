@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class PlayerDTORegister {
     private String pseudo;
-    private String pwd;
+    private String password;
     private String firstname;
     private String lastname;
 }

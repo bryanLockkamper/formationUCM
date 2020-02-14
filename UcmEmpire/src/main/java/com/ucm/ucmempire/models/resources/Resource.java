@@ -11,7 +11,7 @@ public class Resource extends Entity implements IResource{
     }
 
     public Resource(ResourceName resourceName, int quantity) {
-        this.resourceName = resourceName;
+        this(resourceName);
         this.hp = quantity;
     }
 

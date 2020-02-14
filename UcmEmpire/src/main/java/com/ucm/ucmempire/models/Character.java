@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 public class Character extends Entity {
     private Integer idUser;
     protected int pa;
-    protected int moveLeft; //TODO : Need to replace bay a list af move (ALEX & Bryan)
+    protected int moveLeft; //TODO (ALEX & Bryan) : Need to replace bay a list af move
     private int maxPA;
 
     public Character(Integer idUser,int hp, int pa) {
