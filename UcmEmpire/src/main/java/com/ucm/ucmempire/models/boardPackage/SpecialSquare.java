@@ -14,6 +14,7 @@ public class SpecialSquare extends Square {
 
     public SpecialSquare(ResourceName content) {
         super(new Resource(content), false, true, BiomeType.PLAINS ); //TODO : change the default biome by a neutral biome for specialSquare
+        setSpecial(true);
     }
 
     public ArrayList<Farmer> getFarmers() {

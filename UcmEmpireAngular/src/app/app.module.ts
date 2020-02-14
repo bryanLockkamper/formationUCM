@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbThemeModule, NbLayoutModule, NbCardModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { HomeModule } from './home/home.module';
-import {BoardModule} from "./board/board.module";
+import {BoardModule} from "./board/_components/board.module";
 
 @NgModule({
   declarations: [

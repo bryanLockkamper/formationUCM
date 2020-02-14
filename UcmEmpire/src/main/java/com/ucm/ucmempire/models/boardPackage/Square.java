@@ -8,6 +8,7 @@ public class Square {
 
     private boolean isWalkable;
     private boolean isBuildable;
+    private boolean isSpecial;
     private BiomeType biome;
 
     private Entity contents;
@@ -18,9 +19,18 @@ public class Square {
 
     public Square(Entity contents, boolean isBuildable, boolean isWalkable, BiomeType biome) {
         this(contents);
+        this.isSpecial = false;
         this.isBuildable = isBuildable;
         this.isWalkable = isWalkable;
         this.biome = biome;
+    }
+
+    public boolean isSpecial() {
+        return isSpecial;
+    }
+
+    public void setSpecial(boolean special) {
+        isSpecial = special;
     }
 
     public Entity getContent() {
