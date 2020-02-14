@@ -23,7 +23,7 @@ public class PlayerDalServiceImpl implements PlayerDalService {
     }
 
     @Override
-    public Optional<PlayerEntity> save(PlayerEntity playerEntity) {
+    public PlayerEntity save(PlayerEntity playerEntity) {
         return playerRepository.save(playerEntity);
     }
 }

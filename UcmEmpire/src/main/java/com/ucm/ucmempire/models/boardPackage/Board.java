@@ -55,9 +55,11 @@ public class Board {
 
         // Hard code for ressource on map
         SpecialSquare ressourceCase = new SpecialSquare(ResourceName.WOOD);
+        ressourceCase.setSpecial(true);
         boardList.get(2).set(5, ressourceCase);
 
         ressourceCase = new SpecialSquare(ResourceName.STONE);
+        ressourceCase.setSpecial(true);
         boardList.get(2).set(2, ressourceCase);
 
         // Hard code for ennemy

@@ -10,6 +10,5 @@ import java.util.Optional;
 public interface PlayerRepository extends CrudRepository<PlayerEntity , Integer > {
 
     Optional<PlayerEntity> findByLoginAndPassword(String login, String password);
-    Optional<PlayerEntity> save(PlayerEntity playerEntity);
 
 }
