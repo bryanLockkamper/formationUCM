@@ -11,7 +11,7 @@ public class CombatServiceTest {
 
     CombatService combatService = new CombatService();
 
-    @Test //TODO : ALEX
+    @Test
     public void fightNormalCase_True() {
 
         //Arrange
