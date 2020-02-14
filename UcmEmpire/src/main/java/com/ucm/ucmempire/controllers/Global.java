@@ -6,8 +6,10 @@ import com.ucm.ucmempire.dal.entity.PlayerEntity;
 import com.ucm.ucmempire.dal.servicedal.PlayerDalServiceImpl;
 import com.ucm.ucmempire.models.boardPackage.Board;
 import com.ucm.ucmempire.models.boardPackage.Square;
+import com.ucm.ucmempire.models.dto.CellDTO;
 import com.ucm.ucmempire.models.dto.PlayerDTOLogin;
 import com.ucm.ucmempire.models.dto.PlayerDTORegister;
+import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,25 +31,23 @@ public class Global {
     }
 
     @PostMapping("/move")
-    public void move(@RequestBody List<Position> positions) {
-        System.out.println("COUCOU");
-
-        AStarService aStarService = new AStarService(board, positions.get(0), positions.get(1));
+    public ArrayList<ArrayList<Square>> move(@RequestBody List<CellDTO> cellDTOS) {
+        Position first = new Position(cellDTOS.get(0).getRowId(), cellDTOS.get(0).getId());
+        Position second = new Position(cellDTOS.get(1).getRowId(), cellDTOS.get(1).getId());
+        AStarService aStarService = new AStarService(board, first, second);
         Position position = aStarService.run(20);
-        board.moveEntity(positions.get(0), position);
+        board.moveEntity(first, position);
+        return board.getBoard();
+
     }
 
     @GetMapping("/")
     public ArrayList<ArrayList<Square>> getBoard() {
-        System.out.println("COUCOU");
-
         return board.getBoard();
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody PlayerDTOLogin playerDTO) {
-        System.out.println("COUCOU");
-
         Optional<PlayerEntity> player = playerDalService.findByLoginAndPassword(playerDTO.getPseudo(), playerDTO.getPwd());
         if (player.isPresent())
             return ResponseEntity.ok().body(player.get());

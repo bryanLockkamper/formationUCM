@@ -20,24 +20,28 @@ public class AStarService {
     }
 
     public Position run(int pa) {
-        openList.add(new Node(start));
-        Node current = new Node();
-        current.setPosition(new Position());
-        while (!current.getPosition().equals(finish) && !openList.isEmpty()) {
-            current = bestNode();
-            addClosedList(current);
-            addCaseNearby(current);
-        }
-
-        if (current.getPosition().equals(finish) & pa > 0) {
-            List<Position> positions = findPath();
-            if (pa >= positions.size())
-                return positions.get(0);
-            else {
-                return positions.get(positions.size() - pa);
-            }
-        } else {
+        if (start.equals(finish))
             return start;
+        else {
+            openList.add(new Node(start));
+            Node current = new Node();
+            current.setPosition(new Position(-1, -1));
+            while (!current.getPosition().equals(finish) && !openList.isEmpty()) {
+                current = bestNode();
+                addClosedList(current);
+                addCaseNearby(current);
+            }
+
+            if (current.getPosition().equals(finish) & pa > 0) {
+                List<Position> positions = findPath();
+                if (pa >= positions.size())
+                    return positions.get(0);
+                else {
+                    return positions.get(positions.size() - pa);
+                }
+            } else {
+                return start;
+            }
         }
     }
 
@@ -135,7 +139,7 @@ public class AStarService {
 
     private List<Position> findPath() {
         List<Position> way = new ArrayList<>();
-        Node node = closedList.get(closedList.size()-1);
+        Node node = closedList.get(closedList.size() - 1);
         while (!node.getPosition().equals(start)) {
             way.add(node.getPosition());
             node = node.getParent();

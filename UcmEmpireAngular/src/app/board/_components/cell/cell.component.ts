@@ -10,31 +10,35 @@ export class CellComponent implements OnInit {
   @Input() id: number;
   style: string;
   value: number = 0;
+  sheet: string;
+
+  constructor() {
+  }
 
   ngOnInit() {
-    this.style = this.getStyle(this.value);
+    this.sheet = this.getSheet();
+    // this.style = this.getStyle(this.value);
+    this.style = 'cellContent';
   }
 
   onClick() {
-    this.value++;
-    if (this.value > 3) {
-      this.value = 0;
-    }
-    this.style = this.getStyle(this.value);
+
   }
 
-  getStyle(value: number): string {
-    let style = 'cellContent';
-    if (value === 1) {
-      style += ' red';
-    }
-    if (value === 2) {
-      style += ' green';
-    }
-    if (value === 3) {
-      style += ' blue';
+  getSheet() {
+    let content = sessionStorage.getItem('' + this.rowId + this.id);
+    switch (content) {
+      case 'STONE':
+        return 'assets/_img/' + content.toLocaleLowerCase() + '.jpg';
+      case 'WOOD' :
+        return 'assets/_img/' + content.toLocaleLowerCase() + '.jpg';
+      case 'SOLDAT':
+        return 'assets/_img/' + content.toLocaleLowerCase() + '.jpg';
+      case null:
+        return 'assets/_img/grass.png';
+      default:
+        return 'assets/_img/grass.png';
     }
 
-    return style;
   }
 }

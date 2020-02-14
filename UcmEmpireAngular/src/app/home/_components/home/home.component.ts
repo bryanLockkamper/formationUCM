@@ -29,11 +29,9 @@ export class HomeComponent implements OnInit {
     this.secService.login(json).subscribe(
       (token) => {
         localStorage.setItem('token', token);
-        this.router.navigateByUrl('/home');
-        console.log('ok');
+        this.router.navigateByUrl('/board');
       },
       (error) => {
-        console.log('error');
       },
       () => {
 

@@ -1,9 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'row',
   templateUrl: './row.component.html',
-    styleUrls: [ '../board/board.component.scss']
+    styleUrls: [ '../board/board.component.scss' ]
 })
 
 export class RowComponent implements OnInit {
@@ -11,20 +11,19 @@ export class RowComponent implements OnInit {
   @Input() id: number;
   cells = [];
   style: string;
+  @Output() cell = new EventEmitter<{rowId: number, id: number}>();
 
   ngOnInit() {
     this.style = 'square pure-u-1-' + this.dimension;
     for (let i = 0; i < this.dimension; i++) {
       this.cells.push({
         rowId: this.id,
-        id: i
+        id: i,
       });
     }
   }
 
-  onCellClick(event, cell) {
-    const target = event.target || event.currentTarget;
-    const idAttr = target.attributes;
-    console.log(cell);
+  onCellClick(cell) {
+    this.cell.emit(cell);
   }
 }
