@@ -32,13 +32,14 @@ public class Global {
     }
 
     @PostMapping("/move")
-    public void move(@RequestBody List<CellDTO> cellDTOS) {
+    public ArrayList<ArrayList<Square>> move(@RequestBody List<CellDTO> cellDTOS) {
         Position first = new Position(cellDTOS.get(0).getRowId(), cellDTOS.get(0).getId());
         Position second = new Position(cellDTOS.get(1).getRowId(), cellDTOS.get(1).getId());
         AStarService aStarService = new AStarService(board, first, second);
         Position position = aStarService.run(20);
         board.moveEntity(first, position);
-        System.out.println("api move");
+        return board.getBoard();
+
     }
 
     @GetMapping("/")

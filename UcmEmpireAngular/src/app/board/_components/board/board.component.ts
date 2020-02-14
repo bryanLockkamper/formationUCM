@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {BoardService} from "../../_services/board.service";
 import {RowModel} from "../../_models/row";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Component({
   selector: 'app-board',
@@ -21,10 +21,24 @@ export class BoardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.refresh();
+  }
+
+  move(cell) {
+    if (this.first == null)
+      this.first = cell;
+    else {
+      this.boardService.move([this.first, cell]).subscribe(() => {
+        sessionStorage.clear();
+        this.refresh();
+      });
+    }
+  }
+
+  refresh() {
+    this.rows = [];
     this.first = null;
-    this.board = [];
     this.boardService.getBoard().subscribe(board => {
-      this.board = board;
       this.dimension = board.length;
       for (let i = 0; i < this.dimension; i++) {
         for (let j = 0; j < this.dimension; j++) {
@@ -38,13 +52,5 @@ export class BoardComponent implements OnInit {
         });
       }
     });
-  }
-
-  move(cell) {
-    if (this.first == null)
-      this.first = cell;
-    else {
-      this.boardService.move([this.first, cell]).subscribe();
-    }
   }
 }
