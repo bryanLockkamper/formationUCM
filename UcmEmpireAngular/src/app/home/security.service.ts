@@ -24,7 +24,8 @@ export class SecurityService {
   }
 
   register(model: UserRegister): Observable<string> {
+    console.log(model);
+    console.log('url : ' + environment.apiEndPoint + 'register');
     return this.httpClient.post<string>(environment.apiEndPoint + 'register', model);
-
   }
 }

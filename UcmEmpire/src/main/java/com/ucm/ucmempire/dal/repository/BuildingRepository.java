@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface BuildingRepository extends CrudRepository<BuildingEntity , Long> {
+public interface BuildingRepository extends CrudRepository<BuildingEntity , Integer> {
 
     Optional<List<BuildingEntity>> findBuildingEntitiesById(Integer id_player);
 }

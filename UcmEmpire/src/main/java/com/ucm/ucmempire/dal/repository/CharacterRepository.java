@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CharacterRepository extends CrudRepository<CharacterEntity , Long> {
+public interface CharacterRepository extends CrudRepository<CharacterEntity , Integer> {
 
     Optional<List<CharacterEntity>> findCharacterEntitiesById(Integer id_player);
 }
