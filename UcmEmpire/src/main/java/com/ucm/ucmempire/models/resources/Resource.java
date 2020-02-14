@@ -28,4 +28,9 @@ public class Resource extends Entity implements IResource{
         return resourceName;
     }
 
+    public String getNameOfRessource ()
+    {
+        return getResourceName().getType();
+    }
+
 }

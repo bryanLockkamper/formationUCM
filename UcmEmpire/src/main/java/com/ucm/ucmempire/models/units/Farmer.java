@@ -8,16 +8,26 @@ public class Farmer extends Character implements IFarmer {
 
     private ResourceName resourceHarvesting;
 
-    public Farmer(int pv, Integer name, int pa) {
-        super(pv, name, pa);
-    }
+//    public Farmer(int pv, Integer name, int pa) {
+//        super(pv, name, pa);
+//    }
 
     //TODO : override "move()" pour que si on tombe sur une case de ressources, on modifie l'attribut "ressourceARecolter" s'il y a un attribut.
 
-    @Override
-    public String toString() {
-        return "F";
+    public Farmer(Integer idUser, int hp, int pa) {
+        super(idUser, hp, pa);
     }
+
+
+//    @Override
+//    public String toString() {
+//        return "Farmer{" +
+//                "resourceHarvesting=" + resourceHarvesting +
+//                ", pa=" + pa +
+//                ", moveLeft=" + moveLeft +
+//                ", hp=" + hp +
+//                '}';
+//    }
 
     public ResourceName getResourceHarvesting(){
         return resourceHarvesting;

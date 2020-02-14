@@ -46,4 +46,15 @@ public class Character extends Entity {
     public void setMaxPA() {
         pa = maxPA;
     }
+
+    @Override
+    public String toString() {
+        return "Character{" +
+                "idUser=" + idUser +
+                ", pa=" + pa +
+                ", moveLeft=" + moveLeft +
+                ", maxPA=" + maxPA +
+                ", hp=" + hp +
+                '}';
+    }
 }

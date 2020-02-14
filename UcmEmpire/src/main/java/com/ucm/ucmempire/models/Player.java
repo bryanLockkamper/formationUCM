@@ -8,6 +8,7 @@ import com.ucm.ucmempire.models.resources.ResourceName;
 import java.util.*;
 
 public class Player {
+    private int id;
     private final int granarySize = 20;
     protected String name;
     protected Set<Resource> resources;
@@ -22,10 +23,18 @@ public class Player {
         entities = new ArrayList<>();
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getMaxResources(){
         int nbGranaries = 0;
-        for (int i = 0; i < entities.size() ; i++) {
-            if(entities.get(i) instanceof Granary){
+        for (Entity entity : entities) {
+            if (entity instanceof Granary) {
                 nbGranaries++;
             }
         }
@@ -102,5 +111,16 @@ public class Player {
 
     public void setResources(Set<Resource> resources) {
         this.resources = resources;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                ", granarySize=" + granarySize +
+                ", name='" + name + '\'' +
+                ", resources=" + resources +
+                ", entities=" + entities +
+                '}';
     }
 }
