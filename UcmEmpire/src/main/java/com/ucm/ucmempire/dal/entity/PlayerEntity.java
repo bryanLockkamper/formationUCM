@@ -32,7 +32,7 @@ public class PlayerEntity implements Serializable {
     private String password;
 
 
-    @OneToMany(targetEntity = EntityGame.class)
+    @OneToMany(targetEntity = EntityGame.class,mappedBy = "player",fetch = FetchType.LAZY)
     private Set<EntityGame> entityGamesList;
 
     @ManyToOne (targetEntity = BoardEntity.class)

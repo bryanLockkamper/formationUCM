@@ -10,12 +10,16 @@ import java.io.Serializable;
 @Setter
 @ToString
 @EqualsAndHashCode (callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
 public class ResourceEntity extends EntityGame implements Serializable {
 
 
-    @Column(name = "name_ressource")
-     private String type;
+    /*@Column(name = "name_ressource")
+     private String type;*/
 
+    public ResourceEntity() {
+    }
+
+    public ResourceEntity(Integer id, int hp, String type) {
+        super(id, hp, type);
+    }
 }

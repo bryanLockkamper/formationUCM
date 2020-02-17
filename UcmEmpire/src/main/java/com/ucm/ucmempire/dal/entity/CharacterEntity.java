@@ -11,13 +11,19 @@ import java.io.Serializable;
 @Setter
 @ToString
 @EqualsAndHashCode (callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
 public class CharacterEntity extends EntityGame implements Serializable {
 
-    @Column (name = "pa_character",nullable = false)
+    @Column (name = "pa_character")
     private Integer pa;
-    @Column (name = "max_Pa_character",nullable = false)
+    @Column (name = "max_Pa_character")
     private Integer maxPa;
 
+    public CharacterEntity() {
+    }
+
+    public CharacterEntity(Integer id, int hp, String type, Integer pa, Integer maxPa) {
+        super(id, hp, type);
+        this.pa = pa;
+        this.maxPa = maxPa;
+    }
 }

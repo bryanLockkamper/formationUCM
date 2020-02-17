@@ -10,12 +10,17 @@ import java.io.Serializable;
 @Setter
 @ToString
 @EqualsAndHashCode (callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
 public class BuildingEntity extends EntityGame implements Serializable {
 
-    @Column (name = "type_building")
-    private String type;
+    /*@Column (name = "type_building")
+    private String type;*/
 
+    //TODO DAMIEN : Need to add the relation with Ressource and character
 
+    public BuildingEntity(Integer id, int hp, String type) {
+        super(id, hp, type);
+    }
+
+    public BuildingEntity() {
+    }
 }

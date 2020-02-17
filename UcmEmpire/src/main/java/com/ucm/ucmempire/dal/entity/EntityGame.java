@@ -18,14 +18,16 @@ import java.io.Serializable;
 public abstract class EntityGame implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
+    private Integer id;
     @Column(name = "hp_entity" , nullable = false)
-    protected int hp;
+    private int hp;
+    @Column(name = "type_entity")
+    private String type;
 
-    public EntityGame(int hp, Integer id) {
-        this.hp = hp;
-        this.id = id;
-    }
+    @JoinColumn (name = "player",referencedColumnName = "id_player")
+    @ManyToOne
+    private PlayerEntity playerEntity;
+
 
 
 
