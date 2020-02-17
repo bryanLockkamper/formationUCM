@@ -9,20 +9,19 @@ export class CellComponent implements OnInit {
   @Input() rowId: number;
   @Input() id: number;
   style: string;
-  value: number = 0;
   sheet: string;
+  @Input() content;
 
   constructor() {
   }
 
   ngOnInit() {
     this.sheet = this.getSheet();
-    // this.style = this.getStyle(this.value);
     this.style = 'cellContent';
   }
 
   onClick() {
-
+    // console.log(this.content);
   }
 
   getSheet() {
@@ -32,7 +31,13 @@ export class CellComponent implements OnInit {
         return 'assets/_img/' + content.toLocaleLowerCase() + '.jpg';
       case 'WOOD' :
         return 'assets/_img/' + content.toLocaleLowerCase() + '.jpg';
-      case 'SOLDAT':
+      case 'SOLDAT_BLUE':
+        return 'assets/_img/' + content.toLocaleLowerCase() + '.jpg';
+      case 'SOLDAT_RED':
+        return 'assets/_img/' + content.toLocaleLowerCase() + '.jpg';
+      case 'FARMER_BLUE':
+        return 'assets/_img/' + content.toLocaleLowerCase() + '.jpg';
+      case 'FARMER_RED':
         return 'assets/_img/' + content.toLocaleLowerCase() + '.jpg';
       case null:
         return 'assets/_img/grass.png';

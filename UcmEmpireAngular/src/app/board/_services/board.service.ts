@@ -21,4 +21,8 @@ export class BoardService {
   move(model): Observable<void> {
     return this.httpClient.post<void>(environment.apiEndPoint + 'move', model);
   }
+
+  deathEntity(model): Observable<void> {
+    return this.httpClient.post<void>(environment.apiEndPoint + 'deathEntity', model);
+  }
 }

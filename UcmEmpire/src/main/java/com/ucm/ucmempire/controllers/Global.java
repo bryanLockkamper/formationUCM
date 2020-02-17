@@ -4,11 +4,15 @@ import com.ucm.ucmempire.controllers.pathfinding.AStarService;
 import com.ucm.ucmempire.controllers.pathfinding.Position;
 import com.ucm.ucmempire.dal.entity.PlayerEntity;
 import com.ucm.ucmempire.dal.servicedal.PlayerDalServiceImpl;
+import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.models.boardPackage.Board;
 import com.ucm.ucmempire.models.boardPackage.Square;
 import com.ucm.ucmempire.models.dto.CellDTO;
 import com.ucm.ucmempire.models.dto.PlayerDTOLogin;
 import com.ucm.ucmempire.models.dto.PlayerDTORegister;
+import com.ucm.ucmempire.models.units.Farmer;
+import com.ucm.ucmempire.models.units.Soldier;
+import com.ucm.ucmempire.services.CombatService;
 import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +27,8 @@ import java.util.Optional;
 @CrossOrigin
 public class Global {
     private Board board = new Board("test");
+    Player p1 = new Player();
+    Player p2 = new Player();
     private PlayerDalServiceImpl playerDalService;
 
     @Autowired
@@ -31,18 +37,33 @@ public class Global {
     }
 
     @PostMapping("/move")
-    public ArrayList<ArrayList<Square>> move(@RequestBody List<CellDTO> cellDTOS) {
+    public void move(@RequestBody List<CellDTO> cellDTOS) {
         Position first = new Position(cellDTOS.get(0).getRowId(), cellDTOS.get(0).getId());
         Position second = new Position(cellDTOS.get(1).getRowId(), cellDTOS.get(1).getId());
         AStarService aStarService = new AStarService(board, first, second);
         Position position = aStarService.run(20);
         board.moveEntity(first, position);
-        return board.getBoard();
+        // TODO: 17-02-20 return entityDTO ?
+    }
 
+    @PostMapping("/deathEntity")
+    public void deathEntity(@RequestBody CellDTO cellDTO) {
+        System.out.println(cellDTO);
+        board.setSquare(new Position(cellDTO.getRowId(), cellDTO.getId()), null);
     }
 
     @GetMapping("/")
     public ArrayList<ArrayList<Square>> getBoard() {
+        if (p1.getEntities().size() == 0) {
+            p1.addEntity(new Soldier(20, 0, 10, 5));
+            p1.addEntity(new Soldier(20, 0, 10, 5));
+            p1.addEntity(new Farmer(20, 0, 10));
+            p2.addEntity(new Soldier(20, 1, 10, 5));
+            board.setSquare(new Position(0,0), p1.getEntity(0));
+            board.setSquare(new Position(10,5), p1.getEntity(1));
+            board.setSquare(new Position(0,5), p1.getEntity(2));
+            board.setSquare(new Position(3,2), p2.getEntity(0));
+        }
         return board.getBoard();
     }
 

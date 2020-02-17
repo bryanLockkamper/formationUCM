@@ -60,10 +60,6 @@ public class Board {
         ressourceCase = new SpecialSquare(ResourceName.STONE);
         boardList.get(2).set(2, ressourceCase);
 
-        // Hard code for ennemy
-        boardList.get(3).get(5).setContent(new Soldier(10, 5, 5));
-
-
         return boardList;
     }
 

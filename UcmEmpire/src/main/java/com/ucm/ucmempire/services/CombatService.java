@@ -4,7 +4,7 @@ import com.ucm.ucmempire.models.units.Soldier;
 
 public class CombatService {
 
-    public boolean fight(Soldier attack , Soldier defense){
+    public static boolean fight(Soldier attack , Soldier defense){
 
         if (attack != null && defense != null)
         {

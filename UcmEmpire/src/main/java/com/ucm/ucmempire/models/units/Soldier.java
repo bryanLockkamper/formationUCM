@@ -7,14 +7,14 @@ public class Soldier extends Character implements ISoldier {
 
     private int damage;
 
-    public Soldier(int hp, Integer name, int pa)
+    public Soldier(int hp, Integer id, int pa)
     {
-        super(hp, name, pa);
+        super(id, hp, pa);
     }
 
-    public Soldier(int hp, Integer name, int pa , int damage)
+    public Soldier(int hp, Integer id, int pa , int damage)
     {
-        this(hp, name, pa);
+        this(hp, id, pa);
         this.damage = damage;
     }
 
