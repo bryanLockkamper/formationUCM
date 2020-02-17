@@ -21,8 +21,9 @@ public class CharacterEntity extends EntityGame implements Serializable {
     public CharacterEntity() {
     }
 
-    public CharacterEntity(Integer id, int hp, String type, Integer pa, Integer maxPa) {
-        super(id, hp, type);
+
+    public CharacterEntity(Integer hp, String type, PlayerEntity playerEntity, Integer pa, Integer maxPa) {
+        super(hp, type, playerEntity);
         this.pa = pa;
         this.maxPa = maxPa;
     }

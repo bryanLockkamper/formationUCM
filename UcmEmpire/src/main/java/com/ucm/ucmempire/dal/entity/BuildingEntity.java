@@ -17,10 +17,11 @@ public class BuildingEntity extends EntityGame implements Serializable {
 
     //TODO DAMIEN : Need to add the relation with Ressource and character
 
-    public BuildingEntity(Integer id, int hp, String type) {
-        super(id, hp, type);
-    }
 
     public BuildingEntity() {
+    }
+
+    public BuildingEntity(Integer hp, String type, PlayerEntity playerEntity) {
+        super(hp, type, playerEntity);
     }
 }

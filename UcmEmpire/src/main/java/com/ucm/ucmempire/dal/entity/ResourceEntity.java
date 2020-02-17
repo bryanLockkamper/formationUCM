@@ -19,7 +19,7 @@ public class ResourceEntity extends EntityGame implements Serializable {
     public ResourceEntity() {
     }
 
-    public ResourceEntity(Integer id, int hp, String type) {
+   /* public ResourceEntity(Integer id, int hp, String type) {
         super(id, hp, type);
-    }
+    }*/
 }

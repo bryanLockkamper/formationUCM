@@ -16,8 +16,6 @@ public class Resource extends Entity implements IResource{
     }
 
 
-    //TODO DAMIEN : for the moment the player ressources is init with the quantity define in the enum, need to add an other metho/ctro with the init special for the player ?
-
     @Override
     public int getRessource(ResourceName resourceName) {
         return resourceName.getQuantity();

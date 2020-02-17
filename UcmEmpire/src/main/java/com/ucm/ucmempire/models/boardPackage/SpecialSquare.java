@@ -6,21 +6,22 @@ import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.units.Farmer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SpecialSquare extends Square {
 
-    private ArrayList<Farmer> farmers;
+    private List<Farmer> farmers;
 
     public SpecialSquare(ResourceName content) {
         super(new Resource(content), false, true, BiomeType.PLAINS );
     }
 
-    public SpecialSquare(Resource content,BiomeType biomeType,ArrayList<Farmer> farmers) {
+    public SpecialSquare(Resource content,BiomeType biomeType,List<Farmer> farmers) {
         super(content, false, true, biomeType );
         this.farmers = farmers;
     }
 
-    public ArrayList<Farmer> getFarmers() {
+    public List<Farmer> getFarmers() {
         return farmers;
     }
 
