@@ -10,9 +10,10 @@ import java.util.*;
 public class Player {
     private int id;
     private final int granarySize = 20;
-    protected String name;
-    protected Set<Resource> resources;
-    protected List<Entity> entities;
+    private String name;
+    private Set<Resource> resources;
+    private List<Entity> entities;
+    private boolean hasLost;
 
     public Player(){
         resources = new HashSet<>();
@@ -21,6 +22,7 @@ public class Player {
         resources.add(new Resource(ResourceName.FOOD));
 
         entities = new ArrayList<>();
+        hasLost = false;
     }
 
     public Player(int id, String name) {
@@ -72,10 +74,18 @@ public class Player {
         this.entities = entities;
     }
 
-    public boolean hasLost() {
+    public boolean isHasLost() {
+        return hasLost;
+    }
 
-        return true;
-    } //TODO BRYAN : add condition for the victory
+    public void setHasLost(boolean hasLost) {
+        this.hasLost = hasLost;
+    }
+
+    public boolean giveUp(){
+        this.hasLost = true;
+        return hasLost;
+    }
 
     public void autoMoveUnits() {
         for (Entity entity : entities) {
@@ -91,7 +101,6 @@ public class Player {
                     entities.add(entity);
         }
     }
-
 
     public void maxPa() {
         for (Entity entity : entities) {
