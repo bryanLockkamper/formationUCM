@@ -5,10 +5,11 @@ import {NbButtonModule, NbCardModule, NbIconModule, NbInputModule} from '@nebula
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NbEvaIconsModule} from '@nebular/eva-icons';
 import {HttpClientModule} from '@angular/common/http';
+import { RegisterComponent } from './_components/register/register.component';
 
 
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [HomeComponent, RegisterComponent],
   imports: [
     CommonModule,
     NbCardModule,

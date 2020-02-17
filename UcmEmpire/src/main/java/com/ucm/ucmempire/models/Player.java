@@ -73,6 +73,7 @@ public class Player {
     }
 
     public boolean hasLost() {
+
         return true;
     } //TODO BRYAN : add condition for the victory
 
