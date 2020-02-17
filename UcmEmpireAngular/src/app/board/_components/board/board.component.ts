@@ -37,6 +37,7 @@ export class BoardComponent implements OnInit {
       } else if (this.board[this.first.rowId][this.first.id].content.damage && !this.board[cell.rowId][cell.id].special) {
         if (this.board[cell.rowId][cell.id].content.idUser != this.board[this.first.rowId][this.first.id].content.idUser) {
           this.board[cell.rowId][cell.id].content.hp -= this.board[this.first.rowId][this.first.id].content.damage;
+          // TODO retirer les pa
           if (this.board[cell.rowId][cell.id].content.hp <= 0) {
             this.boardService.deathEntity(cell).subscribe(() => {
               sessionStorage.clear();

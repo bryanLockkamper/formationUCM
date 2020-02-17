@@ -5,6 +5,7 @@ import com.ucm.ucmempire.controllers.pathfinding.Position;
 import com.ucm.ucmempire.dal.entity.PlayerEntity;
 import com.ucm.ucmempire.dal.servicedal.PlayerDalServiceImpl;
 import com.ucm.ucmempire.models.Player;
+import com.ucm.ucmempire.models.Character;
 import com.ucm.ucmempire.models.boardPackage.Board;
 import com.ucm.ucmempire.models.boardPackage.Square;
 import com.ucm.ucmempire.models.dto.CellDTO;
@@ -41,7 +42,9 @@ public class Global {
         Position first = new Position(cellDTOS.get(0).getRowId(), cellDTOS.get(0).getId());
         Position second = new Position(cellDTOS.get(1).getRowId(), cellDTOS.get(1).getId());
         AStarService aStarService = new AStarService(board, first, second);
-        Position position = aStarService.run(20);
+        Character character = (Character) board.getBoard().get(cellDTOS.get(0).getRowId()).get(cellDTOS.get(0).getId()).getContent();
+        Position position = aStarService.run(character.getPa());
+        // TODO setPA
         board.moveEntity(first, position);
         // TODO: 17-02-20 return entityDTO ?
     }
