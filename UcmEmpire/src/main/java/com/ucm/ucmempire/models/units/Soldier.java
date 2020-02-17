@@ -25,8 +25,6 @@ public class Soldier extends Character implements ISoldier {
         this.damage = damage;
     }
 
-
-
     public int getDamage() {
         return damage;
     }

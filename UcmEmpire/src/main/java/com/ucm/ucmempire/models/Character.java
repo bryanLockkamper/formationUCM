@@ -41,7 +41,6 @@ public class Character extends Entity {
         return tmp;
     }
 
-
     public void autoMove() { //TODO : autoMove is empty BRYAN
 
     }

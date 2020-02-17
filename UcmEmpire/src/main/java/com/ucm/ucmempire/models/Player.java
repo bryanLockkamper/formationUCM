@@ -84,6 +84,10 @@ public class Player {
         this.hasLost = hasLost;
     }
 
+    public void suicideUnit(Entity entity){
+        this.getEntities().remove(entity);
+    }
+
     public boolean giveUp(){
         this.hasLost = true;
         return hasLost;
