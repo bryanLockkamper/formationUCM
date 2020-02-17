@@ -17,7 +17,7 @@ import java.util.List;
 public abstract class ProdBuilding extends Building implements IProdBuilding {
 
     public static final int FARMER_ENTITY =1;
-    public static final int SOLDIER_ENTITY =3;
+    public static final int SOLDIER_ENTITY =2;
 
     private List<Entity> prod;
 
@@ -32,6 +32,7 @@ public abstract class ProdBuilding extends Building implements IProdBuilding {
         if (this instanceof IForum)
         {
             if (prodType == FARMER_ENTITY) {
+                System.out.println(this.getIdUser());
                 character = new Farmer(this.getIdUser());
             } else {
                 throw new IllegalArgumentException("Incorrect type");

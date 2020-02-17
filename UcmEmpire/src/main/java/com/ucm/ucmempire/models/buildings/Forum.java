@@ -11,8 +11,8 @@ public class Forum extends ProdBuilding implements IForum {
 
     private List<Entity> entities;
 
-    public Forum(int hp, Integer id, HashSet<Resource> requirement) {
-        super(hp, id, requirement);
+    public Forum(int hp, Integer idUser, HashSet<Resource> requirement) {
+        super(hp, idUser, requirement);
     }
 
     @Override
@@ -24,6 +24,5 @@ public class Forum extends ProdBuilding implements IForum {
     public Entity decrementCounter() {
         return null;
     }
-
 
 }
