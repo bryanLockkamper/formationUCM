@@ -54,11 +54,12 @@ public class Game implements Runnable{
         System.out.println("fin tour");
         player1.autoMoveUnits();
         player1.maxPa();
+        board.hasLost();
     }
 
     public boolean nextRound() {
         endRound = true;
-        return !(player1.hasLost() || player2.hasLost());
+        return board.hasLost();
     }
 
     public static void setGame(Game game) {

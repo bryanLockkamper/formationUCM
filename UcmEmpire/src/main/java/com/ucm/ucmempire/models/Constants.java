@@ -19,6 +19,11 @@ public class Constants {
     public static final String ENTITE_CASERNE = "Caserne";
 
     public static final int NB_RESSOURCE_INIT = 50;
+    public static final int NB_RESSOURCE_VICTORY = 300;
+
+    public static final int NB_DOMMAGE = 5;
+    public static final int NB_POINTDEVIE = 15;
+    public static final int NB_POINTACTION = 10;
 
 
 

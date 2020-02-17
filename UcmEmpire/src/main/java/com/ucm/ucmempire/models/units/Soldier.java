@@ -1,20 +1,27 @@
 package com.ucm.ucmempire.models.units;
 
 import com.ucm.ucmempire.models.Character;
+import com.ucm.ucmempire.models.Constants;
 import com.ucm.ucmempire.models.units.unitInterfaces.ISoldier;
 
 public class Soldier extends Character implements ISoldier {
 
     private int damage;
 
-    public Soldier(int hp, Integer name, int pa)
-    {
-        super(hp, name, pa);
+    public Soldier(int idUser) {
+        this.hp = Constants.NB_POINTDEVIE;
+        this.pa = Constants.NB_POINTACTION;
+        this.damage =Constants.NB_DOMMAGE;
     }
 
-    public Soldier(int hp, Integer name, int pa , int damage)
+    public Soldier(int user_id, int hp, int pa)
     {
-        this(hp, name, pa);
+        super(hp, user_id, pa);
+    }
+
+    public Soldier(int user_id, int hp,  int pa , int damage)
+    {
+        this(user_id, hp,  pa);
         this.damage = damage;
     }
 

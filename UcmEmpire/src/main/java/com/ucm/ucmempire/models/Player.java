@@ -1,18 +1,21 @@
 package com.ucm.ucmempire.models;
 
+import com.ucm.ucmempire.models.buildings.Building;
 import com.ucm.ucmempire.models.buildings.Granary;
 import com.ucm.ucmempire.models.buildings.buildingInterfaces.IProdBuilding;
 import com.ucm.ucmempire.models.resources.Resource;
 import com.ucm.ucmempire.models.resources.ResourceName;
+import com.ucm.ucmempire.models.*;
 
 import java.util.*;
 
 public class Player {
     private int id;
     private final int granarySize = 20;
-    protected String name;
-    protected Set<Resource> resources;
-    protected List<Entity> entities;
+    private String name;
+    private Set<Resource> resources;
+    private List<Entity> entities;
+    private boolean hasLost;
 
     public Player(){
         resources = new HashSet<>();
@@ -21,6 +24,7 @@ public class Player {
         resources.add(new Resource(ResourceName.FOOD));
 
         entities = new ArrayList<>();
+        hasLost = false;
     }
 
     public Player(int id, String name) {
@@ -72,9 +76,22 @@ public class Player {
         this.entities = entities;
     }
 
-    public boolean hasLost() {
-        return true;
-    } //TODO BRYAN : add condition for the victory
+    public boolean isHasLost() {
+        return hasLost;
+    }
+
+    public void setHasLost(boolean hasLost) {
+        this.hasLost = hasLost;
+    }
+
+    public void suicideUnit(Entity entity){
+        this.getEntities().remove(entity);
+    }
+
+    public boolean giveUp(){
+        this.hasLost = true;
+        return hasLost;
+    }
 
     public void autoMoveUnits() {
         for (Entity entity : entities) {
@@ -91,7 +108,6 @@ public class Player {
         }
     }
 
-
     public void maxPa() {
         for (Entity entity : entities) {
             if (entity instanceof Character)
@@ -104,7 +120,15 @@ public class Player {
     }
 
     public void addEntity(Entity content) {
-        entities.add(content);
+        //Si mon entité est bien une instace de Character ou de Building
+        if(content instanceof Character || content instanceof Building){
+            //Et si l'idUser de l'entité correspond a celui de mon User
+            if ( ((Character)content).getIdUser() == this.getId() || ((Building)content).getIdUser() == this.getId())
+            {
+                //Alors je rajoute a la liste d'entités
+                entities.add(content);
+            }
+        }
     }
 
     public int getGranarySize() {

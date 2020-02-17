@@ -11,6 +11,7 @@ public abstract class Building extends Entity {
 
     public Building(int pv, Integer idUser, HashSet<Resource> requirement) {
         super(pv);
+        this.idUser = idUser;
         this.requirement = requirement;
     }
 

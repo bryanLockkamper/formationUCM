@@ -9,7 +9,10 @@ public class Character extends Entity {
     protected int moveLeft; //TODO (ALEX & Bryan) : Need to replace bay a list af move
     private int maxPA;
 
-    public Character(Integer idUser,int hp, int pa) {
+    public Character() {
+    }
+
+    public Character(Integer idUser, int hp, int pa) {
         super(hp);
         this.idUser = idUser;
         this.pa = pa;
@@ -37,7 +40,6 @@ public class Character extends Entity {
         pa = Math.max(pa - move, 0);
         return tmp;
     }
-
 
     public void autoMove() { //TODO : autoMove is empty BRYAN
 

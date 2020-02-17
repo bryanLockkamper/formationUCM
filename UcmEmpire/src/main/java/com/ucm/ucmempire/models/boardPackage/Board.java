@@ -4,6 +4,7 @@ import com.ucm.ucmempire.controllers.pathfinding.Position;
 import com.ucm.ucmempire.models.Character;
 import com.ucm.ucmempire.models.Constants;
 import com.ucm.ucmempire.models.Entity;
+import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.models.biomes.*;
 import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.units.Farmer;
@@ -20,12 +21,16 @@ public class Board {
     private String name;
     private ArrayList<ArrayList<Square>> board;
 
+    ArrayList<Player> playerList;
+
     public Board() {
+        this.board = boardGeneration();
+        this.playerList= new ArrayList<>();
     }
 
     public Board(String name) {
+        this();
         this.name = name;
-        this.board = boardGeneration();
     }
 
     private ArrayList<ArrayList<Square>> boardGeneration() //TODO : include all generation in 1 loop based on the constant of biome and modulo with a list of different biome type from the factory
@@ -67,7 +72,6 @@ public class Board {
         return boardList;
     }
 
-
     public String getName() {
         return name;
     }
@@ -92,30 +96,38 @@ public class Board {
         board.get(position.getX()).get(position.getY()).setContent(newEntity);
     }
 
-    private ArrayList<ArrayList<Square>> boardAutoGeneration() //TODO : work in progress by Damien
-    {
-        // init the x dimension
-        ArrayList<ArrayList<Square>> boardList = new ArrayList<>(Constants.DIMENSION_BOARD);
-
-        BiomeFactory biomeFactory = new BiomeFactory();
-
-        // Init the y dimension
-        for (int i = 0; i < Constants.DIMENSION_BOARD; i++) {
-            boardList.add(new ArrayList<>());
-
-        }
-
-        IBiomes biomes = biomeFactory.getBiome(BiomeType.PLAINS);
-
-        for (int i = 0; i < boardList.size(); i++) {
-
-            for (int j = 0; j < boardList.get(i).size(); j++) {
-
-            }
-        }
-
-        return boardList;
+    public ArrayList<Player> getPlayerList() {
+        return playerList;
     }
+
+    public void setPlayerList(ArrayList<Player> playerList) {
+        this.playerList = playerList;
+    }
+
+//    private ArrayList<ArrayList<Square>> boardAutoGeneration() //TODO : work in progress by Damien
+//    {
+//        // init the x dimension
+//        ArrayList<ArrayList<Square>> boardList = new ArrayList<>(Constants.DIMENSION_BOARD);
+//
+//        BiomeFactory biomeFactory = new BiomeFactory();
+//
+//        // Init the y dimension
+//        for (int i = 0; i < Constants.DIMENSION_BOARD; i++) {
+//            boardList.add(new ArrayList<>());
+//
+//        }
+//
+//        IBiomes biomes = biomeFactory.getBiome(BiomeType.PLAINS);
+//
+//        for (int i = 0; i < boardList.size(); i++) {
+//
+//            for (int j = 0; j < boardList.get(i).size(); j++) {
+//
+//            }
+//        }
+//
+//        return boardList;
+//    }
 
     /**
      * @param position_old position actuelle du Character
@@ -135,6 +147,26 @@ public class Board {
             } else
                 board.get(position_new.getX()).get(position_new.getY()).setContent(character);
         }
+    }
+
+    public boolean hasLost() {
+//        Une partie se termine lorsque :
+//        - le player abandonne (boutton)
+//        - le player adverse ne possède plus d'unité
+//        - Nombre de ressources =
+
+        for (Player player : this.playerList) {
+            if (player.isHasLost()) return true;
+
+            else if (player.getEntities().size() <= 0) return true;
+
+            int nbRessource = player.getResources(ResourceName.STONE) + player.getResources(ResourceName.WOOD) + player.getResources(ResourceName.FOOD);
+
+            if (nbRessource >= Constants.NB_RESSOURCE_VICTORY) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /*public List<Pair<Position, Square>> getBoardDTO() {
