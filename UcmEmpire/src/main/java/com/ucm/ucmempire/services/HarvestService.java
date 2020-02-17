@@ -10,45 +10,53 @@ import java.util.stream.Collectors;
 
 public class HarvestService {
 
-    public int autoHarvestResources( SpecialSquare squareResource, Player player) {
+    public int autoHarvestResources(SpecialSquare squareResource, Player player) {
 
-        List<Farmer> farmers = player.getEntities().stream().filter(entity -> entity instanceof Farmer).map(entity -> (Farmer)entity).collect(Collectors.toList());
-        //TODO ALEX : check if the farmer is in this specialSquare and not all the farmer
-        int harvest =0;
+        int harvest = 0;
 
-        if (squareResource != null) {
-            for (Farmer farmer : farmers) {
-                if (squareResource.getResourceQuantity() >= 0) {
-                    Resource actualResource = player.getResources().stream()
-                            .filter(resource -> resource.getResourceName().getType().equals(squareResource.getContent().getClass().getSimpleName()))
-                            .findFirst().orElseThrow(NullPointerException::new);
-                    harvest += farmer.getPa();
+        if (player.getEntities() != null) {
+            List<Farmer> playerFarmerList = player.getEntities().stream()
+                    .filter(entity -> entity instanceof Farmer)
+                    .map(entity -> (Farmer) entity)
+                    .collect(Collectors.toList());
+            if (squareResource.getFarmers() != null) {
+                List<Farmer> farmers = squareResource.getFarmers().stream()
+                        .filter(farmer -> {return playerFarmerList.contains(farmer) && farmer.getIdUser() == player.getId();})
+                        .collect(Collectors.toList());
 
-                    if (squareResource.getResourceQuantity() - harvest >= 0)
-                        squareResource.setResourceQuantity(squareResource.getResourceQuantity() - harvest);
+                System.out.println(farmers.toString());
+                for (Farmer farmer : farmers) {
+                    if (squareResource.getResourceQuantity() >= 0) {
+                        Resource actualResource = player.getResources().stream()
+                                .filter(resource -> resource.getResourceName().getType().equals(((Resource) squareResource.getContent()).getNameOfRessource()))
+                                .findFirst().orElseThrow(NullPointerException::new);
+                        harvest += farmer.getPa();
+                        System.out.println(harvest);
+                        System.out.println(player.getEntities().toString());
 
-                    else {
-                        harvest = squareResource.getResourceQuantity();
-                        squareResource.setResourceQuantity(0);
+                        if (squareResource.getResourceQuantity() - harvest >= 0)
+                            squareResource.setResourceQuantity(squareResource.getResourceQuantity() - harvest);
+
+                        else {
+                            harvest = squareResource.getResourceQuantity();
+                            squareResource.setResourceQuantity(0);
+                        }
+
+                        player.getResources().remove(actualResource);
+
+                        if (player.getMaxResources() + harvest <= player.getMaxResources()) {
+                            actualResource.setHp(actualResource.getHp() + harvest);
+                        } else {
+                            actualResource.setHp(player.getMaxResources());
+                        }
+
+                        player.getResources().add(actualResource);
+                        farmer.setPa(0);
                     }
-
-                    player.getResources().remove(actualResource);
-
-                    if (player.getMaxResources() + harvest <= player.getMaxResources()) {
-                        actualResource.setHp(actualResource.getHp()+ harvest);
-                    }
-
-                    else {
-                        actualResource.setHp(player.getMaxResources());
-                    }
-
-                    player.getResources().add(actualResource);
-                    farmer.setPa(0);
-
-                    return harvest;
                 }
             }
         }
+
         return harvest;
     }
 }
