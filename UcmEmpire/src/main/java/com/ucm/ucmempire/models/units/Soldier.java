@@ -1,11 +1,18 @@
 package com.ucm.ucmempire.models.units;
 
 import com.ucm.ucmempire.models.Character;
+import com.ucm.ucmempire.models.Constants;
 import com.ucm.ucmempire.models.units.unitInterfaces.ISoldier;
 
 public class Soldier extends Character implements ISoldier {
 
     private int damage;
+
+    public Soldier(int idUser) {
+        this.hp = Constants.NB_POINTDEVIE;
+        this.pa = Constants.NB_POINTACTION;
+        this.damage =Constants.NB_DOMMAGE;
+    }
 
     public Soldier(int user_id, int hp, int pa)
     {
@@ -17,6 +24,8 @@ public class Soldier extends Character implements ISoldier {
         this(user_id, hp,  pa);
         this.damage = damage;
     }
+
+
 
     public int getDamage() {
         return damage;
