@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { UserRegister } from '../../_models/user-register';
 import { SecurityService } from '../../security.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,8 @@ export class RegisterComponent implements OnInit {
   usermodel: UserRegister
 
   constructor(
-    private userServ: SecurityService
+    private userServ: SecurityService,
+    private routServ: Router,
   ) { }
 
   ngOnInit(): void {
@@ -33,6 +35,7 @@ export class RegisterComponent implements OnInit {
     this.usermodel = this.userform.value;
 
     this.userServ.register(this.usermodel).subscribe();
+    this.routServ.navigateByUrl('/board')
   }
 
 }

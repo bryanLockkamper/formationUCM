@@ -4,6 +4,7 @@ import com.ucm.ucmempire.controllers.pathfinding.AStarService;
 import com.ucm.ucmempire.controllers.pathfinding.Position;
 import com.ucm.ucmempire.dal.entity.PlayerEntity;
 import com.ucm.ucmempire.dal.servicedal.PlayerDalServiceImpl;
+import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.models.boardPackage.Board;
 import com.ucm.ucmempire.models.boardPackage.Square;
 import com.ucm.ucmempire.models.dto.CellDTO;
@@ -24,6 +25,7 @@ import java.util.Optional;
 public class Global {
     private Board board = new Board("test");
     private PlayerDalServiceImpl playerDalService;
+    private Player player1;
     private Game game = new Game();
 
     @Autowired
@@ -49,8 +51,10 @@ public class Global {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody PlayerDTOLogin playerDTO) {
         Optional<PlayerEntity> player = playerDalService.findByLoginAndPassword(playerDTO.getPseudo(), playerDTO.getPwd());
-        if (player.isPresent())
+        if (player.isPresent()){
+            player1 = new Player(player.get().getId() , player.get().getLogin());
             return ResponseEntity.ok().body(player.get());
+        }
         else
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
@@ -59,8 +63,11 @@ public class Global {
     public ResponseEntity<String> register(@RequestBody PlayerDTORegister playerDTO) {
 
         PlayerEntity playerEntity = new PlayerEntity(playerDTO.getLastname(), playerDTO.getFirstname() , playerDTO.getPseudo() , playerDTO.getPassword());
-
         playerDalService.save(playerEntity);
+
+        System.out.println(playerEntity.getId() + playerEntity.getLogin());
+        player1 = new Player(playerEntity.getId() , playerEntity.getLogin());
+
 
         return ResponseEntity.ok("200");
     }
@@ -68,6 +75,7 @@ public class Global {
     @GetMapping("/timer/start")
     public boolean start ()
     {
+        this.game.setPlayer1(player1);
         this.game.run();
         return true;
     }
