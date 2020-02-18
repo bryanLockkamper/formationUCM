@@ -62,6 +62,20 @@ public class Board {
         ressourceCase = new SpecialSquare(ResourceName.STONE);
         boardList.get(2).set(2, ressourceCase);
 
+        ressourceCase = new SpecialSquare(ResourceName.FOOD);
+        boardList.get(0).set(10, ressourceCase);
+
+        ressourceCase = new SpecialSquare(ResourceName.WOOD);
+        boardList.get(6).set(5, ressourceCase);
+
+        ressourceCase = new SpecialSquare(ResourceName.STONE);
+        boardList.get(8).set(2, ressourceCase);
+
+        ressourceCase = new SpecialSquare(ResourceName.FOOD);
+        boardList.get(10).set(10, ressourceCase);
+
+
+
         return boardList;
     }
 

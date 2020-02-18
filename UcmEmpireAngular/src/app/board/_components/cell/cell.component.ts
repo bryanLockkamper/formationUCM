@@ -21,7 +21,7 @@ export class CellComponent implements OnInit {
   }
 
   onClick() {
-    // console.log(this.content);
+    console.log(this.content);
   }
 
   getSheet() {
@@ -38,6 +38,8 @@ export class CellComponent implements OnInit {
       case 'FARMER_BLUE':
         return 'assets/_img/' + content.toLocaleLowerCase() + '.jpg';
       case 'FARMER_RED':
+        return 'assets/_img/' + content.toLocaleLowerCase() + '.jpg';
+      case 'FOOD':
         return 'assets/_img/' + content.toLocaleLowerCase() + '.jpg';
       case null:
         return 'assets/_img/grass.png';

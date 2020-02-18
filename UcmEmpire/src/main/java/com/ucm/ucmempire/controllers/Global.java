@@ -63,7 +63,7 @@ public class Global {
     @GetMapping("/")
     public ArrayList<ArrayList<Square>> getBoard() {
         if (p1.getEntities().size() == 0) {
-            p1.addEntity(new Soldier(20, 0, 5, 5));
+            p1.addEntity(new Soldier(20, 0, 5, 50));
             p1.addEntity(new Soldier(20, 0, 5, 5));
             p1.addEntity(new Farmer(20, 0, 5));
             p2.addEntity(new Soldier(20, 1, 5, 5));
