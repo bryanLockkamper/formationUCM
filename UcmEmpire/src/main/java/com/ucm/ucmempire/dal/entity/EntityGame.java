@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table (name = "entity_game")
@@ -15,6 +16,7 @@ import java.io.Serializable;
 public abstract class EntityGame implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_entity_game")
     private Integer id;
     @Column(name = "hp_entity" , nullable = false)
     private Integer hp;
@@ -24,6 +26,7 @@ public abstract class EntityGame implements Serializable {
     @JoinColumn (name = "player",referencedColumnName = "id_player")
     @ManyToOne
     private PlayerEntity playerEntity;
+
 
     public EntityGame() {
     }

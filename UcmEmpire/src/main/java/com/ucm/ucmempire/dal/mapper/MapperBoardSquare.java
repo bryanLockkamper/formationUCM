@@ -1,6 +1,7 @@
 package com.ucm.ucmempire.dal.mapper;
 
 import com.ucm.ucmempire.dal.entity.BoardEntity;
+import com.ucm.ucmempire.dal.entity.ResourceEntity;
 import com.ucm.ucmempire.dal.entity.SquareEntity;
 import com.ucm.ucmempire.models.Constants;
 import com.ucm.ucmempire.models.biomes.BiomeFactory;
@@ -67,8 +68,15 @@ public class MapperBoardSquare {
         {
 
             List<Farmer> farmersList = squareEntity.getContents().stream()
+                    .filter(e -> Constants.TYPE_FARMER.equals(e.getEntityGame().getType()))
                     .map(data -> (Farmer) mapperEntities.entityGameToEntity(data.getEntityGame()))
                     .collect(Collectors.toList());
+
+            Resource resource = squareEntity.getContents().stream()
+                    .filter(r -> r.getEntityGame() instanceof ResourceEntity)
+                    .map(data ->(Resource) mapperEntities.entityGameToEntity(data.getEntityGame()))
+                    .findFirst().orElse(null);
+
 
             return new SpecialSquare((Resource) mapperEntities.entityGameToEntity(squareEntity.getContents().get(0).getEntityGame()), BiomeType.valueOf(squareEntity.getBiome()),farmersList);
         } else

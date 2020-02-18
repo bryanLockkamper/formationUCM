@@ -40,7 +40,7 @@ public class MapperEntitiesTest {
     public void intit () throws Exception
     {
         mapperEntities = new MapperEntities();
-        florentEntity = new PlayerEntity(1,"Florent","Binks","jarjar","star",null,new BoardEntity(1,"coucou"));
+        florentEntity = new PlayerEntity(1,"Florent","Binks","jarjar","star",null,new BoardEntity("coucou"));
 
 
         barracksEntity = new BuildingEntity(100,Constants.TYPE_BARRACKS,florentEntity); //TODO DAMIEN : Update the building entity with the DB update
