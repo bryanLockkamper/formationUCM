@@ -2,7 +2,7 @@ package com.ucm.ucmempire.models;
 
 public class Constants {
 
-    public static final int DIMENSION_BOARD = 6;
+    public static final int DIMENSION_BOARD = 12;
     public static final int DIMENSION_BIOME = 2;
     public static final int NB_BIOME = 5;
     public static final int PROBA_TREE = 3;

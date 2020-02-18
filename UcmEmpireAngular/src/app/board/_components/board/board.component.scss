@@ -1,3 +1,5 @@
+
+
 p {
   font-family: Lato, serif;
 }
@@ -5,6 +7,7 @@ p {
 .board {
   margin: 1em auto;
   width: 100%;
+  min-width: 75*12px;
 }
 
 .row{

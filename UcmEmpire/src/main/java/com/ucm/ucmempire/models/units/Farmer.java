@@ -9,9 +9,9 @@ public class Farmer extends Character implements IFarmer {
 
     private ResourceName resourceHarvesting;
 
-//    public Farmer(int pv, Integer name, int pa) {
-//        super(pv, name, pa);
-//    }
+    public Farmer(int pv, Integer id, int pa) {
+        super(id, pv, pa);
+    }
 
     public Farmer(int idUser) {
         this.hp = Constants.NB_POINTDEVIE;
@@ -23,16 +23,6 @@ public class Farmer extends Character implements IFarmer {
     public Farmer(Integer idUser, int hp, int pa) {
         super(idUser, hp, pa);
     }
-
-//    @Override
-//    public String toString() {
-//        return "Farmer{" +
-//                "resourceHarvesting=" + resourceHarvesting +
-//                ", pa=" + pa +
-//                ", moveLeft=" + moveLeft +
-//                ", hp=" + hp +
-//                '}';
-//    }
 
     public ResourceName getResourceHarvesting(){
         return resourceHarvesting;

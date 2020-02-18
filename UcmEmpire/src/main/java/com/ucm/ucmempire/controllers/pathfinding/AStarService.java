@@ -19,9 +19,9 @@ public class AStarService {
         closedList = new ArrayList<>();
     }
 
-    public Position run(int pa) {
+    public PositionDTO run(int pa) {
         if (start.equals(finish))
-            return start;
+            return new PositionDTO(start, 0);
         else {
             openList.add(new Node(start));
             Node current = new Node();
@@ -35,12 +35,12 @@ public class AStarService {
             if (current.getPosition().equals(finish) & pa > 0) {
                 List<Position> positions = findPath();
                 if (pa >= positions.size())
-                    return positions.get(0);
+                    return new PositionDTO(positions.get(0), positions.size());
                 else {
-                    return positions.get(positions.size() - pa);
+                    return new PositionDTO(positions.get(positions.size() - pa), pa);
                 }
             } else {
-                return start;
+                return new PositionDTO(start, 0);
             }
         }
     }

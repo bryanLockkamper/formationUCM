@@ -10,12 +10,14 @@ import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.units.Farmer;
 import com.ucm.ucmempire.models.units.Soldier;
 import javafx.util.Pair;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+@ToString
 public class Board {
 
     private String name;
@@ -65,8 +67,18 @@ public class Board {
         ressourceCase = new SpecialSquare(ResourceName.STONE);
         boardList.get(2).set(2, ressourceCase);
 
-        // Hard code for ennemy
-        boardList.get(3).get(5).setContent(new Soldier(10, 5, 5));
+        ressourceCase = new SpecialSquare(ResourceName.FOOD);
+        boardList.get(0).set(10, ressourceCase);
+
+        ressourceCase = new SpecialSquare(ResourceName.WOOD);
+        boardList.get(6).set(5, ressourceCase);
+
+        ressourceCase = new SpecialSquare(ResourceName.STONE);
+        boardList.get(8).set(2, ressourceCase);
+
+        ressourceCase = new SpecialSquare(ResourceName.FOOD);
+        boardList.get(10).set(10, ressourceCase);
+
 
 
         return boardList;

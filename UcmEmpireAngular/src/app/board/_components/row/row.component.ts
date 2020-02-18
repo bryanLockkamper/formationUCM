@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 
 @Component({
   selector: 'row',
@@ -10,6 +10,8 @@ export class RowComponent implements OnInit {
   @Input() dimension: number;
   @Input() id: number;
   cells = [];
+  @Input() row;
+
   style: string;
   @Output() cell = new EventEmitter<{rowId: number, id: number}>();
 
@@ -19,6 +21,7 @@ export class RowComponent implements OnInit {
       this.cells.push({
         rowId: this.id,
         id: i,
+        content: this.row.row[i]
       });
     }
   }
