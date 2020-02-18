@@ -5,13 +5,11 @@ import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.models.buildings.Forum;
 import com.ucm.ucmempire.models.resources.Resource;
 import com.ucm.ucmempire.models.resources.ResourceName;
-import com.ucm.ucmempire.models.units.Builder;
-import com.ucm.ucmempire.models.units.Farmer;
+import com.ucm.ucmempire.models.units.Soldier;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.assertFalse;
@@ -20,22 +18,22 @@ import static org.junit.Assert.assertTrue;
 public class CreateEntityCheckerTest {
 
     @Test
-    public void createEntityChecker_Builder_20pa_true() {
-        Assert.assertTrue(CreateEntityChecker.createEntityChecker(new Builder(20, 0, 20)));
+    public void createEntityChecker_Soldier_20pa_true() {
+        Assert.assertTrue(CreateEntityChecker.createEntityChecker(new Soldier(20, 0, 20)));
     }
 
     @Test
-    public void createEntityChecker_Builder_0pa_false() {
-        Assert.assertFalse(CreateEntityChecker.createEntityChecker(new Builder(20, 0, 0)));
+    public void createEntityChecker_Soldier_0pa_false() {
+        Assert.assertFalse(CreateEntityChecker.createEntityChecker(new Soldier(20, 0, 0)));
     }
 
     @Test
-    public void createEntityChecker_OtherBuilder_20pa_false() {
-        Assert.assertFalse(CreateEntityChecker.createEntityChecker(new Farmer(20, 0, 20)));
+    public void createEntityChecker_OtherSoldier_20pa_false() {
+        Assert.assertFalse(CreateEntityChecker.createEntityChecker(new Soldier(20, 0, 20)));
     }
 
     @Test
-    public void createEntityChecker_resourcePlayer_equals_requirement_Builder_Forum_true() {
+    public void createEntityChecker_resourcePlayer_equals_requirement_Soldier_Forum_true() {
         Player player = new Player();
         Set<Resource> map = new HashSet<>();
         map.add(new Resource(ResourceName.STONE, 5));

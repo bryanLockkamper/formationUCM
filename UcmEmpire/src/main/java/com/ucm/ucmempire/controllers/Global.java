@@ -39,7 +39,6 @@ public class Global {
         Position position = aStarService.run(20);
         board.moveEntity(first, position);
         return board.getBoard();
-
     }
 
     @GetMapping("/")
