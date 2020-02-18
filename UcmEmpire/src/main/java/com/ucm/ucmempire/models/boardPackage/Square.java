@@ -2,8 +2,11 @@ package com.ucm.ucmempire.models.boardPackage;
 
 import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.biomes.BiomeType;
+import lombok.ToString;
+
 import java.util.List;
 
+@ToString
 public class Square {
 
     private boolean isWalkable;
@@ -61,8 +64,4 @@ public class Square {
         return biome;
     }
 
-    @Override
-    public String toString() {
-        return contents.toString() ;
-    }
 }

@@ -35,9 +35,9 @@ export class BoardComponent implements OnInit {
         });
         // attack
       } else if (this.board[this.first.rowId][this.first.id].content.damage && !this.board[cell.rowId][cell.id].special) {
-        if (this.board[cell.rowId][cell.id].content.idUser != this.board[this.first.rowId][this.first.id].content.idUser) {
+        if (this.board[cell.rowId][cell.id].content.idUser != this.board[this.first.rowId][this.first.id].content.idUser && this.board[this.first.rowId][this.first.id].content.pa > 0) {
           this.board[cell.rowId][cell.id].content.hp -= this.board[this.first.rowId][this.first.id].content.damage;
-          // TODO retirer les pa
+          this.board[this.first.rowId][this.first.id].content.pa = 0;
           if (this.board[cell.rowId][cell.id].content.hp <= 0) {
             this.boardService.deathEntity(cell).subscribe(() => {
               sessionStorage.clear();

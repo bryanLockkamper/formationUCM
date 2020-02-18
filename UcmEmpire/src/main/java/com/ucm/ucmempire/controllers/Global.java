@@ -2,10 +2,11 @@ package com.ucm.ucmempire.controllers;
 
 import com.ucm.ucmempire.controllers.pathfinding.AStarService;
 import com.ucm.ucmempire.controllers.pathfinding.Position;
+import com.ucm.ucmempire.controllers.pathfinding.PositionDTO;
 import com.ucm.ucmempire.dal.entity.PlayerEntity;
 import com.ucm.ucmempire.dal.servicedal.PlayerDalServiceImpl;
-import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.models.Character;
+import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.models.boardPackage.Board;
 import com.ucm.ucmempire.models.boardPackage.Square;
 import com.ucm.ucmempire.models.dto.CellDTO;
@@ -13,8 +14,6 @@ import com.ucm.ucmempire.models.dto.PlayerDTOLogin;
 import com.ucm.ucmempire.models.dto.PlayerDTORegister;
 import com.ucm.ucmempire.models.units.Farmer;
 import com.ucm.ucmempire.models.units.Soldier;
-import com.ucm.ucmempire.services.CombatService;
-import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,9 +42,15 @@ public class Global {
         Position second = new Position(cellDTOS.get(1).getRowId(), cellDTOS.get(1).getId());
         AStarService aStarService = new AStarService(board, first, second);
         Character character = (Character) board.getBoard().get(cellDTOS.get(0).getRowId()).get(cellDTOS.get(0).getId()).getContent();
-        Position position = aStarService.run(character.getPa());
-        // TODO setPA
-        board.moveEntity(first, position);
+        PositionDTO position = aStarService.run(character.getPa());
+        board.moveEntity(first, position.getPosition());
+        character.move(position);
+        if (position.getPosition().equals(second))
+            position.setPosition(null);
+        else
+            position.setPosition(second);
+        character.setMoveLeft(position.getPosition());
+
         // TODO: 17-02-20 return entityDTO ?
     }
 
@@ -58,15 +63,16 @@ public class Global {
     @GetMapping("/")
     public ArrayList<ArrayList<Square>> getBoard() {
         if (p1.getEntities().size() == 0) {
-            p1.addEntity(new Soldier(20, 0, 10, 5));
-            p1.addEntity(new Soldier(20, 0, 10, 5));
-            p1.addEntity(new Farmer(20, 0, 10));
-            p2.addEntity(new Soldier(20, 1, 10, 5));
+            p1.addEntity(new Soldier(20, 0, 5, 5));
+            p1.addEntity(new Soldier(20, 0, 5, 5));
+            p1.addEntity(new Farmer(20, 0, 5));
+            p2.addEntity(new Soldier(20, 1, 5, 5));
             board.setSquare(new Position(0,0), p1.getEntity(0));
             board.setSquare(new Position(10,5), p1.getEntity(1));
             board.setSquare(new Position(0,5), p1.getEntity(2));
             board.setSquare(new Position(3,2), p2.getEntity(0));
         }
+
         return board.getBoard();
     }
 

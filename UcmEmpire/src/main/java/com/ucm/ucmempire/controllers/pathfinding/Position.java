@@ -1,5 +1,8 @@
 package com.ucm.ucmempire.controllers.pathfinding;
 
+import lombok.ToString;
+
+@ToString
 public class Position {
     private int x;
     private int y;

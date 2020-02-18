@@ -1,9 +1,11 @@
 package com.ucm.ucmempire.models;
 
+import com.ucm.ucmempire.controllers.pathfinding.Position;
 import com.ucm.ucmempire.models.buildings.Granary;
 import com.ucm.ucmempire.models.buildings.buildingInterfaces.IProdBuilding;
 import com.ucm.ucmempire.models.resources.Resource;
 import com.ucm.ucmempire.models.resources.ResourceName;
+import javafx.geometry.Pos;
 
 import java.util.*;
 
@@ -60,13 +62,6 @@ public class Player {
     public boolean hasLost() {
         return true;
     } //TODO BRYAN : add condition for the victory
-
-    public void autoMoveUnits() {
-        for (Entity entity : entities) {
-            if (entity instanceof Character)
-                ((Character) entity).autoMove();
-        }
-    }
 
     public void buildEntity() {
         for (Entity entity : entities) {
