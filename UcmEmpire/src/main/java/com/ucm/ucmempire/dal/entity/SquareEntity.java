@@ -5,6 +5,7 @@ import com.ucm.ucmempire.models.biomes.BiomeType;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.Constraint;
 import java.io.Serializable;
 import java.util.List;
 
@@ -31,10 +32,13 @@ public class SquareEntity implements Serializable {
     private boolean isSpecial;
     @Column(name = "biome_type_square" , nullable = false)
     private String biome;
+    @Column (name = "position_square",nullable = false)
+    private String positionSquare;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "square")
     private List<SquareContent> contents;
 
+    @JoinColumn(name = "board",referencedColumnName = "id_board")
     @ManyToOne (targetEntity = BoardEntity.class)
     private BoardEntity boardEntity;
 

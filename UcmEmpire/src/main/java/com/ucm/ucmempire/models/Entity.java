@@ -1,7 +1,9 @@
 package com.ucm.ucmempire.models;
 
 import com.ucm.ucmempire.models.units.IEntity;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode
 public class Entity implements IEntity {
     protected int hp;
 

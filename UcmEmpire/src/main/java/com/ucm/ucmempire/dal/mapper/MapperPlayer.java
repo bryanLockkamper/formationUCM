@@ -17,30 +17,39 @@ import java.util.stream.Collectors;
 public class MapperPlayer {
 
     private Mapper mapper = new DozerBeanMapper();
-    private MapperEntities mapperEntities;
+    private MapperEntities mapperEntities = new MapperEntities();
 
 
     public Player playerEntityToPlayer (PlayerEntity playerEntity)
     {
         Player player = new Player();
         player.setId(playerEntity.getId());
-        player.setName(playerEntity.getLastName());
+        player.setName(playerEntity.getFirstName());
 
-        List<Entity> entityList = playerEntity.getEntityGamesList().stream()
-                .filter(e -> !(e instanceof ResourceEntity) )
-                .map(data -> mapperEntities.entityGameToEntity(data))
-                .collect(Collectors.toList());
-
-        player.setEntities(entityList);
-
-
-        Set<Resource> resourceSet = playerEntity.getEntityGamesList().stream()
-                .filter(e -> (e instanceof ResourceEntity) )
-                .map(data -> (Resource)mapperEntities.entityGameToEntity(data))
-                .collect(Collectors.toSet());
+        if (playerEntity.getEntityGamesList() != null)
+        {
+            List<Entity> entityList = playerEntity.getEntityGamesList().stream()
+                    .filter(e -> !(e instanceof ResourceEntity) )
+                    .map(data -> (mapperEntities.entityGameToEntity(data)))
+                    .collect(Collectors.toList());
 
 
-        player.setResources(resourceSet);
+            if (entityList.isEmpty()) {
+                player.setEntities(null);
+            } else   player.setEntities(entityList);
+
+
+            Set<Resource> resourceSet = playerEntity.getEntityGamesList().stream()
+                    .filter(e -> (e instanceof ResourceEntity) )
+                    .map(data -> (Resource)mapperEntities.entityGameToEntity(data))
+                    .collect(Collectors.toSet());
+
+            player.setResources(resourceSet);
+        } else
+        {
+            player.setEntities(null);
+            player.setResources(null);
+        }
 
         return player;
     }

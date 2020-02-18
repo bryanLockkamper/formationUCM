@@ -4,10 +4,11 @@ import com.ucm.ucmempire.models.biomes.BiomeType;
 import com.ucm.ucmempire.models.resources.Resource;
 import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.units.Farmer;
+import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@EqualsAndHashCode(callSuper = true)
 public class SpecialSquare extends Square {
 
     private List<Farmer> farmers;

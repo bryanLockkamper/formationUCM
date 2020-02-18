@@ -13,13 +13,14 @@ import java.io.Serializable;
 public class ResourceEntity extends EntityGame implements Serializable {
 
 
-    /*@Column(name = "name_ressource")
-     private String type;*/
+    @Column(name = "ressource_name")
+     private String typeRessource;
 
     public ResourceEntity() {
     }
 
-   /* public ResourceEntity(Integer id, int hp, String type) {
-        super(id, hp, type);
-    }*/
+    public ResourceEntity(Integer hp, String type, PlayerEntity playerEntity,String typeRessource) {
+        super(hp, type, playerEntity);
+        this.typeRessource = typeRessource;
+    }
 }

@@ -1,7 +1,9 @@
 package com.ucm.ucmempire.models.resources;
 
 import com.ucm.ucmempire.models.Entity;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode (callSuper = true)
 public class Resource extends Entity implements IResource{
     private ResourceName resourceName;
 

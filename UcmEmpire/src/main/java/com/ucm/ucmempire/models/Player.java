@@ -4,9 +4,10 @@ import com.ucm.ucmempire.models.buildings.Granary;
 import com.ucm.ucmempire.models.buildings.buildingInterfaces.IProdBuilding;
 import com.ucm.ucmempire.models.resources.Resource;
 import com.ucm.ucmempire.models.resources.ResourceName;
+import lombok.EqualsAndHashCode;
 
 import java.util.*;
-
+@EqualsAndHashCode
 public class Player {
     private final int granarySize = 20;
 
@@ -14,6 +15,13 @@ public class Player {
     protected String name;
     protected Set<Resource> resources;
     protected List<Entity> entities;
+
+    public Player(int id, String name, Set<Resource> resources, List<Entity> entities) {
+        this.id = id;
+        this.name = name;
+        this.resources = resources;
+        this.entities = entities;
+    }
 
     public Player(){
         resources = new HashSet<>();

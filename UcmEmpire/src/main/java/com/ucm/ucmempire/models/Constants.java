@@ -26,6 +26,8 @@ public class Constants {
     public static final String TYPE_FORUM = "FORUM";
     public static final String TYPE_GRANARY = "GRANARY";
     public static final String TYPE_HOUSE = "HOUSE";
+    public static final String TYPE_RESSOURCE = "RESSOURCE";
+
 
 
 

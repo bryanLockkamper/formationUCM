@@ -2,6 +2,7 @@ package com.ucm.ucmempire.dal.mapper;
 
 import com.ucm.ucmempire.dal.entity.BoardEntity;
 import com.ucm.ucmempire.dal.entity.SquareEntity;
+import com.ucm.ucmempire.models.Constants;
 import com.ucm.ucmempire.models.biomes.BiomeFactory;
 import com.ucm.ucmempire.models.biomes.BiomeType;
 import com.ucm.ucmempire.models.boardPackage.Board;
@@ -13,6 +14,8 @@ import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +32,30 @@ public class MapperBoardSquare {
 
     public Board boardEntityToBoard (BoardEntity boardEntity)
     {
-        return mapper.map(boardEntity,Board.class);
+        ArrayList<ArrayList<Square>> squares = new ArrayList<>();
+
+        for (int i = 0; i < Constants.DIMENSION_BOARD; i++) {
+            squares.add(new ArrayList<>());
+        }
+
+
+        for (int i = 0; i < Constants.DIMENSION_BOARD; i++) {
+
+            for (int j = 0; j < Constants.DIMENSION_BOARD; j++) {
+
+                int finalI = i;
+                int finalJ = j;
+                Square square = boardEntity.getSquareEntity().stream()
+                        .filter(data -> data.getPositionSquare().equals(finalI +":"+ finalJ))
+                        .findFirst()
+                        .map(s-> squareEntityToSquare(s))
+                        .orElse(null);
+
+                squares.get(i).add(j, square);
+            }
+        }
+        
+        return new Board(boardEntity.getName(),squares);
     }
 
     public Square squareEntityToSquare (SquareEntity squareEntity)

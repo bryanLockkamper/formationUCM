@@ -10,7 +10,6 @@ import java.io.Serializable;
 @Table (name = "entity_game")
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class EntityGame implements Serializable {
@@ -33,5 +32,15 @@ public abstract class EntityGame implements Serializable {
         this.hp = hp;
         this.type = type;
         this.playerEntity = playerEntity;
+    }
+
+    @Override
+    public String toString() {
+        return "EntityGame{" +
+                "id=" + id +
+                ", hp=" + hp +
+                ", type='" + type + '\'' +
+                ", playerEntity=" + playerEntity +
+                '}';
     }
 }

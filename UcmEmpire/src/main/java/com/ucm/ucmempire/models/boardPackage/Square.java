@@ -2,8 +2,10 @@ package com.ucm.ucmempire.models.boardPackage;
 
 import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.biomes.BiomeType;
-import java.util.List;
+import lombok.EqualsAndHashCode;
 
+import java.util.List;
+@EqualsAndHashCode
 public class Square {
 
     private boolean isWalkable;

@@ -8,9 +8,11 @@ import com.ucm.ucmempire.models.biomes.*;
 import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.units.Farmer;
 import com.ucm.ucmempire.models.units.Soldier;
+import lombok.EqualsAndHashCode;
+
 import java.util.ArrayList;
 
-
+@EqualsAndHashCode
 public class Board {
 
     private String name;
@@ -22,6 +24,11 @@ public class Board {
     public Board(String name) {
         this.name = name;
         this.board = boardGeneration();
+    }
+
+    public Board(String name, ArrayList<ArrayList<Square>> board) {
+        this.name = name;
+        this.board = board;
     }
 
     private ArrayList<ArrayList<Square>> boardGeneration() //TODO : include all generation in 1 loop based on the constant of biome and modulo with a list of different biome type from the factory

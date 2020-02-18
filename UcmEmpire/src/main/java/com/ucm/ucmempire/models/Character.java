@@ -2,7 +2,7 @@ package com.ucm.ucmempire.models;
 
 import lombok.EqualsAndHashCode;
 
-
+@EqualsAndHashCode (callSuper = true)
 public class Character extends Entity {
     private Integer idUser;
     protected int pa;

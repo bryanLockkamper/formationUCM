@@ -9,7 +9,6 @@ import java.io.Serializable;
 @Entity
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode (callSuper = true)
 public class CharacterEntity extends EntityGame implements Serializable {
 
@@ -17,14 +16,26 @@ public class CharacterEntity extends EntityGame implements Serializable {
     private Integer pa;
     @Column (name = "max_Pa_character")
     private Integer maxPa;
+    @Column (name = "damage_soldier")
+    private Integer damageSoldier;
 
     public CharacterEntity() {
     }
 
 
-    public CharacterEntity(Integer hp, String type, PlayerEntity playerEntity, Integer pa, Integer maxPa) {
+    public CharacterEntity(Integer hp, String type, PlayerEntity playerEntity, Integer pa, Integer maxPa,Integer damageSoldier) {
         super(hp, type, playerEntity);
         this.pa = pa;
         this.maxPa = maxPa;
+        this.damageSoldier = damageSoldier;
+    }
+
+    @Override
+    public String toString() {
+        return "CharacterEntity{" +
+                "pa=" + pa +
+                ", maxPa=" + maxPa +
+                ", damageSoldier=" + damageSoldier +
+                '}';
     }
 }

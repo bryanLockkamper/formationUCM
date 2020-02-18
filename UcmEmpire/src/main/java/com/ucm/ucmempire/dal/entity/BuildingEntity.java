@@ -8,7 +8,6 @@ import java.io.Serializable;
 @Entity
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode (callSuper = true)
 public class BuildingEntity extends EntityGame implements Serializable {
 
@@ -23,5 +22,10 @@ public class BuildingEntity extends EntityGame implements Serializable {
 
     public BuildingEntity(Integer hp, String type, PlayerEntity playerEntity) {
         super(hp, type, playerEntity);
+    }
+
+    @Override
+    public String toString() {
+        return "BuildingEntity{} ";
     }
 }

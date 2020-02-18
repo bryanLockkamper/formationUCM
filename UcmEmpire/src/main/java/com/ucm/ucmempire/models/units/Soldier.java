@@ -2,19 +2,21 @@ package com.ucm.ucmempire.models.units;
 
 import com.ucm.ucmempire.models.Character;
 import com.ucm.ucmempire.models.units.unitInterfaces.ISoldier;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode (callSuper = true)
 public class Soldier extends Character implements ISoldier {
 
     private int damage;
 
-    public Soldier(int hp, Integer name, int pa)
+    public Soldier(int hp, Integer idUser, int pa)
     {
-        super(hp, name, pa);
+        super(hp, idUser, pa);
     }
 
-    public Soldier(int hp, Integer name, int pa , int damage)
+    public Soldier(int hp, Integer idUser, int pa , int damage)
     {
-        this(hp, name, pa);
+        this(hp, idUser, pa);
         this.damage = damage;
     }
 

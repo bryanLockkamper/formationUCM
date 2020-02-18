@@ -6,9 +6,12 @@ import com.ucm.ucmempire.models.Constants;
 import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.buildings.*;
 import com.ucm.ucmempire.models.resources.Resource;
+import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.units.Farmer;
+import com.ucm.ucmempire.models.units.Soldier;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Component;
 
 
@@ -26,12 +29,12 @@ public class MapperEntities {
             {
                 case Constants.TYPE_SOLDIER :
                 {
-                    return mapper.map(entityGame,Barracks.class);
+                   return new Soldier(entityGame.getHp(),entityGame.getPlayerEntity().getId(),((CharacterEntity) entityGame).getPa(),((CharacterEntity) entityGame).getDamageSoldier());
                 }
 
                 case Constants.TYPE_FARMER :
                 {
-                    return mapper.map(entityGame, Farmer.class);
+                    return new Farmer(entityGame.getPlayerEntity().getId(),entityGame.getHp(),((CharacterEntity) entityGame).getPa()); //TODO DAMIEN : resourceHarverst ?
                 }
             }
         } else if (entityGame instanceof BuildingEntity)
@@ -40,24 +43,28 @@ public class MapperEntities {
             {
                 case Constants.TYPE_BARRACKS :
                 {
-                    return mapper.map(entityGame, Barracks.class);
+                    return new Barracks(entityGame.getHp(),entityGame.getPlayerEntity().getId(),null); //TODO : DAMIEN need to update with the DB update
                 }
 
                 case Constants.TYPE_FORUM :
                 {
-                    return mapper.map(entityGame, Forum.class);
+                    return new Forum(entityGame.getHp(),entityGame.getPlayerEntity().getId(),null); //TODO : DAMIEN need to update with the DB update
                 }
 
                 case Constants.TYPE_GRANARY :
                 {
-                    return mapper.map(entityGame, Granary.class);
+                    return new Granary(entityGame.getHp(),entityGame.getPlayerEntity().getId(),null); //TODO : DAMIEN need to update with the DB update
                 }
 
                 case Constants.TYPE_HOUSE :
                 {
-                    return mapper.map(entityGame, House.class);
+                    return new House(entityGame.getHp(),entityGame.getPlayerEntity().getId(),null); //TODO : DAMIEN need to update with the DB update
                 }
             }
+        } else if (entityGame instanceof ResourceEntity)
+        {
+            ResourceName resourceName = ResourceName.valueOf(((ResourceEntity) entityGame).getTypeRessource());
+            return new Resource(resourceName,entityGame.getHp());
         }
         return mapper.map(entityGame,Entity.class);
     }

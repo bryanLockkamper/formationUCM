@@ -1,6 +1,7 @@
 package com.ucm.ucmempire.models.resources;
 
 import com.ucm.ucmempire.models.Constants;
+import lombok.EqualsAndHashCode;
 
 public enum ResourceName{
 

@@ -6,13 +6,13 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table (name = "player")
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,13 +33,21 @@ public class PlayerEntity implements Serializable {
 
 
     @OneToMany(targetEntity = EntityGame.class,mappedBy = "player",fetch = FetchType.LAZY)
-    private Set<EntityGame> entityGamesList;
+    private List<EntityGame> entityGamesList;
 
     @ManyToOne (targetEntity = BoardEntity.class)
     private BoardEntity boardEntity;
 
-
-
-
-
+    @Override
+    public String toString() {
+        return "PlayerEntity{" +
+                "id=" + id +
+                ", lastName='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", entityGamesList=" + entityGamesList +
+                ", boardEntity=" + boardEntity +
+                '}';
+    }
 }

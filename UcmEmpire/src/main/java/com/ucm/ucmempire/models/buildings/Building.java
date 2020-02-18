@@ -2,8 +2,11 @@ package com.ucm.ucmempire.models.buildings;
 
 import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.resources.Resource;
+import lombok.EqualsAndHashCode;
 
 import java.util.HashSet;
+
+@EqualsAndHashCode (callSuper = true)
 
 public abstract class Building extends Entity {
     private Integer idUser;
