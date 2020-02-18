@@ -1,5 +1,6 @@
 package com.ucm.ucmempire.models;
 
+import com.ucm.ucmempire.models.buildings.Building;
 import com.ucm.ucmempire.models.buildings.Granary;
 import com.ucm.ucmempire.models.buildings.buildingInterfaces.IProdBuilding;
 import com.ucm.ucmempire.models.resources.Resource;
