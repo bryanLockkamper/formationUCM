@@ -24,6 +24,7 @@ import java.util.Optional;
 public class Global {
     private Board board = new Board("test");
     private PlayerDalServiceImpl playerDalService;
+    private Game game = new Game();
 
     @Autowired
     Global(PlayerDalServiceImpl playerDalService) {
@@ -63,5 +64,11 @@ public class Global {
         playerDalService.save(playerEntity);
 
         return ResponseEntity.ok("200");
+    }
+
+    @GetMapping("/timer/start")
+    public boolean start ()
+    {
+        return true;
     }
 }

@@ -13,7 +13,7 @@ public class Game implements Runnable{
     private Board board;
     HarvestService harvestService = new HarvestService();
 
-    private Game() {
+    public Game() {
 
     }
 
@@ -47,6 +47,7 @@ public class Game implements Runnable{
         System.out.println("debut tour");
         player1.buildEntity();
         //TODO harvestService.autoHarvestResources(player1.getEntities());
+        //harvestService.autoHarvestResources()
         endRound = false;
     }
 
