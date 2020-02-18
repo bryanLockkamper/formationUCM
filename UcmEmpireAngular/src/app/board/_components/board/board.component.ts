@@ -14,10 +14,21 @@ export class BoardComponent implements OnInit {
   board: RowModel[];
   first;
 
-  timeLeft: number = 2;
+  timeLeft: number = 120;
   interval;
 
+  constructor(
+    private boardService: BoardService,
+  ) {
+  }
+
+  ngOnInit() {
+    this.refresh();
+    this.startTimer();
+  }
+
   startTimer() {
+    this.boardService.startTimer();
     this.interval = setInterval(() => {
       if(this.timeLeft > 0) {
         this.timeLeft--;
@@ -28,18 +39,9 @@ export class BoardComponent implements OnInit {
   }
 
   endTurn() {
+    this.boardService.stopTimer();
     clearInterval(this.interval);
     this.timeLeft = 120;
-  }
-
-
-  constructor(
-    private boardService: BoardService,
-  ) {
-  }
-
-  ngOnInit() {
-    this.refresh();
   }
 
   move(cell) {
