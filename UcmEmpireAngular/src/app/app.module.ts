@@ -8,6 +8,7 @@ import { NbThemeModule, NbLayoutModule, NbCardModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { HomeModule } from './home/home.module';
 import {BoardModule} from "./board/_components/board.module";
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {BoardModule} from "./board/_components/board.module";
     NbLayoutModule,
     NbEvaIconsModule,
     NbCardModule,
+    FormsModule,
     HomeModule,
     BoardModule
   ],

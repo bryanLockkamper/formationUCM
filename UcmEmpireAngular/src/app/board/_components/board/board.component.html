@@ -1,8 +1,21 @@
-<div class="board">
-  <row *ngFor="let row of rows" class="row" [id]="row.id" [dimension]="dimension" (cell)="move($event)"></row>
-  <!--<div class="row" [id]="row.id" *ngFor="let row of rows">
-    <div class="square" [id]="square.id" *ngFor="let square of rows" (click)="onCellClick($event, row, square, this)">
-      <img [src]="">
-    </div>
-  </div>-->
+<div style="display: flex;">
+  <div style="width: 50%;" class="board">
+    <row *ngFor="let row of rows" class="row" [id]="row.id" [dimension]="dimension" (cell)="move($event)"></row>
+      <!--<div class="row" [id]="row.id" *ngFor="let row of rows">
+       <div class="square" [id]="square.id" *ngFor="let square of rows" (click)="onCellClick($event, row, square, this)">
+          <img [src]="">
+        </div>
+      </div>-->
+  </div>
+
+  <div style="width: 50%;">
+    <p>
+      Your turn to play :)
+    </p>
+  
+    <button (click)='startTimer()'>Start Timer</button>
+    <button (click)='endTurn()'>End Turn</button>
+  
+    <p>{{timeLeft}} Seconds Left....</p> 
+  </div>
 </div>

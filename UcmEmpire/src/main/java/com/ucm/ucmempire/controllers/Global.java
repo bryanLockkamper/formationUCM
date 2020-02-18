@@ -69,6 +69,14 @@ public class Global {
     @GetMapping("/timer/start")
     public boolean start ()
     {
+        this.game.run();
+        return true;
+    }
+
+    @GetMapping("/timer/stop")
+    public boolean stop ()
+    {
+        this.game.nextRound();
         return true;
     }
 }

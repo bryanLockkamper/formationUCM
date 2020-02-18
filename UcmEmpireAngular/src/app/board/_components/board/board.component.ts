@@ -14,6 +14,24 @@ export class BoardComponent implements OnInit {
   board: RowModel[];
   first;
 
+  timeLeft: number = 2;
+  interval;
+
+  startTimer() {
+    this.interval = setInterval(() => {
+      if(this.timeLeft > 0) {
+        this.timeLeft--;
+      } else {
+        this.endTurn();
+      }
+    },1000)
+  }
+
+  endTurn() {
+    clearInterval(this.interval);
+    this.timeLeft = 120;
+  }
+
 
   constructor(
     private boardService: BoardService,
