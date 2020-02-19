@@ -4,6 +4,8 @@ import com.ucm.ucmempire.dal.entity.PlayerEntity;
 import com.ucm.ucmempire.dal.entity.ResourceEntity;
 import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.Player;
+import com.ucm.ucmempire.models.dto.PlayerDTODetails;
+import com.ucm.ucmempire.models.dto.PlayerDTORegister;
 import com.ucm.ucmempire.models.resources.Resource;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
@@ -54,9 +56,10 @@ public class MapperPlayer {
         return player;
     }
 
-    public PlayerEntity playerToPlayerEntity (Player player)
+    public PlayerEntity playerDTODetailsToPlayerEntity (PlayerDTODetails player)
     {
-
-        return mapper.map(player,PlayerEntity.class);
+        return new PlayerEntity(player.getId(),player.getLastname(),player.getFirstname(),player.getPseudo(),player.getPassword(),null,null);
     }
+
+
 }

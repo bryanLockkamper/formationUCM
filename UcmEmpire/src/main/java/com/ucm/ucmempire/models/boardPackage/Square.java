@@ -55,6 +55,11 @@ public class Square {
 
     @Override
     public String toString() {
-        return contents.toString() ;
+        return "Square{" +
+                "isWalkable=" + isWalkable +
+                ", isBuildable=" + isBuildable +
+                ", biome=" + biome +
+                ", contents=" + contents +
+                '}';
     }
 }

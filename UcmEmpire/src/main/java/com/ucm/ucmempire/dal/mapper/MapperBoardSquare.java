@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class MapperBoardSquare {
 
     private Mapper mapper = new DozerBeanMapper();
-    private MapperEntities mapperEntities;
+    private MapperEntities mapperEntities = new MapperEntities();
 
     public BoardEntity boardToBoardEntity (Board board)
     {
@@ -62,7 +62,7 @@ public class MapperBoardSquare {
     public Square squareEntityToSquare (SquareEntity squareEntity)
     {
 
-        BiomeFactory biomeFactory = new BiomeFactory(); //TODO DAMIEN : need to declare in the swagger the right string to insert into the square
+         //TODO DAMIEN : need to declare in the swagger the right string to insert into the square
 
         if (squareEntity.isSpecial())
         {
@@ -78,10 +78,14 @@ public class MapperBoardSquare {
                     .findFirst().orElse(null);
 
 
-            return new SpecialSquare((Resource) mapperEntities.entityGameToEntity(squareEntity.getContents().get(0).getEntityGame()), BiomeType.valueOf(squareEntity.getBiome()),farmersList);
+            return new SpecialSquare(resource, BiomeType.valueOf(squareEntity.getBiome()),farmersList);
         } else
         {
-            return new Square(mapperEntities.entityGameToEntity(squareEntity.getContents().get(0).getEntityGame()),squareEntity.isBuildable(),squareEntity.isWalkable(),BiomeType.valueOf(squareEntity.getBiome()));
+            if (squareEntity.getContents() == null || squareEntity.getContents().isEmpty())
+            {
+                return new Square(null,squareEntity.isBuildable(),squareEntity.isWalkable(),BiomeType.valueOf(squareEntity.getBiome()));
+
+            } else return new Square(mapperEntities.entityGameToEntity(squareEntity.getContents().get(0).getEntityGame()),squareEntity.isBuildable(),squareEntity.isWalkable(),BiomeType.valueOf(squareEntity.getBiome()));
         }
 
     }

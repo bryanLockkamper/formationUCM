@@ -68,7 +68,7 @@ public class MapperEntitiesTest {
     public void entityGameToEntity_soldierEntity_true ()
     {
 
-        Soldier soldier = new Soldier(1,100,10,5);
+        Soldier soldier = new Soldier(100,1,10,5);
         Entity entity = (mapperEntities.entityGameToEntity(soldierEntity));
 
         Assert.assertEquals(soldier,entity);
@@ -119,7 +119,7 @@ public class MapperEntitiesTest {
     @Test
     public void entityGameToEntity_houseEntityToSoldier_false ()
     {
-        Soldier soldier = new Soldier(1,100,10,5);
+        Soldier soldier = new Soldier(100,1,10,5);
         Entity entity = (mapperEntities.entityGameToEntity(houseEntity));
         Assert.assertNotEquals(soldier,entity);
     }

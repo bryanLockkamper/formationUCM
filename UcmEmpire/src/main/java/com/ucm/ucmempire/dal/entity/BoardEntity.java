@@ -24,7 +24,7 @@ public class BoardEntity implements Serializable {
     @Column(name = "name_board")
     private String name;
 
-    @OneToMany (targetEntity = SquareEntity.class,mappedBy = "board",fetch = FetchType.LAZY)
+    @OneToMany (targetEntity = SquareEntity.class,fetch = FetchType.LAZY)
     private List<SquareEntity> squareEntity;
 
     public BoardEntity() {

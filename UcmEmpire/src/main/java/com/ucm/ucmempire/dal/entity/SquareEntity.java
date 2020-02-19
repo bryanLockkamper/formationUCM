@@ -38,9 +38,9 @@ public class SquareEntity implements Serializable {
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "square")
     private List<SquareContent> contents;
 
-    @JoinColumn(name = "board",referencedColumnName = "id_board")
-    @ManyToOne (targetEntity = BoardEntity.class)
-    private BoardEntity boardEntity;
+    /*@JoinColumn(name = "board",referencedColumnName = "id_board")
+    @OneToOne (targetEntity = BoardEntity.class)
+    private BoardEntity boardEntity;*/
 
 
 }

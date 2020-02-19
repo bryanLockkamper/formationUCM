@@ -11,7 +11,6 @@ import com.ucm.ucmempire.models.units.Farmer;
 import com.ucm.ucmempire.models.units.Soldier;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
-import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Component;
 
 
@@ -73,13 +72,34 @@ public class MapperEntities {
     {
         if (entity instanceof Character)
         {
-            return mapper.map(entity,CharacterEntity.class);
+            if (entity instanceof Soldier) //TODO DAMIEN : how to insert the player ?
+            {
+                return new CharacterEntity(entity.getHp(),Constants.TYPE_SOLDIER,new PlayerEntity(),((Soldier) entity).getPa(),((Soldier) entity).getPa(),((Soldier) entity).getDamage() );
+            } else if (entity instanceof Farmer)
+            {
+                return new CharacterEntity(entity.getHp(),Constants.TYPE_FARMER,new PlayerEntity(),((Farmer) entity).getPa(),((Farmer) entity).getPa(),null );
+            } else return mapper.map(entity,CharacterEntity.class);
+
         } else if (entity instanceof Resource)
         {
-            return mapper.map(entity,ResourceEntity.class);
+            return new ResourceEntity(entity.getHp(),Constants.TYPE_RESSOURCE,new PlayerEntity(),((Resource) entity).getResourceName().getType());
+
         } else if (entity instanceof Building)
         {
-            return mapper.map(entity,BuildingEntity.class);
+            if (entity instanceof House)
+            {
+                return new BuildingEntity(entity.getHp(),Constants.TYPE_HOUSE,new PlayerEntity());
+            } else if (entity instanceof Forum)
+            {
+                return new BuildingEntity(entity.getHp(),Constants.TYPE_FORUM,new PlayerEntity());
+            } else if (entity instanceof Barracks)
+            {
+                return new BuildingEntity(entity.getHp(),Constants.TYPE_BARRACKS,new PlayerEntity());
+            } else if (entity instanceof Granary)
+            {
+                return new BuildingEntity(entity.getHp(),Constants.TYPE_GRANARY,new PlayerEntity());
+            } else return mapper.map(entity,BuildingEntity.class); //TODO DAMIEN : Update the mapper default return by an Exception
+
         } else return mapper.map(entity,EntityGame.class);
     }
 
