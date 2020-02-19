@@ -9,13 +9,8 @@ public class Farmer extends Character implements IFarmer {
 
     private ResourceName resourceHarvesting;
 
-    public Farmer(int pv, Integer id, int pa) {
-        super(id, pv, pa);
-    }
-
     public Farmer(int idUser) {
-        this.hp = Constants.NB_POINTDEVIE;
-        this.pa = Constants.NB_POINTACTION;
+        super(idUser, Constants.NB_POINTDEVIE, Constants.NB_POINTACTION);
     }
 
     //TODO : override "move()" pour que si on tombe sur une case de ressources, on modifie l'attribut "ressourceARecolter" s'il y a un attribut.
@@ -23,6 +18,7 @@ public class Farmer extends Character implements IFarmer {
     public Farmer(Integer idUser, int hp, int pa) {
         super(idUser, hp, pa);
     }
+
 
     public ResourceName getResourceHarvesting(){
         return resourceHarvesting;

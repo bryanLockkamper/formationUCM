@@ -115,6 +115,7 @@ public class Player {
         //Si mon entité est bien une instace de Character ou de Building
         if(content instanceof Character || content instanceof Building){
             //Et si l'idUser de l'entité correspond a celui de mon User
+            // TODO: 19-02-20 ALEXANDRE c'est quoi ça?
             if ( ((Character)content).getIdUser() == this.getId() || ((Building)content).getIdUser() == this.getId())
             {
                 //Alors je rajoute a la liste d'entités

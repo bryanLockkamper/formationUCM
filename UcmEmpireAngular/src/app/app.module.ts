@@ -8,10 +8,12 @@ import { NbThemeModule, NbLayoutModule, NbCardModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { HomeModule } from './home/home.module';
 import {BoardModule} from "./board/_components/board.module";
+import { GuillaumePipe } from './_pipess/guillaume.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GuillaumePipe
   ],
   imports: [
     BrowserModule,

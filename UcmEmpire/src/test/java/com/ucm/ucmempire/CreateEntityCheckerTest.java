@@ -31,7 +31,7 @@ public class CreateEntityCheckerTest {
 
     @Test
     public void createEntityChecker_OtherBuilder_20pa_false() {
-        Assert.assertFalse(CreateEntityChecker.createEntityChecker(new Farmer(20, 0, 20)));
+        Assert.assertFalse(CreateEntityChecker.createEntityChecker(new Farmer(0)));
     }
 
     @Test

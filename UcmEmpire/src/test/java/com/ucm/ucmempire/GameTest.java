@@ -19,6 +19,7 @@ public class GameTest {
         game.getBoard().setSquare(new Position(0,0), new Soldier(20, 0, 5, 5));
         ((Character) (game.getBoard().getBoard().get(0).get(0).getContent())).setMoveLeft(new Position(0,11));
         game.endRound();
+        // TODO: 19-02-20 FARMER
         Soldier character = new Soldier(20,0,5, 5);
         character.setMoveLeft(new Position(0,11));
         assertEquals(character, game.getBoard().getBoard().get(0).get(5).getContent());

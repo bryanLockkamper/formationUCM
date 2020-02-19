@@ -13,8 +13,7 @@ public class Soldier extends Character implements ISoldier {
     private int damage;
 
     public Soldier(int idUser) {
-        this.hp = Constants.NB_POINTDEVIE;
-        this.pa = Constants.NB_POINTACTION;
+        super(idUser, Constants.NB_POINTDEVIE, Constants.NB_POINTACTION);
         this.damage =Constants.NB_DOMMAGE;
     }
 

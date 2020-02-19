@@ -27,8 +27,8 @@ import java.util.Optional;
 @CrossOrigin
 public class Global {
     private Board board = new Board("test");
-    Player p1 = new Player();
-    Player p2 = new Player();
+    Player p1 = new Player(0, "jean");
+    Player p2 = new Player(1, "gerard");
     private PlayerDalServiceImpl playerDalService;
     private Game game = new Game();
 
@@ -64,10 +64,10 @@ public class Global {
     @GetMapping("/")
     public ArrayList<ArrayList<Square>> getBoard() {
         if (p1.getEntities().size() == 0) {
-            p1.addEntity(new Soldier(20, 0, 5, 50));
-            p1.addEntity(new Soldier(20, 0, 5, 5));
-            p1.addEntity(new Farmer(20, 0, 5));
-            p2.addEntity(new Soldier(20, 1, 5, 5));
+            p1.addEntity(new Soldier(0));
+            p1.addEntity(new Soldier(0));
+            p1.addEntity(new Farmer(0));
+            p2.addEntity(new Soldier(1));
             board.setSquare(new Position(0,0), p1.getEntity(0));
             board.setSquare(new Position(10,5), p1.getEntity(1));
             board.setSquare(new Position(0,5), p1.getEntity(2));

@@ -46,7 +46,7 @@ public class Game implements Runnable {
         endRound = false;
     }
 
-    private void endRound() {
+    public void endRound() {
         System.out.println("fin tour");
         for (int i = 0; i < board.getBoard().size(); i++) {
             for (int j = 0; j < board.getBoard().get(i).size(); j++) {
