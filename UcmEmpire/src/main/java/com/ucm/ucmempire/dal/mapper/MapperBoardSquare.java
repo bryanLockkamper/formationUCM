@@ -28,7 +28,32 @@ public class MapperBoardSquare {
 
     public BoardEntity boardToBoardEntity (Board board)
     {
-        return mapper.map(board,BoardEntity.class);
+        BoardEntity boardEntity = new BoardEntity();
+        boardEntity.setName(board.getName());
+
+        List<SquareEntity> squareEntityList = board.getBoard().stream()
+                                                                .forEach(data -> data);
+
+        for (int i = 0; i < board.getBoard().size(); i++) {
+
+            for (int j = 0; j < board.getBoard().get(i).size(); j++) {
+
+                Square s = board.getBoard().get(i).get(j);
+                if ( board.getBoard().get(i).get(j) instanceof SpecialSquare)
+                {
+                    
+                }
+                SquareEntity squareEntity = new SquareEntity(null, s.isWalkable(),s.isBuildable(),)
+                Square square = boardEntity.getSquareEntity().stream()
+                        .filter(data -> data.getPositionSquare().equals(finalI +":"+ finalJ))
+                        .findFirst()
+                        .map(s-> squareEntityToSquare(s))
+                        .orElse(null);
+
+                squares.get(i).add(j, square);
+            }
+        }
+        return
     }
 
     public Board boardEntityToBoard (BoardEntity boardEntity)
