@@ -23,6 +23,8 @@ public class SquareEntity implements Serializable {
     @Column(name = "id_square" , nullable = false)
     private Integer id;
 
+    @Column(name = "is_overlayed" , nullable = false, columnDefinition = "boolean default true")
+    private boolean isOverlayed;
     @Column(name = "is_Walkable_square" , nullable = false)
     private boolean isWalkable;
     @Column(name = "is_Buildable_square", nullable = false)
