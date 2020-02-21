@@ -4,6 +4,7 @@ import com.ucm.ucmempire.controllers.pathfinding.AStarService;
 import com.ucm.ucmempire.controllers.pathfinding.Position;
 import com.ucm.ucmempire.controllers.pathfinding.PositionDTO;
 import com.ucm.ucmempire.dal.entity.PlayerEntity;
+import com.ucm.ucmempire.dal.entity.SquareEntity;
 import com.ucm.ucmempire.dal.servicedal.PlayerDalServiceImpl;
 import com.ucm.ucmempire.models.Character;
 import com.ucm.ucmempire.models.Player;
@@ -50,6 +51,25 @@ public class Global {
             position.setPosition(null);
         else
             position.setPosition(second);
+
+            //Préparer la case en cours et les cases adjacentes pour la boucle pour mettre l'api à jour
+            Square before = board.getBoard().get(cellDTOS.get(0).getRowId()).get(cellDTOS.get(0).getId());
+            Square after;
+
+            //Désactive le brouillard sur la case où se tient le personnage
+            before.setOverlayed(false);
+
+            for (int x = -1; x <= 1; x++){
+                for (int y = -1; y <= 1; y++){
+                    int i = first.getX();
+                    int j = first.getY();
+                    if (i+x >=0 && j+y >= 0){
+                        after = board.getBoard().get(cellDTOS.get(0).getRowId()+x).get(cellDTOS.get(0).getId()+y);
+                        after.setOverlayed(false);
+                    }
+                }
+            }
+
         character.setMoveLeft(position.getPosition());
 
         // TODO: 17-02-20 return entityDTO ?
