@@ -6,9 +6,11 @@ import lombok.ToString;
 @ToString
 public class Entity implements IEntity {
     protected int hp;
+    //protected int maxhp;
 
     public Entity(int hp) {
         this.hp = hp;
+        //this.maxhp = hp;
     }
 
     public Entity() {
@@ -20,6 +22,7 @@ public class Entity implements IEntity {
     }
 
     public void setHp(int hp) {
+        //this.hp = Math.min(Math.max(this.hp - hp, 0), this.maxhp);
         this.hp = Math.max(this.hp - hp, 0);
     }
 

@@ -52,6 +52,12 @@ public class Player {
         return nbGranaries*granarySize;
     }
 
+    public Resource getResource(ResourceName resourceName){
+        return resources.stream()
+                .filter(resource -> resource.getResourceName().equals(resourceName))
+                .findFirst().orElse(null);
+    }
+
     public int getResources(ResourceName resourceName){
 
             return Objects.requireNonNull(resources.stream()
@@ -85,10 +91,15 @@ public class Player {
     }
 
     public void suicideUnit(Entity entity){
-        if(entity instanceof Farmer){
-            
-        }
         this.getEntities().remove(entity);
+    }
+
+
+    public void removeInventaryResourcesFromPlayerResources(Farmer farmer){
+        for (ResourceName name:farmer.getInventory().keySet()) {
+            Resource playerResource = this.getResource(name);
+            playerResource.setHp(farmer.getInventory().get(name));
+        }
     }
 
     public boolean giveUp(){

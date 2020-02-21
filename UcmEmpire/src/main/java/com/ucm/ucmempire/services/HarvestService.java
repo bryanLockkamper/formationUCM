@@ -36,6 +36,11 @@ public class HarvestService {
                         //on ajoute les ressources farmée à l'inventaire du fermier
                         ResourceName farmerResource = actualResource.getResourceName();
                         farmer.getInventory().put(farmerResource, farmer.getInventory().get(farmerResource) + harvest);
+                        System.out.println("Ressources du joueur :");
+                        player.getResources().forEach(r -> {
+                            System.out.println(r.getNameOfRessource());
+                            System.out.println(r.getHp());
+                        });
 
                         System.out.println(harvest);
                         System.out.println(player.getEntities().toString());

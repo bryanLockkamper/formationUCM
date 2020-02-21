@@ -24,6 +24,7 @@ public class Resource extends Entity implements IResource{
     }
 
 
+
     public ResourceName getResourceName() {
         return resourceName;
     }
