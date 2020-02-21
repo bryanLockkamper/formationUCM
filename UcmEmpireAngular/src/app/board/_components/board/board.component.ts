@@ -89,7 +89,10 @@ export class BoardComponent implements OnInit {
             //Active la vision périphérique (N'a pas d'influence sur l'API. Ceci est cosmétique avant que l'api ne soit mise à jour)
             for (let x = -1; x <= 1; x++){
               for (let y = -1; y <= 1; y++){
-                if (i+x >=0 && j+y >= 0){
+                if (
+                  (i+x >=0 && j+y >= 0)
+                  && (i+x < board.length && j+y < board.length)
+                ){
                   board[i+x][j+y].overlayed = false;
                 }
               }
@@ -123,7 +126,6 @@ export class BoardComponent implements OnInit {
         row: this.board[i],
       });
     }
-    console.log(this.rows);
     this.first = null;
   }
 }

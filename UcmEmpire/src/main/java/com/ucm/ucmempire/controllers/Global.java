@@ -63,7 +63,9 @@ public class Global {
                 for (int y = -1; y <= 1; y++){
                     int i = first.getX();
                     int j = first.getY();
-                    if (i+x >=0 && j+y >= 0){
+                    if ((i+x >=0 && j+y >= 0)
+                    && (i+x < board.getBoard().size() && j+y < board.getBoard().size())
+                    ){
                         after = board.getBoard().get(cellDTOS.get(0).getRowId()+x).get(cellDTOS.get(0).getId()+y);
                         after.setOverlayed(false);
                     }
