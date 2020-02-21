@@ -91,9 +91,12 @@ public class Player {
     }
 
     public void suicideUnit(Entity entity){
-        this.getEntities().remove(entity);
+        this.entities.remove(entity);
     }
 
+    public void setMaxResources(){
+        resources.forEach(r -> r.setMaxHP(getMaxResources()));
+    }
 
     public void removeInventaryResourcesFromPlayerResources(Farmer farmer){
         for (ResourceName name:farmer.getInventory().keySet()) {
@@ -128,15 +131,21 @@ public class Player {
 
     public void addEntity(Entity content) {
         //Si mon entité est bien une instace de Character ou de Building
-        if(content instanceof Character || content instanceof Building){
+        if((content instanceof Character && ((Character)content).getIdUser() == this.getId() )
+                || content instanceof Building && ((Building)content).getIdUser() == this.getId()){
             //Et si l'idUser de l'entité correspond a celui de mon User
             // TODO: 19-02-20 ALEXANDRE c'est quoi ça?
-            if ( ((Character)content).getIdUser() == this.getId() || ((Building)content).getIdUser() == this.getId())
-            {
+            /*if ( ((Character)content).getIdUser() == this.getId() || ((Building)content).getIdUser() == this.getId())
+            {*/
                 //Alors je rajoute a la liste d'entités
                 entities.add(content);
-            }
+                if(content instanceof Granary){
+                    setMaxResources();
+                }
+
+            //}
         }
+
     }
 
     public int getGranarySize() {
