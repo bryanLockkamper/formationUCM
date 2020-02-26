@@ -108,15 +108,25 @@ public class MapperBoardSquareTest {
         SpecialSquare specialSquare = new SpecialSquare(new Resource(ResourceName.STONE,50),BiomeType.PLAINS,farmers);
 
         squareEntity.setBuildable(false);
-        squareEntity.setWalkable(false);
+        squareEntity.setWalkable(true);
+        squareEntity.setSpecial(true);
         //TODO DAMIEN : prob avec ressources
+        CharacterEntity farmerEntity2 = new CharacterEntity(100,Constants.TYPE_FARMER,florentEntity,10,20,null);
+
         SquareContent squareContent = new SquareContent(squareEntity,farmerEntity,50);
         SquareContent ressourceContent = new SquareContent(squareEntity,resourceEntity,50);
         specialSquareEntity.getContents().add(squareContent);
+        specialSquareEntity.getContents().add(new SquareContent(squareEntity,farmerEntity2,50));
         specialSquareEntity.getContents().add(ressourceContent);
+//TODO DAMIEN : add a farmerEntity2 ?
+        squareContentList.add(squareContent);
+        squareContentList.add(ressourceContent);
         squareEntity.setContents(squareContentList);
 
-        Square square = mapperBoardSquare.squareEntityToSquare(squareEntity);
+        Square square =mapperBoardSquare.squareEntityToSquare(squareEntity);
+        specialSquare.getFarmers().stream().forEach(data -> System.out.println(data.toString()));
+        System.out.println("##############");
+        ((SpecialSquare) square).getFarmers().stream().forEach(data -> System.out.println(data.toString()));
 
         Assert.assertEquals(specialSquare,square);
     }

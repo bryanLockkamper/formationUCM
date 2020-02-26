@@ -2,8 +2,10 @@ package com.ucm.ucmempire.dal.mapper;
 
 import com.ucm.ucmempire.dal.entity.BoardEntity;
 import com.ucm.ucmempire.dal.entity.ResourceEntity;
+import com.ucm.ucmempire.dal.entity.SquareContent;
 import com.ucm.ucmempire.dal.entity.SquareEntity;
 import com.ucm.ucmempire.models.Constants;
+import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.biomes.BiomeFactory;
 import com.ucm.ucmempire.models.biomes.BiomeType;
 import com.ucm.ucmempire.models.boardPackage.Board;
@@ -23,37 +25,32 @@ import java.util.stream.Collectors;
 @Component
 public class MapperBoardSquare {
 
-    private Mapper mapper = new DozerBeanMapper();
     private MapperEntities mapperEntities = new MapperEntities();
 
     public BoardEntity boardToBoardEntity (Board board)
     {
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.setName(board.getName());
+        List<SquareEntity> squareEntityList = new ArrayList<>();
 
-        List<SquareEntity> squareEntityList = board.getBoard().stream()
-                                                                .forEach(data -> data);
 
         for (int i = 0; i < board.getBoard().size(); i++) {
 
             for (int j = 0; j < board.getBoard().get(i).size(); j++) {
 
                 Square s = board.getBoard().get(i).get(j);
-                if ( board.getBoard().get(i).get(j) instanceof SpecialSquare)
-                {
-                    
-                }
-                SquareEntity squareEntity = new SquareEntity(null, s.isWalkable(),s.isBuildable(),)
-                Square square = boardEntity.getSquareEntity().stream()
-                        .filter(data -> data.getPositionSquare().equals(finalI +":"+ finalJ))
-                        .findFirst()
-                        .map(s-> squareEntityToSquare(s))
-                        .orElse(null);
+                String position = i+":"+j;
+                SquareEntity squareEntity = squareToSquareEntity(s);
+                squareEntity.setPositionSquare(position);
 
-                squares.get(i).add(j, square);
+
+                squareEntity.getContents().stream()
+                            .forEach(data -> data.setSquare(squareEntity));
+                squareEntityList.add(squareEntity);
             }
         }
-        return
+        boardEntity.setSquareEntity(squareEntityList);
+        return boardEntity;
     }
 
     public Board boardEntityToBoard (BoardEntity boardEntity)
@@ -113,6 +110,24 @@ public class MapperBoardSquare {
             } else return new Square(mapperEntities.entityGameToEntity(squareEntity.getContents().get(0).getEntityGame()),squareEntity.isBuildable(),squareEntity.isWalkable(),BiomeType.valueOf(squareEntity.getBiome()));
         }
 
+    }
+
+    public SquareEntity squareToSquareEntity (Square square)
+    {
+        boolean isSpecial = false;
+        List<SquareContent> squareContentList = new ArrayList<>();
+        if (square instanceof SpecialSquare)
+        {
+            isSpecial = true;
+            for (Entity e:((SpecialSquare) square).getFarmers()) {
+
+                squareContentList.add(new SquareContent( null,mapperEntities.entityToEntityGame(e),square.getContent().getHp()));
+            }
+        } else
+        {
+            squareContentList.add(new SquareContent(null,mapperEntities.entityToEntityGame(square.getContent()),square.getContent().getHp()));
+        }
+        return new SquareEntity(null,square.isWalkable(),square.isBuildable(),isSpecial,square.getBiome().getType(),null,squareContentList);
     }
 
 
