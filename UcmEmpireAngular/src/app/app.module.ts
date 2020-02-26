@@ -9,6 +9,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { HomeModule } from './home/home.module';
 import {BoardModule} from "./board/_components/board.module";
 import { GuillaumePipe } from './_pipess/guillaume.pipe';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { GuillaumePipe } from './_pipess/guillaume.pipe';
     NbLayoutModule,
     NbEvaIconsModule,
     NbCardModule,
+    FormsModule,
     HomeModule,
     BoardModule
   ],

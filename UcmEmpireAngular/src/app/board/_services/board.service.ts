@@ -22,6 +22,18 @@ export class BoardService {
     return this.httpClient.post<void>(environment.apiEndPoint + 'move', model);
   }
 
+  startTimer() {
+    console.log("START");
+    
+    this.httpClient.get(environment.apiEndPoint + '/timer/start').subscribe();
+  }
+
+  stopTimer() {
+    console.log("STOP");
+
+    this.httpClient.get(environment.apiEndPoint + '/timer/stop').subscribe();
+  }
+
   deathEntity(model): Observable<void> {
     return this.httpClient.post<void>(environment.apiEndPoint + 'deathEntity', model);
   }

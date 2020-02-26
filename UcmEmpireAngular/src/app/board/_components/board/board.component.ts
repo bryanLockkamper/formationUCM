@@ -13,6 +13,8 @@ export class BoardComponent implements OnInit {
   board: RowModel[];
   first;
 
+  timeLeft: number = 120;
+  interval;
 
   constructor(
     private boardService: BoardService,
@@ -20,6 +22,43 @@ export class BoardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.refresh();
+    this.startTimer();
+    this.rows = [];
+    this.first = null;
+    this.boardService.getBoard().subscribe(board => {
+      this.board = board;
+      this.dimension = board.length;
+      for (let i = 0; i < this.dimension; i++) {
+        for (let j = 0; j < this.dimension; j++) {
+          sessionStorage.setItem('' + i + j, this.getContent(board, i, j));
+        }
+      }
+      for (let i = 0; i < this.dimension; i++) {
+        this.rows.push({
+          dimension: this.dimension,
+          id: i,
+          row: board[i],
+        });
+      }
+    });
+  }
+
+  startTimer() {
+    this.boardService.startTimer();
+    this.interval = setInterval(() => {
+      if(this.timeLeft > 0) {
+        this.timeLeft--;
+      } else {
+        this.endTurn();
+      }
+    },1000)
+  }
+
+  endTurn() {
+    this.boardService.stopTimer();
+    clearInterval(this.interval);
+    this.timeLeft = 120;
     this.rows = [];
     this.first = null;
     this.boardService.getBoard().subscribe(board => {

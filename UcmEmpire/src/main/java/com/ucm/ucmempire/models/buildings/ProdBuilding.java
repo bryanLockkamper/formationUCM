@@ -6,7 +6,6 @@ import com.ucm.ucmempire.models.buildings.buildingInterfaces.IProdBuilding;
 import com.ucm.ucmempire.models.buildings.buildingInterfaces.IBarracks;
 import com.ucm.ucmempire.models.buildings.buildingInterfaces.IForum;
 import com.ucm.ucmempire.models.resources.Resource;
-import com.ucm.ucmempire.models.units.Builder;
 import com.ucm.ucmempire.models.units.Farmer;
 import com.ucm.ucmempire.models.units.Soldier;
 
