@@ -9,6 +9,7 @@ import java.util.List;
 @ToString
 public class Square {
 
+    private boolean isOverlayed;
     private boolean isWalkable;
     private boolean isBuildable;
     private boolean isSpecial;
@@ -22,6 +23,7 @@ public class Square {
 
     public Square(Entity contents, boolean isBuildable, boolean isWalkable, BiomeType biome) {
         this(contents);
+        this.isOverlayed = true;
         this.isSpecial = false;
         this.isBuildable = isBuildable;
         this.isWalkable = isWalkable;
@@ -64,4 +66,7 @@ public class Square {
         return biome;
     }
 
+    public boolean isOverlayed() { return isOverlayed; }
+
+    public void setOverlayed(boolean overlayed) { isOverlayed = overlayed; }
 }

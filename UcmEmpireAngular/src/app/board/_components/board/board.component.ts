@@ -120,14 +120,36 @@ export class BoardComponent implements OnInit {
         } else {
           content = 'FARMER'
         }
-        if (board[i][j].content != null && board[i][j].content.idUser == 0)
+        let currentSquare = board[i][j];
+        //Pour le moment, le brouillard fonctionne selon la logique que le player 0 est le seul à voir de son côté. 
+        //Cette condition permet de faire apparaître un brouillard seulement selon le joueur 0.
+        if (currentSquare.content.idUser == 0){
+          board[i][j].overlayed = false;
+            //Active la vision périphérique (N'a pas d'influence sur l'API. Ceci est cosmétique avant que l'api ne soit mise à jour)
+            for (let x = -1; x <= 1; x++){
+              for (let y = -1; y <= 1; y++){
+                if (
+                  (i+x >=0 && j+y >= 0)
+                  && (i+x < board.length && j+y < board.length)
+                ){
+                  board[i+x][j+y].overlayed = false;
+                }
+              }
+            }
+          }
+        if (currentSquare.content != null && currentSquare.content.idUser == 0) {
           content += '_BLUE';
-        else
+        } else
           content += '_RED';
       }
     }
     return content;
   }
+
+  getOverlayed(board, i, j){
+      return board[i][j].overlayed;
+  }
+
 
   refresh() {
     for (let i = 0; i < this.dimension; i++) {
