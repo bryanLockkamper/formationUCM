@@ -89,7 +89,14 @@ describe('BoardComponent', () => {
         "walkable": true
       },
       {"biome": "PLAINS", "content": null, "special": false, "buildable": true, "walkable": true}]]);
+
+
+
+
+
     spyOn(service, 'getBoard').and.returnValue(stub.asObservable());
+
+
     service.getBoard().subscribe(value =>
       expect(component.getContent(value, 0, 2))
         .toBe('FOOD', 'service returned stub value'));

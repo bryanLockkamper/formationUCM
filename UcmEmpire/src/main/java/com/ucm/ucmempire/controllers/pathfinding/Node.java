@@ -58,35 +58,11 @@ public class Node {
         this.position = position;
     }
 
-    public boolean isWalkable() {
-        return walkable;
-    }
-
-    public void setWalkable(boolean walkable) {
-        this.walkable = walkable;
-    }
-
     public Node getParent() {
         return parent;
     }
 
     public void setParent(Node parent) {
         this.parent = parent;
-    }
-
-    public int getCol() {
-        return position.getX();
-    }
-
-    public void setCol(int x) {
-        position.setX(x);
-    }
-
-    public int getLine() {
-        return position.getY();
-    }
-
-    public void setLine(int y) {
-        position.setY(y);
     }
 }

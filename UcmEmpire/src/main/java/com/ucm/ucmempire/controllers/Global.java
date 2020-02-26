@@ -31,7 +31,7 @@ public class Global {
     Player p1 = new Player(0, "jean");
     Player p2 = new Player(1, "gerard");
     private PlayerDalServiceImpl playerDalService;
-    AStarService aStarServic
+    AStarService aStarService;
     private Player player1;
     private Game game = new Game();
 
@@ -60,11 +60,7 @@ public class Global {
 
     @PostMapping("/deathEntity")
     public void deathEntity(@RequestBody CellDTO cellDTO) {
-        System.out.println(cellDTO);
         board.setSquare(new Position(cellDTO.getRowId(), cellDTO.getId()), null);
-        Position position = aStarService.run(20);
-        board.moveEntity(first, position);
-        return board.getBoard();
     }
 
     @GetMapping("/")
