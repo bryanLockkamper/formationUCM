@@ -31,6 +31,7 @@ public class Global {
     Player p1 = new Player(0, "jean");
     Player p2 = new Player(1, "gerard");
     private PlayerDalServiceImpl playerDalService;
+    AStarService aStarServic
     private Player player1;
     private Game game = new Game();
 
