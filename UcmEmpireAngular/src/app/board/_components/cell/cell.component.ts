@@ -25,7 +25,7 @@ export class CellComponent implements OnInit {
   }
 
   getSheet() {
-    let content = sessionStorage.getItem('' + this.rowId + this.id);
+    let content = sessionStorage.getItem('' + this.rowId + '-' + this.id);
     let overlayed = this.content.overlayed;
     //Oui je sais c'est dégueulasse mais c'est pour afficher les unités du player 0 seulement. C'est Bryan qui a demandé.
     if(!overlayed){

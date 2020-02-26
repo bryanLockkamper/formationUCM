@@ -22,8 +22,6 @@ export class BoardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.refresh();
-    this.startTimer();
     this.rows = [];
     this.first = null;
     this.boardService.getBoard().subscribe(board => {
@@ -31,7 +29,7 @@ export class BoardComponent implements OnInit {
       this.dimension = board.length;
       for (let i = 0; i < this.dimension; i++) {
         for (let j = 0; j < this.dimension; j++) {
-          sessionStorage.setItem('' + i + j, this.getContent(board, i, j));
+          sessionStorage.setItem('' + i + '-' + j, this.getContent(board, i, j));
         }
       }
       for (let i = 0; i < this.dimension; i++) {
@@ -42,6 +40,7 @@ export class BoardComponent implements OnInit {
         });
       }
     });
+    this.startTimer();
   }
 
   startTimer() {
@@ -59,24 +58,6 @@ export class BoardComponent implements OnInit {
     this.boardService.stopTimer();
     clearInterval(this.interval);
     this.timeLeft = 120;
-    this.rows = [];
-    this.first = null;
-    this.boardService.getBoard().subscribe(board => {
-      this.board = board;
-      this.dimension = board.length;
-      for (let i = 0; i < this.dimension; i++) {
-        for (let j = 0; j < this.dimension; j++) {
-          sessionStorage.setItem('' + i + j, this.getContent(board, i, j));
-        }
-      }
-      for (let i = 0; i < this.dimension; i++) {
-        this.rows.push({
-          dimension: this.dimension,
-          id: i,
-          row: board[i],
-        });
-      }
-    });
   }
 
   onClick(cell) {
@@ -106,6 +87,7 @@ export class BoardComponent implements OnInit {
     }
   }
 
+  // todo transferer vers cell compnents
   getContent(board, i, j) {
     let content;
 
@@ -118,13 +100,14 @@ export class BoardComponent implements OnInit {
         if (board[i][j].content.damage) {
           content = 'SOLDAT';
         } else {
-          content = 'FARMER'
+          content = 'FARMER';
         }
         let currentSquare = board[i][j];
-        //Pour le moment, le brouillard fonctionne selon la logique que le player 0 est le seul à voir de son côté. 
-        //Cette condition permet de faire apparaître un brouillard seulement selon le joueur 0.
-        if (currentSquare.content.idUser == 0){
-          board[i][j].overlayed = false;
+        if (board[i][j].content.idUser == 0) {
+          //Pour le moment, le brouillard fonctionne selon la logique que le player 0 est le seul à voir de son côté.
+          //Cette condition permet de faire apparaître un brouillard seulement selon le joueur 0.
+          if (currentSquare.content.idUser == 0){
+            board[i][j].overlayed = false;
             //Active la vision périphérique (N'a pas d'influence sur l'API. Ceci est cosmétique avant que l'api ne soit mise à jour)
             for (let x = -1; x <= 1; x++){
               for (let y = -1; y <= 1; y++){
@@ -137,6 +120,7 @@ export class BoardComponent implements OnInit {
               }
             }
           }
+        }
         if (currentSquare.content != null && currentSquare.content.idUser == 0) {
           content += '_BLUE';
         } else
@@ -154,7 +138,7 @@ export class BoardComponent implements OnInit {
   refresh() {
     for (let i = 0; i < this.dimension; i++) {
       for (let j = 0; j < this.dimension; j++) {
-        sessionStorage.setItem('' + i + j, this.getContent(this.board, i, j));
+        sessionStorage.setItem('' + i + '-' + j, this.getContent(this.board, i, j));
       }
     }
     this.rows = [];
