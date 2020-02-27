@@ -1,0 +1,9 @@
+ <cell
+   *ngFor="let cell of cells"
+    class="{{style}}"
+    (click)="onCellClick(cell)"
+   [rowId]="id"
+   [id]="cell.id"
+   [content]="cell.content"
+  >
+  </cell>

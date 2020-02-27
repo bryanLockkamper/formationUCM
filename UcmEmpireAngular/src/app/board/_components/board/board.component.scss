@@ -1,0 +1,43 @@
+
+
+p {
+  font-family: Lato, serif;
+}
+
+.board {
+  margin: 1em auto;
+  width: 100%;
+  min-width: 75*12px;
+}
+
+.row{
+  width: 100%;
+  height: 75px;
+  display: block;
+}
+
+.square {
+  display: inline-flex;
+  border: solid 1px #ddd;
+  margin: -1px;
+  width: 75px;
+  height: 75px;
+  cursor: pointer;
+}
+
+.cellContent {
+  width: 74px;
+  height: 74px;
+}
+
+.blue {
+  background: #afceff;
+}
+
+.red {
+  background: #f9cfbd;
+}
+
+.green {
+  background: #c8f9ac;
+}

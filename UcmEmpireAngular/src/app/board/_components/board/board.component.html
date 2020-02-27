@@ -1,0 +1,5 @@
+<div class="board">
+  <row *ngFor="let row of rows" class="row" [id]="row.id" [dimension]="dimension" [row]="row"
+       (cell)="onClick($event)"></row>
+</div>
+
