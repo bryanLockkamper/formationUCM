@@ -105,7 +105,14 @@ public class Board {
     }
 
     public void setSquare(Position position, Entity newEntity) {
-        board.get(position.getX()).get(position.getY()).setContent(newEntity);
+        Square cell = board.get(position.getX()).get(position.getY());
+        //Give the resources of the entity to the enemy player, if it's a farmer.
+        Entity e = cell.getContent();
+        if(e instanceof Farmer){
+            plunderFarmerResources((Farmer)e);
+        }
+
+        cell.setContent(newEntity);
     }
 
     public ArrayList<Player> getPlayerList() {
@@ -181,6 +188,18 @@ public class Board {
 //        }
         //return false;
         return true;
+    }
+
+    public void testPlunderResources(Farmer farmer){
+        plunderFarmerResources(farmer);
+    }
+
+    private void plunderFarmerResources(Farmer farmer){
+        playerList.stream().filter(p -> !p.getEntities().contains(farmer)).findFirst()
+                .ifPresent(enemyPlayer -> farmer.getInventory().keySet()
+                        .forEach(resource -> enemyPlayer.getResource(resource).setHp(Math.negateExact(farmer.getInventory().get(resource)))));
+        playerList.stream().filter(p -> p.getEntities().contains(farmer)).findFirst()
+                .ifPresent(thisPlayer -> thisPlayer.removeInventaryResourcesFromPlayerResources(farmer));
     }
 
     /*public List<Pair<Position, Square>> getBoardDTO() {

@@ -23,6 +23,9 @@ public class Resource extends Entity implements IResource{
         return resourceName.getQuantity();
     }
 
+    public void setMaxHP(int maxhp){
+        this.maxhp = maxhp;
+    }
 
     public ResourceName getResourceName() {
         return resourceName;

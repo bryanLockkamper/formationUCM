@@ -3,6 +3,7 @@ package com.ucm.ucmempire.services;
 import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.models.boardPackage.SpecialSquare;
 import com.ucm.ucmempire.models.resources.Resource;
+import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.units.Farmer;
 
 import java.util.List;
@@ -31,6 +32,16 @@ public class HarvestService {
                                 .filter(resource -> resource.getResourceName().getType().equals(((Resource) squareResource.getContent()).getNameOfRessource()))
                                 .findFirst().orElseThrow(NullPointerException::new);
                         harvest += farmer.getPa();
+
+                        //on ajoute les ressources farmée à l'inventaire du fermier
+                        ResourceName farmerResource = actualResource.getResourceName();
+                        farmer.getInventory().put(farmerResource, farmer.getInventory().get(farmerResource) + harvest);
+                        System.out.println("Ressources du joueur :");
+                        player.getResources().forEach(r -> {
+                            System.out.println(r.getNameOfRessource());
+                            System.out.println(r.getHp());
+                        });
+
                         System.out.println(harvest);
                         System.out.println(player.getEntities().toString());
 
