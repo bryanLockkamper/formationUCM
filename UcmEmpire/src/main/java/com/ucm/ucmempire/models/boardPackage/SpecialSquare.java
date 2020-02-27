@@ -37,4 +37,11 @@ public class SpecialSquare extends Square {
     public void addFarmer(Farmer farmer) {
         farmers.add(farmer);
     }
+
+    @Override
+    public String toString() {
+        return "SpecialSquare{" +
+                "farmers=" + farmers +
+                "} " + super.toString();
+    }
 }

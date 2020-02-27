@@ -1,9 +1,6 @@
 package com.ucm.ucmempire.dal.mapper;
 
-import com.ucm.ucmempire.dal.entity.BoardEntity;
-import com.ucm.ucmempire.dal.entity.ResourceEntity;
-import com.ucm.ucmempire.dal.entity.SquareContent;
-import com.ucm.ucmempire.dal.entity.SquareEntity;
+import com.ucm.ucmempire.dal.entity.*;
 import com.ucm.ucmempire.models.Constants;
 import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.biomes.BiomeFactory;
@@ -33,19 +30,18 @@ public class MapperBoardSquare {
         boardEntity.setName(board.getName());
         List<SquareEntity> squareEntityList = new ArrayList<>();
 
-
         for (int i = 0; i < board.getBoard().size(); i++) {
 
             for (int j = 0; j < board.getBoard().get(i).size(); j++) {
-
                 Square s = board.getBoard().get(i).get(j);
-                String position = i+":"+j;
                 SquareEntity squareEntity = squareToSquareEntity(s);
-                squareEntity.setPositionSquare(position);
+
+                squareEntity.setPositionSquare(i+":"+j);
 
 
                 squareEntity.getContents().stream()
                             .forEach(data -> data.setSquare(squareEntity));
+
                 squareEntityList.add(squareEntity);
             }
         }
@@ -89,16 +85,19 @@ public class MapperBoardSquare {
         if (squareEntity.isSpecial())
         {
 
-            List<Farmer> farmersList = squareEntity.getContents().stream()
-                    .filter(e -> Constants.TYPE_FARMER.equals(e.getEntityGame().getType()))
-                    .map(data -> (Farmer) mapperEntities.entityGameToEntity(data.getEntityGame()))
-                    .collect(Collectors.toList());
-
             Resource resource = squareEntity.getContents().stream()
                     .filter(r -> r.getEntityGame() instanceof ResourceEntity)
                     .map(data ->(Resource) mapperEntities.entityGameToEntity(data.getEntityGame()))
                     .findFirst().orElse(null);
 
+            List<Farmer> farmersList = squareEntity.getContents().stream()
+                    .filter(e -> Constants.TYPE_FARMER.equals(e.getEntityGame().getType()))
+                    .map(data -> {
+                        Farmer newFarm =  (Farmer) mapperEntities.entityGameToEntity(data.getEntityGame());
+                        newFarm.setResourceHarvesting(resource.getResourceName());
+                        return newFarm;
+                    })
+                    .collect(Collectors.toList());
 
             return new SpecialSquare(resource, BiomeType.valueOf(squareEntity.getBiome()),farmersList);
         } else
@@ -118,14 +117,22 @@ public class MapperBoardSquare {
         List<SquareContent> squareContentList = new ArrayList<>();
         if (square instanceof SpecialSquare)
         {
-            isSpecial = true;
-            for (Entity e:((SpecialSquare) square).getFarmers()) {
 
-                squareContentList.add(new SquareContent( null,mapperEntities.entityToEntityGame(e),square.getContent().getHp()));
+            isSpecial = true;
+            if ((((SpecialSquare) square).getFarmers() != null))
+            {
+                for (Entity e:((SpecialSquare) square).getFarmers()) {
+
+                    squareContentList.add(new SquareContent( null,mapperEntities.entityToEntityGame(e),square.getContent().getHp()));
+                }
             }
+
         } else
         {
-            squareContentList.add(new SquareContent(null,mapperEntities.entityToEntityGame(square.getContent()),square.getContent().getHp()));
+
+            EntityGame entityGame = square.getContent() == null ? null : mapperEntities.entityToEntityGame(square.getContent());
+
+            squareContentList.add(new SquareContent(null,entityGame,entityGame == null ? null : entityGame.getHp()));
         }
         return new SquareEntity(null,square.isWalkable(),square.isBuildable(),isSpecial,square.getBiome().getType(),null,squareContentList);
     }

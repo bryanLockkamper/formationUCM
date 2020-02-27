@@ -21,5 +21,8 @@ public class BiomeDesert implements IBiomes {
         return squareEntity;
     }
 
-
+    @Override
+    public String toString() {
+        return "BiomeDesert{}";
+    }
 }

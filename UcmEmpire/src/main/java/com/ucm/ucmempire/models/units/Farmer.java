@@ -29,4 +29,14 @@ public class Farmer extends Character implements IFarmer {
     public void setResourceHarvesting(ResourceName resourceHarvesting){
         this.resourceHarvesting = resourceHarvesting;
     }
+
+    @Override
+    public String toString() {
+        return "Farmer{" +
+                "resourceHarvesting=" + resourceHarvesting +
+                ", pa=" + pa +
+                ", moveLeft=" + moveLeft +
+                ", hp=" + hp +
+                "} " + super.toString();
+    }
 }

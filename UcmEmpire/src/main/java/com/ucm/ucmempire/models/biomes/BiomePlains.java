@@ -18,4 +18,8 @@ public class BiomePlains implements IBiomes {
         return entityCase;
     }
 
+    @Override
+    public String toString() {
+        return "BiomePlains{}";
+    }
 }

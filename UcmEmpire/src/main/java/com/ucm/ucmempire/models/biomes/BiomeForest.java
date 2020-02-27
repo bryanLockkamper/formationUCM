@@ -31,5 +31,8 @@ public class BiomeForest implements IBiomes {
 
     }
 
-
+    @Override
+    public String toString() {
+        return "BiomeForest{}";
+    }
 }

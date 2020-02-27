@@ -27,4 +27,14 @@ public class Soldier extends Character implements ISoldier {
     public void setDamage(int damage) {
         this.damage = damage;
     }
+
+    @Override
+    public String toString() {
+        return "Soldier{" +
+                "damage=" + damage +
+                ", pa=" + pa +
+                ", moveLeft=" + moveLeft +
+                ", hp=" + hp +
+                "} " + super.toString();
+    }
 }

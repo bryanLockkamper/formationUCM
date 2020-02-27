@@ -20,5 +20,8 @@ public class BiomeSea implements IBiomes {
         return entityCase;
     }
 
-
+    @Override
+    public String toString() {
+        return "BiomeSea{}";
+    }
 }

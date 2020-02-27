@@ -26,6 +26,6 @@ public class BuildingEntity extends EntityGame implements Serializable {
 
     @Override
     public String toString() {
-        return "BuildingEntity{} ";
+        return "BuildingEntity{} " + super.toString();
     }
 }

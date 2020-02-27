@@ -2,6 +2,7 @@ package com.ucm.ucmempire.controllers;
 
 import com.ucm.ucmempire.controllers.pathfinding.AStarService;
 import com.ucm.ucmempire.controllers.pathfinding.Position;
+import com.ucm.ucmempire.dal.servicedal.BoardDalService;
 import com.ucm.ucmempire.dal.servicedal.PlayerDalService;
 import com.ucm.ucmempire.models.boardPackage.Board;
 import com.ucm.ucmempire.models.boardPackage.Square;
@@ -19,10 +20,12 @@ import java.util.List;
 public class Global {
     private Board board = new Board("test");
     private PlayerDalService playerDalService;
+    private BoardDalService boardDalService;
 
     @Autowired
-    Global(PlayerDalService playerDalService) {
+    Global(PlayerDalService playerDalService,BoardDalService boardDalService) {
         this.playerDalService = playerDalService;
+        this.boardDalService = boardDalService;
     }
 
     @PostMapping("/move")
@@ -46,5 +49,13 @@ public class Global {
     public String register(@RequestBody PlayerDTORegister playerDTO) {
         System.out.println(playerDTO);
         return "200";
+    }
+
+    @GetMapping("/saveBoard")
+    public void saveBoard ()
+    {
+        boardDalService.save(board);
+
+
     }
 }

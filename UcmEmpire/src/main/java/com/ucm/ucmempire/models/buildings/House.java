@@ -13,4 +13,12 @@ public class House extends Building implements IHouse {
     public House(int hp, Integer idUser, HashSet<Resource> requirement) {
         super(hp, idUser, requirement);
     }
+
+    @Override
+    public String toString() {
+        return "House{" +
+                "hp=" + hp +
+                "} " + super.toString();
+    }
 }
+

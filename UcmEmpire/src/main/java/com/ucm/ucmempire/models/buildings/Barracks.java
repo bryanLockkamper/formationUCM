@@ -23,4 +23,11 @@ public class Barracks extends ProdBuilding implements IBarracks {
     public Entity decrementCounter() {
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "Barracks{" +
+                "hp=" + hp +
+                "} " + super.toString();
+    }
 }

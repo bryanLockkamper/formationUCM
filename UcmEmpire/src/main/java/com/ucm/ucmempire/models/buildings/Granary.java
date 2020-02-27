@@ -15,4 +15,10 @@ public class Granary extends Building implements IGranary {
         super(hp, idUser, requirement);
     }
 
+    @Override
+    public String toString() {
+        return "Granary{" +
+                "hp=" + hp +
+                "} " + super.toString();
+    }
 }

@@ -5,6 +5,7 @@ import com.ucm.ucmempire.dal.mapper.MapperBoardSquare;
 import com.ucm.ucmempire.dal.mapper.MapperEntities;
 import com.ucm.ucmempire.models.Constants;
 import com.ucm.ucmempire.models.biomes.BiomeType;
+import com.ucm.ucmempire.models.boardPackage.Board;
 import com.ucm.ucmempire.models.boardPackage.SpecialSquare;
 import com.ucm.ucmempire.models.boardPackage.Square;
 import com.ucm.ucmempire.models.buildings.House;
@@ -18,6 +19,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MapperBoardSquareTest {
 
@@ -103,33 +106,51 @@ public class MapperBoardSquareTest {
     {
         List<Farmer> farmers = new ArrayList<>();
         farmers.add(new Farmer(1,100,10,ResourceName.STONE));
-        farmers.add(new Farmer(1,50,10,ResourceName.STONE));
+        farmers.add(new Farmer(1,100,10,ResourceName.STONE));
 
-        SpecialSquare specialSquare = new SpecialSquare(new Resource(ResourceName.STONE,50),BiomeType.PLAINS,farmers);
+        SpecialSquare specialSquare = new SpecialSquare(new Resource(ResourceName.STONE,100),BiomeType.PLAINS,farmers);
 
         squareEntity.setBuildable(false);
         squareEntity.setWalkable(true);
         squareEntity.setSpecial(true);
-        //TODO DAMIEN : prob avec ressources
+
+
         CharacterEntity farmerEntity2 = new CharacterEntity(100,Constants.TYPE_FARMER,florentEntity,10,20,null);
 
         SquareContent squareContent = new SquareContent(squareEntity,farmerEntity,50);
+        SquareContent square2Content = new SquareContent(squareEntity,farmerEntity2,50);
+
         SquareContent ressourceContent = new SquareContent(squareEntity,resourceEntity,50);
-        specialSquareEntity.getContents().add(squareContent);
-        specialSquareEntity.getContents().add(new SquareContent(squareEntity,farmerEntity2,50));
-        specialSquareEntity.getContents().add(ressourceContent);
-//TODO DAMIEN : add a farmerEntity2 ?
+
         squareContentList.add(squareContent);
         squareContentList.add(ressourceContent);
+        squareContentList.add(square2Content);
         squareEntity.setContents(squareContentList);
 
         Square square =mapperBoardSquare.squareEntityToSquare(squareEntity);
-        specialSquare.getFarmers().stream().forEach(data -> System.out.println(data.toString()));
-        System.out.println("##############");
-        ((SpecialSquare) square).getFarmers().stream().forEach(data -> System.out.println(data.toString()));
 
         Assert.assertEquals(specialSquare,square);
     }
+
+    @Test
+    public void squareEntityToSpecialSquare_StoneWith0Farmers_true ()
+    {
+        List<Farmer> farmers = new ArrayList<>();
+
+        SpecialSquare specialSquare = new SpecialSquare(new Resource(ResourceName.STONE,100),BiomeType.PLAINS,farmers);
+
+        squareEntity.setBuildable(false);
+        squareEntity.setWalkable(true);
+        squareEntity.setSpecial(true);
+
+        SquareContent ressourceContent = new SquareContent(squareEntity,resourceEntity,50);
+        squareContentList.add(ressourceContent);
+        squareEntity.setContents(squareContentList);
+        Square square =mapperBoardSquare.squareEntityToSquare(squareEntity);
+        Assert.assertEquals(specialSquare,square);
+    }
+
+    //TODO DAMIEN : create test for the board mapper
 
 
 

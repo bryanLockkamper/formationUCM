@@ -3,7 +3,7 @@ package com.ucm.ucmempire.models;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode (callSuper = true)
-public class Character extends Entity {
+public class Character extends Entity { //TODO EVRYONE : Why character is not abstract ?
     private Integer idUser;
     protected int pa;
     protected int moveLeft; //TODO (ALEX & Bryan) : Need to replace bay a list af move
@@ -45,5 +45,16 @@ public class Character extends Entity {
 
     public void setMaxPA() {
         pa = maxPA;
+    }
+
+    @Override
+    public String toString() {
+        return "Character{" +
+                "idUser=" + idUser +
+                ", pa=" + pa +
+                ", moveLeft=" + moveLeft +
+                ", maxPA=" + maxPA +
+                ", hp=" + hp +
+                "} " + super.toString();
     }
 }

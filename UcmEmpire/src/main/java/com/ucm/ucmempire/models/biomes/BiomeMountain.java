@@ -32,5 +32,8 @@ public class BiomeMountain implements IBiomes {
 
     }
 
-
+    @Override
+    public String toString() {
+        return "BiomeMountain{}";
+    }
 }

@@ -8,7 +8,6 @@ import java.io.Serializable;
 @Entity
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode (callSuper = true)
 public class ResourceEntity extends EntityGame implements Serializable {
 
@@ -22,5 +21,12 @@ public class ResourceEntity extends EntityGame implements Serializable {
     public ResourceEntity(Integer hp, String type, PlayerEntity playerEntity,String typeRessource) {
         super(hp, type, playerEntity);
         this.typeRessource = typeRessource;
+    }
+
+    @Override
+    public String toString() {
+        return "ResourceEntity{" +
+                "typeRessource='" + typeRessource + '\'' +
+                "} " + super.toString();
     }
 }

@@ -25,4 +25,12 @@ public enum ResourceName{
                 return type;
         }
         public Integer getQuantity() {return quantity;}
+
+        @Override
+        public String toString() {
+                return "ResourceName{" +
+                        "type='" + type + '\'' +
+                        ", quantity=" + quantity +
+                        "} " + super.toString();
+        }
 }

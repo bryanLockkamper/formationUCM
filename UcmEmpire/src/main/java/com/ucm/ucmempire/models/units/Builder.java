@@ -4,7 +4,9 @@ import com.ucm.ucmempire.models.Character;
 import com.ucm.ucmempire.models.boardPackage.Square;
 import com.ucm.ucmempire.models.buildings.Building;
 import com.ucm.ucmempire.models.units.unitInterfaces.IBuilder;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode (callSuper = true)
 public class Builder extends Character implements IBuilder {
 
     public Builder(int pv, Integer name, int pa) {
@@ -17,6 +19,10 @@ public class Builder extends Character implements IBuilder {
 
     @Override
     public String toString() {
-        return "B";
+        return "Builder{" +
+                "pa=" + pa +
+                ", moveLeft=" + moveLeft +
+                ", hp=" + hp +
+                "} " + super.toString();
     }
 }

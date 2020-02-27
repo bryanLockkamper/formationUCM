@@ -36,6 +36,6 @@ public class CharacterEntity extends EntityGame implements Serializable {
                 "pa=" + pa +
                 ", maxPa=" + maxPa +
                 ", damageSoldier=" + damageSoldier +
-                '}';
+                "} " + super.toString();
     }
 }

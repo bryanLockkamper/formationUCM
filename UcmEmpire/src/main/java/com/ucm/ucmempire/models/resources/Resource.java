@@ -28,4 +28,11 @@ public class Resource extends Entity implements IResource{
         return resourceName;
     }
 
+    @Override
+    public String toString() {
+        return "Resource{" +
+                "resourceName=" + resourceName +
+                ", hp=" + hp +
+                "} " + super.toString();
+    }
 }

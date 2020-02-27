@@ -27,5 +27,11 @@ public class Forum extends ProdBuilding implements IForum {
         return null;
     }
 
-
+    @Override
+    public String toString() {
+        return "Forum{" +
+                "entities=" + entities +
+                ", hp=" + hp +
+                "} " + super.toString();
+    }
 }

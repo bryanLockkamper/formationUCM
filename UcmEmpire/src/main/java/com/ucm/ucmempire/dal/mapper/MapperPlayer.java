@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 @Component
 public class MapperPlayer {
 
-    private Mapper mapper = new DozerBeanMapper();
     private MapperEntities mapperEntities = new MapperEntities();
 
 

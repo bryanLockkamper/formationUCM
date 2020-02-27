@@ -33,5 +33,10 @@ public class Entity implements IEntity {
         return getHp() <= 0;
     }
 
-
+    @Override
+    public String toString() {
+        return "Entity{" +
+                "hp=" + hp +
+                '}';
+    }
 }

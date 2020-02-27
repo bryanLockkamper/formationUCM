@@ -11,74 +11,83 @@ import com.ucm.ucmempire.models.units.Farmer;
 import com.ucm.ucmempire.models.units.Soldier;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
+import org.dozer.MappingException;
 import org.springframework.stereotype.Component;
 
 
 @Component
 public class MapperEntities {
 
-    private Mapper mapper = new DozerBeanMapper();
 
 
     public Entity entityGameToEntity (EntityGame entityGame)
     {
         if (entityGame instanceof CharacterEntity)
         {
-            switch (entityGame.getType())
-            {
-                case Constants.TYPE_SOLDIER :
-                {
-                   return new Soldier(entityGame.getHp(),entityGame.getPlayerEntity().getId(),((CharacterEntity) entityGame).getPa(),((CharacterEntity) entityGame).getDamageSoldier());
-                }
-
-                case Constants.TYPE_FARMER :
-                {
-                    return new Farmer(entityGame.getPlayerEntity().getId(),entityGame.getHp(),((CharacterEntity) entityGame).getPa()); //TODO DAMIEN : resourceHarverst ?
-                }
-            }
+            return characterEntityToCharacter((CharacterEntity) entityGame);
         } else if (entityGame instanceof BuildingEntity)
         {
-            switch (entityGame.getType())
-            {
-                case Constants.TYPE_BARRACKS :
-                {
-                    return new Barracks(entityGame.getHp(),entityGame.getPlayerEntity().getId(),null); //TODO : DAMIEN need to update with the DB update
-                }
-
-                case Constants.TYPE_FORUM :
-                {
-                    return new Forum(entityGame.getHp(),entityGame.getPlayerEntity().getId(),null); //TODO : DAMIEN need to update with the DB update
-                }
-
-                case Constants.TYPE_GRANARY :
-                {
-                    return new Granary(entityGame.getHp(),entityGame.getPlayerEntity().getId(),null); //TODO : DAMIEN need to update with the DB update
-                }
-
-                case Constants.TYPE_HOUSE :
-                {
-                    return new House(entityGame.getHp(),entityGame.getPlayerEntity().getId(),null); //TODO : DAMIEN need to update with the DB update
-                }
-            }
+            return buildingEntityToBuilding((BuildingEntity) entityGame);
         } else if (entityGame instanceof ResourceEntity)
         {
             ResourceName resourceName = ResourceName.valueOf(((ResourceEntity) entityGame).getTypeRessource());
             return new Resource(resourceName,entityGame.getHp());
         }
-        return mapper.map(entityGame,Entity.class);
+        return null;
     }
+
+    public Character characterEntityToCharacter (CharacterEntity characterEntity)
+    {
+        switch (characterEntity.getType())
+        {
+            case Constants.TYPE_SOLDIER :
+            {
+                return new Soldier(characterEntity.getHp(),characterEntity.getPlayerEntity().getId(),( characterEntity).getPa(),(characterEntity).getDamageSoldier());
+            }
+
+            case Constants.TYPE_FARMER :
+            {
+                return new Farmer(characterEntity.getPlayerEntity().getId(),characterEntity.getHp(),( characterEntity).getPa()); //TODO DAMIEN : resourceHarverst ?
+            }
+            default: return null;
+        }
+    }
+
+    public Building buildingEntityToBuilding (BuildingEntity buildingEntity)
+    {
+        switch (buildingEntity.getType())
+        {
+            case Constants.TYPE_BARRACKS :
+            {
+                return new Barracks(buildingEntity.getHp(),buildingEntity.getPlayerEntity().getId(),null); //TODO : DAMIEN need to update with the DB update
+            }
+
+            case Constants.TYPE_FORUM :
+            {
+                return new Forum(buildingEntity.getHp(),buildingEntity.getPlayerEntity().getId(),null); //TODO : DAMIEN need to update with the DB update
+            }
+
+            case Constants.TYPE_GRANARY :
+            {
+                return new Granary(buildingEntity.getHp(),buildingEntity.getPlayerEntity().getId(),null); //TODO : DAMIEN need to update with the DB update
+            }
+
+            case Constants.TYPE_HOUSE :
+            {
+                return new House(buildingEntity.getHp(),buildingEntity.getPlayerEntity().getId(),null); //TODO : DAMIEN need to update with the DB update
+            }
+            default: return null;
+        }
+    }
+
+
+
 
     public EntityGame entityToEntityGame (Entity entity)
     {
         if (entity instanceof Character)
         {
-            if (entity instanceof Soldier) //TODO DAMIEN : how to insert the player ?
-            {
-                return new CharacterEntity(entity.getHp(),Constants.TYPE_SOLDIER,new PlayerEntity(),((Soldier) entity).getPa(),((Soldier) entity).getPa(),((Soldier) entity).getDamage() );
-            } else if (entity instanceof Farmer)
-            {
-                return new CharacterEntity(entity.getHp(),Constants.TYPE_FARMER,new PlayerEntity(),((Farmer) entity).getPa(),((Farmer) entity).getPa(),null );
-            } else return mapper.map(entity,CharacterEntity.class);
+          return characterToCharacterEntity((Character) entity);
 
         } else if (entity instanceof Resource)
         {
@@ -86,21 +95,37 @@ public class MapperEntities {
 
         } else if (entity instanceof Building)
         {
-            if (entity instanceof House)
-            {
-                return new BuildingEntity(entity.getHp(),Constants.TYPE_HOUSE,new PlayerEntity());
-            } else if (entity instanceof Forum)
-            {
-                return new BuildingEntity(entity.getHp(),Constants.TYPE_FORUM,new PlayerEntity());
-            } else if (entity instanceof Barracks)
-            {
-                return new BuildingEntity(entity.getHp(),Constants.TYPE_BARRACKS,new PlayerEntity());
-            } else if (entity instanceof Granary)
-            {
-                return new BuildingEntity(entity.getHp(),Constants.TYPE_GRANARY,new PlayerEntity());
-            } else return mapper.map(entity,BuildingEntity.class); //TODO DAMIEN : Update the mapper default return by an Exception
+            return buildingToBuildingEntity((Building) entity);
+        } else return null;
+    }
 
-        } else return mapper.map(entity,EntityGame.class);
+    public CharacterEntity characterToCharacterEntity (Character character)
+    {
+        if (character instanceof Soldier) //TODO DAMIEN : how to insert the player ?
+        {
+            return new CharacterEntity(character.getHp(),Constants.TYPE_SOLDIER,new PlayerEntity(),((Soldier) character).getPa(),((Soldier) character).getPa(),((Soldier) character).getDamage() );
+        } else if (character instanceof Farmer)
+        {
+            return new CharacterEntity(character.getHp(),Constants.TYPE_FARMER,new PlayerEntity(),((Farmer) character).getPa(),((Farmer) character).getPa(),null );
+        } else return null;
+    }
+
+    public BuildingEntity buildingToBuildingEntity (Building building)
+    {
+        if (building instanceof House)
+        {
+            return new BuildingEntity(building.getHp(),Constants.TYPE_HOUSE,new PlayerEntity());
+        } else if (building instanceof Forum)
+        {
+            return new BuildingEntity(building.getHp(),Constants.TYPE_FORUM,new PlayerEntity());
+        } else if (building instanceof Barracks)
+        {
+            return new BuildingEntity(building.getHp(),Constants.TYPE_BARRACKS,new PlayerEntity());
+        } else if (building instanceof Granary)
+        {
+            return new BuildingEntity(building.getHp(),Constants.TYPE_GRANARY,new PlayerEntity());
+        } else return null; //TODO DAMIEN : Update the mapper default return by an Exception
+
     }
 
 }

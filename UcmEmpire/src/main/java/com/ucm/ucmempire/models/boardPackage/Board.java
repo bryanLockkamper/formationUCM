@@ -138,17 +138,13 @@ public class Board {
             board.get(position_new.getX()).get(position_new.getY()).setContent(character);
     }
 
-    /*public List<Pair<Position, Square>> getBoardDTO() {
-        AtomicInteger i = new AtomicInteger();
-        AtomicInteger j = new AtomicInteger();
-        return board.stream()
-                .map(squares -> {
-                    j.set((j.intValue() + 1) % board.get(0).size());
-                    if (j.intValue() == 0)
-                        i.getAndIncrement();
-                    System.out.println(i.get() + j.get());
-                    return new Pair<>(new Position(i.get(), j.get()), squares.get(j.get()));
-                })
-                .collect(Collectors.toList());
-    }*/
+    @Override
+    public String toString() {
+        return "Board{" +
+                "name='" + name + '\'' +
+                ", board=" + board +
+                '}';
+    }
+
+
 }

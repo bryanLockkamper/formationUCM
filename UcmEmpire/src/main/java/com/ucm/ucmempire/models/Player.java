@@ -121,4 +121,15 @@ public class Player {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "granarySize=" + granarySize +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", resources=" + resources +
+                ", entities=" + entities +
+                '}';
+    }
 }
