@@ -1,18 +1,14 @@
 package com.ucm.ucmempire.models.units;
 
 import com.ucm.ucmempire.models.Character;
+import com.ucm.ucmempire.models.dto.EntityDTO;
 import com.ucm.ucmempire.models.Constants;
 import com.ucm.ucmempire.models.resources.Resource;
 import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.units.unitInterfaces.IFarmer;
-import lombok.ToString;
+import lombok.EqualsAndHashCode;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-@ToString
+@EqualsAndHashCode (callSuper = true)
 public class Farmer extends Character implements IFarmer {
 
     private ResourceName resourceHarvesting;
@@ -24,6 +20,12 @@ public class Farmer extends Character implements IFarmer {
         super(idUser, Constants.NB_POINTDEVIE, Constants.NB_POINTACTION);
     }
 
+    public Farmer (EntityDTO entityDTO)
+    {
+        super(entityDTO.getIdPlayer(),entityDTO.getHp(),entityDTO.getPa());
+        this.resourceHarvesting = ResourceName.valueOf(entityDTO.getTypeRessource());
+
+    }
     //TODO : override "move()" pour que si on tombe sur une case de ressources, on modifie l'attribut "ressourceARecolter" s'il y a un attribut.
 
     public Farmer(Integer idUser, int hp, int pa) {
@@ -49,5 +51,15 @@ public class Farmer extends Character implements IFarmer {
         this.inventory.put(ResourceName.STONE, 0);
         this.inventory.put(ResourceName.FOOD, 0);
         this.inventory.put(ResourceName.WOOD, 0);
+    }
+
+    @Override
+    public String toString() {
+        return "Farmer{" +
+                "resourceHarvesting=" + resourceHarvesting +
+                ", pa=" + pa +
+                ", moveLeft=" + moveLeft +
+                ", hp=" + hp +
+                "} " + super.toString();
     }
 }

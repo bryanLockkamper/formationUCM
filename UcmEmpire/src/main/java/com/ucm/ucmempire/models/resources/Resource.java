@@ -1,7 +1,10 @@
 package com.ucm.ucmempire.models.resources;
 
 import com.ucm.ucmempire.models.Entity;
+import com.ucm.ucmempire.models.dto.EntityDTO;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode (callSuper = true)
 public class Resource extends Entity implements IResource{
     private ResourceName resourceName;
 
@@ -15,6 +18,11 @@ public class Resource extends Entity implements IResource{
         this.hp = quantity;
     }
 
+    public Resource(EntityDTO entityDTO)
+    {
+        super(entityDTO.getHp());
+        this.resourceName = ResourceName.valueOf(entityDTO.getTypeRessource());
+    }
 
     //TODO DAMIEN : for the moment the player ressources is init with the quantity define in the enum, need to add an other metho/ctro with the init special for the player ?
 
@@ -36,4 +44,11 @@ public class Resource extends Entity implements IResource{
         return getResourceName().getType();
     }
 
+    @Override
+    public String toString() {
+        return "Resource{" +
+                "resourceName=" + resourceName +
+                ", hp=" + hp +
+                "} " + super.toString();
+    }
 }

@@ -2,17 +2,16 @@ package com.ucm.ucmempire.models.boardPackage;
 
 import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.biomes.BiomeType;
-import lombok.ToString;
+import com.ucm.ucmempire.models.dto.SquareDTO;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
-
-@ToString
+@EqualsAndHashCode
 public class Square {
 
     private boolean isOverlayed;
     private boolean isWalkable;
     private boolean isBuildable;
-    private boolean isSpecial;
     private BiomeType biome;
 
     private Entity contents;
@@ -24,18 +23,17 @@ public class Square {
     public Square(Entity contents, boolean isBuildable, boolean isWalkable, BiomeType biome) {
         this(contents);
         this.isOverlayed = true;
-        this.isSpecial = false;
         this.isBuildable = isBuildable;
         this.isWalkable = isWalkable;
         this.biome = biome;
     }
 
-    public boolean isSpecial() {
-        return isSpecial;
-    }
-
-    public void setSpecial(boolean special) {
-        isSpecial = special;
+    public Square (SquareDTO squareDTO)
+    {
+        this.isBuildable = squareDTO.isBuildable();
+        this.isWalkable = squareDTO.isWalkable();
+        this.biome = BiomeType.valueOf(squareDTO.getBiomeType());
+        this.contents = new Entity(squareDTO.getEntityDTOList().get(0));
     }
 
     public Entity getContent() {
@@ -69,4 +67,13 @@ public class Square {
     public boolean isOverlayed() { return isOverlayed; }
 
     public void setOverlayed(boolean overlayed) { isOverlayed = overlayed; }
+    @Override
+    public String toString() {
+        return "Square{" +
+                "isWalkable=" + isWalkable +
+                ", isBuildable=" + isBuildable +
+                ", biome=" + biome +
+                ", contents=" + contents +
+                '}';
+    }
 }

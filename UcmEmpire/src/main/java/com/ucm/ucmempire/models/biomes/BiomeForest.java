@@ -4,8 +4,10 @@ import com.ucm.ucmempire.models.Constants;
 import com.ucm.ucmempire.models.boardPackage.Square;
 import com.ucm.ucmempire.models.boardPackage.SpecialSquare;
 import com.ucm.ucmempire.models.resources.ResourceName;
+import lombok.EqualsAndHashCode;
 
 import java.util.Random;
+@EqualsAndHashCode
 
 public class BiomeForest implements IBiomes {
 
@@ -29,5 +31,8 @@ public class BiomeForest implements IBiomes {
 
     }
 
-
+    @Override
+    public String toString() {
+        return "BiomeForest{}";
+    }
 }

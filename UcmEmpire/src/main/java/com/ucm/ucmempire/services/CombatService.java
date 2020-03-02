@@ -8,7 +8,7 @@ public class CombatService {
 
         if (attack != null && defense != null)
         {
-            defense.setHp(attack.getDamage());
+            defense.setHp(attack.getDamage()); //TODO ALEX : C'est mauavais Jack
             return defense.getHp() <= 0;
         }
 

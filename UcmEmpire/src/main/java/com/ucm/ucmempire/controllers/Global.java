@@ -9,6 +9,8 @@ import com.ucm.ucmempire.dal.servicedal.PlayerDalServiceImpl;
 import com.ucm.ucmempire.models.Character;
 import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.models.Player;
+import com.ucm.ucmempire.dal.servicedal.BoardDalService;
+import com.ucm.ucmempire.dal.servicedal.PlayerDalService;
 import com.ucm.ucmempire.models.boardPackage.Board;
 import com.ucm.ucmempire.models.boardPackage.Square;
 import com.ucm.ucmempire.models.dto.CellDTO;
@@ -40,10 +42,13 @@ public class Global {
     AStarService aStarService;
     private Player player1;
     private Game game = new Game(p1, p2, board);
+    private PlayerDalService playerDalService;
+    private BoardDalService boardDalService;
 
     @Autowired
-    Global(PlayerDalServiceImpl playerDalService) {
+    Global(PlayerDalService playerDalService,BoardDalService boardDalService) {
         this.playerDalService = playerDalService;
+        this.boardDalService = boardDalService;
     }
 
     @PostMapping("/attack")
@@ -160,5 +165,23 @@ public class Global {
             game.notify();
         }
         return true;
+    }
+
+    @GetMapping("/saveBoard")
+    public void saveBoard ()
+    {
+
+        System.out.println(board.getBoard().get(0).get(0).getBiome());
+        List<Integer> idList = new ArrayList<>();
+        idList.add(1);
+        idList.add(2);
+
+        //Etape 1 save the board
+        System.out.println(boardDalService.save(board));
+
+        //Etape 2 update the player table
+       // playerDalService.saveBoard(idList,boardEntity);
+
+
     }
 }

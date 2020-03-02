@@ -8,14 +8,25 @@ import java.io.Serializable;
 @Entity
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode (callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
 public class ResourceEntity extends EntityGame implements Serializable {
 
 
-    @Column(name = "name_ressource")
-     private String type;
+    @Column(name = "ressource_name")
+     private String typeRessource;
 
+    public ResourceEntity() {
+    }
+
+    public ResourceEntity(Integer hp, String type, PlayerEntity playerEntity,String typeRessource) {
+        super(hp, type, playerEntity);
+        this.typeRessource = typeRessource;
+    }
+
+    @Override
+    public String toString() {
+        return "ResourceEntity{" +
+                "typeRessource='" + typeRessource + '\'' +
+                "} " + super.toString();
+    }
 }

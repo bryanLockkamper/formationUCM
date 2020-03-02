@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,7 +15,8 @@ import java.util.Set;
 @Setter
 @ToString
 @EqualsAndHashCode
-
+@NoArgsConstructor
+@AllArgsConstructor
 public class PlayerEntity implements Serializable {
 
     @Id
@@ -31,8 +33,8 @@ public class PlayerEntity implements Serializable {
     private String password;
 
 
-    @OneToMany(targetEntity = EntityGame.class)
-    private Set<EntityGame> entityGamesList;
+    @OneToMany(targetEntity = EntityGame.class,fetch = FetchType.LAZY)
+    private List<EntityGame> entityGamesList;
 
     @ManyToOne (targetEntity = BoardEntity.class, optional = true)
    // @JoinColumn(name = "board_entity_id_board",referencedColumnName = "id_board")
@@ -53,5 +55,17 @@ public class PlayerEntity implements Serializable {
         this.id = id;
         this.boardEntity = boardEntity;
         this.entityGamesList = entityGamesList;
+    }
+    @Override
+    public String toString() {
+        return "PlayerEntity{" +
+                "id=" + id +
+                ", lastName='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", entityGamesList=" + entityGamesList +
+                ", boardEntity=" + boardEntity +
+                '}';
     }
 }

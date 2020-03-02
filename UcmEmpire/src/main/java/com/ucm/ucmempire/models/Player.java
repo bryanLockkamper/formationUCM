@@ -6,9 +6,10 @@ import com.ucm.ucmempire.models.buildings.buildingInterfaces.IProdBuilding;
 import com.ucm.ucmempire.models.resources.Resource;
 import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.units.Farmer;
+import lombok.EqualsAndHashCode;
 
 import java.util.*;
-
+@EqualsAndHashCode
 public class Player {
     private int id;
     private final int granarySize = 20;
@@ -16,6 +17,13 @@ public class Player {
     private Set<Resource> resources;
     private List<Entity> entities;
     private boolean hasLost;
+
+    public Player(int id, String name, Set<Resource> resources, List<Entity> entities) {
+        this.id = id;
+        this.name = name;
+        this.resources = resources;
+        this.entities = entities;
+    }
 
     public Player(){
         resources = new HashSet<>();
@@ -58,13 +66,7 @@ public class Player {
                 .findFirst().orElse(null);
     }
 
-    public int getResources(ResourceName resourceName){
 
-            return Objects.requireNonNull(resources.stream()
-                    .filter(resource -> resource.getResourceName().equals(resourceName))
-                    .findFirst().orElse(null)).hp;
-
-    }
 
     public String getName() {
         return name;
@@ -118,6 +120,7 @@ public class Player {
         }
     }
 
+
     public void maxPa() {
         for (Entity entity : entities) {
             if (entity instanceof Character)
@@ -160,11 +163,19 @@ public class Player {
         this.resources = resources;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Player{" +
-                "id=" + id +
-                ", granarySize=" + granarySize +
+                "granarySize=" + granarySize +
+                ", id=" + id +
                 ", name='" + name + '\'' +
                 ", resources=" + resources +
                 ", entities=" + entities +
