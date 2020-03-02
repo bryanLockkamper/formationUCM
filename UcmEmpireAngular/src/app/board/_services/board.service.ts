@@ -27,13 +27,11 @@ export class BoardService {
   }
 
   startTimer() {
-    console.log("START");
 
     this.httpClient.get(environment.apiEndPoint + '/timer/start').subscribe();
   }
 
   stopTimer() {
-    console.log("STOP");
 
     this.httpClient.get(environment.apiEndPoint + '/timer/stop').subscribe();
   }

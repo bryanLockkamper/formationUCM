@@ -8,6 +8,8 @@ import {NbDialogRef} from "@nebular/theme";
 })
 export class ChoiceComponent implements OnInit {
 
+  entity;
+
   constructor(
     private dialog : NbDialogRef<ChoiceComponent>
   ) { }

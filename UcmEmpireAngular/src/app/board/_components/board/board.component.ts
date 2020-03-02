@@ -69,28 +69,35 @@ export class BoardComponent implements OnInit {
 
   onClick(cell) {
     if (this.first == null) {
-      this.first = this.board[cell.rowId][cell.id].content == null ? null : this.board[cell.rowId][cell.id].special ? null : cell;
-      this.action = this.dialog.open(ChoiceComponent);
-      this.action.onClose.subscribe(value => {
-        switch (value) {
-          case 'suicide':
-            this.boardService.deathEntity(cell).subscribe(() => {
-              this.refresh();
-            });
-            break;
-          case 'move':
-            this.move = true;
-            break;
-          case 'attack' :
-            this.attack = true;
+        this.first = cell;
+        if (this.first != null && (this.board[cell.rowId][cell.id].special || this.board[cell.rowId][cell.id].content?.idUser == 0)) {
+          this.action = this.dialog.open(ChoiceComponent, {context: {entity: this.board[cell.rowId][cell.id]}});
+          this.action.onClose.subscribe(value => {
+            switch (value) {
+              case 'suicide':
+                this.boardService.deathEntity(cell).subscribe(() => {
+                  this.refresh();
+                });
+                break;
+              case 'move':
+                this.move = true;
+                break;
+              case 'attack' :
+                this.attack = true;
+                break;
+              default:
+                this.first = null;
+            }
+          });
+        } else {
+          this.first = null;
         }
-      });
     } else {
       if (this.move && this.board[cell.rowId][cell.id].content == null && this.board[this.first.rowId][this.first.id].content.pa > 0) {
         this.boardService.move([this.first, cell]).subscribe(() => {
           this.refresh();
+          this.move = false;
         });
-
         // attack
       } else if (this.attack && this.board[this.first.rowId][this.first.id].content.damage && !this.board[cell.rowId][cell.id].special) {
         if (this.board[cell.rowId][cell.id].content.idUser != this.board[this.first.rowId][this.first.id].content.idUser && this.board[this.first.rowId][this.first.id].content.pa > 0) {
@@ -99,12 +106,13 @@ export class BoardComponent implements OnInit {
           })
         } else
           this.first = null;
+        this.attack = false;
       } else
         this.first = null;
     }
   }
 
-  // todo transferer vers cell compnents
+  // todo transferer vers cell compnents?
   getContent(board, i, j) {
     let content;
 
