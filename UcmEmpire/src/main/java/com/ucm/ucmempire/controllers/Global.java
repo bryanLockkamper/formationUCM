@@ -17,6 +17,8 @@ import com.ucm.ucmempire.models.dto.PlayerDTORegister;
 import com.ucm.ucmempire.models.units.Farmer;
 import com.ucm.ucmempire.models.units.Soldier;
 import com.ucm.ucmempire.services.CombatService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+//ajouter une description pour chaque API grâce à l'annotation  @Api
+@Api(value = "API pour es opérations CRUD sur les produits.")
 @RestController
 @CrossOrigin
 public class Global {
@@ -51,6 +55,8 @@ public class Global {
         }
     }
 
+    //définir une description pour chaque opération /méthode à l'aide de l'annotation@ApiOperation
+    @ApiOperation(value = "Appelé a chaque fois qu'un joueurs bouge une unité")
     @PostMapping("/move")
     public void move(@RequestBody List<CellDTO> cellDTOS) {
         Position first = new Position(cellDTOS.get(0).getRowId(), cellDTOS.get(0).getId());
@@ -89,11 +95,13 @@ public class Global {
         }
     }
 
+    @ApiOperation(value = "Appelé a chaque fois qu'une unité d'un joueur meurt")
     @PostMapping("/deathEntity")
     public void deathEntity(@RequestBody CellDTO cellDTO) {
         board.setSquare(new Position(cellDTO.getRowId(), cellDTO.getId()), null);
     }
 
+    @ApiOperation(value = "Appelé au début de chaque tour pour avoir tout le board")
     @GetMapping("/")
     public ArrayList<ArrayList<Square>> getBoard() {
         if (p1.getEntities().size() == 0) {
@@ -110,6 +118,7 @@ public class Global {
         return board.getBoard();
     }
 
+    @ApiOperation(value = "Appelé a chaque fois qu'un joueurs voudra ce loger")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody PlayerDTOLogin playerDTO) {
         Optional<PlayerEntity> player = playerDalService.findByLoginAndPassword(playerDTO.getPseudo(), playerDTO.getPwd());
@@ -120,6 +129,7 @@ public class Global {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
+    @ApiOperation(value = "Appelé a chaque fois qu'un joueurs voudrat s'enregistrer")
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody PlayerDTORegister playerDTO) {
 
@@ -133,6 +143,7 @@ public class Global {
         return ResponseEntity.ok("200");
     }
 
+    @ApiOperation(value = "Appelé au début de chaque tour")
     @GetMapping("/timer/start")
     public boolean start() {
         if (game.nextRound()) {
@@ -142,6 +153,7 @@ public class Global {
         return false;
     }
 
+    @ApiOperation(value = "Appelé a la fin de chaque tour")
     @GetMapping("/timer/stop")
     public boolean stop() {
         synchronized (game) {
