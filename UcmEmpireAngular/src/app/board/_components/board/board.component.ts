@@ -64,6 +64,10 @@ export class BoardComponent implements OnInit {
     this.boardService.stopTimer();
     clearInterval(this.interval);
     this.timeLeft = 120;
+    this.boardService.getBoard().subscribe(value => {
+      this.board = value;
+      this.refresh();
+    })
   }
 
   onClick(cell) {
@@ -88,10 +92,12 @@ export class BoardComponent implements OnInit {
     } else {
       if (this.move && this.board[cell.rowId][cell.id].content == null && this.board[this.first.rowId][this.first.id].content.pa > 0) {
         this.boardService.move([this.first, cell]).subscribe(() => {
-          this.rows[cell.rowId].row[cell.id].content = this.rows[this.first.rowId].row[this.first.id].content;
-          this.rows[this.first.rowId].row[this.first.id].content = null;
-          this.refresh();
+          this.boardService.getBoard().subscribe(value => {
+            this.board = value;
+            this.refresh();
+          })
         });
+
         // attack
       } else if (this.attack && this.board[this.first.rowId][this.first.id].content.damage && !this.board[cell.rowId][cell.id].special) {
         if (this.board[cell.rowId][cell.id].content.idUser != this.board[this.first.rowId][this.first.id].content.idUser && this.board[this.first.rowId][this.first.id].content.pa > 0) {

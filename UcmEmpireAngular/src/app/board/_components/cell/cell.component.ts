@@ -21,6 +21,7 @@ export class CellComponent implements OnInit {
   }
 
   onClick() {
+    console.log(this.content)
   }
 
   getSheet() {

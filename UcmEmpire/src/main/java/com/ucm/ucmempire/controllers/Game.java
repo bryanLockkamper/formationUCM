@@ -40,9 +40,9 @@ public class Game implements Runnable {
     }
 
     private void beginRound() {
-        System.out.println("debut tour" + player1.toString());
+        System.out.println("debut tour");
         player1.buildEntity();
-        //TODO harvestService.autoHarvestResources(player1.getEntities());
+        //TODO  ALEX harvestService.autoHarvestResources(player1.getEntities());
         endRound = false;
     }
 
@@ -53,23 +53,23 @@ public class Game implements Runnable {
                 if (board.getBoard().get(i).get(j).getContent() instanceof Character && ((Character) board.getBoard().get(i).get(j).getContent()).getMoveLeft() != null) {
                     Position second = ((Character) board.getBoard().get(i).get(j).getContent()).getMoveLeft();
                     AStarService aStarService = new AStarService(board, new Position(i, j), second);
+                    Character character = (Character) board.getBoard().get(i).get(j).getContent();
                     PositionDTO positionDTO = aStarService.run(((Character) board.getBoard().get(i).get(j).getContent()).getPa());
                     board.moveEntity(new Position(i, j), positionDTO.getPosition());
-                    ((Character) board.getBoard().get(positionDTO.getPosition().getX()).get(positionDTO.getPosition().getY()).getContent()).move(positionDTO);
+                    character.move(positionDTO);
                     if (positionDTO.getPosition().equals(second))
-                        positionDTO.setPosition(null);
+                        character.setMoveLeft(null);
                     else
-                        positionDTO.setPosition(second);
+                        character.setMoveLeft(second);
+                    board.getBoard().get(positionDTO.getPosition().getX()).get(positionDTO.getPosition().getY()).setContent(character);
                 }
             }
         }
         player1.maxPa();
-        board.hasLost();
     }
 
     public boolean nextRound() {
-        endRound = true;
-        return board.hasLost();
+        return !board.hasLost();
     }
 
     public boolean isEndRound() {
