@@ -85,11 +85,13 @@ public class Global {
         }
     }
 
+    @ApiOperation(value = "Appelé a chaque fois qu'une unité d'un joueur meurt")
     @PostMapping("/deathEntity")
     public void deathEntity(@RequestBody CellDTO cellDTO) {
         board.setSquare(new Position(cellDTO.getRowId(), cellDTO.getId()), null);
     }
 
+    @ApiOperation(value = "Appelé au début de chaque tour pour avoir tout le board")
     @GetMapping("/")
     public ArrayList<ArrayList<Square>> getBoard() {
         if (p1.getEntities().size() == 0) {
@@ -106,6 +108,7 @@ public class Global {
         return board.getBoard();
     }
 
+    @ApiOperation(value = "Appelé a chaque fois qu'un joueurs voudra ce loger")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody PlayerDTOLogin playerDTO) {
         Optional<PlayerEntity> player = playerDalService.findByLoginAndPassword(playerDTO.getPseudo(), playerDTO.getPwd());
@@ -116,6 +119,7 @@ public class Global {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
+    @ApiOperation(value = "Appelé a chaque fois qu'un joueurs voudrat s'enregistrer")
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody PlayerDTORegister playerDTO) {
 
@@ -129,6 +133,7 @@ public class Global {
         return ResponseEntity.ok("200");
     }
 
+    @ApiOperation(value = "Appelé au début de chaque tour")
     @GetMapping("/timer/start")
     public boolean start() {
         if (game.nextRound()) {
@@ -138,6 +143,7 @@ public class Global {
         return false;
     }
 
+    @ApiOperation(value = "Appelé a la fin de chaque tour")
     @GetMapping("/timer/stop")
     public boolean stop() {
         synchronized (game) {
