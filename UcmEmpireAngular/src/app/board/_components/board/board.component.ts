@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {BoardService} from "../../_services/board.service";
 import {RowModel} from "../../_models/row";
+import {NbDialogService} from "@nebular/theme";
+import {ChoiceComponent} from "../choice/choice.component";
 
 @Component({
   selector: 'app-board',
@@ -15,9 +17,13 @@ export class BoardComponent implements OnInit {
 
   timeLeft: number = 120;
   interval;
+  private action;
+  private move: boolean;
+  private attack: boolean;
 
   constructor(
     private boardService: BoardService,
+    private dialog: NbDialogService,
   ) {
   }
 
@@ -46,12 +52,12 @@ export class BoardComponent implements OnInit {
   startTimer() {
     this.boardService.startTimer();
     this.interval = setInterval(() => {
-      if(this.timeLeft > 0) {
+      if (this.timeLeft > 0) {
         this.timeLeft--;
       } else {
         this.endTurn();
       }
-    },1000)
+    }, 1000)
   }
 
   endTurn() {
@@ -61,17 +67,33 @@ export class BoardComponent implements OnInit {
   }
 
   onClick(cell) {
-    if (this.first == null)
+    if (this.first == null) {
       this.first = this.board[cell.rowId][cell.id].content == null ? null : this.board[cell.rowId][cell.id].special ? null : cell;
-    else {
-      if (this.board[cell.rowId][cell.id].content == null && this.board[this.first.rowId][this.first.id].content.pa > 0) {
+      this.action = this.dialog.open(ChoiceComponent);
+      this.action.onClose.subscribe(value => {
+        switch (value) {
+          case 'suicide':
+            this.boardService.deathEntity(cell).subscribe(() => {
+              this.rows[cell.rowId].row[cell.id].content = null;
+              this.refresh();
+            });
+            break;
+          case 'move':
+            this.move = true;
+            break;
+          case 'attack' :
+            this.attack = true;
+        }
+      });
+    } else {
+      if (this.move && this.board[cell.rowId][cell.id].content == null && this.board[this.first.rowId][this.first.id].content.pa > 0) {
         this.boardService.move([this.first, cell]).subscribe(() => {
           this.rows[cell.rowId].row[cell.id].content = this.rows[this.first.rowId].row[this.first.id].content;
           this.rows[this.first.rowId].row[this.first.id].content = null;
           this.refresh();
         });
         // attack
-      } else if (this.board[this.first.rowId][this.first.id].content.damage && !this.board[cell.rowId][cell.id].special) {
+      } else if (this.attack && this.board[this.first.rowId][this.first.id].content.damage && !this.board[cell.rowId][cell.id].special) {
         if (this.board[cell.rowId][cell.id].content.idUser != this.board[this.first.rowId][this.first.id].content.idUser && this.board[this.first.rowId][this.first.id].content.pa > 0) {
           this.board[cell.rowId][cell.id].content.hp -= this.board[this.first.rowId][this.first.id].content.damage;
           this.board[this.first.rowId][this.first.id].content.pa = 0;
@@ -106,16 +128,16 @@ export class BoardComponent implements OnInit {
         if (board[i][j].content.idUser == 0) {
           //Pour le moment, le brouillard fonctionne selon la logique que le player 0 est le seul à voir de son côté.
           //Cette condition permet de faire apparaître un brouillard seulement selon le joueur 0.
-          if (currentSquare.content.idUser == 0){
+          if (currentSquare.content.idUser == 0) {
             board[i][j].overlayed = false;
             //Active la vision périphérique (N'a pas d'influence sur l'API. Ceci est cosmétique avant que l'api ne soit mise à jour)
-            for (let x = -1; x <= 1; x++){
-              for (let y = -1; y <= 1; y++){
+            for (let x = -1; x <= 1; x++) {
+              for (let y = -1; y <= 1; y++) {
                 if (
-                  (i+x >=0 && j+y >= 0)
-                  && (i+x < board.length && j+y < board.length)
-                ){
-                  board[i+x][j+y].overlayed = false;
+                  (i + x >= 0 && j + y >= 0)
+                  && (i + x < board.length && j + y < board.length)
+                ) {
+                  board[i + x][j + y].overlayed = false;
                 }
               }
             }
@@ -130,8 +152,8 @@ export class BoardComponent implements OnInit {
     return content;
   }
 
-  getOverlayed(board, i, j){
-      return board[i][j].overlayed;
+  getOverlayed(board, i, j) {
+    return board[i][j].overlayed;
   }
 
 
