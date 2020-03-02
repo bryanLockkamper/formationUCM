@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-//Nous pouvons ainsi ajouter une description pour chaque API grâce à l'annotation  @Api
+//ajouter une description pour chaque API grâce à l'annotation  @Api
 @Api(value = "API pour es opérations CRUD sur les produits.")
 @RestController
 @CrossOrigin
@@ -45,7 +45,7 @@ public class Global {
         this.playerDalService = playerDalService;
     }
 
-    //Nous pouvons également définir une description pour chaque opération /méthode à l'aide de l'annotation@ApiOperation
+    //définir une description pour chaque opération /méthode à l'aide de l'annotation@ApiOperation
     @ApiOperation(value = "Appelé a chaque fois qu'un joueurs bouge une unité")
     @PostMapping("/move")
     public void move(@RequestBody List<CellDTO> cellDTOS) {
