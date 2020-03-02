@@ -16,6 +16,8 @@ import com.ucm.ucmempire.models.dto.PlayerDTOLogin;
 import com.ucm.ucmempire.models.dto.PlayerDTORegister;
 import com.ucm.ucmempire.models.units.Farmer;
 import com.ucm.ucmempire.models.units.Soldier;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+//Nous pouvons ainsi ajouter une description pour chaque API grâce à l'annotation  @Api
+@Api(value = "API pour es opérations CRUD sur les produits.")
 @RestController
 @CrossOrigin
 public class Global {
@@ -41,6 +45,8 @@ public class Global {
         this.playerDalService = playerDalService;
     }
 
+    //Nous pouvons également définir une description pour chaque opération /méthode à l'aide de l'annotation@ApiOperation
+    @ApiOperation(value = "Appelé a chaque fois qu'un joueurs bouge une unité")
     @PostMapping("/move")
     public void move(@RequestBody List<CellDTO> cellDTOS) {
         Position first = new Position(cellDTOS.get(0).getRowId(), cellDTOS.get(0).getId());
