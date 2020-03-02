@@ -2,6 +2,7 @@ package com.ucm.ucmempire.models.buildings;
 
 import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.buildings.buildingInterfaces.IBarracks;
+import com.ucm.ucmempire.models.dto.EntityDTO;
 import com.ucm.ucmempire.models.resources.Resource;
 import lombok.EqualsAndHashCode;
 
@@ -14,6 +15,7 @@ public class Barracks extends ProdBuilding implements IBarracks {
         super(hp, idUser, requirement);
     }
 
+    public Barracks(EntityDTO entityDTO) {super (entityDTO.getHp(),entityDTO.getIdPlayer(),null);} //TODO DAMIEN : RESSOURCE
     @Override
     public void setEntities(List<Entity> entities) {
 

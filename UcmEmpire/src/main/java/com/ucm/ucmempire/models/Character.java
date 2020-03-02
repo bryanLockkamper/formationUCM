@@ -1,5 +1,6 @@
 package com.ucm.ucmempire.models;
 
+import com.ucm.ucmempire.models.dto.EntityDTO;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode (callSuper = true)
@@ -14,6 +15,14 @@ public class Character extends Entity { //TODO EVRYONE : Why character is not ab
         this.idUser = idUser;
         this.pa = pa;
         maxPA = pa;
+    }
+
+    public Character(EntityDTO entityDTO)
+    {
+        super(entityDTO.getHp());
+        this.idUser = entityDTO.getIdPlayer();
+        this.pa = entityDTO.getPa();
+        this.maxPA = entityDTO.getMaxPa();
     }
 
     public Integer getIdUser() {
@@ -41,6 +50,11 @@ public class Character extends Entity { //TODO EVRYONE : Why character is not ab
 
     public void autoMove() { //TODO : autoMove is empty BRYAN
 
+    }
+
+
+    public int getMaxPA() {
+        return maxPA;
     }
 
     public void setMaxPA() {

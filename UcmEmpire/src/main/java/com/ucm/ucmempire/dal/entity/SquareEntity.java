@@ -16,7 +16,7 @@ public class SquareEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_square" , nullable = false)
+    @Column(name = "id_square")
     private Integer id;
 
     @Column(name = "is_Walkable_square" , nullable = false)

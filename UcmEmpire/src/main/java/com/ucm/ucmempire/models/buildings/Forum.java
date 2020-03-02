@@ -2,6 +2,7 @@ package com.ucm.ucmempire.models.buildings;
 
 import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.buildings.buildingInterfaces.IForum;
+import com.ucm.ucmempire.models.dto.EntityDTO;
 import com.ucm.ucmempire.models.resources.Resource;
 import lombok.EqualsAndHashCode;
 
@@ -17,6 +18,7 @@ public class Forum extends ProdBuilding implements IForum {
         super(hp, idUser, requirement);
     }
 
+    public Forum (EntityDTO entityDTO) {super (entityDTO.getHp(),entityDTO.getIdPlayer(),null);} //TODO DAMIEN : RESSOURCE
     @Override
     public void setEntities(List<Entity> entities) {
         this.entities = entities;

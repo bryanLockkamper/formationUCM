@@ -134,6 +134,7 @@ public class MapperBoardSquare {
 
             squareContentList.add(new SquareContent(null,entityGame,entityGame == null ? null : entityGame.getHp()));
         }
+        System.out.println("coucou je suis dans le mapper :"+square.getBiome().getType());
         return new SquareEntity(null,square.isWalkable(),square.isBuildable(),isSpecial,square.getBiome().getType(),null,squareContentList);
     }
 

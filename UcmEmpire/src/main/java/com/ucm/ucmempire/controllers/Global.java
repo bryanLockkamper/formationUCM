@@ -54,7 +54,17 @@ public class Global {
     @GetMapping("/saveBoard")
     public void saveBoard ()
     {
-        boardDalService.save(board);
+
+        System.out.println(board.getBoard().get(0).get(0).getBiome());
+        List<Integer> idList = new ArrayList<>();
+        idList.add(1);
+        idList.add(2);
+
+        //Etape 1 save the board
+        System.out.println(boardDalService.save(board));
+
+        //Etape 2 update the player table
+       // playerDalService.saveBoard(idList,boardEntity);
 
 
     }

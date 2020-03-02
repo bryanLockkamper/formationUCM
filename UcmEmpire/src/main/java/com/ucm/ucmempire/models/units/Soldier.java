@@ -1,6 +1,7 @@
 package com.ucm.ucmempire.models.units;
 
 import com.ucm.ucmempire.models.Character;
+import com.ucm.ucmempire.models.dto.EntityDTO;
 import com.ucm.ucmempire.models.units.unitInterfaces.ISoldier;
 import lombok.EqualsAndHashCode;
 
@@ -18,6 +19,12 @@ public class Soldier extends Character implements ISoldier {
     {
         this(hp, idUser, pa);
         this.damage = damage;
+    }
+
+    public Soldier (EntityDTO entityDTO)
+    {
+        super(entityDTO.getIdPlayer(),entityDTO.getHp(),entityDTO.getPa());
+        this.damage = entityDTO.getDamage();
     }
 
     public int getDamage() {

@@ -1,6 +1,7 @@
 package com.ucm.ucmempire.models.units;
 
 import com.ucm.ucmempire.models.Character;
+import com.ucm.ucmempire.models.dto.EntityDTO;
 import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.units.unitInterfaces.IFarmer;
 import lombok.EqualsAndHashCode;
@@ -17,6 +18,13 @@ public class Farmer extends Character implements IFarmer {
     public Farmer(Integer idUser, int hp, int pa, ResourceName resourceHarvesting) {
         this(idUser, hp, pa);
         this.resourceHarvesting = resourceHarvesting;
+    }
+
+    public Farmer (EntityDTO entityDTO)
+    {
+        super(entityDTO.getIdPlayer(),entityDTO.getHp(),entityDTO.getPa());
+        this.resourceHarvesting = ResourceName.valueOf(entityDTO.getTypeRessource());
+
     }
     //TODO : override "move()" pour que si on tombe sur une case de ressources, on modifie l'attribut "ressourceARecolter" s'il y a un attribut.
 

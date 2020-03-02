@@ -7,9 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-
 @EqualsAndHashCode
-
 @Table(name = "square_content")
 @IdClass(SquareContent.class)
 public class SquareContent implements Serializable {

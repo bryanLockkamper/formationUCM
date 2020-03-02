@@ -30,8 +30,7 @@ public class BoardDalServiceimpl implements BoardDalService{
     @Override
     public BoardEntity save(Board board) {
         BoardEntity boardEntity = mapperBoardSquare.boardToBoardEntity(board);
-        squareDalService.saveList(boardEntity.getSquareEntity());
-
+        System.out.println(squareDalService.saveList(boardEntity.getSquareEntity()));
 
         return this.boardRepository.save(this.mapperBoardSquare.boardToBoardEntity(board));
     }

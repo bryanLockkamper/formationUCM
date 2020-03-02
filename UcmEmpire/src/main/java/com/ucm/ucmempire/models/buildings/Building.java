@@ -1,6 +1,7 @@
 package com.ucm.ucmempire.models.buildings;
 
 import com.ucm.ucmempire.models.Entity;
+import com.ucm.ucmempire.models.dto.EntityDTO;
 import com.ucm.ucmempire.models.resources.Resource;
 import lombok.EqualsAndHashCode;
 
@@ -16,6 +17,12 @@ public abstract class Building extends Entity {
         super(pv);
         this.idUser = idUser;
         this.requirement = requirement;
+    }
+
+    public Building(EntityDTO entityDTO)
+    {
+        super (entityDTO.getHp());
+        this.idUser = entityDTO.getIdPlayer();
     }
 
     public Integer getIdUser() {

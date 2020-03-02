@@ -1,5 +1,6 @@
 package com.ucm.ucmempire.dal.mapper;
 
+import com.ucm.ucmempire.dal.entity.EntityGame;
 import com.ucm.ucmempire.dal.entity.PlayerEntity;
 import com.ucm.ucmempire.dal.entity.ResourceEntity;
 import com.ucm.ucmempire.models.Entity;
@@ -57,6 +58,7 @@ public class MapperPlayer {
 
     public PlayerEntity playerDTODetailsToPlayerEntity (PlayerDTODetails player)
     {
+
         return new PlayerEntity(player.getId(),player.getLastname(),player.getFirstname(),player.getPseudo(),player.getPassword(),null,null);
     }
 

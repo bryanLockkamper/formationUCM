@@ -29,6 +29,12 @@ public class SquareDalServiceImpl implements SquareDalService {
     @Override
     public SquareEntity save(SquareEntity squareEntity) {
 
+        System.out.println(squareEntity.getBiome());
+        System.out.println(squareEntity.isBuildable());
+        System.out.println(squareEntity.isWalkable());
+        System.out.println(squareEntity.getPositionSquare());
+
+
         return this.squareRepository.save(squareEntity);
     }
 }

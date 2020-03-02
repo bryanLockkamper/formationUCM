@@ -5,6 +5,8 @@ import com.ucm.ucmempire.models.Character;
 import com.ucm.ucmempire.models.Constants;
 import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.biomes.*;
+import com.ucm.ucmempire.models.dto.BoardDTO;
+import com.ucm.ucmempire.models.dto.SquareDTO;
 import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.units.Farmer;
 import com.ucm.ucmempire.models.units.Soldier;
@@ -29,6 +31,26 @@ public class Board {
     public Board(String name, ArrayList<ArrayList<Square>> board) {
         this.name = name;
         this.board = board;
+    }
+
+    public Board (BoardDTO boardDTO)
+    {
+        this.name = boardDTO.getName();
+
+        ArrayList<ArrayList<Square>> boardSquareList = new ArrayList<>(boardDTO.getSquareDTOList().size());
+
+        // init the column
+        for (int i = 0; i <boardDTO.getSquareDTOList().size(); i++) { boardSquareList.add(new ArrayList<>()); }
+
+        for (int i = 0; i< boardDTO.getSquareDTOList().size();i++)
+        {
+            for (int j = 0; j < boardDTO.getSquareDTOList().get(i).size();j++)
+            {
+                boardSquareList.get(i).set(j,new Square(boardDTO.getSquareDTOList().get(i).get(j)));
+            }
+        }
+        this.board = boardSquareList;
+
     }
 
     private ArrayList<ArrayList<Square>> boardGeneration() //TODO : include all generation in 1 loop based on the constant of biome and modulo with a list of different biome type from the factory

@@ -124,10 +124,10 @@ public class MapperEntitiesTest {
         Assert.assertNotEquals(soldier,entity);
     }
 
-    @Test(expected = MappingException.class)
+    @Test
     public void entityGameToEntity_null_MappingException ()
     {
-        Entity entity = (mapperEntities.entityGameToEntity(null));
+        Assert.assertNull(mapperEntities.entityGameToEntity(null));
     }
 
 

@@ -2,6 +2,7 @@ package com.ucm.ucmempire.models.boardPackage;
 
 import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.biomes.BiomeType;
+import com.ucm.ucmempire.models.dto.SquareDTO;
 import lombok.EqualsAndHashCode;
 
 import java.util.List;
@@ -23,6 +24,14 @@ public class Square {
         this.isBuildable = isBuildable;
         this.isWalkable = isWalkable;
         this.biome = biome;
+    }
+
+    public Square (SquareDTO squareDTO)
+    {
+        this.isBuildable = squareDTO.isBuildable();
+        this.isWalkable = squareDTO.isWalkable();
+        this.biome = BiomeType.valueOf(squareDTO.getBiomeType());
+        this.contents = new Entity(squareDTO.getEntityDTOList().get(0));
     }
 
     public Entity getContent() {
