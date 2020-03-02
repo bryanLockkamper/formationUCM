@@ -64,10 +64,7 @@ export class BoardComponent implements OnInit {
     this.boardService.stopTimer();
     clearInterval(this.interval);
     this.timeLeft = 120;
-    this.boardService.getBoard().subscribe(value => {
-      this.board = value;
-      this.refresh();
-    })
+    this.refresh();
   }
 
   onClick(cell) {
@@ -78,7 +75,6 @@ export class BoardComponent implements OnInit {
         switch (value) {
           case 'suicide':
             this.boardService.deathEntity(cell).subscribe(() => {
-              this.rows[cell.rowId].row[cell.id].content = null;
               this.refresh();
             });
             break;
@@ -92,20 +88,14 @@ export class BoardComponent implements OnInit {
     } else {
       if (this.move && this.board[cell.rowId][cell.id].content == null && this.board[this.first.rowId][this.first.id].content.pa > 0) {
         this.boardService.move([this.first, cell]).subscribe(() => {
-          this.boardService.getBoard().subscribe(value => {
-            this.board = value;
-            this.refresh();
-          })
+          this.refresh();
         });
 
         // attack
       } else if (this.attack && this.board[this.first.rowId][this.first.id].content.damage && !this.board[cell.rowId][cell.id].special) {
         if (this.board[cell.rowId][cell.id].content.idUser != this.board[this.first.rowId][this.first.id].content.idUser && this.board[this.first.rowId][this.first.id].content.pa > 0) {
           this.boardService.attack([this.first, cell]).subscribe(() => {
-            this.boardService.getBoard().subscribe(value => {
-              this.board = value;
-              this.refresh();
-            });
+            this.refresh();
           })
         } else
           this.first = null;
@@ -163,19 +153,22 @@ export class BoardComponent implements OnInit {
 
 
   refresh() {
-    for (let i = 0; i < this.dimension; i++) {
-      for (let j = 0; j < this.dimension; j++) {
-        sessionStorage.setItem('' + i + '-' + j, this.getContent(this.board, i, j));
+    this.boardService.getBoard().subscribe(value => {
+      this.board = value;
+      for (let i = 0; i < this.dimension; i++) {
+        for (let j = 0; j < this.dimension; j++) {
+          sessionStorage.setItem('' + i + '-' + j, this.getContent(this.board, i, j));
+        }
       }
-    }
-    this.rows = [];
-    for (let i = 0; i < this.dimension; i++) {
-      this.rows.push({
-        dimension: this.dimension,
-        id: i,
-        row: this.board[i],
-      });
-    }
-    this.first = null;
+      this.rows = [];
+      for (let i = 0; i < this.dimension; i++) {
+        this.rows.push({
+          dimension: this.dimension,
+          id: i,
+          row: this.board[i],
+        });
+      }
+      this.first = null;
+    })
   }
 }
