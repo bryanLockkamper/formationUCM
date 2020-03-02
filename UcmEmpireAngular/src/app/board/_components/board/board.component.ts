@@ -101,15 +101,14 @@ export class BoardComponent implements OnInit {
         // attack
       } else if (this.attack && this.board[this.first.rowId][this.first.id].content.damage && !this.board[cell.rowId][cell.id].special) {
         if (this.board[cell.rowId][cell.id].content.idUser != this.board[this.first.rowId][this.first.id].content.idUser && this.board[this.first.rowId][this.first.id].content.pa > 0) {
-          this.board[cell.rowId][cell.id].content.hp -= this.board[this.first.rowId][this.first.id].content.damage;
-          this.board[this.first.rowId][this.first.id].content.pa = 0;
-          if (this.board[cell.rowId][cell.id].content.hp <= 0) {
-            this.boardService.deathEntity(cell).subscribe(() => {
-              this.rows[cell.rowId].row[cell.id].content = null;
+          this.boardService.attack([this.first, cell]).subscribe(() => {
+            this.boardService.getBoard().subscribe(value => {
+              this.board = value;
               this.refresh();
             });
-          } else this.first = null;
-        }
+          })
+        } else
+          this.first = null;
       } else
         this.first = null;
     }

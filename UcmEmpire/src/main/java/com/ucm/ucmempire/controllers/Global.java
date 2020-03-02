@@ -16,6 +16,7 @@ import com.ucm.ucmempire.models.dto.PlayerDTOLogin;
 import com.ucm.ucmempire.models.dto.PlayerDTORegister;
 import com.ucm.ucmempire.models.units.Farmer;
 import com.ucm.ucmempire.models.units.Soldier;
+import com.ucm.ucmempire.services.CombatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,15 @@ public class Global {
     @Autowired
     Global(PlayerDalServiceImpl playerDalService) {
         this.playerDalService = playerDalService;
+    }
+
+    @PostMapping("/attack")
+    public void attack(@RequestBody List<CellDTO> cellDTOS) {
+        Position first = new Position(cellDTOS.get(0).getRowId(), cellDTOS.get(0).getId());
+        Position second = new Position(cellDTOS.get(1).getRowId(), cellDTOS.get(1).getId());
+        if (CombatService.fight((Soldier) (board.getBoard().get(first.getX()).get(first.getY()).getContent()), (Soldier) board.getBoard().get(second.getX()).get(second.getY()).getContent())) {
+            board.getBoard().get(second.getX()).get(second.getY()).setContent(null);
+        }
     }
 
     @PostMapping("/move")

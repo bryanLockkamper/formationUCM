@@ -22,9 +22,13 @@ export class BoardService {
     return this.httpClient.post<void>(environment.apiEndPoint + 'move', model);
   }
 
+  attack(model): Observable<void> {
+    return this.httpClient.post<void>(environment.apiEndPoint + 'attack', model);
+  }
+
   startTimer() {
     console.log("START");
-    
+
     this.httpClient.get(environment.apiEndPoint + '/timer/start').subscribe();
   }
 
