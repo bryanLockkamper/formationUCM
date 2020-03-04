@@ -1,6 +1,8 @@
 package com.ucm.ucmempire.controllers.pathfinding;
 
+import lombok.ToString;
 
+@ToString(exclude = "parent")
 public class Node {
     private int g;
     private int h;

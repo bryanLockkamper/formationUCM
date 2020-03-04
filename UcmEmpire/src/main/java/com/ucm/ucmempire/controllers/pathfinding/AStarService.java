@@ -40,7 +40,13 @@ public class AStarService {
                     return new PositionDTO(positions.get(positions.size() - pa), pa);
                 }
             } else {
-                return new PositionDTO(start, 0);
+                Node node = nearestNode();
+                // Si il y a assez de pa et qu'il peut pouger(qu'il n'est pas entouré d'obstacle) alors on le deplace le plus proche de l'arrivé possible
+                if (node.getG() <= pa && node.getG() > 0)
+                    return new PositionDTO(node.getPosition(), node.getG());
+                // Sinon il reste sur place
+                else
+                    return new PositionDTO(start, 0);
             }
         }
     }
@@ -121,6 +127,18 @@ public class AStarService {
             }
 
         }
+    }
+
+    /**
+     * @return la position la plus proche de l'arrivée
+     */
+    private Node nearestNode() {
+        Node node = new Node();
+        node.setH(Integer.MAX_VALUE);
+        for (Node value : closedList)
+            if (value.getH() < node.getH() && value.getH() > 0)
+                node = value;
+        return node;
     }
 
     private Node bestNode() {
