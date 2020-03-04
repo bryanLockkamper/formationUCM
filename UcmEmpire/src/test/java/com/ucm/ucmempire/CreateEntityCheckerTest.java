@@ -24,12 +24,12 @@ public class CreateEntityCheckerTest {
 
     @Test
     public void createEntityChecker_Soldier_0pa_false() {
-        Assert.assertFalse(CreateEntityChecker.createEntityChecker(new Soldier(20, 0, 0)));
+        Assert.assertFalse(CreateEntityChecker.createEntityChecker(new Soldier(0, 20, 0)));
     }
 
     @Test
     public void createEntityChecker_OtherSoldier_20pa_false() {
-        Assert.assertFalse(CreateEntityChecker.createEntityChecker(new Soldier(20, 0, 20)));
+        Assert.assertFalse(CreateEntityChecker.createEntityChecker(new Soldier(0, 20, 20)));
     }
 
     @Test

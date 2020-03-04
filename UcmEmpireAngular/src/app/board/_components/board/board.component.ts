@@ -93,7 +93,7 @@ export class BoardComponent implements OnInit {
           this.first = null;
         }
     } else {
-      if (this.move && this.board[cell.rowId][cell.id].content == null && this.board[this.first.rowId][this.first.id].content.pa > 0) {
+      if (this.move && this.board[this.first.rowId][this.first.id].content.pa > 0) {
         this.boardService.move([this.first, cell]).subscribe(() => {
           this.refresh();
           this.move = false;

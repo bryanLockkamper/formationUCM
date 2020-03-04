@@ -64,6 +64,7 @@ public class Global {
         AStarService aStarService = new AStarService(board, first, second);
         Character character = (Character) board.getBoard().get(cellDTOS.get(0).getRowId()).get(cellDTOS.get(0).getId()).getContent();
         PositionDTO position = aStarService.run(character.getPa());
+        // TODO: 04-03-20 Permettre a un farmer de rentrer dans une ressource 
         board.moveEntity(first, position.getPosition());
         character.move(position);
         if (position.getPosition().equals(second)) {
