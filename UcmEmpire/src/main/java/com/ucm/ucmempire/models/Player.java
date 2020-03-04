@@ -12,7 +12,7 @@ import java.util.*;
 @EqualsAndHashCode
 public class Player {
     private int id;
-    private final int granarySize = 20;
+    private final int granarySize = 50;
     private String name;
     private Set<Resource> resources;
     private List<Entity> entities;
@@ -31,7 +31,7 @@ public class Player {
         resources.add(new Resource(ResourceName.STONE));
         resources.add(new Resource(ResourceName.FOOD));
 
-        entities = new ArrayList<>();
+        entities = initEntitiesPlayer();
         hasLost = false;
     }
 
@@ -66,7 +66,27 @@ public class Player {
                 .findFirst().orElse(null);
     }
 
+    public int getResources(ResourceName resourceName){
 
+        return Objects.requireNonNull(resources.stream()
+                .filter(resource -> resource.getResourceName().equals(resourceName))
+                .findFirst().orElse(null)).hp;
+
+    }
+
+    public Set<Resource> getResources() {
+        return resources;
+    }
+
+    public List<Entity> initEntitiesPlayer()
+    {
+        List<Entity> firstListEntities = new ArrayList<>();
+        for (int i = 0; i < 3; i++)
+        {
+            firstListEntities.add(new Granary(Constants.NB_POINTDEVIE,this.id,null));
+        }
+        return firstListEntities;
+    }
 
     public String getName() {
         return name;
@@ -132,7 +152,7 @@ public class Player {
         return entities.get(i);
     }
 
-    public void addEntity(Entity content) {
+    public boolean addEntity(Entity content) {
         //Si mon entité est bien une instace de Character ou de Building
         if((content instanceof Character && ((Character)content).getIdUser() == this.getId() )
                 || content instanceof Building && ((Building)content).getIdUser() == this.getId()){
@@ -147,7 +167,8 @@ public class Player {
                 }
 
             //}
-        }
+        return true;
+        } else return false;
 
     }
 
@@ -155,21 +176,11 @@ public class Player {
         return granarySize;
     }
 
-    public Set<Resource> getResources() {
-        return resources;
-    }
 
     public void setResources(Set<Resource> resources) {
         this.resources = resources;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Override
     public String toString() {

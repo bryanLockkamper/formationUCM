@@ -6,6 +6,7 @@ import com.ucm.ucmempire.dal.entity.ResourceEntity;
 import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.models.dto.PlayerDTODetails;
+import com.ucm.ucmempire.models.dto.PlayerDTOLogin;
 import com.ucm.ucmempire.models.dto.PlayerDTORegister;
 import com.ucm.ucmempire.models.resources.Resource;
 import org.dozer.DozerBeanMapper;
@@ -59,8 +60,26 @@ public class MapperPlayer {
     public PlayerEntity playerDTODetailsToPlayerEntity (PlayerDTODetails player)
     {
 
-        return new PlayerEntity(player.getId(),player.getLastname(),player.getFirstname(),player.getPseudo(),player.getPassword(),null,null);
+        return new PlayerEntity(player.getId(),player.getLastname(),player.getFirstname(),player.getPseudo(),player.getPassword(),player.getMail(),null,null);
     }
+
+    public PlayerEntity playerDTORegisterToPlayerEntity (PlayerDTORegister player)
+    {
+
+        return new PlayerEntity(null,player.getLastname(),player.getFirstname(),player.getPseudo(),player.getPassword(),player.getEmail(),null,null);
+    }
+
+    public PlayerDTODetails playerEntityToPlayerDTODetails (PlayerEntity playerEntity)
+    {
+        return new PlayerDTODetails(playerEntity.getLogin(),playerEntity.getPassword(),playerEntity.getFirstName(),playerEntity.getLastName(),playerEntity.getId(),playerEntity.getMail());
+    }
+
+    public PlayerEntity playerDTOLoginToPlayerEntity (PlayerDTOLogin playerDTOLogin)
+    {
+        return new PlayerEntity(playerDTOLogin.getPseudo(),playerDTOLogin.getPassword());
+    }
+
+
 
 
 }

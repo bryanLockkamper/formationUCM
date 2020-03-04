@@ -13,10 +13,7 @@ import java.util.Set;
 @Table (name = "player")
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode
-@NoArgsConstructor
-@AllArgsConstructor
 public class PlayerEntity implements Serializable {
 
     @Id
@@ -31,6 +28,8 @@ public class PlayerEntity implements Serializable {
     private String login;
     @Column (name = "password_player",nullable = false)
     private String password;
+    @Column (name = "mail_player",nullable = false)
+    private String mail;
 
 
     @OneToMany(targetEntity = EntityGame.class,fetch = FetchType.LAZY)
@@ -43,19 +42,36 @@ public class PlayerEntity implements Serializable {
     public PlayerEntity() {
     }
 
-    public PlayerEntity(String lastname, String firstname, String pseudo, String pwd) {
-        this.lastName = lastname;
-        this.firstName = firstname;
-        this.password = pwd;
-        this.login = pseudo;
+    public PlayerEntity(String login,String password)
+    {
+        this.login = login;
+        this.password = password;
     }
 
-    public PlayerEntity(String lastname, String firstname, String pseudo, String pwd,Integer id, BoardEntity boardEntity, Set<EntityGame> entityGamesList) {
+    public PlayerEntity(String lastname, String firstname, String pseudo, String pwd) {
+        this(pseudo,pwd);
+        this.lastName = lastname;
+        this.firstName = firstname;
+    }
+
+    public PlayerEntity(String lastname, String firstname, String pseudo, String pwd,Integer id, BoardEntity boardEntity, List<EntityGame> entityGamesList) {
         this(lastname,firstname,pseudo,pwd);
         this.id = id;
         this.boardEntity = boardEntity;
         this.entityGamesList = entityGamesList;
     }
+
+    public PlayerEntity(Integer id, String lastName, String firstName, String login, String password,String mail, List<EntityGame> entityGamesList, BoardEntity boardEntity) {
+        this.id = id;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.login = login;
+        this.password = password;
+        this.mail = mail;
+        this.entityGamesList = entityGamesList;
+        this.boardEntity = boardEntity;
+    }
+
     @Override
     public String toString() {
         return "PlayerEntity{" +
@@ -64,6 +80,7 @@ public class PlayerEntity implements Serializable {
                 ", firstName='" + firstName + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
+                ", mail='" + mail + '\'' +
                 ", entityGamesList=" + entityGamesList +
                 ", boardEntity=" + boardEntity +
                 '}';

@@ -7,6 +7,7 @@ import com.ucm.ucmempire.models.buildings.Forum;
 import com.ucm.ucmempire.models.resources.Resource;
 import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.units.Farmer;
+import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -38,7 +39,7 @@ public class ProdBuildingTest {
 
     }
 
-    @Test(expected = ClassCastException.class)
+    @Test
     public void prodBuilding_WrongId_Exception(){
 
         //Arrange
@@ -50,13 +51,8 @@ public class ProdBuildingTest {
 
         Forum forum = new Forum(100 ,2 ,map2);
 
-        player1.addEntity(forum);
+        Assert.assertFalse(player1.addEntity(forum));
 
-        //Act
-        //Entity entity = forum.getUnit(1);
-
-        //Assert
-        //assertFalse(entity instanceof Farmer);
 
     }
 }

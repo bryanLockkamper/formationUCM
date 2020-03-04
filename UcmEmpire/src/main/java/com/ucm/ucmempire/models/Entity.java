@@ -26,7 +26,8 @@ public class Entity implements IEntity {
     }
 
     public void setHp(int hp) {
-        this.hp = Math.min(Math.max(this.hp - hp, 0), this.maxhp);
+        this.hp = Math.max(0,Math.min(hp,maxhp));
+
     }
 
     /**

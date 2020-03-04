@@ -2,14 +2,12 @@ package com.ucm.ucmempire.models;
 
 import com.ucm.ucmempire.controllers.pathfinding.Position;
 import com.ucm.ucmempire.controllers.pathfinding.PositionDTO;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+
 import com.ucm.ucmempire.models.dto.EntityDTO;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode (callSuper = true)
-public class Character extends Entity { //TODO EVRYONE : Why character is not abstract ?
+public class Character extends Entity {
     private Integer idUser;
     protected int pa;
     protected Position moveLeft;
@@ -49,27 +47,26 @@ public class Character extends Entity { //TODO EVRYONE : Why character is not ab
         this.pa = pa;
     }
 
-    public int move(int move) {
-        int tmp = move - pa;
-        pa = Math.max(pa - move, 0);
-        return tmp;
-    }
 
-
-    public void autoMove() { //TODO : autoMove is empty BRYAN
 
     public void move(PositionDTO move) {
         this.pa -= move.getPa();
         moveLeft = move.getPosition();
     }
 
-
     public int getMaxPA() {
         return maxPA;
     }
 
     public void setMaxPA() {
-        pa = maxPA;
+        pa = maxPA; }
+
+    public Position getMoveLeft() {
+        return moveLeft;
+    }
+
+    public void setMoveLeft(Position moveLeft) {
+        this.moveLeft = moveLeft;
     }
 
     @Override
@@ -80,6 +77,7 @@ public class Character extends Entity { //TODO EVRYONE : Why character is not ab
                 ", moveLeft=" + moveLeft +
                 ", maxPA=" + maxPA +
                 ", hp=" + hp +
+                ", maxhp=" + maxhp +
                 "} " + super.toString();
     }
 }

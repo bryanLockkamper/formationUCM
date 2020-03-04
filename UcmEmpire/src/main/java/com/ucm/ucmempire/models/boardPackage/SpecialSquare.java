@@ -1,6 +1,5 @@
 package com.ucm.ucmempire.models.boardPackage;
 
-import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.biomes.BiomeType;
 import com.ucm.ucmempire.models.dto.SquareDTO;
 import com.ucm.ucmempire.models.dto.TypeEntity;
@@ -8,7 +7,6 @@ import com.ucm.ucmempire.models.resources.Resource;
 import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.units.Farmer;
 import lombok.EqualsAndHashCode;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,6 +15,7 @@ import java.util.stream.Collectors;
 public class SpecialSquare extends Square {
 
     private List<Farmer> farmers;
+
 
     public SpecialSquare(ResourceName content) {
         super(new Resource(content), false, true, BiomeType.PLAINS );
@@ -39,14 +38,6 @@ public class SpecialSquare extends Square {
 
     public void setFarmers(ArrayList<Farmer> farmers) {
         this.farmers = farmers;
-    }
-
-    public int getResourceQuantity() {
-        return resourceQuantity;
-    }
-
-    public void setResourceQuantity(int resourceQuantity) {
-        this.resourceQuantity = resourceQuantity;
     }
 
     public void removeFarmer(Farmer farmer) {

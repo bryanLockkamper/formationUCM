@@ -9,5 +9,5 @@ import lombok.ToString;
 @ToString
 public class PlayerDTOLogin {
     private String pseudo;
-    private String pwd;
+    private String password;
 }

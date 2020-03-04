@@ -8,16 +8,41 @@ import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.units.unitInterfaces.IFarmer;
 import lombok.EqualsAndHashCode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @EqualsAndHashCode (callSuper = true)
 public class Farmer extends Character implements IFarmer {
 
     private ResourceName resourceHarvesting;
 
-    private Map<ResourceName, Integer> inventory;
+    private Map<ResourceName, Integer> inventory; //TODO NEED TO ADD TO THE ENTITY AND IN THE MAPPER
 
 
     public Farmer(int idUser) {
         super(idUser, Constants.NB_POINTDEVIE, Constants.NB_POINTACTION);
+    }
+
+    public Farmer(ResourceName resourceHarvesting, Map<ResourceName, Integer> inventory) {
+        this.resourceHarvesting = resourceHarvesting;
+        this.inventory = inventory;
+    }
+
+    public Farmer(Integer idUser, int hp, int pa, ResourceName resourceHarvesting) {
+        super(idUser, hp, pa);
+        this.resourceHarvesting = resourceHarvesting;
+    }
+
+    public Farmer(Integer idUser, int hp, int pa, ResourceName resourceHarvesting, Map<ResourceName, Integer> inventory) {
+        super(idUser, hp, pa);
+        this.resourceHarvesting = resourceHarvesting;
+        this.inventory = inventory;
+    }
+
+    public Farmer(EntityDTO entityDTO, ResourceName resourceHarvesting, Map<ResourceName, Integer> inventory) {
+        super(entityDTO);
+        this.resourceHarvesting = resourceHarvesting;
+        this.inventory = inventory;
     }
 
     public Farmer (EntityDTO entityDTO)

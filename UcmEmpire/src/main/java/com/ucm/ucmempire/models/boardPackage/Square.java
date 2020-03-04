@@ -9,7 +9,7 @@ import java.util.List;
 @EqualsAndHashCode
 public class Square {
 
-    private boolean isOverlayed;
+    private boolean isOverlayed; //TODO NEED TO ADD IN THE ENTITY AND IN THE MAPPER
     private boolean isWalkable;
     private boolean isBuildable;
     private BiomeType biome;

@@ -1,6 +1,7 @@
 package com.ucm.ucmempire.models.units;
 
 import com.ucm.ucmempire.models.Character;
+import com.ucm.ucmempire.models.Constants;
 import com.ucm.ucmempire.models.dto.EntityDTO;
 import com.ucm.ucmempire.models.units.unitInterfaces.ISoldier;
 import lombok.EqualsAndHashCode;

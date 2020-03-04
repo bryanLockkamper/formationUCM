@@ -42,11 +42,10 @@ public class Global {
     AStarService aStarService;
     private Player player1;
     private Game game = new Game(p1, p2, board);
-    private PlayerDalService playerDalService;
     private BoardDalService boardDalService;
 
     @Autowired
-    Global(PlayerDalService playerDalService,BoardDalService boardDalService) {
+    Global(PlayerDalServiceImpl playerDalService,BoardDalService boardDalService) {
         this.playerDalService = playerDalService;
         this.boardDalService = boardDalService;
     }
@@ -126,7 +125,7 @@ public class Global {
     @ApiOperation(value = "Appelé a chaque fois qu'un joueurs voudra ce loger")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody PlayerDTOLogin playerDTO) {
-        Optional<PlayerEntity> player = playerDalService.findByLoginAndPassword(playerDTO.getPseudo(), playerDTO.getPwd());
+        Optional<PlayerEntity> player = playerDalService.findByLoginAndPassword(playerDTO.getPseudo(), playerDTO.getPassword());
         if (player.isPresent()) {
             player1 = new Player(player.get().getId(), player.get().getLogin());
             return ResponseEntity.ok().body(player.get());

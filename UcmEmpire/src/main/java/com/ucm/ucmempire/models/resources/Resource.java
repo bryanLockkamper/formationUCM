@@ -1,5 +1,6 @@
 package com.ucm.ucmempire.models.resources;
 
+import com.ucm.ucmempire.models.Constants;
 import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.dto.EntityDTO;
 import lombok.EqualsAndHashCode;
@@ -11,6 +12,7 @@ public class Resource extends Entity implements IResource{
     public Resource(ResourceName resourceName) {
         this.resourceName = resourceName;
         this.hp = resourceName.getQuantity();
+        this.maxhp = Constants.NB_RESSOURCE_VICTORY;
     }
 
     public Resource(ResourceName resourceName, int quantity) {
