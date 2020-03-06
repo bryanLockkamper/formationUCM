@@ -14,7 +14,7 @@ public class HarvestService {
     public int autoHarvestResources(SpecialSquare squareResource, Player player) {
 
         int harvest = 0;
-        int harvestTotal =0;
+        int harvestTotal = 0;
 
         if (player.getEntities() != null) {
             List<Farmer> playerFarmerList = player.getEntities().stream()
@@ -49,8 +49,6 @@ public class HarvestService {
                             harvest = squareResource.getContent().getHp();
                             squareResource.getContent().setHp(0);
                         }
-
-
 
                         farmer.setPa(0);
                     }

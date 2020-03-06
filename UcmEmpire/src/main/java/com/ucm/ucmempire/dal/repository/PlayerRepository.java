@@ -14,4 +14,5 @@ public interface PlayerRepository extends CrudRepository<PlayerEntity , Integer>
 
     List<PlayerEntity> findByIdIn (List<Integer> idPlayers);
 
+    Optional<PlayerEntity> findById(Integer user_id);
 }

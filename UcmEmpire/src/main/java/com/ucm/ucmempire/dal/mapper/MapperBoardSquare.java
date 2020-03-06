@@ -3,19 +3,15 @@ package com.ucm.ucmempire.dal.mapper;
 import com.ucm.ucmempire.dal.entity.*;
 import com.ucm.ucmempire.models.Constants;
 import com.ucm.ucmempire.models.Entity;
-import com.ucm.ucmempire.models.biomes.BiomeFactory;
 import com.ucm.ucmempire.models.biomes.BiomeType;
 import com.ucm.ucmempire.models.boardPackage.Board;
 import com.ucm.ucmempire.models.boardPackage.SpecialSquare;
 import com.ucm.ucmempire.models.boardPackage.Square;
 import com.ucm.ucmempire.models.resources.Resource;
 import com.ucm.ucmempire.models.units.Farmer;
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 

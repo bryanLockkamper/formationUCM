@@ -10,6 +10,7 @@ public class Resource extends Entity implements IResource{
     private ResourceName resourceName;
 
     public Resource(ResourceName resourceName) {
+        //TODO gérer le null
         this.resourceName = resourceName;
         this.hp = resourceName.getQuantity();
         this.maxhp = Constants.NB_RESSOURCE_VICTORY;

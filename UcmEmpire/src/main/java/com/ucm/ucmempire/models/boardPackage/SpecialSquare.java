@@ -14,8 +14,9 @@ import java.util.stream.Collectors;
 @EqualsAndHashCode(callSuper = true)
 public class SpecialSquare extends Square {
 
-    private List<Farmer> farmers;
+    private List<Farmer> farmers = new ArrayList<>();
 
+    private int resourceQuantity;
 
     public SpecialSquare(ResourceName content) {
         super(new Resource(content), false, true, BiomeType.PLAINS );
