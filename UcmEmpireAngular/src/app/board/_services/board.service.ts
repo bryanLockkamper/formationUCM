@@ -37,4 +37,8 @@ export class BoardService {
   deathEntity(model): Observable<void> {
     return this.httpClient.post<void>(environment.apiEndPoint + 'deathEntity', model);
   }
+
+  getResource(model){
+    return this.httpClient.get(environment.apiEndPoint+'/player/res/'+ model.user_id)
+  }
 }

@@ -30,11 +30,10 @@ public class PlayerEntity implements Serializable {
     @Column (name = "password_player",nullable = false)
     private String password;
 
-
     @OneToMany(targetEntity = EntityGame.class)
     private Set<EntityGame> entityGamesList;
 
-    @ManyToOne (targetEntity = BoardEntity.class, optional = true)
+    @ManyToOne (targetEntity = BoardEntity.class)
    // @JoinColumn(name = "board_entity_id_board",referencedColumnName = "id_board")
     private BoardEntity boardEntity;
 

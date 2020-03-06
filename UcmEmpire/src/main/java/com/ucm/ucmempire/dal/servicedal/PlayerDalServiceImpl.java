@@ -23,6 +23,11 @@ public class PlayerDalServiceImpl implements PlayerDalService {
     }
 
     @Override
+    public Optional<PlayerEntity> findById(Integer user_id) {
+        return playerRepository.findById(user_id);
+    }
+
+    @Override
     public PlayerEntity save(PlayerEntity playerEntity) {
         return playerRepository.save(playerEntity);
     }
