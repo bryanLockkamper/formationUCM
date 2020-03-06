@@ -9,8 +9,6 @@ import com.ucm.ucmempire.models.dto.PlayerDTODetails;
 import com.ucm.ucmempire.models.dto.PlayerDTOLogin;
 import com.ucm.ucmempire.models.dto.PlayerDTORegister;
 import com.ucm.ucmempire.models.resources.Resource;
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

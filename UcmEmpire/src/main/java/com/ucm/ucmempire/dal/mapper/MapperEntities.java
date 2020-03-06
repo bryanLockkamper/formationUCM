@@ -9,9 +9,6 @@ import com.ucm.ucmempire.models.resources.Resource;
 import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.units.Farmer;
 import com.ucm.ucmempire.models.units.Soldier;
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
-import org.dozer.MappingException;
 import org.springframework.stereotype.Component;
 
 

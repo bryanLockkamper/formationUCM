@@ -197,7 +197,14 @@ public class Board {
     private void plunderFarmerResources(Farmer farmer){
         playerList.stream().filter(p -> !p.getEntities().contains(farmer)).findFirst()
                 .ifPresent(enemyPlayer -> farmer.getInventory().keySet()
-                        .forEach(resource -> enemyPlayer.getResource(resource).setHp( enemyPlayer.getResource(resource).getHp()+(farmer.getInventory().get(resource)))));
+                        .forEach(resource -> {
+
+                            if (enemyPlayer.getActualQuantityTotalRessources() + farmer.getInventory().get(resource) <= enemyPlayer.getMaxResources())
+                            {
+                                enemyPlayer.getResource(resource).setHp( enemyPlayer.getResource(resource).getHp()+(farmer.getInventory().get(resource)));
+                            } else  enemyPlayer.getResource(resource).setHp(enemyPlayer.getResource(resource).getHp()+ (enemyPlayer.getMaxResources() - enemyPlayer.getActualQuantityTotalRessources()));
+
+                        }));
         playerList.stream().filter(p -> p.getEntities().contains(farmer)).findFirst()
                 .ifPresent(thisPlayer -> thisPlayer.removeInventaryResourcesFromPlayerResources(farmer));
     }

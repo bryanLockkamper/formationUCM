@@ -8,14 +8,11 @@ import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.models.resources.Resource;
 import com.ucm.ucmempire.models.resources.ResourceName;
-import net.minidev.json.JSONUtil;
-import org.dozer.MappingException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.Null;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

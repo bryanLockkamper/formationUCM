@@ -3,7 +3,9 @@ package com.ucm.ucmempire.controllers;
 import com.ucm.ucmempire.controllers.pathfinding.AStarService;
 import com.ucm.ucmempire.controllers.pathfinding.Position;
 import com.ucm.ucmempire.controllers.pathfinding.PositionDTO;
+import com.ucm.ucmempire.dal.entity.EntityGame;
 import com.ucm.ucmempire.dal.entity.PlayerEntity;
+import com.ucm.ucmempire.dal.entity.ResourceEntity;
 import com.ucm.ucmempire.dal.entity.SquareEntity;
 import com.ucm.ucmempire.dal.servicedal.PlayerDalServiceImpl;
 import com.ucm.ucmempire.models.Character;
@@ -13,6 +15,12 @@ import com.ucm.ucmempire.dal.servicedal.BoardDalService;
 import com.ucm.ucmempire.dal.servicedal.PlayerDalService;
 import com.ucm.ucmempire.models.boardPackage.Board;
 import com.ucm.ucmempire.models.boardPackage.Square;
+import com.ucm.ucmempire.models.dto.CellDTO;
+import com.ucm.ucmempire.models.dto.PlayerDTOLogin;
+import com.ucm.ucmempire.models.dto.PlayerDTORegister;
+import com.ucm.ucmempire.models.dto.PlayerDTORess;
+import com.ucm.ucmempire.models.resources.Resource;
+import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.dto.*;
 import com.ucm.ucmempire.models.units.Farmer;
 import com.ucm.ucmempire.models.units.Soldier;
@@ -27,6 +35,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 //ajouter une description pour chaque API grâce à l'annotation  @Api
 @Api(value = "API pour es opérations CRUD sur les produits.")
@@ -64,7 +73,7 @@ public class Global {
         AStarService aStarService = new AStarService(board, first, second);
         Character character = (Character) board.getBoard().get(cellDTOS.get(0).getRowId()).get(cellDTOS.get(0).getId()).getContent();
         PositionDTO position = aStarService.run(character.getPa());
-        // TODO: 04-03-20 Permettre a un farmer de rentrer dans une ressource 
+        // TODO: 04-03-20 Permettre a un farmer de rentrer dans une ressource
         board.moveEntity(first, position.getPosition());
         character.move(position);
         if (position.getPosition().equals(second)) {
@@ -181,4 +190,23 @@ public class Global {
 
 
     }
+
+    @GetMapping("/player/res/{id}")
+    public ResponseEntity<PlayerDTORess> getRess(@PathVariable("id") Integer id){
+
+        Optional<PlayerEntity> p =  playerDalService.findById(id);
+
+        PlayerDTORess pldto = new PlayerDTORess();
+        pldto.setUser_id(p.get().getId());
+
+        pldto.setResources(p.get().getEntityGamesList().stream()
+                .filter(entityGame -> entityGame instanceof ResourceEntity)
+                .map( entityGame -> (ResourceEntity)entityGame)
+                .collect(Collectors.toList()));
+
+        System.out.println(pldto.toString() +" TOTO MARCHE");
+        return ResponseEntity.ok(pldto);
+    }
+
+
 }

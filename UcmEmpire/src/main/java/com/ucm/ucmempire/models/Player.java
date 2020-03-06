@@ -183,6 +183,15 @@ public class Player {
         this.resources = resources;
     }
 
+    public int getActualQuantityTotalRessources()
+    {
+        int total = 0;
+        for (Resource re: this.resources) {
+            total += re.getHp();
+        }
+        return total;
+    }
+
 
     @Override
     public String toString() {
