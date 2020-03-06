@@ -28,8 +28,8 @@ public class SpecialSquare extends Square {
 
     public SpecialSquare(SquareDTO squareDTO)
     {
-        super(squareDTO.getEntityDTOList().stream().filter(data -> data.getTypeEntity().equals(TypeEntity.RESSOURCE)).findFirst().map(r-> new Resource(r)).orElse(null),squareDTO.isBuildable(),squareDTO.isWalkable(),BiomeType.valueOf(squareDTO.getBiomeType()));
-        this.farmers = squareDTO.getEntityDTOList().stream().filter(data -> data.getTypeEntity().equals(TypeEntity.FARMER)).map(f-> new Farmer(f)).collect(Collectors.toList());
+        super(squareDTO.getEntityDTOList().stream().filter(data -> data.getTypeEntity().equals(TypeEntity.RESSOURCE)).findFirst().map(Resource::new).orElse(null),BiomeType.valueOf(squareDTO.getBiomeType()));
+        this.farmers = squareDTO.getEntityDTOList().stream().filter(data -> data.getTypeEntity().equals(TypeEntity.FARMER)).map(Farmer::new).collect(Collectors.toList());
     }
 
     public List<Farmer> getFarmers() {

@@ -32,7 +32,6 @@ public class EntityDTO {
     {
         this.hp = entity.getHp();
 
-
         if (entity instanceof Character)
         {
             this.pa = ((Character) entity).getPa();
@@ -43,7 +42,6 @@ public class EntityDTO {
                 this.typeEntity = TypeEntity.SOLDIER.getType();
                 this.damage = ((Soldier) entity).getDamage();}
             else if (entity instanceof Farmer) { this.typeEntity = TypeEntity.FARMER.getType(); }
-            else if (entity instanceof Builder) { this.typeEntity = TypeEntity.BUILDER.getType(); }
             else this.typeEntity = "CHARACTER";
 
         } else if (entity instanceof Building)

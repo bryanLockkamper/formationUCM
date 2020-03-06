@@ -32,7 +32,7 @@ public class BoardDTO {
         {
             for (int j = 0; j < board.getBoard().get(i).size();j++)
             {
-                boardSquareDTOList.get(i).set(j,new SquareDTO(board.getBoard().get(i).get(j)));
+                boardSquareDTOList.get(i).add(new SquareDTO(board.getBoard().get(i).get(j)));
             }
         }
         this.squareDTOList = boardSquareDTOList;

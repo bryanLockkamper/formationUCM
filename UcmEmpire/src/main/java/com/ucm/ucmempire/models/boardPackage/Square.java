@@ -28,10 +28,14 @@ public class Square {
         this.biome = biome;
     }
 
+    public Square(Entity contents, BiomeType biome) {
+        this(contents);
+        this.isOverlayed = true;
+        this.biome = biome;
+    }
+
     public Square (SquareDTO squareDTO)
     {
-        this.isBuildable = squareDTO.isBuildable();
-        this.isWalkable = squareDTO.isWalkable();
         this.biome = BiomeType.valueOf(squareDTO.getBiomeType());
         this.contents = new Entity(squareDTO.getEntityDTOList().get(0));
     }

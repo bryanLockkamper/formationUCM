@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.logForm = new FormGroup({
       pseudo: new FormControl(null, Validators.required),
-      pwd: new FormControl(null, Validators.required)
+      password: new FormControl(null, Validators.required)
     });
   }
 

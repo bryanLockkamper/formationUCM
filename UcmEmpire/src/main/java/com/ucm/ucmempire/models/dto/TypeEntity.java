@@ -15,6 +15,6 @@ public enum TypeEntity {
      public String getType() {return type;}
 
      TypeEntity(String type) {
-         this.type = getType();
+         this.type = type;
      }
 }

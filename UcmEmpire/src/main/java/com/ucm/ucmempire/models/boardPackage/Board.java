@@ -31,8 +31,8 @@ public class Board {
     }
 
     public Board(String name) {
+        this();
         this.name = name;
-        this.board = boardGeneration();
     }
 
     public Board(String name, ArrayList<ArrayList<Square>> board) {
@@ -175,18 +175,18 @@ public class Board {
 //        - le player adverse ne possède plus d'unité
 //        - Nombre de ressources =
 
-        for (Player player : this.playerList) {
-
-            if (player.isHasLost()) return true;
-
-            else if (player.getEntities().size() <= 0) return true;
-
-            int nbRessource = player.getResources(ResourceName.STONE) + player.getResources(ResourceName.WOOD) + player.getResources(ResourceName.FOOD);
-
-            if (nbRessource >= Constants.NB_RESSOURCE_VICTORY) {
-                return true;
-            }
-        }
+//        for (Player player : this.playerList) {
+//
+//            if (player.isHasLost()) return true;
+//
+//            else if (player.getEntities().size() <= 0) return true;
+//
+//            int nbRessource = player.getResources(ResourceName.STONE) + player.getResources(ResourceName.WOOD) + player.getResources(ResourceName.FOOD);
+//
+//            if (nbRessource >= Constants.NB_RESSOURCE_VICTORY) {
+//                return true;
+//            }
+//        }
         return false;
     }
 

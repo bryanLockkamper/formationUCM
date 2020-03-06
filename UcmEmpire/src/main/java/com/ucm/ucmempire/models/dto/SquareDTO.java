@@ -8,11 +8,9 @@ import java.util.stream.Collectors;
 
 
 public class SquareDTO {
-
-    private boolean isWalkable;
-    private boolean isBuildable;
     private String biomeType;
     private boolean isSpecial;
+    private EntityDTO content;
     private List<EntityDTO> entityDTOList;
 
     public SquareDTO() {
@@ -20,32 +18,15 @@ public class SquareDTO {
 
     public SquareDTO (Square square)
     {
-        this.isWalkable = square.isWalkable();
-        this.isBuildable = square.isBuildable();
         this.biomeType = square.getBiome().getType();
         this.isSpecial = square instanceof SpecialSquare;
-        if (square instanceof SpecialSquare)
+        this.content = square.getContent() != null? new EntityDTO(square.getContent()) : null;
+        if (square instanceof SpecialSquare && ((SpecialSquare) square).getFarmers() != null)
         {
             this.entityDTOList = ((SpecialSquare) square).getFarmers().stream()
                     .map(EntityDTO::new)
                     .collect(Collectors.toList());
         }
-    }
-
-    public boolean isWalkable() {
-        return isWalkable;
-    }
-
-    public void setWalkable(boolean walkable) {
-        isWalkable = walkable;
-    }
-
-    public boolean isBuildable() {
-        return isBuildable;
-    }
-
-    public void setBuildable(boolean buildable) {
-        isBuildable = buildable;
     }
 
     public String getBiomeType() {
@@ -72,11 +53,17 @@ public class SquareDTO {
         this.entityDTOList = entityDTOList;
     }
 
+    public EntityDTO getContent() {
+        return content;
+    }
+
+    public void setContent(EntityDTO content) {
+        this.content = content;
+    }
+
     @Override
     public String toString() {
         return "SquareDTO{" +
-                "isWalkable=" + isWalkable +
-                ", isBuildable=" + isBuildable +
                 ", biomeType='" + biomeType + '\'' +
                 ", isSpecial=" + isSpecial +
                 ", entityDTOList=" + entityDTOList +

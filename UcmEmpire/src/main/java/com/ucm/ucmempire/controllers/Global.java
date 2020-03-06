@@ -13,9 +13,7 @@ import com.ucm.ucmempire.dal.servicedal.BoardDalService;
 import com.ucm.ucmempire.dal.servicedal.PlayerDalService;
 import com.ucm.ucmempire.models.boardPackage.Board;
 import com.ucm.ucmempire.models.boardPackage.Square;
-import com.ucm.ucmempire.models.dto.CellDTO;
-import com.ucm.ucmempire.models.dto.PlayerDTOLogin;
-import com.ucm.ucmempire.models.dto.PlayerDTORegister;
+import com.ucm.ucmempire.models.dto.*;
 import com.ucm.ucmempire.models.units.Farmer;
 import com.ucm.ucmempire.models.units.Soldier;
 import com.ucm.ucmempire.services.CombatService;
@@ -36,12 +34,10 @@ import java.util.Optional;
 @CrossOrigin
 public class Global {
     private Board board = new Board("test");
-    Player p1 = new Player(0, "jean");
-    Player p2 = new Player(1, "gerard");
+    Player p1;
+    Player p2 = new Player(2, "gerard");
     private PlayerDalServiceImpl playerDalService;
-    AStarService aStarService;
-    private Player player1;
-    private Game game = new Game(p1, p2, board);
+    private Game game;
     private BoardDalService boardDalService;
 
     @Autowired
@@ -108,19 +104,19 @@ public class Global {
 
     @ApiOperation(value = "Appelé au début de chaque tour pour avoir tout le board")
     @GetMapping("/")
-    public ArrayList<ArrayList<Square>> getBoard() {
-        if (p1.getEntities().size() == 0) {
-            p1.addEntity(new Soldier(0));
-            p1.addEntity(new Soldier(0));
-            p1.addEntity(new Farmer(0));
-            p2.addEntity(new Soldier(1));
-            board.setSquare(new Position(0, 0), p1.getEntity(0));
-            board.setSquare(new Position(10, 5), p1.getEntity(1));
-            board.setSquare(new Position(0, 5), p1.getEntity(2));
-            board.setSquare(new Position(3, 2), p2.getEntity(0));
+    public ArrayList<ArrayList<SquareDTO>> getBoard() {
+        if (p1.getEntities().size() == 3) {
+            p1.addEntity(new Soldier(p1.getId()));
+            p1.addEntity(new Soldier(p1.getId()));
+            p1.addEntity(new Farmer(p1.getId()));
+            p2.addEntity(new Soldier(p2.getId()));
+            board.setSquare(new Position(0, 0), p1.getEntity(3));
+            board.setSquare(new Position(10, 5), p1.getEntity(4));
+            board.setSquare(new Position(0, 5), p1.getEntity(5));
+            board.setSquare(new Position(3, 2), p2.getEntity(3));
         }
 
-        return board.getBoard();
+        return new BoardDTO(board).getSquareDTOList();
     }
 
     @ApiOperation(value = "Appelé a chaque fois qu'un joueurs voudra ce loger")
@@ -128,7 +124,8 @@ public class Global {
     public ResponseEntity<?> login(@RequestBody PlayerDTOLogin playerDTO) {
         Optional<PlayerEntity> player = playerDalService.findByLoginAndPassword(playerDTO.getPseudo(), playerDTO.getPassword());
         if (player.isPresent()) {
-            player1 = new Player(player.get().getId(), player.get().getLogin());
+            p1 = new Player(player.get().getId(), player.get().getLogin());
+            game = new Game(p1, p2, board);
             return ResponseEntity.ok().body(player.get());
         } else
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -142,7 +139,7 @@ public class Global {
         playerDalService.save(playerEntity);
 
         System.out.println(playerEntity.getId() + playerEntity.getLogin());
-        player1 = new Player(playerEntity.getId(), playerEntity.getLogin());
+        p1 = new Player(playerEntity.getId(), playerEntity.getLogin());
 
 
         return ResponseEntity.ok("200");
