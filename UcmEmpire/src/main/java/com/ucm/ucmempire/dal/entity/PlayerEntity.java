@@ -35,7 +35,7 @@ public class PlayerEntity implements Serializable {
     @OneToMany(targetEntity = EntityGame.class,fetch = FetchType.LAZY)
     private List<EntityGame> entityGamesList;
 
-    @ManyToOne (targetEntity = BoardEntity.class, optional = true)
+    @ManyToOne (targetEntity = BoardEntity.class)
    // @JoinColumn(name = "board_entity_id_board",referencedColumnName = "id_board")
     private BoardEntity boardEntity;
 
