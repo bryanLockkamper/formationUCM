@@ -123,7 +123,7 @@ public class Player {
     public void removeInventaryResourcesFromPlayerResources(Farmer farmer){
         for (ResourceName name:farmer.getInventory().keySet()) {
             Resource playerResource = this.getResource(name);
-            playerResource.setHp(farmer.getInventory().get(name));
+            playerResource.setHp(playerResource.getHp()-farmer.getInventory().get(name));
         }
     }
 

@@ -197,22 +197,9 @@ public class Board {
     private void plunderFarmerResources(Farmer farmer){
         playerList.stream().filter(p -> !p.getEntities().contains(farmer)).findFirst()
                 .ifPresent(enemyPlayer -> farmer.getInventory().keySet()
-                        .forEach(resource -> enemyPlayer.getResource(resource).setHp(Math.negateExact(farmer.getInventory().get(resource)))));
+                        .forEach(resource -> enemyPlayer.getResource(resource).setHp( enemyPlayer.getResource(resource).getHp()+(farmer.getInventory().get(resource)))));
         playerList.stream().filter(p -> p.getEntities().contains(farmer)).findFirst()
                 .ifPresent(thisPlayer -> thisPlayer.removeInventaryResourcesFromPlayerResources(farmer));
     }
 
-    /*public List<Pair<Position, Square>> getBoardDTO() {
-        AtomicInteger i = new AtomicInteger();
-        AtomicInteger j = new AtomicInteger();
-        return board.stream()
-                .map(squares -> {
-                    j.set((j.intValue() + 1) % board.get(0).size());
-                    if (j.intValue() == 0)
-                        i.getAndIncrement();
-                    System.out.println(i.get() + j.get());
-                    return new Pair<>(new Position(i.get(), j.get()), squares.get(j.get()));
-                })
-                .collect(Collectors.toList());
-    }*/
 }
