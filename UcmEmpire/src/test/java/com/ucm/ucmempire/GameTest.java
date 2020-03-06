@@ -16,11 +16,11 @@ public class GameTest {
     @Test
     public void endRound_automove() {
         Game game = new Game();
-        game.getBoard().setSquare(new Position(0,0), new Soldier(20, 0, 5, 5));
+        game.getBoard().setSquare(new Position(0,0), new Soldier(0, 20, 5, 5));
         ((Character) (game.getBoard().getBoard().get(0).get(0).getContent())).setMoveLeft(new Position(0,11));
         game.endRound();
-        // TODO: 19-02-20 FARMER
-        Soldier character = new Soldier(20,0,5, 5);
+        // TODO BRYAN : FAIRE PLUS DE TESTS AVEC UN PUTAIN DE NOM EXPLICITE
+        Soldier character = new Soldier(0,20,0, 5);
         character.setMoveLeft(new Position(0,11));
         assertEquals(character, game.getBoard().getBoard().get(0).get(5).getContent());
     }

@@ -26,7 +26,6 @@ public class Resource extends Entity implements IResource{
         this.resourceName = ResourceName.valueOf(entityDTO.getTypeRessource());
     }
 
-    //TODO DAMIEN : for the moment the player ressources is init with the quantity define in the enum, need to add an other metho/ctro with the init special for the player ?
 
     @Override
     public int getRessource(ResourceName resourceName) {
@@ -36,6 +35,7 @@ public class Resource extends Entity implements IResource{
     public void setMaxHP(int maxhp){
         this.maxhp = maxhp;
     }
+
 
     public ResourceName getResourceName() {
         return resourceName;
