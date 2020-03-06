@@ -5,6 +5,7 @@ import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.models.buildings.Forum;
 import com.ucm.ucmempire.models.resources.Resource;
 import com.ucm.ucmempire.models.resources.ResourceName;
+import com.ucm.ucmempire.models.units.Farmer;
 import com.ucm.ucmempire.models.units.Soldier;
 import org.junit.Assert;
 import org.junit.Test;
@@ -24,12 +25,12 @@ public class CreateEntityCheckerTest {
 
     @Test
     public void createEntityChecker_Soldier_0pa_false() {
-        Assert.assertFalse(CreateEntityChecker.createEntityChecker(new Soldier(0, 20, 0)));
+        Assert.assertFalse(CreateEntityChecker.createEntityChecker(new Soldier(20, 0, 0)));
     }
 
     @Test
-    public void createEntityChecker_OtherSoldier_20pa_false() {
-        Assert.assertFalse(CreateEntityChecker.createEntityChecker(new Soldier(0, 20, 20)));
+    public void createEntityChecker_OtherThanSoldier_20pa_false() {
+        Assert.assertFalse(CreateEntityChecker.createEntityChecker(new Farmer(20, 0, 20)));
     }
 
     @Test

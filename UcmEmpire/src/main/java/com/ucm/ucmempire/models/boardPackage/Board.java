@@ -6,18 +6,18 @@ import com.ucm.ucmempire.models.Constants;
 import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.models.biomes.*;
+import com.ucm.ucmempire.models.dto.BoardDTO;
+import com.ucm.ucmempire.models.dto.SquareDTO;
 import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.units.Farmer;
 import com.ucm.ucmempire.models.units.Soldier;
 import javafx.util.Pair;
-import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-@ToString
 public class Board {
 
     private String name;
@@ -31,8 +31,33 @@ public class Board {
     }
 
     public Board(String name) {
-        this();
         this.name = name;
+        this.board = boardGeneration();
+    }
+
+    public Board(String name, ArrayList<ArrayList<Square>> board) {
+        this.name = name;
+        this.board = board;
+    }
+
+    public Board (BoardDTO boardDTO)
+    {
+        this.name = boardDTO.getName();
+
+        ArrayList<ArrayList<Square>> boardSquareList = new ArrayList<>(boardDTO.getSquareDTOList().size());
+
+        // init the column
+        for (int i = 0; i <boardDTO.getSquareDTOList().size(); i++) { boardSquareList.add(new ArrayList<>()); }
+
+        for (int i = 0; i< boardDTO.getSquareDTOList().size();i++)
+        {
+            for (int j = 0; j < boardDTO.getSquareDTOList().get(i).size();j++)
+            {
+                boardSquareList.get(i).set(j,new Square(boardDTO.getSquareDTOList().get(i).get(j)));
+            }
+        }
+        this.board = boardSquareList;
+
     }
 
     private ArrayList<ArrayList<Square>> boardGeneration() //TODO : include all generation in 1 loop based on the constant of biome and modulo with a list of different biome type from the factory
@@ -84,6 +109,7 @@ public class Board {
         return boardList;
     }
 
+
     public String getName() {
         return name;
     }
@@ -122,31 +148,6 @@ public class Board {
     public void setPlayerList(ArrayList<Player> playerList) {
         this.playerList = playerList;
     }
-
-//    private ArrayList<ArrayList<Square>> boardAutoGeneration() //TODO : work in progress by Damien
-//    {
-//        // init the x dimension
-//        ArrayList<ArrayList<Square>> boardList = new ArrayList<>(Constants.DIMENSION_BOARD);
-//
-//        BiomeFactory biomeFactory = new BiomeFactory();
-//
-//        // Init the y dimension
-//        for (int i = 0; i < Constants.DIMENSION_BOARD; i++) {
-//            boardList.add(new ArrayList<>());
-//
-//        }
-//
-//        IBiomes biomes = biomeFactory.getBiome(BiomeType.PLAINS);
-//
-//        for (int i = 0; i < boardList.size(); i++) {
-//
-//            for (int j = 0; j < boardList.get(i).size(); j++) {
-//
-//            }
-//        }
-//
-//        return boardList;
-//    }
 
     /**
      * @param position_old position actuelle du Character
@@ -196,22 +197,9 @@ public class Board {
     private void plunderFarmerResources(Farmer farmer){
         playerList.stream().filter(p -> !p.getEntities().contains(farmer)).findFirst()
                 .ifPresent(enemyPlayer -> farmer.getInventory().keySet()
-                        .forEach(resource -> enemyPlayer.getResource(resource).setHp(Math.negateExact(farmer.getInventory().get(resource)))));
+                        .forEach(resource -> enemyPlayer.getResource(resource).setHp( enemyPlayer.getResource(resource).getHp()+(farmer.getInventory().get(resource)))));
         playerList.stream().filter(p -> p.getEntities().contains(farmer)).findFirst()
                 .ifPresent(thisPlayer -> thisPlayer.removeInventaryResourcesFromPlayerResources(farmer));
     }
 
-    /*public List<Pair<Position, Square>> getBoardDTO() {
-        AtomicInteger i = new AtomicInteger();
-        AtomicInteger j = new AtomicInteger();
-        return board.stream()
-                .map(squares -> {
-                    j.set((j.intValue() + 1) % board.get(0).size());
-                    if (j.intValue() == 0)
-                        i.getAndIncrement();
-                    System.out.println(i.get() + j.get());
-                    return new Pair<>(new Position(i.get(), j.get()), squares.get(j.get()));
-                })
-                .collect(Collectors.toList());
-    }*/
 }

@@ -1,9 +1,10 @@
 package com.ucm.ucmempire.models;
 
+import com.ucm.ucmempire.models.dto.EntityDTO;
 import com.ucm.ucmempire.models.units.IEntity;
-import lombok.ToString;
+import lombok.EqualsAndHashCode;
 
-@ToString
+@EqualsAndHashCode
 public class Entity implements IEntity {
     protected int hp;
     protected int maxhp;
@@ -13,8 +14,11 @@ public class Entity implements IEntity {
         this.maxhp = hp;
     }
 
-    public Entity() {
+    public Entity() { }
 
+    public Entity (EntityDTO entityDTO)
+    {
+        this.hp = entityDTO.getHp();
     }
 
     public int getHp() {
@@ -22,7 +26,8 @@ public class Entity implements IEntity {
     }
 
     public void setHp(int hp) {
-        this.hp = Math.min(Math.max(this.hp - hp, 0), this.maxhp);
+        this.hp = Math.max(0,Math.min(hp,maxhp));
+
     }
 
     /**
@@ -35,5 +40,10 @@ public class Entity implements IEntity {
         return getHp() <= 0;
     }
 
-
+    @Override
+    public String toString() {
+        return "Entity{" +
+                "hp=" + hp +
+                '}';
+    }
 }

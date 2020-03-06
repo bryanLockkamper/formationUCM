@@ -9,6 +9,8 @@ import com.ucm.ucmempire.dal.servicedal.PlayerDalServiceImpl;
 import com.ucm.ucmempire.models.Character;
 import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.models.Player;
+import com.ucm.ucmempire.dal.servicedal.BoardDalService;
+import com.ucm.ucmempire.dal.servicedal.PlayerDalService;
 import com.ucm.ucmempire.models.boardPackage.Board;
 import com.ucm.ucmempire.models.boardPackage.Square;
 import com.ucm.ucmempire.models.dto.CellDTO;
@@ -40,10 +42,12 @@ public class Global {
     AStarService aStarService;
     private Player player1;
     private Game game = new Game(p1, p2, board);
+    private BoardDalService boardDalService;
 
     @Autowired
-    Global(PlayerDalServiceImpl playerDalService) {
+    Global(PlayerDalServiceImpl playerDalService,BoardDalService boardDalService) {
         this.playerDalService = playerDalService;
+        this.boardDalService = boardDalService;
     }
 
     @PostMapping("/attack")
@@ -122,7 +126,7 @@ public class Global {
     @ApiOperation(value = "Appelé a chaque fois qu'un joueurs voudra ce loger")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody PlayerDTOLogin playerDTO) {
-        Optional<PlayerEntity> player = playerDalService.findByLoginAndPassword(playerDTO.getPseudo(), playerDTO.getPwd());
+        Optional<PlayerEntity> player = playerDalService.findByLoginAndPassword(playerDTO.getPseudo(), playerDTO.getPassword());
         if (player.isPresent()) {
             player1 = new Player(player.get().getId(), player.get().getLogin());
             return ResponseEntity.ok().body(player.get());
@@ -161,5 +165,23 @@ public class Global {
             game.notify();
         }
         return true;
+    }
+
+    @GetMapping("/saveBoard")
+    public void saveBoard ()
+    {
+
+        System.out.println(board.getBoard().get(0).get(0).getBiome());
+        List<Integer> idList = new ArrayList<>();
+        idList.add(1);
+        idList.add(2);
+
+        //Etape 1 save the board
+        System.out.println(boardDalService.save(board));
+
+        //Etape 2 update the player table
+       // playerDalService.saveBoard(idList,boardEntity);
+
+
     }
 }

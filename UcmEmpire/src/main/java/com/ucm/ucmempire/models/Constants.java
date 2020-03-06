@@ -25,6 +25,19 @@ public class Constants {
     public static final int NB_POINTDEVIE = 15;
     public static final int NB_POINTACTION = 10;
 
+    public static final String TYPE_SOLDIER = "SOLDIER";
+    public static final String TYPE_FARMER = "FARMER";
+    public static final String TYPE_BARRACKS = "BARRACKS";
+    public static final String TYPE_FORUM = "FORUM";
+    public static final String TYPE_GRANARY = "GRANARY";
+    public static final String TYPE_HOUSE = "HOUSE";
+    public static final String TYPE_RESSOURCE = "RESSOURCE";
+
+
+
+
+
+
 
 
 

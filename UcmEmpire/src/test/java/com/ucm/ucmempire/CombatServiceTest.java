@@ -17,13 +17,9 @@ public class CombatServiceTest {
         //Arrange
         Soldier attack = new Soldier(5, 1, 5, 5);
         Soldier defense = new Soldier(5, 2, 5, 5);
-        //Act
 
-        Boolean isCorrect = combatService.fight(attack, defense);
 
-        //Assert
-
-        assertTrue(isCorrect);
+        assertTrue(CombatService.fight(attack, defense));
 
     }
 

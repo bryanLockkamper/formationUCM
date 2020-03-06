@@ -1,5 +1,9 @@
 package com.ucm.ucmempire.models.biomes;
 
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode
+
 public class BiomeFactory {
 
     public BiomeFactory() {

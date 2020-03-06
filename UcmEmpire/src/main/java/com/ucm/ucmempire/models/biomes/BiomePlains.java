@@ -1,6 +1,9 @@
 package com.ucm.ucmempire.models.biomes;
 
 import com.ucm.ucmempire.models.boardPackage.Square;
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode
 
 public class BiomePlains implements IBiomes {
 
@@ -15,4 +18,8 @@ public class BiomePlains implements IBiomes {
         return entityCase;
     }
 
+    @Override
+    public String toString() {
+        return "BiomePlains{}";
+    }
 }

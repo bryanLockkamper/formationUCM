@@ -12,9 +12,8 @@ import java.util.Set;
 @Setter
 @ToString
 @EqualsAndHashCode
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Board")
+@Table(name = "board")
 public class BoardEntity implements Serializable {
 
     @Id
@@ -25,6 +24,19 @@ public class BoardEntity implements Serializable {
     @Column(name = "name_board")
     private String name;
 
+    @OneToMany (cascade = CascadeType.PERSIST)
+    private List<SquareEntity> squareEntity;
+
+    public BoardEntity() {
+    }
+
+    public BoardEntity(String name) {
+        this();
+        this.name = name;
+    }
+
+
+    //TODO : Relation square-Board
 
 
 }

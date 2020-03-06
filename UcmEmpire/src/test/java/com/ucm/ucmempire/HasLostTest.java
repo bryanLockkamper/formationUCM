@@ -19,8 +19,11 @@ public class HasLostTest {
     public void haslostEmptyUnitList_true(){
 
         //Arrange
-        Player player1 = new Player(1, "win");
-        Player player2 = new Player(2, "lost");
+        Player player1 = new Player();
+        Player player2 = new Player();
+        player1.setId(1);
+        player2.setId(2);
+        player1.getEntities().clear();
         ArrayList<Player> playerArrayList = new ArrayList<>();
         playerArrayList.add(player1);
         playerArrayList.add(player2);
@@ -29,6 +32,7 @@ public class HasLostTest {
 
         //Act
         boolean result = board.hasLost();
+
 
         //Assert
         assertTrue(result);

@@ -6,16 +6,24 @@ import com.ucm.ucmempire.models.buildings.buildingInterfaces.IProdBuilding;
 import com.ucm.ucmempire.models.resources.Resource;
 import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.units.Farmer;
+import lombok.EqualsAndHashCode;
 
 import java.util.*;
-
+@EqualsAndHashCode
 public class Player {
     private int id;
-    private final int granarySize = 20;
+    private final int granarySize = 50;
     private String name;
     private Set<Resource> resources;
     private List<Entity> entities;
     private boolean hasLost;
+
+    public Player(int id, String name, Set<Resource> resources, List<Entity> entities) {
+        this.id = id;
+        this.name = name;
+        this.resources = resources;
+        this.entities = entities;
+    }
 
     public Player(){
         resources = new HashSet<>();
@@ -23,7 +31,7 @@ public class Player {
         resources.add(new Resource(ResourceName.STONE));
         resources.add(new Resource(ResourceName.FOOD));
 
-        entities = new ArrayList<>();
+        entities = initEntitiesPlayer();
         hasLost = false;
     }
 
@@ -60,10 +68,24 @@ public class Player {
 
     public int getResources(ResourceName resourceName){
 
-            return Objects.requireNonNull(resources.stream()
-                    .filter(resource -> resource.getResourceName().equals(resourceName))
-                    .findFirst().orElse(null)).hp;
+        return Objects.requireNonNull(resources.stream()
+                .filter(resource -> resource.getResourceName().equals(resourceName))
+                .findFirst().orElse(null)).hp;
 
+    }
+
+    public Set<Resource> getResources() {
+        return resources;
+    }
+
+    public List<Entity> initEntitiesPlayer()
+    {
+        List<Entity> firstListEntities = new ArrayList<>();
+        for (int i = 0; i < 3; i++)
+        {
+            firstListEntities.add(new Granary(Constants.NB_POINTDEVIE,this.id,null));
+        }
+        return firstListEntities;
     }
 
     public String getName() {
@@ -101,7 +123,7 @@ public class Player {
     public void removeInventaryResourcesFromPlayerResources(Farmer farmer){
         for (ResourceName name:farmer.getInventory().keySet()) {
             Resource playerResource = this.getResource(name);
-            playerResource.setHp(farmer.getInventory().get(name));
+            playerResource.setHp(playerResource.getHp()-farmer.getInventory().get(name));
         }
     }
 
@@ -118,6 +140,7 @@ public class Player {
         }
     }
 
+
     public void maxPa() {
         for (Entity entity : entities) {
             if (entity instanceof Character)
@@ -129,7 +152,7 @@ public class Player {
         return entities.get(i);
     }
 
-    public void addEntity(Entity content) {
+    public boolean addEntity(Entity content) {
         //Si mon entité est bien une instace de Character ou de Building
         if((content instanceof Character && ((Character)content).getIdUser() == this.getId() )
                 || content instanceof Building && ((Building)content).getIdUser() == this.getId()){
@@ -144,7 +167,8 @@ public class Player {
                 }
 
             //}
-        }
+        return true;
+        } else return false;
 
     }
 
@@ -152,19 +176,17 @@ public class Player {
         return granarySize;
     }
 
-    public Set<Resource> getResources() {
-        return resources;
-    }
 
     public void setResources(Set<Resource> resources) {
         this.resources = resources;
     }
 
+
     @Override
     public String toString() {
         return "Player{" +
-                "id=" + id +
-                ", granarySize=" + granarySize +
+                "granarySize=" + granarySize +
+                ", id=" + id +
                 ", name='" + name + '\'' +
                 ", resources=" + resources +
                 ", entities=" + entities +
