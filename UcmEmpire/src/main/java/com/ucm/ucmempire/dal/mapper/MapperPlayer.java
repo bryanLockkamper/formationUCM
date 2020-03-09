@@ -8,6 +8,7 @@ import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.models.dto.PlayerDTODetails;
 import com.ucm.ucmempire.models.dto.PlayerDTOLogin;
 import com.ucm.ucmempire.models.dto.PlayerDTORegister;
+import com.ucm.ucmempire.models.dto.PlayerHasLostDTO;
 import com.ucm.ucmempire.models.resources.Resource;
 import org.springframework.stereotype.Component;
 
@@ -77,7 +78,15 @@ public class MapperPlayer {
         return new PlayerEntity(playerDTOLogin.getPseudo(),playerDTOLogin.getPassword());
     }
 
+    public Player playerhasLostDTOToPlayer(PlayerHasLostDTO playerHasLostDTO)
+    {
+        return new Player(playerHasLostDTO.getPlayer_id(), playerHasLostDTO.getPlayer_name());
+    }
 
+    public PlayerHasLostDTO playerToPlayerHasLostDTO(Player player)
+    {
+        return new PlayerHasLostDTO(player.getId(), player.getName(), player.isHasLost());
+    }
 
 
 }

@@ -7,6 +7,7 @@ import com.ucm.ucmempire.dal.entity.EntityGame;
 import com.ucm.ucmempire.dal.entity.PlayerEntity;
 import com.ucm.ucmempire.dal.entity.ResourceEntity;
 import com.ucm.ucmempire.dal.entity.SquareEntity;
+import com.ucm.ucmempire.dal.mapper.MapperPlayer;
 import com.ucm.ucmempire.dal.servicedal.PlayerDalServiceImpl;
 import com.ucm.ucmempire.models.Character;
 import com.ucm.ucmempire.models.Player;
@@ -48,11 +49,13 @@ public class Global {
     private PlayerDalServiceImpl playerDalService;
     private Game game;
     private BoardDalService boardDalService;
+    private MapperPlayer mapperPlayer;
 
     @Autowired
-    Global(PlayerDalServiceImpl playerDalService,BoardDalService boardDalService) {
+    Global(PlayerDalServiceImpl playerDalService,BoardDalService boardDalService, MapperPlayer mapperPlayer) {
         this.playerDalService = playerDalService;
         this.boardDalService = boardDalService;
+        this.mapperPlayer = mapperPlayer;
     }
 
     @PostMapping("/attack")
@@ -206,6 +209,25 @@ public class Global {
 
         System.out.println(pldto.toString() +" TOTO MARCHE");
         return ResponseEntity.ok(pldto);
+    }
+
+    @GetMapping("/player/haslost")
+    public ResponseEntity<List<PlayerHasLostDTO>> isHasLost(@PathVariable("id") List<Integer> players_id)
+    {
+        List<PlayerHasLostDTO> playerHasLostDTOList = new ArrayList<>();
+
+        for (int i = 0; i < players_id.size(); i++) {
+
+            Optional<PlayerEntity> p = playerDalService.findById(players_id.get(i));
+
+            Player player = mapperPlayer.playerEntityToPlayer(p.get());
+
+            PlayerHasLostDTO playerHasLostDTO = mapperPlayer.playerToPlayerHasLostDTO(player);
+
+            playerHasLostDTOList.add(playerHasLostDTO);
+        }
+
+        return ResponseEntity.ok(playerHasLostDTOList);
     }
 
 
