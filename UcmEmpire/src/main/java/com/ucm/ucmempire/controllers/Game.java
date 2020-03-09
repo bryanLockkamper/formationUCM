@@ -6,8 +6,11 @@ import com.ucm.ucmempire.controllers.pathfinding.PositionDTO;
 import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.models.Character;
 import com.ucm.ucmempire.models.boardPackage.Board;
+import com.ucm.ucmempire.models.boardPackage.SpecialSquare;
 import com.ucm.ucmempire.services.HarvestService;
 import javafx.geometry.Pos;
+
+import java.util.stream.Collectors;
 
 public class Game implements Runnable {
     private final int MINUTES_TOUR = 2, SECONDES_TOUR = 0;
@@ -42,7 +45,18 @@ public class Game implements Runnable {
     private void beginRound() {
         System.out.println("debut tour");
         player1.buildEntity();
-        //TODO  ALEX harvestService.autoHarvestResources(player1.getEntities());
+        board.getBoard()
+                .stream()
+                .map(squares -> squares
+                        .stream()
+                        .filter(square -> square instanceof SpecialSquare)
+                        .map(square -> {
+                            int i = harvestService.autoHarvestResources((SpecialSquare) square, player1);
+                            System.out.println(i);
+                            return i;
+                        })
+                        .collect(Collectors.toList()))
+        .collect(Collectors.toList());
         endRound = false;
     }
 

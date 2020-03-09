@@ -24,6 +24,7 @@ public class Farmer extends Character implements IFarmer {
 
     public Farmer(int idUser) {
         super(idUser, Constants.NB_POINTDEVIE, Constants.NB_POINTACTION);
+        setInventory();
     }
 
     public Farmer(ResourceName resourceHarvesting, Map<ResourceName, Integer> inventory) {
