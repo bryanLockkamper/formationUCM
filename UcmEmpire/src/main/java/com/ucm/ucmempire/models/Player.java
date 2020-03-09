@@ -1,6 +1,5 @@
 package com.ucm.ucmempire.models;
 
-import com.ucm.ucmempire.controllers.pathfinding.Position;
 import com.ucm.ucmempire.models.buildings.Building;
 import com.ucm.ucmempire.models.buildings.Granary;
 import com.ucm.ucmempire.models.buildings.buildingInterfaces.IProdBuilding;
@@ -11,6 +10,8 @@ import com.ucm.ucmempire.models.units.Soldier;
 import lombok.EqualsAndHashCode;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
 @EqualsAndHashCode
 public class Player {
     private int id;
@@ -98,7 +99,9 @@ public class Player {
         this.name = name;
     }
 
-    public List<Entity> getEntities() {
+    public List<Entity> getEntities()
+    {
+        List<Entity> entities = this.entities.stream().filter(entity -> entity.hp > 0).collect(Collectors.toList());
         return entities;
     }
 
@@ -107,6 +110,15 @@ public class Player {
     }
 
     public boolean isHasLost() {
+
+        List<Entity> entities = this.getEntities().stream().filter( entity -> entity instanceof Soldier || entity instanceof Farmer).collect(Collectors.toList());
+
+        System.out.println("Entité triées du joueur " + this.getId() + entities.toString());
+
+        if( entities.isEmpty())
+            this.setHasLost(true);
+        else
+            this.setHasLost(false);
         return hasLost;
     }
 
@@ -141,7 +153,6 @@ public class Player {
                     entities.add(entity);
         }
     }
-
 
     public void maxPa() {
         for (Entity entity : entities) {
@@ -178,7 +189,6 @@ public class Player {
         return granarySize;
     }
 
-
     public void setResources(Set<Resource> resources) {
         this.resources = resources;
     }
@@ -191,7 +201,6 @@ public class Player {
         }
         return total;
     }
-
 
     @Override
     public String toString() {

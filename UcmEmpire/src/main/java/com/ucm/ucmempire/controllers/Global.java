@@ -230,8 +230,8 @@ public class Global {
         playerHasLostDTOList.add(mapperPlayer.playerToPlayerHasLostDTO(p2));
         playerHasLostDTOList.add(mapperPlayer.playerToPlayerHasLostDTO(p1));
 
+        System.out.println(p2.isHasLost());
+
         return ResponseEntity.ok(playerHasLostDTOList);
     }
-
-
 }

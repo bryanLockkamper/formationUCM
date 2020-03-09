@@ -4,6 +4,7 @@ import {UserLogin} from "../../home/_models/user-login";
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {RowModel} from "../_models/row";
+import { UserHasLost } from 'src/app/home/_models/user-haslost';
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +43,9 @@ export class BoardService {
 
   getResource(model){
     return this.httpClient.get(environment.apiEndPoint+'/player/res/'+ model.user_id)
+  }
+
+  ishaslost(model): Observable<UserHasLost[]>{
+    return this.httpClient.get<UserHasLost[]>(environment.apiEndPoint+'/player/haslost')
   }
 }
