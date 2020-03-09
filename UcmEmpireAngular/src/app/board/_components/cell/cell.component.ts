@@ -24,11 +24,47 @@ export class CellComponent implements OnInit {
   }
 
   getSheet() {
-    let content = sessionStorage.getItem('' + this.rowId + '-' + this.id);
+    let content;
+    if (this.content.content == null)
+      content = null;
+    else {
+      if (this.content.special)
+        content = this.content.content.typeRessource;
+      else {
+        if (this.content.content.damage) {
+          content = 'SOLDAT';
+        } else {
+          content = 'FARMER';
+        }
+        let currentSquare = this.content;
+        /*if (this.content.content.idPlayer == 1) {
+          //Pour le moment, le brouillard fonctionne selon la logique que le player 0 est le seul à voir de son côté.
+          //Cette condition permet de faire apparaître un brouillard seulement selon le joueur 0.
+          if (currentSquare.content.idPlayer == 1) {
+            this.content.overlayed = false;
+            //Active la vision périphérique (N'a pas d'influence sur l'API. Ceci est cosmétique avant que l'api ne soit mise à jour)
+            for (let x = -1; x <= 1; x++) {
+              for (let y = -1; y <= 1; y++) {
+                if (
+                  (this.rowId + x >= 0 && this.id + y >= 0)
+                  && (this.rowId + x < board.length && j + y < board.length)
+                ) {
+                  board[i + x][j + y].overlayed = false;
+                }
+              }
+            }
+          }
+        }*/
+        if (currentSquare.content != null && currentSquare.content.idPlayer == 1) {
+          content += '_BLUE';
+        } else
+          content += '_RED';
+      }
+    }
     let overlayed = this.content.overlayed;
     //Oui je sais c'est dégueulasse mais c'est pour afficher les unités du player 0 seulement. C'est Bryan qui a demandé.
     if(!overlayed){
-      switch (content) {
+      switch (content?.toUpperCase()) {
         case 'STONE':
           return 'assets/_img/' + content.toLocaleLowerCase() + '.jpg';
         case 'WOOD' :

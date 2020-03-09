@@ -34,11 +34,6 @@ export class BoardComponent implements OnInit {
       this.board = board;
       this.dimension = board.length;
       for (let i = 0; i < this.dimension; i++) {
-        for (let j = 0; j < this.dimension; j++) {
-          sessionStorage.setItem('' + i + '-' + j, this.getContent(board, i, j));
-        }
-      }
-      for (let i = 0; i < this.dimension; i++) {
         this.rows.push({
           dimension: this.dimension,
           id: i,
@@ -70,7 +65,7 @@ export class BoardComponent implements OnInit {
   onClick(cell) {
     if (this.first == null) {
         this.first = cell;
-        if (this.first != null && (this.board[cell.rowId][cell.id].special || this.board[cell.rowId][cell.id].content?.idUser == 0)) {
+        if (this.first != null && (this.board[cell.rowId][cell.id].special || this.board[cell.rowId][cell.id].content?.idPlayer == 1)) {
           this.action = this.dialog.open(ChoiceComponent, {context: {entity: this.board[cell.rowId][cell.id]}});
           this.action.onClose.subscribe(value => {
             switch (value) {
@@ -100,7 +95,7 @@ export class BoardComponent implements OnInit {
         });
         // attack
       } else if (this.attack && this.board[this.first.rowId][this.first.id].content.damage && !this.board[cell.rowId][cell.id].special) {
-        if (this.board[cell.rowId][cell.id].content.idUser != this.board[this.first.rowId][this.first.id].content.idUser && this.board[this.first.rowId][this.first.id].content.pa > 0) {
+        if (this.board[cell.rowId][cell.id].content.idPlayer != this.board[this.first.rowId][this.first.id].content.idPlayer && this.board[this.first.rowId][this.first.id].content.pa > 0) {
           this.boardService.attack([this.first, cell]).subscribe(() => {
             this.refresh();
           })
@@ -120,7 +115,7 @@ export class BoardComponent implements OnInit {
       content = null;
     else {
       if (board[i][j].special)
-        content = board[i][j].content.resourceName;
+        content = board[i][j].content.typeRessource;
       else {
         if (board[i][j].content.damage) {
           content = 'SOLDAT';
@@ -128,10 +123,10 @@ export class BoardComponent implements OnInit {
           content = 'FARMER';
         }
         let currentSquare = board[i][j];
-        if (board[i][j].content.idUser == 0) {
+        if (board[i][j].content.idPlayer == 1) {
           //Pour le moment, le brouillard fonctionne selon la logique que le player 0 est le seul à voir de son côté.
           //Cette condition permet de faire apparaître un brouillard seulement selon le joueur 0.
-          if (currentSquare.content.idUser == 0) {
+          if (currentSquare.content.idPlayer == 1) {
             board[i][j].overlayed = false;
             //Active la vision périphérique (N'a pas d'influence sur l'API. Ceci est cosmétique avant que l'api ne soit mise à jour)
             for (let x = -1; x <= 1; x++) {
@@ -146,7 +141,7 @@ export class BoardComponent implements OnInit {
             }
           }
         }
-        if (currentSquare.content != null && currentSquare.content.idUser == 0) {
+        if (currentSquare.content != null && currentSquare.content.idPlayer == 1) {
           content += '_BLUE';
         } else
           content += '_RED';
@@ -163,11 +158,6 @@ export class BoardComponent implements OnInit {
   refresh() {
     this.boardService.getBoard().subscribe(value => {
       this.board = value;
-      for (let i = 0; i < this.dimension; i++) {
-        for (let j = 0; j < this.dimension; j++) {
-          sessionStorage.setItem('' + i + '-' + j, this.getContent(this.board, i, j));
-        }
-      }
       this.rows = [];
       for (let i = 0; i < this.dimension; i++) {
         this.rows.push({
