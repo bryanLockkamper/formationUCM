@@ -30,7 +30,7 @@ export class BoardComponent implements OnInit {
   ngOnInit() {
     this.rows = [];
     this.first = null;
-    this.boardService.getBoard().subscribe(board => {
+    this.boardService.newBoard().subscribe(board => {
       this.board = board;
       this.dimension = board.length;
       for (let i = 0; i < this.dimension; i++) {
@@ -95,7 +95,7 @@ export class BoardComponent implements OnInit {
         });
         // attack
       } else if (this.attack && this.board[this.first.rowId][this.first.id].content.damage && !this.board[cell.rowId][cell.id].special) {
-        if (this.board[cell.rowId][cell.id].content.idPlayer != this.board[this.first.rowId][this.first.id].content.idPlayer && this.board[this.first.rowId][this.first.id].content.pa > 0) {
+        if (this.board[cell.rowId][cell.id].content?.idPlayer != this.board[this.first.rowId][this.first.id].content.idPlayer && this.board[this.first.rowId][this.first.id].content.pa > 0) {
           this.boardService.attack([this.first, cell]).subscribe(() => {
             this.refresh();
           })
@@ -168,5 +168,10 @@ export class BoardComponent implements OnInit {
       }
       this.first = null;
     })
+  }
+
+  deleteBoard ()
+  {
+    this.board = null;
   }
 }

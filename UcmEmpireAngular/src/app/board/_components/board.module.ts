@@ -4,7 +4,8 @@ import {BoardComponent} from './board/board.component';
 import {RowComponent} from "./row/row.component";
 import {CellComponent} from "./cell/cell.component";
 import { ChoiceComponent } from './choice/choice.component';
-import {NbCardModule, NbDialogModule} from "@nebular/theme";
+import {NbButtonModule, NbCardModule, NbDialogModule} from '@nebular/theme';
+import {RouterModule} from '@angular/router';
 
 
 @NgModule({
@@ -18,6 +19,8 @@ import {NbCardModule, NbDialogModule} from "@nebular/theme";
     CommonModule,
     NbDialogModule.forChild(),
     NbCardModule,
+    NbButtonModule,
+    RouterModule,
   ],
 })
 export class BoardModule { }

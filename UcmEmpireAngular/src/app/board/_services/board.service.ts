@@ -43,4 +43,9 @@ export class BoardService {
   getResource(model){
     return this.httpClient.get(environment.apiEndPoint+'/player/res/'+ model.user_id)
   }
+
+  newBoard() : Observable<RowModel[]>
+  {
+    return this.httpClient.get<RowModel[]>(environment.apiEndPoint+'/newBoard');
+  }
 }

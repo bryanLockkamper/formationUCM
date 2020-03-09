@@ -42,9 +42,9 @@ import java.util.stream.Collectors;
 @RestController
 @CrossOrigin
 public class Global {
-    private Board board = new Board("test");
+    private Board board ;
     Player p1;
-    Player p2 = new Player(2, "gerard");
+    Player p2 ;
     private PlayerDalServiceImpl playerDalService;
     private Game game;
     private BoardDalService boardDalService;
@@ -111,10 +111,12 @@ public class Global {
         board.setSquare(new Position(cellDTO.getRowId(), cellDTO.getId()), null);
     }
 
-    @ApiOperation(value = "Appelé au début de chaque tour pour avoir tout le board")
-    @GetMapping("/")
-    public ArrayList<ArrayList<SquareDTO>> getBoard() {
-        if (p1.getEntities().size() == 3) {
+    @ApiOperation(value = "Appelé au début d'une nouvelle partie pour avoir un nouveau le board")
+    @GetMapping("/newBoard")
+    public ArrayList<ArrayList<SquareDTO>> getNewBoard() {
+        this.board = new Board("PlainBoard");
+        this.p2 = new Player(0,"Toto");
+
             p1.addEntity(new Soldier(p1.getId()));
             p1.addEntity(new Soldier(p1.getId()));
             p1.addEntity(new Farmer(p1.getId()));
@@ -123,7 +125,14 @@ public class Global {
             board.setSquare(new Position(10, 5), p1.getEntity(4));
             board.setSquare(new Position(0, 5), p1.getEntity(5));
             board.setSquare(new Position(3, 2), p2.getEntity(3));
-        }
+
+
+        return new BoardDTO(board).getSquareDTOList();
+    }
+
+    @ApiOperation(value = "Appelé au début de chaque tour pour avoir tout le board")
+    @GetMapping("/")
+    public ArrayList<ArrayList<SquareDTO>> getBoard() {
 
         return new BoardDTO(board).getSquareDTOList();
     }
@@ -173,7 +182,7 @@ public class Global {
         return true;
     }
 
-    @GetMapping("/saveBoard")
+    @GetMapping("/saveBoard") //TODO DAMIEN : WIP
     public void saveBoard ()
     {
 

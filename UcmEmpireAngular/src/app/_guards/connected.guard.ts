@@ -12,7 +12,7 @@ export class ConnectedGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     let token = localStorage.getItem('token');
-    if(token == null) this.router.navigateByUrl('/home');
+    if(token == null) this.router.navigateByUrl('/login');
     return token != null;
   }
 

@@ -5,10 +5,10 @@ import { SecurityService } from '../../security.service';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
   logForm: FormGroup;
 
