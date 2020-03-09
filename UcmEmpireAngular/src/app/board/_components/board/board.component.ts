@@ -20,6 +20,7 @@ export class BoardComponent implements OnInit {
   private action;
   private move: boolean;
   private attack: boolean;
+  private moveFarmer: boolean;
 
   constructor(
     private boardService: BoardService,
@@ -65,7 +66,7 @@ export class BoardComponent implements OnInit {
   onClick(cell) {
     if (this.first == null) {
         this.first = cell;
-        if (this.first != null && (this.board[cell.rowId][cell.id].special || this.board[cell.rowId][cell.id].content?.idPlayer == 1)) {
+        if (this.first != null && ((this.board[cell.rowId][cell.id].special && this.board[cell.rowId][cell.id].entityDTOList.length > 0) || this.board[cell.rowId][cell.id].content?.idPlayer == 1)) {
           this.action = this.dialog.open(ChoiceComponent, {context: {entity: this.board[cell.rowId][cell.id]}});
           this.action.onClose.subscribe(value => {
             switch (value) {
@@ -76,6 +77,9 @@ export class BoardComponent implements OnInit {
                 break;
               case 'move':
                 this.move = true;
+                break;
+              case 'moveFarmer':
+                this.moveFarmer = true;
                 break;
               case 'attack' :
                 this.attack = true;
@@ -93,9 +97,13 @@ export class BoardComponent implements OnInit {
           this.refresh();
           this.move = false;
         });
-        // attack
+      }else if (this.moveFarmer) {
+        this.boardService.move([this.first, cell]).subscribe(() => {
+          this.refresh();
+          this.moveFarmer = false;
+        });
       } else if (this.attack && this.board[this.first.rowId][this.first.id].content.damage && !this.board[cell.rowId][cell.id].special) {
-        if (this.board[cell.rowId][cell.id].content.idPlayer != this.board[this.first.rowId][this.first.id].content.idPlayer && this.board[this.first.rowId][this.first.id].content.pa > 0) {
+        if (this.board[cell.rowId][cell.id].content?.idPlayer != this.board[this.first.rowId][this.first.id].content.idPlayer && this.board[this.first.rowId][this.first.id].content.pa > 0) {
           this.boardService.attack([this.first, cell]).subscribe(() => {
             this.refresh();
           })

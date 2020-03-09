@@ -61,8 +61,8 @@ public class Farmer extends Character implements IFarmer {
         this.setInventory();
     }
 
-    public void move(PositionDTO move, ResourceName resourceName) {
-        super.move(move);
+    public void move(ResourceName resourceName) {
+        this.pa--;
         resourceHarvesting = resourceName;
     }
 
