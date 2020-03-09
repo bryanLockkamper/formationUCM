@@ -80,7 +80,7 @@ public class MapperPlayer {
 
     public Player playerhasLostDTOToPlayer(PlayerHasLostDTO playerHasLostDTO)
     {
-        return new Player(playerHasLostDTO.getPlayer_id(), playerHasLostDTO.getPlayer_name());
+        return new Player(playerHasLostDTO.getPlayer_id(), playerHasLostDTO.getPlayer_login());
     }
 
     public PlayerHasLostDTO playerToPlayerHasLostDTO(Player player)

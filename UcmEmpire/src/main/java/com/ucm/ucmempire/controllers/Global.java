@@ -45,7 +45,7 @@ import java.util.stream.Collectors;
 public class Global {
     private Board board = new Board("test");
     Player p1;
-    Player p2 = new Player(2, "gerard");
+    Player p2 = new Player(0, "gerard");
     private PlayerDalServiceImpl playerDalService;
     private Game game;
     private BoardDalService boardDalService;
@@ -212,20 +212,23 @@ public class Global {
     }
 
     @GetMapping("/player/haslost")
-    public ResponseEntity<List<PlayerHasLostDTO>> isHasLost(@PathVariable("id") List<Integer> players_id)
+    public ResponseEntity<List<PlayerHasLostDTO>> isHasLost(ArrayList<PlayerHasLostDTO> players)
     {
         List<PlayerHasLostDTO> playerHasLostDTOList = new ArrayList<>();
 
-        for (int i = 0; i < players_id.size(); i++) {
+//        for (int i = 0; i < players.size(); i++) {
+//
+//            Optional<PlayerEntity> p = playerDalService.findById(players.get(i).getPlayer_id());
+//
+//            Player player = mapperPlayer.playerEntityToPlayer(p.get());
+//
+//            PlayerHasLostDTO playerHasLostDTO = mapperPlayer.playerToPlayerHasLostDTO(player);
+//
+//            playerHasLostDTOList.add(playerHasLostDTO);
+//        }
 
-            Optional<PlayerEntity> p = playerDalService.findById(players_id.get(i));
-
-            Player player = mapperPlayer.playerEntityToPlayer(p.get());
-
-            PlayerHasLostDTO playerHasLostDTO = mapperPlayer.playerToPlayerHasLostDTO(player);
-
-            playerHasLostDTOList.add(playerHasLostDTO);
-        }
+        playerHasLostDTOList.add(mapperPlayer.playerToPlayerHasLostDTO(p2));
+        playerHasLostDTOList.add(mapperPlayer.playerToPlayerHasLostDTO(p1));
 
         return ResponseEntity.ok(playerHasLostDTOList);
     }
