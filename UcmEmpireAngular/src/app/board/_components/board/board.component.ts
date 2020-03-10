@@ -141,7 +141,7 @@ export class BoardComponent implements OnInit {
             }
           }
         }
-        if (currentSquare.content != null && currentSquare.content.idPlayer == 1) {
+        if (currentSquare.content != null && currentSquare.content.idPlayer != 0) {
           content += '_BLUE';
         } else
           content += '_RED';
