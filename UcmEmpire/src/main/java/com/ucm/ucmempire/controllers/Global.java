@@ -3,32 +3,22 @@ package com.ucm.ucmempire.controllers;
 import com.ucm.ucmempire.controllers.pathfinding.AStarService;
 import com.ucm.ucmempire.controllers.pathfinding.Position;
 import com.ucm.ucmempire.controllers.pathfinding.PositionDTO;
-import com.ucm.ucmempire.dal.entity.EntityGame;
 import com.ucm.ucmempire.dal.entity.PlayerEntity;
 import com.ucm.ucmempire.dal.entity.ResourceEntity;
-import com.ucm.ucmempire.dal.entity.SquareEntity;
 import com.ucm.ucmempire.dal.mapper.MapperPlayer;
+import com.ucm.ucmempire.dal.servicedal.BoardDalService;
 import com.ucm.ucmempire.dal.servicedal.PlayerDalServiceImpl;
 import com.ucm.ucmempire.models.Character;
 import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.Player;
-import com.ucm.ucmempire.models.Player;
-import com.ucm.ucmempire.dal.servicedal.BoardDalService;
-import com.ucm.ucmempire.dal.servicedal.PlayerDalService;
 import com.ucm.ucmempire.models.boardPackage.Board;
 import com.ucm.ucmempire.models.boardPackage.SpecialSquare;
 import com.ucm.ucmempire.models.boardPackage.Square;
 import com.ucm.ucmempire.models.buildings.Forum;
-import com.ucm.ucmempire.models.dto.CellDTO;
-import com.ucm.ucmempire.models.dto.PlayerDTOLogin;
-import com.ucm.ucmempire.models.dto.PlayerDTORegister;
-import com.ucm.ucmempire.models.dto.PlayerDTORess;
-import com.ucm.ucmempire.models.resources.Resource;
-import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.dto.*;
+import com.ucm.ucmempire.models.resources.Resource;
 import com.ucm.ucmempire.models.units.Farmer;
 import com.ucm.ucmempire.models.units.Soldier;
-import com.ucm.ucmempire.models.units.unitInterfaces.IFarmer;
 import com.ucm.ucmempire.services.CombatService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -47,8 +37,8 @@ import java.util.stream.Collectors;
 @RestController
 @CrossOrigin
 public class Global {
-    private Board board = new Board("initBoard") ;
-    Player p1 ;
+    private Board board = new Board("initBoard");
+    Player p1;
     Player p2 = new Player(0, "gerard");
     private PlayerDalServiceImpl playerDalService;
     private Game game;
@@ -56,7 +46,7 @@ public class Global {
     private MapperPlayer mapperPlayer;
 
     @Autowired
-    Global(PlayerDalServiceImpl playerDalService,BoardDalService boardDalService) {
+    Global(PlayerDalServiceImpl playerDalService, BoardDalService boardDalService) {
         this.playerDalService = playerDalService;
         this.boardDalService = boardDalService;
         this.mapperPlayer = mapperPlayer;
@@ -66,7 +56,7 @@ public class Global {
     public void attack(@RequestBody List<CellDTO> cellDTOS) {
         Position first = new Position(cellDTOS.get(0).getRowId(), cellDTOS.get(0).getId());
         Position second = new Position(cellDTOS.get(1).getRowId(), cellDTOS.get(1).getId());
-        if (CombatService.fight((Soldier) (board.getBoard().get(first.getX()).get(first.getY()).getContent()), (Soldier) board.getBoard().get(second.getX()).get(second.getY()).getContent())) {
+        if (CombatService.fight((Soldier) (board.getBoard().get(first.getX()).get(first.getY()).getContent()), board.getBoard().get(second.getX()).get(second.getY()).getContent())) {
             board.getBoard().get(second.getX()).get(second.getY()).setContent(null);
         }
     }
@@ -79,19 +69,21 @@ public class Global {
         Position second = new Position(cellDTOS.get(1).getRowId(), cellDTOS.get(1).getId());
         AStarService aStarService = new AStarService(board, first, second);
 
-        Character character;
-        Entity entity = board.getBoard().get(cellDTOS.get(0).getRowId()).get(cellDTOS.get(0).getId()).getContent();
+        Character character = null;
+        Entity entity = board.getSquare(cellDTOS.get(0)).getContent();
         if (entity instanceof Resource) {
-            character = ( (SpecialSquare) board.getBoard().get(cellDTOS.get(0).getRowId()).get(cellDTOS.get(0).getId())).getFarmers().get(0);
-            ((SpecialSquare) board.getBoard().get(cellDTOS.get(0).getRowId()).get(cellDTOS.get(0).getId())).getFarmers().remove(0);
+            character = ((SpecialSquare) board.getSquare(cellDTOS.get(0))).getFarmers().get(0);
+            ((SpecialSquare) board.getSquare(cellDTOS.get(0))).getFarmers().remove(0);
+        } else if (entity instanceof Forum) {
+                character = (Character) ((Forum) entity).getEntities().get(0);
+                ((Forum) entity).getEntities().remove(0);
         } else {
             character = (Character) entity;
         }
 
-
         PositionDTO position = aStarService.run(character.getPa());
         character.move(position);
-        if (character instanceof Farmer && character.getPa() > 0 && board.getBoard().get(cellDTOS.get(1).getRowId()).get(cellDTOS.get(1).getId()).getContent() instanceof Resource) {
+        if (character instanceof Farmer && character.getPa() > 0 && board.getSquare(cellDTOS.get(1)).getContent() instanceof Resource) {
             board.moveEntity(first, second);
             character.setMoveLeft(second);
         } else {
@@ -106,7 +98,7 @@ public class Global {
 
 
         //Préparer la case en cours et les cases adjacentes pour la boucle pour mettre l'api à jour
-        Square before = board.getBoard().get(cellDTOS.get(0).getRowId()).get(cellDTOS.get(0).getId());
+        Square before = board.getSquare(cellDTOS.get(0));
         Square after;
 
         //Désactive le brouillard sur la case où se tient le personnage
@@ -135,22 +127,20 @@ public class Global {
     @ApiOperation(value = "Appelé au début d'une nouvelle partie pour avoir un nouveau le board")
     @GetMapping("/newBoard")
     public ArrayList<ArrayList<SquareDTO>> getNewBoard() {
-        this.board = new Board("PlainBoard");
-        this.p2 = new Player(0,"Toto");
+        p1.addEntity(new Soldier(p1.getId()));
+        p1.addEntity(new Soldier(p1.getId()));
+        p1.addEntity(new Farmer(p1.getId()));
+        p1.addEntity(new Forum(p1.getId()));
 
-            p1.addEntity(new Soldier(p1.getId()));
-            p1.addEntity(new Soldier(p1.getId()));
-            p1.addEntity(new Farmer(p1.getId()));
-            p1.addEntity(new Forum(p1.getId()));
+        p2.addEntity(new Soldier(p2.getId()));
+        p2.addEntity(new Forum(p2.getId()));
 
-            p2.addEntity(new Soldier(p2.getId()));
-            p2.addEntity(new Forum(p2.getId()));
-
-            board.setSquare(new Position(0, 0), p1.getEntity(3));
-            board.setSquare(new Position(10, 5), p1.getEntity(4));
-            board.setSquare(new Position(0, 5), p1.getEntity(5));
-            board.setSquare(new Position(1, 7), p1.getEntity(6));
-            board.setSquare(new Position(3, 2), p2.getEntity(3));
+        board.setSquare(new Position(0, 0), p1.getEntity(3));
+        board.setSquare(new Position(10, 5), p1.getEntity(4));
+        board.setSquare(new Position(0, 5), p1.getEntity(5));
+        board.setSquare(new Position(1, 7), p1.getEntity(6));
+        board.setSquare(new Position(3, 2), p2.getEntity(3));
+        board.setSquare(new Position(8, 5), p2.getEntity(4));
 
 
         return new BoardDTO(board).getSquareDTOList();
@@ -209,8 +199,7 @@ public class Global {
     }
 
     @GetMapping("/saveBoard") //TODO DAMIEN : WIP
-    public void saveBoard ()
-    {
+    public void saveBoard() {
 
         System.out.println(board.getBoard().get(0).get(0).getBiome());
         List<Integer> idList = new ArrayList<>();
@@ -244,8 +233,7 @@ public class Global {
     }
 
     @GetMapping("/player/haslost")
-    public ResponseEntity<List<PlayerHasLostDTO>> isHasLost(ArrayList<PlayerHasLostDTO> players)
-    {
+    public ResponseEntity<List<PlayerHasLostDTO>> isHasLost(ArrayList<PlayerHasLostDTO> players) {
         List<PlayerHasLostDTO> playerHasLostDTOList = new ArrayList<>();
 
 //        for (int i = 0; i < players.size(); i++) {
@@ -258,12 +246,19 @@ public class Global {
 //
 //            playerHasLostDTOList.add(playerHasLostDTO);
 //        }
+        // TODO: 10-03-20 Ne supprime pas, c'est à ALex mais ça fonctionne pas
 
-        playerHasLostDTOList.add(mapperPlayer.playerToPlayerHasLostDTO(p2));
-        playerHasLostDTOList.add(mapperPlayer.playerToPlayerHasLostDTO(p1));
+//        playerHasLostDTOList.add(mapperPlayer.playerToPlayerHasLostDTO(p2));
+//        playerHasLostDTOList.add(mapperPlayer.playerToPlayerHasLostDTO(p1));
 
         System.out.println(p2.isHasLost());
 
         return ResponseEntity.ok(playerHasLostDTOList);
+    }
+
+    @PostMapping("/createFarmer")
+    public void createFarmer(@RequestBody CellDTO cellDTO) {
+        Forum forum = (Forum) board.getSquare(cellDTO).getContent();
+        forum.product(new Farmer(forum.getIdUser()));
     }
 }

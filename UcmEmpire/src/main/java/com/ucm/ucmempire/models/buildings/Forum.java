@@ -25,14 +25,19 @@ public class Forum extends ProdBuilding implements IForum {
     }
 
     public Forum (EntityDTO entityDTO) {super (entityDTO.getHp(),entityDTO.getIdPlayer(),null);} //TODO DAMIEN : RESSOURCE
+
+    public List<Entity> getEntities() {
+        return entities;
+    }
+
     @Override
     public void setEntities(List<Entity> entities) {
         this.entities = entities;
     }
 
     @Override
-    public Entity decrementCounter() {
-        return null;
+    public Integer decrementCounter() {
+        return 0;
     }
 
     @Override

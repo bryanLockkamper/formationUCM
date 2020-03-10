@@ -73,6 +73,7 @@ export class BoardComponent implements OnInit {
 
       }
     });
+    this.refresh();
   }
 
   endTurn() {
@@ -109,6 +110,8 @@ export class BoardComponent implements OnInit {
               case 'attack' :
                 this.attack = true;
                 break;
+              case 'createFarmer':
+                this.boardService.createFarmer(cell).subscribe();
               default:
                 this.first = null;
             }

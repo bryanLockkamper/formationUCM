@@ -53,4 +53,8 @@ export class BoardService {
   ishaslost(model): Observable<UserHasLost[]>{
     return this.httpClient.get<UserHasLost[]>(environment.apiEndPoint+'/player/haslost')
   }
+
+  createFarmer(model) {
+    return this.httpClient.post(environment.apiEndPoint + '/createFarmer', model);
+  }
 }

@@ -2,8 +2,14 @@
   <nb-card-header>Choisissez votre action</nb-card-header>
   <nb-card-body>
     <button (click)="attack()" *ngIf="entity.content && entity.content.damage && !entity.special">Attaquer</button>
-    <button (click)="move()" *ngIf="entity.content&& !entity.special">Déplacer</button>
-    <button (click)="moveFarmer()" *ngIf="entity.content&& entity.special && entity.entityDTOList.length > 0">Sortir un farmer</button>
+    <button (click)="move()" *ngIf="entity.content && !entity.special && entity.content.typeEntity != 'Forum'">Déplacer
+    </button>
+    <button (click)="createFarmer()" *ngIf="entity.content && !entity.special && entity.content.typeEntity == 'Forum'">
+      Créer un farmer
+    </button>
+    <button (click)="moveFarmer()" *ngIf="entity.content && ((entity.special || entity.content.typeEntity == 'Forum' ) && entity.entityDTOList?.length > 0)">Sortir un
+      farmer
+    </button>
     <button (click)="suicide()" *ngIf="entity.content && !entity.special">Suicide</button>
   </nb-card-body>
 </nb-card>
