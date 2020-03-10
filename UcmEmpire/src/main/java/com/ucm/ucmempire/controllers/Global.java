@@ -17,6 +17,7 @@ import com.ucm.ucmempire.dal.servicedal.PlayerDalService;
 import com.ucm.ucmempire.models.boardPackage.Board;
 import com.ucm.ucmempire.models.boardPackage.SpecialSquare;
 import com.ucm.ucmempire.models.boardPackage.Square;
+import com.ucm.ucmempire.models.buildings.Forum;
 import com.ucm.ucmempire.models.dto.CellDTO;
 import com.ucm.ucmempire.models.dto.PlayerDTOLogin;
 import com.ucm.ucmempire.models.dto.PlayerDTORegister;
@@ -136,11 +137,17 @@ public class Global {
             p1.addEntity(new Soldier(p1.getId()));
             p1.addEntity(new Soldier(p1.getId()));
             p1.addEntity(new Farmer(p1.getId()));
+            p1.addEntity(new Forum(p1.getId()));
+
             p2.addEntity(new Soldier(p2.getId()));
+            p2.addEntity(new Forum(p2.getId()));
+
             board.setSquare(new Position(0, 0), p1.getEntity(3));
             board.setSquare(new Position(10, 5), p1.getEntity(4));
             board.setSquare(new Position(0, 5), p1.getEntity(5));
+            board.setSquare(new Position(1, 7), p1.getEntity(6));
             board.setSquare(new Position(3, 2), p2.getEntity(3));
+            board.setSquare(new Position(8, 5), p2.getEntity(4));
         }
 
         return new BoardDTO(board).getSquareDTOList();

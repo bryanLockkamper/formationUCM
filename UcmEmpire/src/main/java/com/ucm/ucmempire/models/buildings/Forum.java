@@ -6,6 +6,7 @@ import com.ucm.ucmempire.models.dto.EntityDTO;
 import com.ucm.ucmempire.models.resources.Resource;
 import lombok.EqualsAndHashCode;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 @EqualsAndHashCode (callSuper = true)
@@ -13,6 +14,11 @@ import java.util.List;
 public class Forum extends ProdBuilding implements IForum {
 
     private List<Entity> entities;
+
+    public Forum(int idPlayer) {
+        super(50,idPlayer,null);
+        entities = new ArrayList<>();
+    }
 
     public Forum(int hp, Integer idUser, HashSet<Resource> requirement) {
         super(hp, idUser, requirement);
