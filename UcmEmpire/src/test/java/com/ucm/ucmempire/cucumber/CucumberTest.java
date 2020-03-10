@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(plugin = "pretty",
         features = "src/test/java/com/ucm/ucmempire/cucumber/feature",
         extraGlue = "be.ucm"
-        //,tags = "@todo"
+        //,tags = {"@todo", "not @removed"}
         ,strict = true
 )
 public class CucumberTest {

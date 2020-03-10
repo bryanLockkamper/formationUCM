@@ -7,6 +7,7 @@ import com.ucm.ucmempire.dal.entity.EntityGame;
 import com.ucm.ucmempire.dal.entity.PlayerEntity;
 import com.ucm.ucmempire.dal.entity.ResourceEntity;
 import com.ucm.ucmempire.dal.entity.SquareEntity;
+import com.ucm.ucmempire.dal.mapper.MapperPlayer;
 import com.ucm.ucmempire.dal.servicedal.PlayerDalServiceImpl;
 import com.ucm.ucmempire.models.Character;
 import com.ucm.ucmempire.models.Entity;
@@ -47,15 +48,17 @@ import java.util.stream.Collectors;
 public class Global {
     private Board board = new Board("test");
     Player p1;
-    Player p2 = new Player(2, "gerard");
+    Player p2 = new Player(0, "gerard");
     private PlayerDalServiceImpl playerDalService;
     private Game game;
     private BoardDalService boardDalService;
+    private MapperPlayer mapperPlayer;
 
     @Autowired
-    Global(PlayerDalServiceImpl playerDalService, BoardDalService boardDalService) {
+    Global(PlayerDalServiceImpl playerDalService,BoardDalService boardDalService) {
         this.playerDalService = playerDalService;
         this.boardDalService = boardDalService;
+        this.mapperPlayer = mapperPlayer;
     }
 
     @PostMapping("/attack")
@@ -73,7 +76,6 @@ public class Global {
     public void move(@RequestBody List<CellDTO> cellDTOS) {
         Position first = new Position(cellDTOS.get(0).getRowId(), cellDTOS.get(0).getId());
         Position second = new Position(cellDTOS.get(1).getRowId(), cellDTOS.get(1).getId());
-
         AStarService aStarService = new AStarService(board, first, second);
 
         Character character;
@@ -225,5 +227,27 @@ public class Global {
         return ResponseEntity.ok(pldto);
     }
 
+    @GetMapping("/player/haslost")
+    public ResponseEntity<List<PlayerHasLostDTO>> isHasLost(ArrayList<PlayerHasLostDTO> players)
+    {
+        List<PlayerHasLostDTO> playerHasLostDTOList = new ArrayList<>();
 
+//        for (int i = 0; i < players.size(); i++) {
+//
+//            Optional<PlayerEntity> p = playerDalService.findById(players.get(i).getPlayer_id());
+//
+//            Player player = mapperPlayer.playerEntityToPlayer(p.get());
+//
+//            PlayerHasLostDTO playerHasLostDTO = mapperPlayer.playerToPlayerHasLostDTO(player);
+//
+//            playerHasLostDTOList.add(playerHasLostDTO);
+//        }
+
+        playerHasLostDTOList.add(mapperPlayer.playerToPlayerHasLostDTO(p2));
+        playerHasLostDTOList.add(mapperPlayer.playerToPlayerHasLostDTO(p1));
+
+        System.out.println(p2.isHasLost());
+
+        return ResponseEntity.ok(playerHasLostDTOList);
+    }
 }
