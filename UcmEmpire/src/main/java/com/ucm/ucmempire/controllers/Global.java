@@ -42,8 +42,8 @@ import java.util.stream.Collectors;
 @RestController
 @CrossOrigin
 public class Global {
-    private Board board ;
-    Player p1;
+    private Board board = new Board("initBoard") ;
+    Player p1 ;
     Player p2 ;
     private PlayerDalServiceImpl playerDalService;
     private Game game;
