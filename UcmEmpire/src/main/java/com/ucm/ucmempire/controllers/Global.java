@@ -164,7 +164,6 @@ public class Global {
         if (player.isPresent()) {
             p1 = new Player(player.get().getId(), player.get().getLogin());
             game = new Game(p1, p2, board);
-            System.out.println(player.get());
             return ResponseEntity.ok(new PlayerDTOInfo(player.get()));
         } else
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -177,7 +176,6 @@ public class Global {
         PlayerEntity playerEntity = new PlayerEntity(playerDTO.getLastname(), playerDTO.getFirstname(), playerDTO.getPseudo(), playerDTO.getPassword());
         playerDalService.save(playerEntity);
 
-        System.out.println(playerEntity.getId() + playerEntity.getLogin());
         p1 = new Player(playerEntity.getId(), playerEntity.getLogin());
 
 
