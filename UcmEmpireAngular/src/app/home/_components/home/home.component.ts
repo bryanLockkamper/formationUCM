@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { SecurityService } from '../../security.service';
+import {User} from '../../_models/user';
 
 @Component({
   selector: 'app-home',
@@ -10,32 +8,11 @@ import { SecurityService } from '../../security.service';
 })
 export class HomeComponent implements OnInit {
 
-  logForm: FormGroup;
-
-  constructor(
-    private secService: SecurityService,
-    private router: Router,
-  ) { }
+  player : User;
+  constructor() { }
 
   ngOnInit(): void {
-    this.logForm = new FormGroup({
-      pseudo: new FormControl(null, Validators.required),
-      password: new FormControl(null, Validators.required)
-    });
+    this.player = null;
   }
 
-  log() {
-    const json = this.logForm.value;
-    this.secService.login(json).subscribe(
-      (token) => {
-        localStorage.setItem('token', token);
-        this.router.navigateByUrl('/board');
-      },
-      (error) => {
-      },
-      () => {
-
-      }
-    );
-  }
 }

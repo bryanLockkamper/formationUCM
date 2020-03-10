@@ -7,6 +7,7 @@ import com.ucm.ucmempire.dal.entity.EntityGame;
 import com.ucm.ucmempire.dal.entity.PlayerEntity;
 import com.ucm.ucmempire.dal.entity.ResourceEntity;
 import com.ucm.ucmempire.dal.entity.SquareEntity;
+import com.ucm.ucmempire.dal.mapper.MapperPlayer;
 import com.ucm.ucmempire.dal.servicedal.PlayerDalServiceImpl;
 import com.ucm.ucmempire.models.Character;
 import com.ucm.ucmempire.models.Entity;
@@ -46,17 +47,19 @@ import java.util.stream.Collectors;
 @RestController
 @CrossOrigin
 public class Global {
-    private Board board = new Board("test");
-    Player p1;
-    Player p2 = new Player(2, "gerard");
+    private Board board = new Board("initBoard") ;
+    Player p1 ;
+    Player p2 = new Player(0, "gerard");
     private PlayerDalServiceImpl playerDalService;
     private Game game;
     private BoardDalService boardDalService;
+    private MapperPlayer mapperPlayer;
 
     @Autowired
-    Global(PlayerDalServiceImpl playerDalService, BoardDalService boardDalService) {
+    Global(PlayerDalServiceImpl playerDalService,BoardDalService boardDalService) {
         this.playerDalService = playerDalService;
         this.boardDalService = boardDalService;
+        this.mapperPlayer = mapperPlayer;
     }
 
     @PostMapping("/attack")
@@ -74,7 +77,6 @@ public class Global {
     public void move(@RequestBody List<CellDTO> cellDTOS) {
         Position first = new Position(cellDTOS.get(0).getRowId(), cellDTOS.get(0).getId());
         Position second = new Position(cellDTOS.get(1).getRowId(), cellDTOS.get(1).getId());
-
         AStarService aStarService = new AStarService(board, first, second);
 
         Character character;
@@ -130,10 +132,12 @@ public class Global {
         board.setSquare(new Position(cellDTO.getRowId(), cellDTO.getId()), null);
     }
 
-    @ApiOperation(value = "Appelé au début de chaque tour pour avoir tout le board")
-    @GetMapping("/")
-    public ArrayList<ArrayList<SquareDTO>> getBoard() {
-        if (p1.getEntities().size() == 3) {
+    @ApiOperation(value = "Appelé au début d'une nouvelle partie pour avoir un nouveau le board")
+    @GetMapping("/newBoard")
+    public ArrayList<ArrayList<SquareDTO>> getNewBoard() {
+        this.board = new Board("PlainBoard");
+        this.p2 = new Player(0,"Toto");
+
             p1.addEntity(new Soldier(p1.getId()));
             p1.addEntity(new Soldier(p1.getId()));
             p1.addEntity(new Farmer(p1.getId()));
@@ -147,8 +151,14 @@ public class Global {
             board.setSquare(new Position(0, 5), p1.getEntity(5));
             board.setSquare(new Position(1, 7), p1.getEntity(6));
             board.setSquare(new Position(3, 2), p2.getEntity(3));
-            board.setSquare(new Position(8, 5), p2.getEntity(4));
-        }
+
+
+        return new BoardDTO(board).getSquareDTOList();
+    }
+
+    @ApiOperation(value = "Appelé au début de chaque tour pour avoir tout le board")
+    @GetMapping("/")
+    public ArrayList<ArrayList<SquareDTO>> getBoard() {
 
         return new BoardDTO(board).getSquareDTOList();
     }
@@ -198,8 +208,9 @@ public class Global {
         return true;
     }
 
-    @GetMapping("/saveBoard")
-    public void saveBoard() {
+    @GetMapping("/saveBoard") //TODO DAMIEN : WIP
+    public void saveBoard ()
+    {
 
         System.out.println(board.getBoard().get(0).get(0).getBiome());
         List<Integer> idList = new ArrayList<>();
@@ -232,5 +243,27 @@ public class Global {
         return ResponseEntity.ok(pldto);
     }
 
+    @GetMapping("/player/haslost")
+    public ResponseEntity<List<PlayerHasLostDTO>> isHasLost(ArrayList<PlayerHasLostDTO> players)
+    {
+        List<PlayerHasLostDTO> playerHasLostDTOList = new ArrayList<>();
 
+//        for (int i = 0; i < players.size(); i++) {
+//
+//            Optional<PlayerEntity> p = playerDalService.findById(players.get(i).getPlayer_id());
+//
+//            Player player = mapperPlayer.playerEntityToPlayer(p.get());
+//
+//            PlayerHasLostDTO playerHasLostDTO = mapperPlayer.playerToPlayerHasLostDTO(player);
+//
+//            playerHasLostDTOList.add(playerHasLostDTO);
+//        }
+
+        playerHasLostDTOList.add(mapperPlayer.playerToPlayerHasLostDTO(p2));
+        playerHasLostDTOList.add(mapperPlayer.playerToPlayerHasLostDTO(p1));
+
+        System.out.println(p2.isHasLost());
+
+        return ResponseEntity.ok(playerHasLostDTOList);
+    }
 }

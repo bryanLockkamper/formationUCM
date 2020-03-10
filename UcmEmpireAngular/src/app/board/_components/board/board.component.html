@@ -1,10 +1,11 @@
 <div style="width: 50%;">
+  <button nbButton routerLink="/home" (click)="deleteBoard()">Quitter</button>
   <p>
-    Your turn to play :)
+   C'est à l'équipe xx de jouer
   </p>
 
   <button (click)='startTimer()'>Start Timer</button>
-  <button (click)='endTurn()'>End Turn</button>
+  <button nbButton status="danger" (click)='endTurn()'>Fin de tour</button>
 
   <p>{{timeLeft}} Seconds Left....</p>
 </div>

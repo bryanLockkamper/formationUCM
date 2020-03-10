@@ -1,22 +1,22 @@
-<div style="display: flex;">
-    <nb-card style="width: 50%;">
-        <nb-card-header>
-            Login
-        </nb-card-header>
-        <nb-card-body>
-            <form [formGroup]="logForm" (ngSubmit)="log()">
-                <div class="form-group text-center">
-                    <input fullWidth nbInput type="text" placeholder="Pseudo" formControlName="pseudo">
-                </div>
+<div >
+  <h1> Welcome to UCM - EMPIRE !</h1>
 
-                <div class="form-group text-center">
-                    <input fullWidth nbInput type="text" placeholder="Password" formControlName="password">
-                </div>
+  <nb-card>
+    <nb-card-header>
+     Jeux
+    </nb-card-header>
+    <nb-card-body>
+      <button nbButton routerLink="/board">Nouvelle partie</button>
+    </nb-card-body>
+  </nb-card>
 
-                <div class="form-group button text-right">
-                    <input nbButton type="submit" [disabled]="logForm.invalid">
-                </div>
-            </form>
-        </nb-card-body>
-    </nb-card>
+  <nb-card>
+    <nb-card-header>Mon profil</nb-card-header>
+    <nb-card-body>
+      <div *ngIf="player != null">
+
+      </div>
+
+    </nb-card-body>
+  </nb-card>
 </div>

@@ -33,7 +33,7 @@ export class CellComponent implements OnInit {
       else {
         content = this.content.content.typeEntity.toUpperCase();
         let currentSquare = this.content;
-        /*if (this.content.content.idPlayer == 1) {
+        /*if (this.content.content.idPlayer != 0) {
           //Pour le moment, le brouillard fonctionne selon la logique que le player 0 est le seul à voir de son côté.
           //Cette condition permet de faire apparaître un brouillard seulement selon le joueur 0.
           if (currentSquare.content.idPlayer == 1) {
@@ -51,7 +51,7 @@ export class CellComponent implements OnInit {
             }
           }
         }*/
-        if (currentSquare.content != null && currentSquare.content.idPlayer == 1) {
+        if (currentSquare.content != null && currentSquare.content.idPlayer != 0) {
           content += '_BLUE';
         } else
           content += '_RED';
