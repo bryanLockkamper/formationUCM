@@ -5,13 +5,14 @@ import com.ucm.ucmempire.models.Player;
 import lombok.*;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class PlayerDTORegister {
     private String pseudo;
     private String password;
     private String firstname;
     private String lastname;
     private String email;
+
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from '../../_models/user';
+import {UserInfo} from '../../_models/user-info';
 
 @Component({
   selector: 'app-home',
@@ -8,11 +9,11 @@ import {User} from '../../_models/user';
 })
 export class HomeComponent implements OnInit {
 
-  player : User;
+  player : UserInfo;
   constructor() { }
 
   ngOnInit(): void {
-    this.player = null;
+    this.player = ((typeof localStorage.getItem('token') != undefined) && (localStorage.getItem('token') != null)) ? JSON.parse(localStorage.getItem('token')) : null ;
   }
 
 }

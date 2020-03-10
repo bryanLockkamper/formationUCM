@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule, NbCardModule } from '@nebular/theme';
+import {NbThemeModule, NbLayoutModule, NbCardModule, NbToastrService, NbToastrModule} from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { HomeModule } from './home/home.module';
 import {BoardModule} from "./board/_components/board.module";
@@ -26,7 +26,8 @@ import { FormsModule } from '@angular/forms';
     NbCardModule,
     FormsModule,
     HomeModule,
-    BoardModule
+    BoardModule,
+    NbToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

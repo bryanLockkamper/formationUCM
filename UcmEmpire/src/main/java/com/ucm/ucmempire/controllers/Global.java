@@ -131,7 +131,7 @@ public class Global {
         board.setSquare(new Position(cellDTO.getRowId(), cellDTO.getId()), null);
     }
 
-    @ApiOperation(value = "Appelé au début d'une nouvelle partie pour avoir un nouveau le board")
+    @ApiOperation(value = "Appelé au début d'une nouvelle partie pour avoir un nouveau board")
     @GetMapping("/newBoard")
     public ArrayList<ArrayList<SquareDTO>> getNewBoard() {
         this.board = new Board("PlainBoard");
@@ -157,14 +157,15 @@ public class Global {
         return new BoardDTO(board).getSquareDTOList();
     }
 
-    @ApiOperation(value = "Appelé a chaque fois qu'un joueurs voudra ce loger")
+    @ApiOperation(value = "Appelé a chaque fois qu'un joueur voudra se loger")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody PlayerDTOLogin playerDTO) {
         Optional<PlayerEntity> player = playerDalService.findByLoginAndPassword(playerDTO.getPseudo(), playerDTO.getPassword());
         if (player.isPresent()) {
             p1 = new Player(player.get().getId(), player.get().getLogin());
             game = new Game(p1, p2, board);
-            return ResponseEntity.ok().body(player.get());
+            System.out.println(player.get());
+            return ResponseEntity.ok(new PlayerDTOInfo(player.get()));
         } else
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }

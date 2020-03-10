@@ -5,6 +5,7 @@ import { UserLogin } from './_models/user-login';
 import { UserRegister } from './_models/user-register';
 import { HttpClient } from '@angular/common/http';
 import { User } from './_models/user';
+import {UserInfo} from './_models/user-info';
 
 @Injectable({
   providedIn: 'root'
@@ -26,4 +27,6 @@ export class SecurityService {
   register(model: UserRegister): Observable<string> {
     return this.httpClient.post<string>(environment.apiEndPoint + 'register', model);
   }
+
+
 }

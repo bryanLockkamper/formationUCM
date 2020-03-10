@@ -14,9 +14,14 @@
     <nb-card-header>Mon profil</nb-card-header>
     <nb-card-body>
       <div *ngIf="player != null">
-
+      <h3>{{player.lastname}}</h3>
+        <h3>{{player.firstname}}</h3>
+        <h4>{{player.mail}}</h4>
       </div>
 
     </nb-card-body>
+    <nb-card-footer>
+      <button nbButton disabled>Modifier mon profil</button>
+    </nb-card-footer>
   </nb-card>
 </div>
