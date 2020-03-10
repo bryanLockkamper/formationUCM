@@ -3,6 +3,7 @@ import {BoardService} from "../../_services/board.service";
 import {RowModel} from "../../_models/row";
 import {NbDialogService} from "@nebular/theme";
 import {ChoiceComponent} from "../choice/choice.component";
+import { UserHasLost } from 'src/app/home/_models/user-haslost';
 
 @Component({
   selector: 'app-board',
@@ -20,6 +21,9 @@ export class BoardComponent implements OnInit {
   private action;
   private move: boolean;
   private attack: boolean;
+  private moveFarmer: boolean;
+
+  playerList : UserHasLost[]
 
   constructor(
     private boardService: BoardService,
@@ -29,6 +33,7 @@ export class BoardComponent implements OnInit {
 
   ngOnInit() {
     this.rows = [];
+    this.playerList = [];
     this.first = null;
     this.boardService.newBoard().subscribe(board => {
       this.board = board;
@@ -42,6 +47,7 @@ export class BoardComponent implements OnInit {
       }
     });
     this.startTimer();
+    this.haslost(this.playerList);
   }
 
   startTimer() {
@@ -52,7 +58,21 @@ export class BoardComponent implements OnInit {
       } else {
         this.endTurn();
       }
-    }, 1000)
+    }, 1000);
+    console.log(this.playerList.length);
+
+    this.playerList.forEach(element => {
+      if(element.player_hasLost)
+      {
+        console.log('le joueur ' + element.player_id + ' a perdu');
+
+      }
+      else
+      {
+        console.log('Tu n\'as pas encore perdu' );
+
+      }
+    });
   }
 
   endTurn() {
@@ -60,12 +80,18 @@ export class BoardComponent implements OnInit {
     clearInterval(this.interval);
     this.timeLeft = 120;
     this.refresh();
+    this.playerList = [];
+    this.playerList.push(this.haslost(this.playerList));
+  }
+
+  haslost(playerList): any {
+    return this.boardService.ishaslost(playerList).subscribe();
   }
 
   onClick(cell) {
     if (this.first == null) {
         this.first = cell;
-        if (this.first != null && (this.board[cell.rowId][cell.id].special || this.board[cell.rowId][cell.id].content?.idPlayer == 1)) {
+        if (this.first != null && ((this.board[cell.rowId][cell.id].special && this.board[cell.rowId][cell.id].entityDTOList.length > 0) || this.board[cell.rowId][cell.id].content?.idPlayer == 1)) {
           this.action = this.dialog.open(ChoiceComponent, {context: {entity: this.board[cell.rowId][cell.id]}});
           this.action.onClose.subscribe(value => {
             switch (value) {
@@ -76,6 +102,9 @@ export class BoardComponent implements OnInit {
                 break;
               case 'move':
                 this.move = true;
+                break;
+              case 'moveFarmer':
+                this.moveFarmer = true;
                 break;
               case 'attack' :
                 this.attack = true;
@@ -93,7 +122,11 @@ export class BoardComponent implements OnInit {
           this.refresh();
           this.move = false;
         });
-        // attack
+      }else if (this.moveFarmer) {
+        this.boardService.move([this.first, cell]).subscribe(() => {
+          this.refresh();
+          this.moveFarmer = false;
+        });
       } else if (this.attack && this.board[this.first.rowId][this.first.id].content.damage && !this.board[cell.rowId][cell.id].special) {
         if (this.board[cell.rowId][cell.id].content?.idPlayer != this.board[this.first.rowId][this.first.id].content.idPlayer && this.board[this.first.rowId][this.first.id].content.pa > 0) {
           this.boardService.attack([this.first, cell]).subscribe(() => {
@@ -153,7 +186,6 @@ export class BoardComponent implements OnInit {
   getOverlayed(board, i, j) {
     return board[i][j].overlayed;
   }
-
 
   refresh() {
     this.boardService.getBoard().subscribe(value => {

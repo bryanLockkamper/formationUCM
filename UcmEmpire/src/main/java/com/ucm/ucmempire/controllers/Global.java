@@ -7,13 +7,16 @@ import com.ucm.ucmempire.dal.entity.EntityGame;
 import com.ucm.ucmempire.dal.entity.PlayerEntity;
 import com.ucm.ucmempire.dal.entity.ResourceEntity;
 import com.ucm.ucmempire.dal.entity.SquareEntity;
+import com.ucm.ucmempire.dal.mapper.MapperPlayer;
 import com.ucm.ucmempire.dal.servicedal.PlayerDalServiceImpl;
 import com.ucm.ucmempire.models.Character;
+import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.dal.servicedal.BoardDalService;
 import com.ucm.ucmempire.dal.servicedal.PlayerDalService;
 import com.ucm.ucmempire.models.boardPackage.Board;
+import com.ucm.ucmempire.models.boardPackage.SpecialSquare;
 import com.ucm.ucmempire.models.boardPackage.Square;
 import com.ucm.ucmempire.models.dto.CellDTO;
 import com.ucm.ucmempire.models.dto.PlayerDTOLogin;
@@ -24,6 +27,7 @@ import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.dto.*;
 import com.ucm.ucmempire.models.units.Farmer;
 import com.ucm.ucmempire.models.units.Soldier;
+import com.ucm.ucmempire.models.units.unitInterfaces.IFarmer;
 import com.ucm.ucmempire.services.CombatService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,15 +48,17 @@ import java.util.stream.Collectors;
 public class Global {
     private Board board = new Board("initBoard") ;
     Player p1 ;
-    Player p2 ;
+    Player p2 = new Player(0, "gerard");
     private PlayerDalServiceImpl playerDalService;
     private Game game;
     private BoardDalService boardDalService;
+    private MapperPlayer mapperPlayer;
 
     @Autowired
     Global(PlayerDalServiceImpl playerDalService,BoardDalService boardDalService) {
         this.playerDalService = playerDalService;
         this.boardDalService = boardDalService;
+        this.mapperPlayer = mapperPlayer;
     }
 
     @PostMapping("/attack")
@@ -71,17 +77,31 @@ public class Global {
         Position first = new Position(cellDTOS.get(0).getRowId(), cellDTOS.get(0).getId());
         Position second = new Position(cellDTOS.get(1).getRowId(), cellDTOS.get(1).getId());
         AStarService aStarService = new AStarService(board, first, second);
-        Character character = (Character) board.getBoard().get(cellDTOS.get(0).getRowId()).get(cellDTOS.get(0).getId()).getContent();
-        PositionDTO position = aStarService.run(character.getPa());
-        // TODO: 04-03-20 Permettre a un farmer de rentrer dans une ressource
-        board.moveEntity(first, position.getPosition());
-        character.move(position);
-        if (position.getPosition().equals(second)) {
-            character.setMoveLeft(null);
+
+        Character character;
+        Entity entity = board.getBoard().get(cellDTOS.get(0).getRowId()).get(cellDTOS.get(0).getId()).getContent();
+        if (entity instanceof Resource) {
+            character = ( (SpecialSquare) board.getBoard().get(cellDTOS.get(0).getRowId()).get(cellDTOS.get(0).getId())).getFarmers().get(0);
+            ((SpecialSquare) board.getBoard().get(cellDTOS.get(0).getRowId()).get(cellDTOS.get(0).getId())).getFarmers().remove(0);
         } else {
-            character.setMoveLeft(second);
+            character = (Character) entity;
         }
-        board.getBoard().get(position.getPosition().getX()).get(position.getPosition().getY()).setContent(character);
+
+
+        PositionDTO position = aStarService.run(character.getPa());
+        character.move(position);
+        if (character instanceof Farmer && character.getPa() > 0 && board.getBoard().get(cellDTOS.get(1).getRowId()).get(cellDTOS.get(1).getId()).getContent() instanceof Resource) {
+            board.moveEntity(first, second);
+            character.setMoveLeft(second);
+        } else {
+            board.moveEntity(first, position.getPosition());
+            if (position.getPosition().equals(second)) {
+                character.setMoveLeft(null);
+            } else {
+                character.setMoveLeft(second);
+            }
+            board.getBoard().get(position.getPosition().getX()).get(position.getPosition().getY()).setContent(character);
+        }
 
 
         //Préparer la case en cours et les cases adjacentes pour la boucle pour mettre l'api à jour
@@ -195,27 +215,49 @@ public class Global {
         System.out.println(boardDalService.save(board));
 
         //Etape 2 update the player table
-       // playerDalService.saveBoard(idList,boardEntity);
+        // playerDalService.saveBoard(idList,boardEntity);
 
 
     }
 
     @GetMapping("/player/res/{id}")
-    public ResponseEntity<PlayerDTORess> getRess(@PathVariable("id") Integer id){
+    public ResponseEntity<PlayerDTORess> getRess(@PathVariable("id") Integer id) {
 
-        Optional<PlayerEntity> p =  playerDalService.findById(id);
+        Optional<PlayerEntity> p = playerDalService.findById(id);
 
         PlayerDTORess pldto = new PlayerDTORess();
         pldto.setUser_id(p.get().getId());
 
         pldto.setResources(p.get().getEntityGamesList().stream()
                 .filter(entityGame -> entityGame instanceof ResourceEntity)
-                .map( entityGame -> (ResourceEntity)entityGame)
+                .map(entityGame -> (ResourceEntity) entityGame)
                 .collect(Collectors.toList()));
 
-        System.out.println(pldto.toString() +" TOTO MARCHE");
+        System.out.println(pldto.toString() + " TOTO MARCHE");
         return ResponseEntity.ok(pldto);
     }
 
+    @GetMapping("/player/haslost")
+    public ResponseEntity<List<PlayerHasLostDTO>> isHasLost(ArrayList<PlayerHasLostDTO> players)
+    {
+        List<PlayerHasLostDTO> playerHasLostDTOList = new ArrayList<>();
 
+//        for (int i = 0; i < players.size(); i++) {
+//
+//            Optional<PlayerEntity> p = playerDalService.findById(players.get(i).getPlayer_id());
+//
+//            Player player = mapperPlayer.playerEntityToPlayer(p.get());
+//
+//            PlayerHasLostDTO playerHasLostDTO = mapperPlayer.playerToPlayerHasLostDTO(player);
+//
+//            playerHasLostDTOList.add(playerHasLostDTO);
+//        }
+
+        playerHasLostDTOList.add(mapperPlayer.playerToPlayerHasLostDTO(p2));
+        playerHasLostDTOList.add(mapperPlayer.playerToPlayerHasLostDTO(p1));
+
+        System.out.println(p2.isHasLost());
+
+        return ResponseEntity.ok(playerHasLostDTOList);
+    }
 }
