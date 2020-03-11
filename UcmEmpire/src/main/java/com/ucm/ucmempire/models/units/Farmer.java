@@ -11,6 +11,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 @ToString
@@ -18,13 +19,15 @@ import java.util.Map;
 public class Farmer extends Character implements IFarmer {
 
     private ResourceName resourceHarvesting;
-
+    private HashSet<Resource> requirement;
     private Map<ResourceName, Integer> inventory; //TODO NEED TO ADD TO THE ENTITY AND IN THE MAPPER
 
 
     public Farmer(int idUser) {
         super(idUser, Constants.NB_POINTDEVIE, Constants.NB_POINTACTION);
         setInventory();
+        requirement = new HashSet<>();
+        requirement.add(new Resource(ResourceName.FOOD, 20));
     }
 
     public Farmer(ResourceName resourceHarvesting, Map<ResourceName, Integer> inventory) {
@@ -85,6 +88,16 @@ public class Farmer extends Character implements IFarmer {
         this.inventory.put(ResourceName.STONE, 0);
         this.inventory.put(ResourceName.FOOD, 0);
         this.inventory.put(ResourceName.WOOD, 0);
+    }
+
+    public Resource getRequirement(ResourceName resourceName){
+        return requirement.stream()
+                .filter(resource -> resource.getResourceName().equals(resourceName))
+                .findFirst().orElse(null);
+    }
+
+    public void setRequirement(HashSet<Resource> requirement) {
+        this.requirement = requirement;
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.buildings.buildingInterfaces.IForum;
 import com.ucm.ucmempire.models.dto.EntityDTO;
 import com.ucm.ucmempire.models.resources.Resource;
+import com.ucm.ucmempire.models.resources.ResourceName;
 import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
 public class Forum extends ProdBuilding implements IForum {
 
     public Forum(int idPlayer) {
-        super(50,idPlayer,null);
+        super(50,idPlayer, null);
     }
 
     public Forum(int hp, Integer idUser, HashSet<Resource> requirement) {

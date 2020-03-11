@@ -54,11 +54,7 @@ public class Game implements Runnable {
                 .map(squares -> squares
                         .stream()
                         .filter(square -> square instanceof SpecialSquare)
-                        .map(square -> {
-                            int i = harvestService.autoHarvestResources((SpecialSquare) square, player1);
-                            System.out.println(i);
-                            return i;
-                        })
+                        .map(square -> harvestService.autoHarvestResources((SpecialSquare) square, player1))
                         .collect(Collectors.toList()))
         .collect(Collectors.toList());
         endRound = false;

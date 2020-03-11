@@ -19,6 +19,7 @@ import com.ucm.ucmempire.models.buildings.Forum;
 import com.ucm.ucmempire.models.buildings.ProdBuilding;
 import com.ucm.ucmempire.models.dto.*;
 import com.ucm.ucmempire.models.resources.Resource;
+import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.units.Farmer;
 import com.ucm.ucmempire.models.units.Soldier;
 import com.ucm.ucmempire.services.CombatService;
@@ -51,7 +52,7 @@ public class Global {
     Global(PlayerDalServiceImpl playerDalService, BoardDalService boardDalService) {
         this.playerDalService = playerDalService;
         this.boardDalService = boardDalService;
-        this.mapperPlayer = mapperPlayer;
+        mapperPlayer = new MapperPlayer();
     }
 
     @PostMapping("/attack")
@@ -77,8 +78,8 @@ public class Global {
             character = ((SpecialSquare) board.getSquare(cellDTOS.get(0))).getFarmers().get(0);
             ((SpecialSquare) board.getSquare(cellDTOS.get(0))).getFarmers().remove(0);
         } else if (entity instanceof ProdBuilding) {
-                character = (Character) ((ProdBuilding) entity).getEntities().get(0);
-                ((ProdBuilding) entity).getEntities().remove(0);
+            character = (Character) ((ProdBuilding) entity).getEntities().get(0);
+            ((ProdBuilding) entity).getEntities().remove(0);
         } else {
             character = (Character) entity;
         }
@@ -99,7 +100,7 @@ public class Global {
                     character.setMoveLeft(second);
                 }
                 board.getBoard().get(position.getPosition().getX()).get(position.getPosition().getY()).setContent(character);
-        }
+            }
         }
 
 
@@ -254,8 +255,8 @@ public class Global {
 //        }
         // TODO: 10-03-20 Ne supprime pas, c'est à ALex mais ça fonctionne pas
 
-//        playerHasLostDTOList.add(mapperPlayer.playerToPlayerHasLostDTO(p2));
-//        playerHasLostDTOList.add(mapperPlayer.playerToPlayerHasLostDTO(p1));
+        playerHasLostDTOList.add(mapperPlayer.playerToPlayerHasLostDTO(p2));
+        playerHasLostDTOList.add(mapperPlayer.playerToPlayerHasLostDTO(p1));
 
         System.out.println(p2.isHasLost());
 
@@ -265,17 +266,38 @@ public class Global {
     @PostMapping("/createFarmer")
     public void createFarmer(@RequestBody CellDTO cellDTO) {
         Forum forum = (Forum) board.getSquare(cellDTO).getContent();
-        forum.product(new Farmer(forum.getIdUser()));
+        Farmer farmer = new Farmer(forum.getIdUser());
+        Resource playerRes = p1.getResource(ResourceName.FOOD);
+        int farmerRequirement = farmer.getRequirement(ResourceName.FOOD).getHp();
+        if (playerRes.getHp() >= farmerRequirement) {
+            forum.product(farmer);
+            playerRes.setHp(playerRes.getHp() - farmerRequirement);
+        }
     }
 
     @PostMapping("/createBarrack")
     public void createBarrack(@RequestBody List<CellDTO> cellDTOS) {
-        board.getSquare(cellDTOS.get(1)).setContent(new Barracks(p1.getId()));
+        Barracks barracks = new Barracks(((Farmer) board.getSquare(cellDTOS.get(0)).getContent()).getIdUser());
+        if (p1.getResource(ResourceName.FOOD).getHp() >= barracks.getRequirement(ResourceName.FOOD).getHp()
+                && p1.getResource(ResourceName.STONE).getHp() >= barracks.getRequirement(ResourceName.STONE).getHp()
+                && p1.getResource(ResourceName.WOOD).getHp() >= barracks.getRequirement(ResourceName.WOOD).getHp()) {
+            board.getSquare(cellDTOS.get(1)).setContent(new Barracks(p1.getId()));
+            p1.getResource(ResourceName.FOOD).setHp(p1.getResource(ResourceName.FOOD).getHp() - barracks.getRequirement(ResourceName.FOOD).getHp());
+            p1.getResource(ResourceName.WOOD).setHp(p1.getResource(ResourceName.WOOD).getHp() - barracks.getRequirement(ResourceName.WOOD).getHp());
+            p1.getResource(ResourceName.STONE).setHp(p1.getResource(ResourceName.STONE).getHp() - barracks.getRequirement(ResourceName.STONE).getHp());
+        }
+
     }
 
     @PostMapping("/createSoldier")
     public void createSoldier(@RequestBody CellDTO cellDTO) {
         Barracks barracks = (Barracks) board.getSquare(cellDTO).getContent();
-        barracks.product(new Soldier(barracks.getIdUser()));
+        Farmer farmer = new Farmer(barracks.getIdUser());
+        Resource playerRes = p1.getResource(ResourceName.FOOD);
+        int farmerRequirement = farmer.getRequirement(ResourceName.FOOD).getHp();
+        if (playerRes.getHp() >= farmerRequirement) {
+            barracks.product(new Soldier(barracks.getIdUser()));
+            playerRes.setHp(playerRes.getHp() - farmerRequirement);
+        }
     }
 }

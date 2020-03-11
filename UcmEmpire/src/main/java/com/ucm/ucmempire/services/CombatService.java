@@ -16,18 +16,4 @@ public class CombatService {
 
         return false;
     }
-
-//    public boolean takeDamage(int damage){
-//        setHp(getHp()-damage);
-//        return getHp() <= 0;
-//    }
-//
-//    public int attack(){
-//        return getPa();
-//    }
-//
-//
-//    public void suicide() {
-//        this.hp = 0;
-//    }
 }
