@@ -14,7 +14,6 @@ import {UserInfo} from '../../_models/user-info';
 export class LoginComponent implements OnInit {
 
   logForm: FormGroup;
-  j1 : UserInfo;
 
   constructor(
     private secService: SecurityService,
@@ -27,20 +26,17 @@ export class LoginComponent implements OnInit {
       pseudo: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required)
     });
-    this.j1 = null;
   }
 
   log() {
     let json = this.logForm.value;
     this.secService.login(json).subscribe(
       (token) => {
-        this.j1 = token;
 
         localStorage.setItem('token', JSON.stringify(token));
-        /*let tokenDecoded = decode(token);
-        console.log("Decrypt "+tokenDecoded['mail']);*/
-        //let name = tokenDecoded['firstname'];
-        this.toastrServ.success('Bonjour '+this.j1.firstname,'Connexion', {[status]:'success'});
+         let tokenDecoded = decode(token);
+        let name = tokenDecoded['sub'];
+        this.toastrServ.success('Bonjour ' + name,'Connexion', {[status]:'success'});
         this.router.navigateByUrl('/home');
       },
       (error) => {

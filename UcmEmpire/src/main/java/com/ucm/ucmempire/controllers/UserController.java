@@ -52,11 +52,8 @@ public class UserController {
             String login = data.getPseudo();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login,(data.getPassword())));
             String token = jwtTokenProvider.createToken(login,this.playerDalService.findByLogin(login).orElseThrow(() -> new UsernameNotFoundException("Login "+ login+ "not found")).getRoles().stream().map(Role::getAuthority).collect(Collectors.toList()));
-            Map<Object,Object> model = new HashMap<>();
-            model.put("login",login);
-            model.put("token",token);
             System.out.println("coucou user :"+login);
-            return ResponseEntity.ok(model);
+            return ResponseEntity.ok(token);
         } catch (AuthenticationException e)
         {
             throw new BadCredentialsException("Invalid login/password");

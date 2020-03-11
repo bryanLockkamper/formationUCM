@@ -1,6 +1,14 @@
 <nb-layout>
     <nb-layout-header fixed>
-      UCM EMPIRE
+      <nb-actions>
+        <nb-action routerLink="/home">
+          UCM EMPIRE
+        </nb-action>
+        <nb-action icon="log-in-outline" routerLink="/login"></nb-action>
+      <nb-action  icon="log-out-outline" (click)="logout()"></nb-action>
+        <nb-action icon="person-add-outline" routerLink="/register"></nb-action>
+      </nb-actions>
+
 
     </nb-layout-header>
 
@@ -9,10 +17,8 @@
     </nb-layout-column>
 
     <nb-layout-footer fixed>
-      <!-- Insert footer here -->
+      <p>The cheese project</p>
     </nb-layout-footer>
 
   </nb-layout>
-<div class="content">
-  <span>{{ title }} app is running!</span>
-</div>
+

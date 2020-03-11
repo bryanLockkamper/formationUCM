@@ -17,7 +17,7 @@ export class SecurityService {
   ) { }
 
   login(model: UserLogin): Observable<string> {
-    return this.httpClient.post<string>(environment.apiEndPoint + 'login', model);
+    return this.httpClient.post<string>(environment.apiEndPoint + 'user/login', model);
   }
 
   logout() {
@@ -25,7 +25,7 @@ export class SecurityService {
   }
 
   register(model: UserRegister): Observable<string> {
-    return this.httpClient.post<string>(environment.apiEndPoint + 'register', model);
+    return this.httpClient.post<string>(environment.apiEndPoint + 'user/register', model);
   }
 
 
