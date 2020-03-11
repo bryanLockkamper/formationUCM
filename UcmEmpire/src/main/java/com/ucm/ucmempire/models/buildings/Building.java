@@ -25,6 +25,10 @@ public abstract class Building extends Entity {
         this.idUser = entityDTO.getIdPlayer();
     }
 
+    public Building() {
+
+    }
+
     public Integer getIdUser() {
         return idUser;
     }
@@ -39,9 +43,5 @@ public abstract class Building extends Entity {
 
     public void setRequirement(HashSet<Resource> requirement) {
         this.requirement = requirement;
-    }
-
-    public Entity product(Entity entity) {
-        return entity;
     }
 }

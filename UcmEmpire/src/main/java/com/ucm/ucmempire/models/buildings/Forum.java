@@ -13,11 +13,8 @@ import java.util.List;
 
 public class Forum extends ProdBuilding implements IForum {
 
-    private List<Entity> entities;
-
     public Forum(int idPlayer) {
         super(50,idPlayer,null);
-        entities = new ArrayList<>();
     }
 
     public Forum(int hp, Integer idUser, HashSet<Resource> requirement) {
@@ -26,24 +23,9 @@ public class Forum extends ProdBuilding implements IForum {
 
     public Forum (EntityDTO entityDTO) {super (entityDTO.getHp(),entityDTO.getIdPlayer(),null);} //TODO DAMIEN : RESSOURCE
 
-    public List<Entity> getEntities() {
-        return entities;
-    }
-
-    @Override
-    public void setEntities(List<Entity> entities) {
-        this.entities = entities;
-    }
-
-    @Override
-    public Integer decrementCounter() {
-        return 0;
-    }
-
     @Override
     public String toString() {
         return "Forum{" +
-                "entities=" + entities +
                 ", hp=" + hp +
                 "} " + super.toString();
     }

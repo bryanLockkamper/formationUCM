@@ -14,7 +14,9 @@ import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.models.boardPackage.Board;
 import com.ucm.ucmempire.models.boardPackage.SpecialSquare;
 import com.ucm.ucmempire.models.boardPackage.Square;
+import com.ucm.ucmempire.models.buildings.Barracks;
 import com.ucm.ucmempire.models.buildings.Forum;
+import com.ucm.ucmempire.models.buildings.ProdBuilding;
 import com.ucm.ucmempire.models.dto.*;
 import com.ucm.ucmempire.models.resources.Resource;
 import com.ucm.ucmempire.models.units.Farmer;
@@ -74,9 +76,9 @@ public class Global {
         if (entity instanceof Resource) {
             character = ((SpecialSquare) board.getSquare(cellDTOS.get(0))).getFarmers().get(0);
             ((SpecialSquare) board.getSquare(cellDTOS.get(0))).getFarmers().remove(0);
-        } else if (entity instanceof Forum) {
-                character = (Character) ((Forum) entity).getEntities().get(0);
-                ((Forum) entity).getEntities().remove(0);
+        } else if (entity instanceof ProdBuilding) {
+                character = (Character) ((ProdBuilding) entity).getEntities().get(0);
+                ((ProdBuilding) entity).getEntities().remove(0);
         } else {
             character = (Character) entity;
         }
@@ -260,5 +262,16 @@ public class Global {
     public void createFarmer(@RequestBody CellDTO cellDTO) {
         Forum forum = (Forum) board.getSquare(cellDTO).getContent();
         forum.product(new Farmer(forum.getIdUser()));
+    }
+
+    @PostMapping("/createBarrack")
+    public void createBarrack(@RequestBody List<CellDTO> cellDTOS) {
+        board.getSquare(cellDTOS.get(1)).setContent(new Barracks(p1.getId()));
+    }
+
+    @PostMapping("/createSoldier")
+    public void createSoldier(@RequestBody CellDTO cellDTO) {
+        Barracks barracks = (Barracks) board.getSquare(cellDTO).getContent();
+        barracks.product(new Soldier(barracks.getIdUser()));
     }
 }

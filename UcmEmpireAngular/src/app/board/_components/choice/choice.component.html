@@ -1,14 +1,21 @@
 <nb-card status="danger">
   <nb-card-header>Choisissez votre action</nb-card-header>
   <nb-card-body>
-    <button (click)="attack()" *ngIf="entity.content && entity.content.damage && !entity.special">Attaquer</button>
-    <button (click)="move()" *ngIf="entity.content && !entity.special && entity.content.typeEntity != 'Forum'">Déplacer
+    <button (click)="attack()" *ngIf="entity.content?.typeEntity == 'Soldier'">Attaquer</button>
+    <button (click)="construct()" *ngIf="entity.content?.typeEntity == 'Farmer'">Construire une caserne</button>
+    <button (click)="move()" *ngIf="!entity.special && !['Forum' , 'Baracks'].includes(entity.content?.typeEntity)">Déplacer
     </button>
-    <button (click)="createFarmer()" *ngIf="entity.content && !entity.special && entity.content.typeEntity == 'Forum'">
+    <button (click)="createFarmer()" *ngIf="!entity.special && entity.content?.typeEntity == 'Forum'">
       Créer un farmer
     </button>
-    <button (click)="moveFarmer()" *ngIf="entity.content && ((entity.special || entity.content.typeEntity == 'Forum' ) && entity.entityDTOList?.length > 0)">Sortir un
+    <button (click)="createSoldier()" *ngIf="!entity.special && entity.content?.typeEntity == 'Baracks'">
+      Créer un soldat
+    </button>
+    <button (click)="moveFarmer()" *ngIf="((entity.special || entity.content?.typeEntity == 'Forum' ) && entity.entityDTOList?.length > 0)">Sortir un
       farmer
+    </button>
+    <button (click)="moveSoldier()" *ngIf="(entity.content?.typeEntity == 'Baracks' && entity.entityDTOList?.length > 0)">Sortir un
+      soldat
     </button>
     <button (click)="suicide()" *ngIf="entity.content && !entity.special">Suicide</button>
   </nb-card-body>

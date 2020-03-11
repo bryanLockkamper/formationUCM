@@ -3,10 +3,14 @@ package com.ucm.ucmempire.controllers;
 import com.ucm.ucmempire.controllers.pathfinding.AStarService;
 import com.ucm.ucmempire.controllers.pathfinding.Position;
 import com.ucm.ucmempire.controllers.pathfinding.PositionDTO;
+import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.models.Character;
 import com.ucm.ucmempire.models.boardPackage.Board;
 import com.ucm.ucmempire.models.boardPackage.SpecialSquare;
+import com.ucm.ucmempire.models.buildings.Barracks;
+import com.ucm.ucmempire.models.buildings.Forum;
+import com.ucm.ucmempire.models.buildings.ProdBuilding;
 import com.ucm.ucmempire.services.HarvestService;
 import javafx.geometry.Pos;
 
@@ -44,7 +48,7 @@ public class Game implements Runnable {
 
     private void beginRound() {
         System.out.println("debut tour");
-        player1.buildEntity();
+        buildEntity();
         board.getBoard()
                 .stream()
                 .map(squares -> squares
@@ -58,6 +62,24 @@ public class Game implements Runnable {
                         .collect(Collectors.toList()))
         .collect(Collectors.toList());
         endRound = false;
+    }
+
+    private void buildEntity() {
+        for (int i = 0; i < board.getBoard().size(); i++) {
+            for (int j = 0; j < board.getBoard().get(i).size(); j++) {
+                Entity entity = board.getBoard().get(i).get(j).getContent();
+                if (entity instanceof ProdBuilding) {
+                    if (((ProdBuilding) entity).decrementCounter() != null && ((ProdBuilding) entity).getProd().size() > 0) {
+                        if (board.getBoard().get(i+1).get(j+1).getContent() == null) {
+                            board.getBoard().get(i+1).get(j+1).setContent(((ProdBuilding) entity).getProd().get(0));
+                        } else {
+                            ((ProdBuilding) board.getBoard().get(i).get(j).getContent()).getEntities().add(((ProdBuilding) entity).getProd().get(0));
+                        }
+                        ((ProdBuilding) entity).getProd().remove(0);
+                    }
+                }
+            }
+        }
     }
 
     public void endRound() {

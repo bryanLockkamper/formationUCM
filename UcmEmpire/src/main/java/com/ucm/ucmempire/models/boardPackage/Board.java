@@ -7,6 +7,7 @@ import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.models.biomes.*;
 import com.ucm.ucmempire.models.dto.BoardDTO;
+import com.ucm.ucmempire.models.dto.CellDTO;
 import com.ucm.ucmempire.models.dto.SquareDTO;
 import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.units.Farmer;
@@ -167,6 +168,10 @@ public class Board {
             } else
                 board.get(position_new.getX()).get(position_new.getY()).setContent(character);
         }
+    }
+
+    public Square getSquare(CellDTO cellDTO) {
+        return board.get(cellDTO.getRowId()).get(cellDTO.getId());
     }
 
     public boolean hasLost() {

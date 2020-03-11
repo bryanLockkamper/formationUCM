@@ -57,4 +57,12 @@ export class BoardService {
   createFarmer(model) {
     return this.httpClient.post(environment.apiEndPoint + '/createFarmer', model);
   }
+
+  createBarrack(model) {
+    return this.httpClient.post(environment.apiEndPoint + '/createBarrack', model);
+  }
+
+  createSoldier(model) {
+    return this.httpClient.post(environment.apiEndPoint + '/createSoldier', model);
+  }
 }

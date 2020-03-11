@@ -2,6 +2,8 @@ package com.ucm.ucmempire.models.dto;
 
 import com.ucm.ucmempire.models.boardPackage.SpecialSquare;
 import com.ucm.ucmempire.models.boardPackage.Square;
+import com.ucm.ucmempire.models.buildings.Forum;
+import com.ucm.ucmempire.models.buildings.ProdBuilding;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,14 +18,17 @@ public class SquareDTO {
     public SquareDTO() {
     }
 
-    public SquareDTO (Square square)
-    {
+    public SquareDTO(Square square) {
         this.biomeType = square.getBiome().getType();
         this.isSpecial = square instanceof SpecialSquare;
-        this.content = square.getContent() != null? new EntityDTO(square.getContent()) : null;
-        if (square instanceof SpecialSquare && ((SpecialSquare) square).getFarmers() != null)
-        {
+        this.content = square.getContent() != null ? new EntityDTO(square.getContent()) : null;
+        if (square instanceof SpecialSquare && ((SpecialSquare) square).getFarmers() != null) {
             this.entityDTOList = ((SpecialSquare) square).getFarmers().stream()
+                    .map(EntityDTO::new)
+                    .collect(Collectors.toList());
+        } else if (square.getContent() instanceof ProdBuilding) {
+            entityDTOList = ((ProdBuilding) square.getContent()).getEntities()
+                    .stream()
                     .map(EntityDTO::new)
                     .collect(Collectors.toList());
         }
