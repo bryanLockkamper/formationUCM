@@ -9,6 +9,7 @@ public class CombatService {
 
         if (attack != null && defense != null)
         {
+            attack.setPa(0);;
             defense.setHp(defense.getHp() - attack.getDamage());
             return defense.getHp() <= 0;
         }

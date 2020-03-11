@@ -75,6 +75,7 @@ public class Game implements Runnable {
                         } else {
                             ((ProdBuilding) board.getBoard().get(i).get(j).getContent()).getEntities().add(((ProdBuilding) entity).getProd().get(0));
                         }
+                        player1.addEntity(((ProdBuilding) entity).getProd().get(0));
                         ((ProdBuilding) entity).getProd().remove(0);
                     }
                 }

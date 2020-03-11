@@ -28,12 +28,10 @@ export class BoardService {
   }
 
   startTimer() {
-
     this.httpClient.get(environment.apiEndPoint + '/timer/start').subscribe();
   }
 
   stopTimer() {
-
     this.httpClient.get(environment.apiEndPoint + '/timer/stop').subscribe();
   }
 

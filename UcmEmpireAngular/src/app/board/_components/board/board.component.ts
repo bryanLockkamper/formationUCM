@@ -11,18 +11,18 @@ import {UserHasLost} from 'src/app/home/_models/user-haslost';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  @Input() dimension: number;
+  dimension: number;
   rows = [];
   board: RowModel[];
   first;
-
   timeLeft: number = 120;
   interval;
   private action;
   private move: boolean;
   private attack: boolean;
-  playerList: UserHasLost[]
+  playerList: UserHasLost[];
   private createBarrack: boolean;
+
   constructor(
     private boardService: BoardService,
     private dialog: NbDialogService,
@@ -75,7 +75,6 @@ export class BoardComponent implements OnInit {
     this.boardService.stopTimer();
     clearInterval(this.interval);
     this.timeLeft = 120;
-    this.refresh();
     this.playerList = [];
     this.playerList.push(this.haslost(this.playerList));
     this.startTimer();
@@ -128,7 +127,6 @@ export class BoardComponent implements OnInit {
         this.first = null;
       }
     } else {
-      console.log(this.board[this.first.rowId][this.first.id].content);
       if (this.move) {
         this.boardService.move([this.first, cell]).subscribe(() => {
           this.refresh();

@@ -83,19 +83,23 @@ public class Global {
             character = (Character) entity;
         }
 
-        PositionDTO position = aStarService.run(character.getPa());
-        character.move(position);
-        if (character instanceof Farmer && character.getPa() > 0 && board.getSquare(cellDTOS.get(1)).getContent() instanceof Resource) {
-            board.moveEntity(first, second);
+        if (character.getPa() == 0)
             character.setMoveLeft(second);
-        } else {
-            board.moveEntity(first, position.getPosition());
-            if (position.getPosition().equals(second)) {
-                character.setMoveLeft(null);
-            } else {
+        else {
+            PositionDTO position = aStarService.run(character.getPa());
+            character.move(position);
+            if (character instanceof Farmer && character.getPa() > 0 && board.getSquare(cellDTOS.get(1)).getContent() instanceof Resource) {
+                board.moveEntity(first, second);
                 character.setMoveLeft(second);
-            }
-            board.getBoard().get(position.getPosition().getX()).get(position.getPosition().getY()).setContent(character);
+            } else {
+                board.moveEntity(first, position.getPosition());
+                if (position.getPosition().equals(second)) {
+                    character.setMoveLeft(null);
+                } else {
+                    character.setMoveLeft(second);
+                }
+                board.getBoard().get(position.getPosition().getX()).get(position.getPosition().getY()).setContent(character);
+        }
         }
 
 
