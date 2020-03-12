@@ -36,9 +36,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import javax.naming.AuthenticationException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 //ajouter une description pour chaque API grâce à l'annotation  @Api
@@ -132,10 +131,14 @@ public class Global {
     }
 
     @ApiOperation(value = "Appelé au début d'une nouvelle partie pour avoir un nouveau board")
-    @GetMapping("/newBoard")
-    public ArrayList<ArrayList<SquareDTO>> getNewBoard() {
+    @PostMapping("/newBoard")
+    public ArrayList<ArrayList<SquareDTO>> getNewBoard(@RequestBody List<String> usernames) {
+
+        List<Player> players = usernames.stream().map(data -> mapperPlayer.playerEntityToPlayer(Objects.requireNonNull(playerDalService.findByLogin(data).orElse(null)))).collect(Collectors.toList());
+
         this.board = new Board("PlainBoard");
         this.p2 = new Player(0,"Toto");
+        p1 = players.get(0); //TODO : Need to change to accept multi players
 
             p1.addEntity(new Soldier(p1.getId()));
             p1.addEntity(new Soldier(p1.getId()));
@@ -146,7 +149,7 @@ public class Global {
             board.setSquare(new Position(0, 5), p1.getEntity(5));
             board.setSquare(new Position(3, 2), p2.getEntity(3));
 
-
+        game = new Game(p1, p2, board);
         return new BoardDTO(board).getSquareDTOList();
     }
 
@@ -157,30 +160,6 @@ public class Global {
         return new BoardDTO(board).getSquareDTOList();
     }
 
-    @ApiOperation(value = "Appelé a chaque fois qu'un joueur voudra se loger")
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody PlayerDTOLogin playerDTO) {
-        Optional<PlayerEntity> player = playerDalService.findByLoginAndPassword(playerDTO.getPseudo(), playerDTO.getPassword());
-        if (player.isPresent()) {
-            p1 = new Player(player.get().getId(), player.get().getLogin());
-            game = new Game(p1, p2, board);
-            return ResponseEntity.ok(new PlayerDTOInfo(player.get()));
-        } else
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-    }
-
-    @ApiOperation(value = "Appelé a chaque fois qu'un joueurs voudrat s'enregistrer")
-    @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody PlayerDTORegister playerDTO) {
-
-        PlayerEntity playerEntity = new PlayerEntity(playerDTO.getLastname(), playerDTO.getFirstname(), playerDTO.getPseudo(), playerDTO.getPassword());
-        playerDalService.save(playerEntity);
-
-        p1 = new Player(playerEntity.getId(), playerEntity.getLogin());
-
-
-        return ResponseEntity.ok("200");
-    }
 
     @ApiOperation(value = "Appelé au début de chaque tour")
     @GetMapping("/timer/start")

@@ -12,10 +12,7 @@ import com.ucm.ucmempire.models.dto.PlayerDTORegister;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,6 +26,7 @@ import java.util.stream.Collectors;
 
 
 @RestController
+@CrossOrigin
 @RequestMapping("/user")
 public class UserController {
 
@@ -52,8 +50,11 @@ public class UserController {
             String login = data.getPseudo();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login,(data.getPassword())));
             String token = jwtTokenProvider.createToken(login,this.playerDalService.findByLogin(login).orElseThrow(() -> new UsernameNotFoundException("Login "+ login+ "not found")).getRoles().stream().map(Role::getAuthority).collect(Collectors.toList()));
-            System.out.println("coucou user :"+login);
-            return ResponseEntity.ok(token);
+            System.out.println("coucou user :"+token);
+            Map model = new HashMap();
+            model.put("token",token);
+            model.put("username",login);
+            return ResponseEntity.ok(model);
         } catch (AuthenticationException e)
         {
             throw new BadCredentialsException("Invalid login/password");

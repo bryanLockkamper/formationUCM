@@ -29,12 +29,12 @@ export class BoardService {
 
   startTimer() {
 
-    this.httpClient.get(environment.apiEndPoint + '/timer/start').subscribe();
+    this.httpClient.get(environment.apiEndPoint + 'timer/start').subscribe();
   }
 
   stopTimer() {
 
-    this.httpClient.get(environment.apiEndPoint + '/timer/stop').subscribe();
+    this.httpClient.get(environment.apiEndPoint + 'timer/stop').subscribe();
   }
 
   deathEntity(model): Observable<void> {
@@ -42,15 +42,15 @@ export class BoardService {
   }
 
   getResource(model){
-    return this.httpClient.get(environment.apiEndPoint+'/player/res/'+ model.user_id)
+    return this.httpClient.get(environment.apiEndPoint+'player/res/'+ model.user_id)
   }
 
-  newBoard() : Observable<RowModel[]>
+  newBoard(model) : Observable<RowModel[]>
   {
-    return this.httpClient.get<RowModel[]>(environment.apiEndPoint+'/newBoard');
+    return this.httpClient.post<RowModel[]>(environment.apiEndPoint+'newBoard',model);
   }
 
   ishaslost(model): Observable<UserHasLost[]>{
-    return this.httpClient.get<UserHasLost[]>(environment.apiEndPoint+'/player/haslost')
+    return this.httpClient.get<UserHasLost[]>(environment.apiEndPoint+'player/haslost')
   }
 }

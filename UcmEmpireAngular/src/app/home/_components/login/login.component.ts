@@ -31,11 +31,11 @@ export class LoginComponent implements OnInit {
   log() {
     let json = this.logForm.value;
     this.secService.login(json).subscribe(
-      (token) => {
-
-        localStorage.setItem('token', JSON.stringify(token));
-         let tokenDecoded = decode(token);
-        let name = tokenDecoded['sub'];
+      (model) => {
+        localStorage.setItem('token', JSON.stringify(model['token']));
+        /*let tokenDecoded = decode(model['token']);
+        console.log("test "+tokenDecoded);*/
+        let name = model['username'];
         this.toastrServ.success('Bonjour ' + name,'Connexion', {[status]:'success'});
         this.router.navigateByUrl('/home');
       },
@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
 
       },
       () => {
+        console.log("huuh");
 
       }
     );

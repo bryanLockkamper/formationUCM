@@ -14,5 +14,4 @@ public class PlayerDTODetails {
     private Integer id;
     private String mail;
 
-
 }

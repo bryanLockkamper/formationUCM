@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .exceptionHandling()
                 .and()
-                .formLogin()
+                //.formLogin()
                 //.loginPage("/login") // custom login page
                 //.loginProcessingUrl("/login") // url to submit the username and password to
                 // on peut avoir en + : defaultSuccessUrl()  &  failureUrl
@@ -47,11 +47,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .logout()
 //                .logoutUrl("/logout")
 //                .invalidateHttpSession(true)
-                .and()
+                //.and()
 
                 .authorizeRequests()
+                .anyRequest()
+                .permitAll();
 
-                .antMatchers("/user*").permitAll()
+                //.antMatchers("").permitAll()
 //                .antMatchers("/product/new").authenticated()
 //                .antMatchers("/product").permitAll()
                 // ATTENTION !!! en DB, le role devra se nommer 'ROLE_ADMIN'
@@ -60,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.antMatchers("/product/**").hasRole("ADMIN")
 
 
-                .and()
+                /*.and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -71,7 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .apply(new JwtConfigurer(jwtTokenProvider))
                 .and()
                 .httpBasic()
-                .disable();
+                .disable();*/
 
     }
 
