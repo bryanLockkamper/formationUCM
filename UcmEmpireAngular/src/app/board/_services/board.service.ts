@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {UserLogin} from "../../home/_models/user-login";
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {RowModel} from "../_models/row";
@@ -42,9 +43,9 @@ export class BoardService {
     return this.httpClient.get(environment.apiEndPoint+'/player/res/'+ model)
   }
 
-  newBoard() : Observable<RowModel[]>
+  newBoard(model) : Observable<RowModel[]>
   {
-    return this.httpClient.get<RowModel[]>(environment.apiEndPoint+'/newBoard');
+    return this.httpClient.post<RowModel[]>(environment.apiEndPoint+'newBoard',model);
   }
 
   ishaslost(): Observable<UserHasLost[]>{

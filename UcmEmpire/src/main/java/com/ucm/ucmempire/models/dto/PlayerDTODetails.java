@@ -1,10 +1,11 @@
 package com.ucm.ucmempire.models.dto;
 
+import com.ucm.ucmempire.dal.entity.PlayerEntity;
 import lombok.*;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class PlayerDTODetails {
     private String pseudo;
     private String password;
@@ -12,6 +13,5 @@ public class PlayerDTODetails {
     private String lastname;
     private Integer id;
     private String mail;
-
 
 }

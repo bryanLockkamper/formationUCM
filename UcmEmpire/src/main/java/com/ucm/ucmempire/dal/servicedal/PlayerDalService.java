@@ -13,4 +13,6 @@ public interface PlayerDalService {
     Optional<PlayerEntity> findById(Integer user_id);
     List<PlayerEntity> saveBoard (List<Integer> idPlayersList, BoardEntity boardEntity);
     PlayerEntity save(PlayerEntity playerEntity);
+    Optional<PlayerEntity> findByLogin(String login);
+
 }

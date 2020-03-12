@@ -2,10 +2,15 @@ package com.ucm.ucmempire.dal.entity;
 
 import com.ucm.ucmempire.dal.entity.BuildingEntity;
 import com.ucm.ucmempire.dal.entity.CharacterEntity;
+import com.ucm.ucmempire.models.dto.PlayerDTORegister;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -14,7 +19,7 @@ import java.util.Set;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class PlayerEntity implements Serializable {
+public class PlayerEntity implements Serializable, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +43,9 @@ public class PlayerEntity implements Serializable {
     @ManyToOne (targetEntity = BoardEntity.class)
    // @JoinColumn(name = "board_entity_id_board",referencedColumnName = "id_board")
     private BoardEntity boardEntity;
+
+    @ManyToMany()
+    private Set<Role> roles = new HashSet<>();
 
     public PlayerEntity() {
     }
@@ -72,6 +80,15 @@ public class PlayerEntity implements Serializable {
         this.boardEntity = boardEntity;
     }
 
+    public PlayerEntity(PlayerDTORegister player)
+    {
+        this.password = player.getPassword();
+        this.login = player.getPseudo();
+        this.lastName = player.getLastname();
+        this.firstName = player.getFirstname();
+        this.mail = player.getEmail();
+    }
+
     @Override
     public String toString() {
         return "PlayerEntity{" +
@@ -85,4 +102,35 @@ public class PlayerEntity implements Serializable {
                 ", boardEntity=" + boardEntity +
                 '}';
     }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
 }

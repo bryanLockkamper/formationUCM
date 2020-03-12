@@ -44,4 +44,9 @@ public class PlayerDalServiceImpl implements PlayerDalService {
     public PlayerEntity save(PlayerEntity playerEntity) {
         return playerRepository.save(playerEntity);
     }
+
+    @Override
+    public Optional<PlayerEntity> findByLogin(String login) {
+        return playerRepository.findByLogin(login);
+    }
 }
