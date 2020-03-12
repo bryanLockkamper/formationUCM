@@ -22,6 +22,7 @@ export class BoardComponent implements OnInit {
   private attack: boolean;
   playerList: UserHasLost[];
   private createBarrack: boolean;
+  private idPlayerPlay: number;
 
   constructor(
     private boardService: BoardService,
@@ -46,6 +47,7 @@ export class BoardComponent implements OnInit {
     });
     this.boardService.ishaslost().subscribe(value => {
       this.playerList = value;
+      this.idPlayerPlay = this.playerList[1].player_id;
       this.startTimer();
     });
   }
@@ -59,7 +61,6 @@ export class BoardComponent implements OnInit {
         this.endTurn();
       }
     }, 1000);
-    console.log(this.playerList.length);
 
     this.playerList.forEach(element => {
       if (element.player_hasLost) {
@@ -79,6 +80,11 @@ export class BoardComponent implements OnInit {
     this.timeLeft = 120;
     this.boardService.ishaslost().subscribe(value => {
       this.playerList = value;
+      if (this.idPlayerPlay == this.playerList[0].player_id) {
+        this.idPlayerPlay = this.playerList[1].player_id;
+      } else {
+        this.idPlayerPlay = this.playerList[0].player_id;
+      }
       this.startTimer();
     });
   }
@@ -86,7 +92,7 @@ export class BoardComponent implements OnInit {
   onClick(cell) {
     if (this.first == null) {
       this.first = cell;
-      if (this.first != null && ((this.board[cell.rowId][cell.id].special && this.board[cell.rowId][cell.id].entityDTOList.length > 0) || this.board[cell.rowId][cell.id].content?.idPlayer == 1)) {
+      if (this.first != null && ((this.board[cell.rowId][cell.id].special && this.board[cell.rowId][cell.id].entityDTOList.length > 0) || this.board[cell.rowId][cell.id].content?.idPlayer == this.idPlayerPlay)) {
         this.action = this.dialog.open(ChoiceComponent, {context: {entity: this.board[cell.rowId][cell.id]}});
         this.action.onClose.subscribe(value => {
           switch (value) {

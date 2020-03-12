@@ -43,6 +43,7 @@ public class Global {
     private Board board = new Board("initBoard");
     Player p1;
     Player p2 = new Player(0, "gerard");
+    Player p;
     private PlayerDalServiceImpl playerDalService;
     private Game game;
     private BoardDalService boardDalService;
@@ -177,6 +178,7 @@ public class Global {
         Optional<PlayerEntity> player = playerDalService.findByLoginAndPassword(playerDTO.getPseudo(), playerDTO.getPassword());
         if (player.isPresent()) {
             p1 = new Player(player.get().getId(), player.get().getLogin());
+            p = p1;
             game = new Game(p1, p2, board);
             return ResponseEntity.ok().body(player.get());
         } else
@@ -213,6 +215,10 @@ public class Global {
         synchronized (game) {
             game.notify();
         }
+        if (p.getId() == p1.getId())
+            p = p2;
+        else
+            p = p1;
         return true;
     }
 
@@ -262,7 +268,7 @@ public class Global {
     public void createFarmer(@RequestBody CellDTO cellDTO) {
         Forum forum = (Forum) board.getSquare(cellDTO).getContent();
         Farmer farmer = new Farmer(forum.getIdUser());
-        Resource playerRes = p1.getResource(ResourceName.FOOD);
+        Resource playerRes = p.getResource(ResourceName.FOOD);
         int farmerRequirement = farmer.getRequirement(ResourceName.FOOD).getHp();
         if (playerRes.getHp() >= farmerRequirement) {
             forum.product(farmer);
@@ -273,13 +279,13 @@ public class Global {
     @PostMapping("/createBarrack")
     public void createBarrack(@RequestBody List<CellDTO> cellDTOS) {
         Barracks barracks = new Barracks(((Farmer) board.getSquare(cellDTOS.get(0)).getContent()).getIdUser());
-        if (p1.getResource(ResourceName.FOOD).getHp() >= barracks.getRequirement(ResourceName.FOOD).getHp()
-                && p1.getResource(ResourceName.STONE).getHp() >= barracks.getRequirement(ResourceName.STONE).getHp()
-                && p1.getResource(ResourceName.WOOD).getHp() >= barracks.getRequirement(ResourceName.WOOD).getHp()) {
-            board.getSquare(cellDTOS.get(1)).setContent(new Barracks(p1.getId()));
-            p1.getResource(ResourceName.FOOD).setHp(p1.getResource(ResourceName.FOOD).getHp() - barracks.getRequirement(ResourceName.FOOD).getHp());
-            p1.getResource(ResourceName.WOOD).setHp(p1.getResource(ResourceName.WOOD).getHp() - barracks.getRequirement(ResourceName.WOOD).getHp());
-            p1.getResource(ResourceName.STONE).setHp(p1.getResource(ResourceName.STONE).getHp() - barracks.getRequirement(ResourceName.STONE).getHp());
+        if (p.getResource(ResourceName.FOOD).getHp() >= barracks.getRequirement(ResourceName.FOOD).getHp()
+                && p.getResource(ResourceName.STONE).getHp() >= barracks.getRequirement(ResourceName.STONE).getHp()
+                && p.getResource(ResourceName.WOOD).getHp() >= barracks.getRequirement(ResourceName.WOOD).getHp()) {
+            board.getSquare(cellDTOS.get(1)).setContent(new Barracks(p.getId()));
+            p.getResource(ResourceName.FOOD).setHp(p.getResource(ResourceName.FOOD).getHp() - barracks.getRequirement(ResourceName.FOOD).getHp());
+            p.getResource(ResourceName.WOOD).setHp(p.getResource(ResourceName.WOOD).getHp() - barracks.getRequirement(ResourceName.WOOD).getHp());
+            p.getResource(ResourceName.STONE).setHp(p.getResource(ResourceName.STONE).getHp() - barracks.getRequirement(ResourceName.STONE).getHp());
         }
 
     }
@@ -288,7 +294,7 @@ public class Global {
     public void createSoldier(@RequestBody CellDTO cellDTO) {
         Barracks barracks = (Barracks) board.getSquare(cellDTO).getContent();
         Farmer farmer = new Farmer(barracks.getIdUser());
-        Resource playerRes = p1.getResource(ResourceName.FOOD);
+        Resource playerRes = p.getResource(ResourceName.FOOD);
         int farmerRequirement = farmer.getRequirement(ResourceName.FOOD).getHp();
         if (playerRes.getHp() >= farmerRequirement) {
             barracks.product(new Soldier(barracks.getIdUser()));

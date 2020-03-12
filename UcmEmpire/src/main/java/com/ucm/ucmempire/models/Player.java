@@ -113,8 +113,6 @@ public class Player {
 
         List<Entity> entities = this.getEntities().stream().filter( entity -> entity instanceof Soldier || entity instanceof Farmer).collect(Collectors.toList());
 
-        System.out.println("Entité triées du joueur " + this.getId() + entities.toString());
-
         if( entities.isEmpty())
             this.setHasLost(true);
         else
