@@ -1,13 +1,15 @@
-<div style="width: 50%;">
-  <button nbButton routerLink="/home" (click)="deleteBoard()">Quitter</button>
-  <p>
-   C'est à l'équipe xx de jouer
-  </p>
+<div class="resource">
   <button nbButton status="danger" (click)='endTurn()'>Fin de tour</button>
-
-  <p>{{timeLeft}} Seconds Left....</p>
+  <button nbButton routerLink="/home" (click)="deleteBoard()">Quitter</button>
 </div>
 
+<div class="resource">
+
+</div>
+
+<div class="resource">
+  <p>{{((timeLeft - (timeLeft % 60)) /60)}} : {{timeLeft%60}}</p>
+</div>
 
 <div class="board">
   <row *ngFor="let row of rows" class="row" [id]="row.id" [dimension]="dimension" [row]="row"

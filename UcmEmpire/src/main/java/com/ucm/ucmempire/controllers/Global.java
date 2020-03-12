@@ -242,17 +242,12 @@ public class Global {
     @GetMapping("/player/res/{id}")
     public ResponseEntity<PlayerDTORess> getRess(@PathVariable("id") Integer id) {
 
-        Optional<PlayerEntity> p = playerDalService.findById(id);
 
-        PlayerDTORess pldto = new PlayerDTORess();
-        pldto.setUser_id(p.get().getId());
-
-        pldto.setResources(p.get().getEntityGamesList().stream()
-                .filter(entityGame -> entityGame instanceof ResourceEntity)
-                .map(entityGame -> (ResourceEntity) entityGame)
+        PlayerDTORess pldto = new PlayerDTORess((id == p1.getId()? p1.getResources() : p2.getResources())
+                .stream()
+                .map(resource -> new ResourceDTO(resource.getHp(), resource.getNameOfRessource()))
                 .collect(Collectors.toList()));
 
-        System.out.println(pldto.toString() + " TOTO MARCHE");
         return ResponseEntity.ok(pldto);
     }
 
