@@ -4,6 +4,9 @@ import {RowModel} from "../../_models/row";
 import {NbDialogService} from "@nebular/theme";
 import {ChoiceComponent} from "../choice/choice.component";
 import {UserHasLost} from 'src/app/home/_models/user-haslost';
+import {UserInfo} from '../../../home/_models/user-info';
+import * as decode from 'jwt-decode';
+
 
 @Component({
   selector: 'app-board',
@@ -24,6 +27,7 @@ export class BoardComponent implements OnInit {
   private createBarrack: boolean;
   private idPlayerPlay: number;
   resources = [];
+  user : UserInfo;
 
   constructor(
     private boardService: BoardService,
@@ -35,7 +39,10 @@ export class BoardComponent implements OnInit {
     this.rows = [];
     this.playerList = [];
     this.first = null;
-    this.boardService.newBoard().subscribe(board => {
+    this.user = decode(localStorage.getItem('token')).userInfo; //TODO : A changer pour lez multi joueur
+    console.log(this.user);
+    let usernames = [this.user.pseudo];
+    this.boardService.newBoard(usernames).subscribe(board => {
       this.board = board;
       this.dimension = board.length;
       for (let i = 0; i < this.dimension; i++) {
@@ -45,15 +52,16 @@ export class BoardComponent implements OnInit {
           row: board[i],
         });
       }
-    });
-    this.boardService.ishaslost().subscribe(value => {
-      this.playerList = value;
-      this.idPlayerPlay = this.playerList[1].player_id;
-      this.boardService.getResource(this.idPlayerPlay).subscribe(value1 => {
-        this.resources = value1['resources'];
-        this.startTimer();
+      this.boardService.ishaslost().subscribe(value => {
+        this.playerList = value;
+        this.idPlayerPlay = this.playerList[1].player_id;
+        this.boardService.getResource(this.idPlayerPlay).subscribe(value1 => {
+          this.resources = value1['resources'];
+          this.startTimer();
+        });
       });
     });
+
   }
 
   startTimer() {

@@ -28,11 +28,11 @@ export class BoardService {
   }
 
   startTimer() {
-    this.httpClient.get(environment.apiEndPoint + '/timer/start').subscribe();
+    this.httpClient.get(environment.apiEndPoint + 'timer/start').subscribe();
   }
 
   stopTimer() {
-    this.httpClient.get(environment.apiEndPoint + '/timer/stop').subscribe();
+    this.httpClient.get(environment.apiEndPoint + 'timer/stop').subscribe();
   }
 
   deathEntity(model): Observable<void> {
@@ -40,7 +40,7 @@ export class BoardService {
   }
 
   getResource(model){
-    return this.httpClient.get(environment.apiEndPoint+'/player/res/'+ model)
+    return this.httpClient.get(environment.apiEndPoint+'player/res/'+ model)
   }
 
   newBoard(model) : Observable<RowModel[]>
@@ -49,18 +49,18 @@ export class BoardService {
   }
 
   ishaslost(): Observable<UserHasLost[]>{
-    return this.httpClient.get<UserHasLost[]>(environment.apiEndPoint+'/player/haslost');
+    return this.httpClient.get<UserHasLost[]>(environment.apiEndPoint+'player/haslost');
   }
 
   createFarmer(model) {
-    return this.httpClient.post(environment.apiEndPoint + '/createFarmer', model);
+    return this.httpClient.post(environment.apiEndPoint + 'createFarmer', model);
   }
 
   createBarrack(model) {
-    return this.httpClient.post(environment.apiEndPoint + '/createBarrack', model);
+    return this.httpClient.post(environment.apiEndPoint + 'createBarrack', model);
   }
 
   createSoldier(model) {
-    return this.httpClient.post(environment.apiEndPoint + '/createSoldier', model);
+    return this.httpClient.post(environment.apiEndPoint + 'createSoldier', model);
   }
 }

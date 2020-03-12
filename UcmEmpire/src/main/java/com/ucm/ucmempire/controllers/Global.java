@@ -146,7 +146,11 @@ public class Global {
     @PostMapping("/newBoard")
     public ArrayList<ArrayList<SquareDTO>> getNewBoard(@RequestBody List<String> usernames) {
 
-        List<Player> players = usernames.stream().map(data -> mapperPlayer.playerEntityToPlayer(Objects.requireNonNull(playerDalService.findByLogin(data).orElse(null)))).collect(Collectors.toList());
+
+        List<Player> players = usernames.stream().map(data -> {
+            PlayerEntity playerEntity = Objects.requireNonNull(playerDalService.findByLogin(data).orElse(null));
+            return new Player (playerEntity.getId(),playerEntity.getLogin());
+        }).collect(Collectors.toList());
 
         this.board = new Board("PlainBoard");
         this.p2 = new Player(0,"Toto");

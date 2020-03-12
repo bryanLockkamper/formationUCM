@@ -14,8 +14,7 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    let tokenDecoded = decode(localStorage.getItem('token'));
-    this.player = tokenDecoded['userInfo'];
+    this.player = localStorage.getItem('token') ? decode(localStorage.getItem('token'))['userInfo'] : null;
   }
 
 }

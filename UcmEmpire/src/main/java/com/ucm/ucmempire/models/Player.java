@@ -1,5 +1,6 @@
 package com.ucm.ucmempire.models;
 
+import com.ucm.ucmempire.dal.entity.PlayerEntity;
 import com.ucm.ucmempire.models.buildings.Building;
 import com.ucm.ucmempire.models.buildings.Granary;
 import com.ucm.ucmempire.models.buildings.buildingInterfaces.IProdBuilding;
@@ -43,6 +44,7 @@ public class Player {
         this.id = id;
         this.name = name;
     }
+
 
     public int getId() {
         return id;
