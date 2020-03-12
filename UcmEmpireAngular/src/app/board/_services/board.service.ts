@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {UserLogin} from "../../home/_models/user-login";
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {RowModel} from "../_models/row";
-import { UserHasLost } from 'src/app/home/_models/user-haslost';
+import {UserHasLost} from 'src/app/home/_models/user-haslost';
 
 @Injectable({
   providedIn: 'root'
@@ -48,8 +47,8 @@ export class BoardService {
     return this.httpClient.get<RowModel[]>(environment.apiEndPoint+'/newBoard');
   }
 
-  ishaslost(model): Observable<UserHasLost[]>{
-    return this.httpClient.get<UserHasLost[]>(environment.apiEndPoint+'/player/haslost')
+  ishaslost(): Observable<UserHasLost[]>{
+    return this.httpClient.get<UserHasLost[]>(environment.apiEndPoint+'/player/haslost');
   }
 
   createFarmer(model) {

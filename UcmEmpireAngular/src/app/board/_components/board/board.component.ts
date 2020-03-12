@@ -44,8 +44,10 @@ export class BoardComponent implements OnInit {
         });
       }
     });
-    this.startTimer();
-    this.haslost(this.playerList);
+    this.boardService.ishaslost().subscribe(value => {
+      this.playerList = value;
+      this.startTimer();
+    });
   }
 
   startTimer() {
@@ -75,13 +77,10 @@ export class BoardComponent implements OnInit {
     this.boardService.stopTimer();
     clearInterval(this.interval);
     this.timeLeft = 120;
-    this.playerList = [];
-    this.playerList.push(this.haslost(this.playerList));
-    this.startTimer();
-  }
-
-  haslost(playerList): any {
-    return this.boardService.ishaslost(playerList).subscribe();
+    this.boardService.ishaslost().subscribe(value => {
+      this.playerList = value;
+      this.startTimer();
+    });
   }
 
   onClick(cell) {

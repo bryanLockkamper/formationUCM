@@ -59,8 +59,19 @@ public class Global {
     public void attack(@RequestBody List<CellDTO> cellDTOS) {
         Position first = new Position(cellDTOS.get(0).getRowId(), cellDTOS.get(0).getId());
         Position second = new Position(cellDTOS.get(1).getRowId(), cellDTOS.get(1).getId());
-        if (CombatService.fight((Soldier) (board.getBoard().get(first.getX()).get(first.getY()).getContent()), board.getBoard().get(second.getX()).get(second.getY()).getContent())) {
-            board.getBoard().get(second.getX()).get(second.getY()).setContent(null);
+        AStarService aStarService = new AStarService(board, first, second);
+        Soldier attack = (Soldier) (board.getBoard().get(first.getX()).get(first.getY()).getContent());
+        PositionDTO positionDTO = aStarService.run(attack.getPa());
+        if (positionDTO.getPosition().getX() + 1 == second.getX()
+            || positionDTO.getPosition().getX() - 1 == second.getX()
+            || positionDTO.getPosition().getY() + 1 == second.getY()
+            || positionDTO.getPosition().getY() - 1 == second.getY()
+        ) {
+            if (CombatService.fight(attack, board.getBoard().get(second.getX()).get(second.getY()).getContent())) {
+                board.getBoard().get(second.getX()).get(second.getY()).setContent(null);
+
+            }
+            attack.setPa(attack.getPa() - (positionDTO.getPa() + 1));
         }
     }
 
@@ -242,24 +253,8 @@ public class Global {
     @GetMapping("/player/haslost")
     public ResponseEntity<List<PlayerHasLostDTO>> isHasLost(ArrayList<PlayerHasLostDTO> players) {
         List<PlayerHasLostDTO> playerHasLostDTOList = new ArrayList<>();
-
-//        for (int i = 0; i < players.size(); i++) {
-//
-//            Optional<PlayerEntity> p = playerDalService.findById(players.get(i).getPlayer_id());
-//
-//            Player player = mapperPlayer.playerEntityToPlayer(p.get());
-//
-//            PlayerHasLostDTO playerHasLostDTO = mapperPlayer.playerToPlayerHasLostDTO(player);
-//
-//            playerHasLostDTOList.add(playerHasLostDTO);
-//        }
-        // TODO: 10-03-20 Ne supprime pas, c'est à ALex mais ça fonctionne pas
-
         playerHasLostDTOList.add(mapperPlayer.playerToPlayerHasLostDTO(p2));
         playerHasLostDTOList.add(mapperPlayer.playerToPlayerHasLostDTO(p1));
-
-        System.out.println(p2.isHasLost());
-
         return ResponseEntity.ok(playerHasLostDTOList);
     }
 
