@@ -39,7 +39,7 @@ export class BoardService {
   }
 
   getResource(model){
-    return this.httpClient.get(environment.apiEndPoint+'/player/res/'+ model.user_id)
+    return this.httpClient.get(environment.apiEndPoint+'/player/res/'+ model)
   }
 
   newBoard() : Observable<RowModel[]>

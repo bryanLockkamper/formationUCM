@@ -23,6 +23,7 @@ export class BoardComponent implements OnInit {
   playerList: UserHasLost[];
   private createBarrack: boolean;
   private idPlayerPlay: number;
+  resources = [];
 
   constructor(
     private boardService: BoardService,
@@ -48,7 +49,10 @@ export class BoardComponent implements OnInit {
     this.boardService.ishaslost().subscribe(value => {
       this.playerList = value;
       this.idPlayerPlay = this.playerList[1].player_id;
-      this.startTimer();
+      this.boardService.getResource(this.idPlayerPlay).subscribe(value1 => {
+        this.resources = value1['resources'];
+        this.startTimer();
+      });
     });
   }
 
@@ -85,7 +89,10 @@ export class BoardComponent implements OnInit {
       } else {
         this.idPlayerPlay = this.playerList[0].player_id;
       }
-      this.startTimer();
+      this.boardService.getResource(this.idPlayerPlay).subscribe(value1 => {
+        this.resources = value1['resources'];
+        this.startTimer();
+      });
     });
   }
 

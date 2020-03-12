@@ -10,6 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ResourceDTO {
-    private int quatity;
+    private int quantity;
     private String name;
 }
