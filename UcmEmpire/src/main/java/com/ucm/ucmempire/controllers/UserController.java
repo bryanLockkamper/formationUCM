@@ -7,6 +7,7 @@ import com.ucm.ucmempire.dal.entity.Role;
 import com.ucm.ucmempire.dal.servicedal.PlayerDalService;
 import com.ucm.ucmempire.dal.servicedal.PlayerDalServiceImpl;
 import com.ucm.ucmempire.models.Player;
+import com.ucm.ucmempire.models.dto.PlayerDTOInfo;
 import com.ucm.ucmempire.models.dto.PlayerDTOLogin;
 import com.ucm.ucmempire.models.dto.PlayerDTORegister;
 import io.swagger.annotations.ApiOperation;
@@ -49,8 +50,7 @@ public class UserController {
         try {
             String login = data.getPseudo();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login,(data.getPassword())));
-            String token = jwtTokenProvider.createToken(login,this.playerDalService.findByLogin(login).orElseThrow(() -> new UsernameNotFoundException("Login "+ login+ "not found")).getRoles().stream().map(Role::getAuthority).collect(Collectors.toList()));
-            System.out.println("coucou user :"+token);
+            String token = jwtTokenProvider.createToken(login,this.playerDalService.findByLogin(login).orElseThrow(() -> new UsernameNotFoundException("Login "+ login+ "not found")).getRoles().stream().map(Role::getAuthority).collect(Collectors.toList()),new PlayerDTOInfo(this.playerDalService.findByLogin(login).get()));
             Map model = new HashMap();
             model.put("token",token);
             model.put("username",login);

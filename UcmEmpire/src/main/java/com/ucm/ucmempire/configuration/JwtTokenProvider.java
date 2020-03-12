@@ -1,5 +1,6 @@
 package com.ucm.ucmempire.configuration;
 
+import com.ucm.ucmempire.models.dto.PlayerDTOInfo;
 import com.ucm.ucmempire.services.UserService;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,11 @@ public class JwtTokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createToken(String username, List<String> roles)
+    public String createToken(String username, List<String> roles, PlayerDTOInfo player)
     {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("roles", roles);
+        claims.put("userInfo", player);
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliSeconds);
 

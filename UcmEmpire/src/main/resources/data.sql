@@ -3,7 +3,5 @@
 /*insert into player(last_name_player,first_name_player,login_player,password_player, MAIL_PLAYER)
 values ('Guillaume','Connard','sushi','japon', 'sushi@gmail.com'), ('Florent','LeRigolo','floflo','velo', 'gilbert@gmail.com');*/
 
-insert into player(last_name_player,first_name_player,login_player,password_player, MAIL_PLAYER,)
-values ('','','root','root', '');
 
-insert into role (name) values ('role_admin','role_player');
+insert into role (name) values ('role_admin'),('role_player');

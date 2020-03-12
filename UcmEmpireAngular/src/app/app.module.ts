@@ -10,11 +10,13 @@ import { HomeModule } from './home/home.module';
 import {BoardModule} from "./board/_components/board.module";
 import { GuillaumePipe } from './_pipess/guillaume.pipe';
 import { FormsModule } from '@angular/forms';
+import { ToolBarComponent } from './navBar/tool-bar/tool-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GuillaumePipe
+    GuillaumePipe,
+    ToolBarComponent
   ],
   imports: [
     BrowserModule,

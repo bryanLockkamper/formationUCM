@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from '../../_models/user';
 import {UserInfo} from '../../_models/user-info';
+import * as decode from 'jwt-decode';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,8 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.player = ((typeof localStorage.getItem('token') != undefined) && (localStorage.getItem('token') != null)) ? JSON.parse(localStorage.getItem('token')) : null ;
+    let tokenDecoded = decode(localStorage.getItem('token'));
+    this.player = tokenDecoded['userInfo'];
   }
 
 }

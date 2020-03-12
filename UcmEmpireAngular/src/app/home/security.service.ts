@@ -21,7 +21,7 @@ export class SecurityService {
   }
 
   logout() {
-    localStorage.clear();
+    localStorage.removeItem('token');
   }
 
   register(model: UserRegister): Observable<string> {

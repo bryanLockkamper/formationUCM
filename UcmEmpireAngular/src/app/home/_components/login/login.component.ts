@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SecurityService } from '../../security.service';
-import * as decode from 'jwt-decode';
 import {NbToastrService} from '@nebular/theme';
+import * as decode from 'jwt-decode';
+
 import {UserInfo} from '../../_models/user-info';
 
 @Component({
@@ -14,6 +15,8 @@ import {UserInfo} from '../../_models/user-info';
 export class LoginComponent implements OnInit {
 
   logForm: FormGroup;
+  player : UserInfo;
+
 
   constructor(
     private secService: SecurityService,
@@ -33,10 +36,10 @@ export class LoginComponent implements OnInit {
     this.secService.login(json).subscribe(
       (model) => {
         localStorage.setItem('token', JSON.stringify(model['token']));
-        /*let tokenDecoded = decode(model['token']);
-        console.log("test "+tokenDecoded);*/
-        let name = model['username'];
-        this.toastrServ.success('Bonjour ' + name,'Connexion', {[status]:'success'});
+
+        let tokenDecoded = decode(localStorage.getItem('token'));
+        this.player = tokenDecoded['userInfo'];
+        this.toastrServ.success('Bonjour ' + this.player.pseudo,'Connexion', {[status]:'success'});
         this.router.navigateByUrl('/home');
       },
       (error) => {

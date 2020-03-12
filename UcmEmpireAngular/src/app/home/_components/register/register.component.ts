@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit {
         this.toastrServ.success('Bienvenu dans notre communauté ' + this.usermodel.pseudo,'Enregistrement', {[status]:'success'});
       },
       () => {
-        this.toastrServ.success('Erreur dans l"enregistrement ','Enregistrement', {[status]:'danger'});
+        this.toastrServ.danger('Erreur dans l"enregistrement ','Enregistrement', {[status]:'danger'});
       },
       () => {},
     );
