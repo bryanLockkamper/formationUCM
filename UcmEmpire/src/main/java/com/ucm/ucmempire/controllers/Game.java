@@ -52,14 +52,6 @@ public class Game implements Runnable {
     private void beginRound() {
         System.out.println("debut tour");
         buildEntity();
-        board.getBoard()
-                .stream()
-                .map(squares -> squares
-                        .stream()
-                        .filter(square -> square instanceof SpecialSquare)
-                        .map(square -> harvestService.autoHarvestResources((SpecialSquare) square, player))
-                        .collect(Collectors.toList()))
-        .collect(Collectors.toList());
         endRound = false;
     }
 
@@ -101,6 +93,14 @@ public class Game implements Runnable {
                 }
             }
         }
+        board.getBoard()
+                .stream()
+                .map(squares -> squares
+                        .stream()
+                        .filter(square -> square instanceof SpecialSquare)
+                        .map(square -> harvestService.autoHarvestResources((SpecialSquare) square, player))
+                        .collect(Collectors.toList()))
+                .collect(Collectors.toList());
         player.maxPa();
         if (player.getId() == player1.getId())
             player = player2;

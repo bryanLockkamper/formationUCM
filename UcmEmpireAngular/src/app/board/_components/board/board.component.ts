@@ -23,7 +23,9 @@ export class BoardComponent implements OnInit {
   playerList: UserHasLost[];
   private createBarrack: boolean;
   private idPlayerPlay: number;
-  resources = [];
+  stone: any;
+  wood: any;
+  food: any;
 
   constructor(
     private boardService: BoardService,
@@ -49,10 +51,24 @@ export class BoardComponent implements OnInit {
     this.boardService.ishaslost().subscribe(value => {
       this.playerList = value;
       this.idPlayerPlay = this.playerList[1].player_id;
-      this.boardService.getResource(this.idPlayerPlay).subscribe(value1 => {
-        this.resources = value1['resources'];
-        this.startTimer();
-      });
+      this.getResource();
+    });
+  }
+
+  getResource() {
+    this.boardService.getResource(this.idPlayerPlay).subscribe(value1 => {
+      for (let i = 0; i < 3; i++) {
+        if (value1['resources'][i].name == 'wood') {
+          this.wood = value1['resources'][i].quantity;
+        }
+        else if (value1['resources'][i].name == 'food') {
+          this.food = value1['resources'][i].quantity;
+        }
+        else if (value1['resources'][i].name == 'stone') {
+          this.stone = value1['resources'][i].quantity;
+        }
+      }
+      this.startTimer();
     });
   }
 
@@ -89,10 +105,7 @@ export class BoardComponent implements OnInit {
       } else {
         this.idPlayerPlay = this.playerList[0].player_id;
       }
-      this.boardService.getResource(this.idPlayerPlay).subscribe(value1 => {
-        this.resources = value1['resources'];
-        this.startTimer();
-      });
+      this.getResource();
     });
   }
 
