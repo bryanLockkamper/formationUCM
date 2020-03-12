@@ -1,10 +1,6 @@
 package com.ucm.ucmempire.models.dto;
 
-import com.ucm.ucmempire.dal.entity.ResourceEntity;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
@@ -12,10 +8,8 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class PlayerDTORess {
-
-    private Integer user_id;
-    private List<ResourceEntity> resources;
-
-
+    private List<ResourceDTO> resources;
 }

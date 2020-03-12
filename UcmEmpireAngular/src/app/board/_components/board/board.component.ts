@@ -3,7 +3,7 @@ import {BoardService} from "../../_services/board.service";
 import {RowModel} from "../../_models/row";
 import {NbDialogService} from "@nebular/theme";
 import {ChoiceComponent} from "../choice/choice.component";
-import { UserHasLost } from 'src/app/home/_models/user-haslost';
+import {UserHasLost} from 'src/app/home/_models/user-haslost';
 
 @Component({
   selector: 'app-board',
@@ -11,19 +11,19 @@ import { UserHasLost } from 'src/app/home/_models/user-haslost';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  @Input() dimension: number;
+  dimension: number;
   rows = [];
   board: RowModel[];
   first;
-
   timeLeft: number = 120;
   interval;
   private action;
   private move: boolean;
   private attack: boolean;
-  private moveFarmer: boolean;
-
-  playerList : UserHasLost[]
+  playerList: UserHasLost[];
+  private createBarrack: boolean;
+  private idPlayerPlay: number;
+  resources = [];
 
   constructor(
     private boardService: BoardService,
@@ -46,8 +46,14 @@ export class BoardComponent implements OnInit {
         });
       }
     });
-    this.startTimer();
-    this.haslost(this.playerList);
+    this.boardService.ishaslost().subscribe(value => {
+      this.playerList = value;
+      this.idPlayerPlay = this.playerList[1].player_id;
+      this.boardService.getResource(this.idPlayerPlay).subscribe(value1 => {
+        this.resources = value1['resources'];
+        this.startTimer();
+      });
+    });
   }
 
   startTimer() {
@@ -59,75 +65,86 @@ export class BoardComponent implements OnInit {
         this.endTurn();
       }
     }, 1000);
-    console.log(this.playerList.length);
 
     this.playerList.forEach(element => {
-      if(element.player_hasLost)
-      {
+      if (element.player_hasLost) {
         console.log('le joueur ' + element.player_id + ' a perdu');
 
-      }
-      else
-      {
-        console.log('Tu n\'as pas encore perdu' );
+      } else {
+        console.log('Tu n\'as pas encore perdu');
 
       }
     });
+    this.refresh();
   }
 
   endTurn() {
     this.boardService.stopTimer();
     clearInterval(this.interval);
     this.timeLeft = 120;
-    this.refresh();
-    this.playerList = [];
-    this.playerList.push(this.haslost(this.playerList));
-  }
-
-  haslost(playerList): any {
-    return this.boardService.ishaslost(playerList).subscribe();
+    this.boardService.ishaslost().subscribe(value => {
+      this.playerList = value;
+      if (this.idPlayerPlay == this.playerList[0].player_id) {
+        this.idPlayerPlay = this.playerList[1].player_id;
+      } else {
+        this.idPlayerPlay = this.playerList[0].player_id;
+      }
+      this.boardService.getResource(this.idPlayerPlay).subscribe(value1 => {
+        this.resources = value1['resources'];
+        this.startTimer();
+      });
+    });
   }
 
   onClick(cell) {
     if (this.first == null) {
-        this.first = cell;
-        if (this.first != null && ((this.board[cell.rowId][cell.id].special && this.board[cell.rowId][cell.id].entityDTOList.length > 0) || this.board[cell.rowId][cell.id].content?.idPlayer == 1)) {
-          this.action = this.dialog.open(ChoiceComponent, {context: {entity: this.board[cell.rowId][cell.id]}});
-          this.action.onClose.subscribe(value => {
-            switch (value) {
-              case 'suicide':
-                this.boardService.deathEntity(cell).subscribe(() => {
-                  this.refresh();
-                });
-                break;
-              case 'move':
-                this.move = true;
-                break;
-              case 'moveFarmer':
-                this.moveFarmer = true;
-                break;
-              case 'attack' :
-                this.attack = true;
-                break;
-              default:
-                this.first = null;
-            }
-          });
-        } else {
-          this.first = null;
-        }
+      this.first = cell;
+      if (this.first != null && ((this.board[cell.rowId][cell.id].special && this.board[cell.rowId][cell.id].entityDTOList.length > 0) || this.board[cell.rowId][cell.id].content?.idPlayer == this.idPlayerPlay)) {
+        this.action = this.dialog.open(ChoiceComponent, {context: {entity: this.board[cell.rowId][cell.id]}});
+        this.action.onClose.subscribe(value => {
+          switch (value) {
+            case 'suicide':
+              this.boardService.deathEntity(cell).subscribe(() => {
+                this.refresh();
+              });
+              break;
+            case 'move':
+              this.move = true;
+              break;
+            case 'moveFarmer':
+              this.move = true;
+              break;
+            case 'moveSoldier':
+              this.move = true;
+              break;
+            case 'attack' :
+              this.attack = true;
+              break;
+            case 'createFarmer':
+              this.boardService.createFarmer(cell).subscribe();
+              this.first = null;
+              break;
+            case 'createSoldier':
+              this.boardService.createSoldier(cell).subscribe();
+              this.first = null;
+              break;
+            case 'createBarrack':
+              this.createBarrack = true;
+              break;
+            default:
+              this.first = null;
+          }
+        });
+      } else {
+        this.first = null;
+      }
     } else {
-      if (this.move && this.board[this.first.rowId][this.first.id].content.pa > 0) {
+      if (this.move) {
         this.boardService.move([this.first, cell]).subscribe(() => {
           this.refresh();
           this.move = false;
         });
-      }else if (this.moveFarmer) {
-        this.boardService.move([this.first, cell]).subscribe(() => {
-          this.refresh();
-          this.moveFarmer = false;
-        });
-      } else if (this.attack && this.board[this.first.rowId][this.first.id].content.damage && !this.board[cell.rowId][cell.id].special) {
+      } else if (this.attack && !this.board[cell.rowId][cell.id].special) {
         if (this.board[cell.rowId][cell.id].content?.idPlayer != this.board[this.first.rowId][this.first.id].content.idPlayer && this.board[this.first.rowId][this.first.id].content.pa > 0) {
           this.boardService.attack([this.first, cell]).subscribe(() => {
             this.refresh();
@@ -135,12 +152,24 @@ export class BoardComponent implements OnInit {
         } else
           this.first = null;
         this.attack = false;
+        // Condition pour qu'il ne puisse créer que 1 case autour de lui
+      } else if (this.createBarrack
+        && cell.rowId <= this.first.rowId + 1
+        && cell.rowId >= this.first.rowId - 1
+        && cell.id <= this.first.id + 1
+        && cell.id >= this.first.id - 1
+        && !(cell.rowId == this.first.rowId
+          && cell.id == this.first.id)
+      ) {
+        this.boardService.createBarrack([this.first, cell]).subscribe(() => {
+          this.refresh();
+        })
       } else
         this.first = null;
     }
   }
 
-  // todo transferer vers cell compnents?
+// todo transferer vers cell compnents?
   getContent(board, i, j) {
     let content;
 
@@ -202,8 +231,7 @@ export class BoardComponent implements OnInit {
     })
   }
 
-  deleteBoard ()
-  {
+  deleteBoard() {
     this.board = null;
   }
 }

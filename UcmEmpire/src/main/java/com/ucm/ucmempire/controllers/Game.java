@@ -3,10 +3,14 @@ package com.ucm.ucmempire.controllers;
 import com.ucm.ucmempire.controllers.pathfinding.AStarService;
 import com.ucm.ucmempire.controllers.pathfinding.Position;
 import com.ucm.ucmempire.controllers.pathfinding.PositionDTO;
+import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.models.Character;
 import com.ucm.ucmempire.models.boardPackage.Board;
 import com.ucm.ucmempire.models.boardPackage.SpecialSquare;
+import com.ucm.ucmempire.models.buildings.Barracks;
+import com.ucm.ucmempire.models.buildings.Forum;
+import com.ucm.ucmempire.models.buildings.ProdBuilding;
 import com.ucm.ucmempire.services.HarvestService;
 import javafx.geometry.Pos;
 
@@ -17,18 +21,21 @@ public class Game implements Runnable {
     private boolean endRound;
     private Player player1;
     private Player player2;
+    private Player player;
     private Board board;
     HarvestService harvestService = new HarvestService();
 
     public Game(Player player1, Player player2, Board board) {
         this.player1 = player1;
         this.player2 = player2;
+        this.player = player1;
         this.board = board;
     }
 
     public Game() {
         this.player1 = new Player();
         this.player2 = new Player();
+        player = player1;
         this.board = new Board("test");
     }
 
@@ -44,27 +51,42 @@ public class Game implements Runnable {
 
     private void beginRound() {
         System.out.println("debut tour");
-        player1.buildEntity();
+        buildEntity();
         board.getBoard()
                 .stream()
                 .map(squares -> squares
                         .stream()
                         .filter(square -> square instanceof SpecialSquare)
-                        .map(square -> {
-                            int i = harvestService.autoHarvestResources((SpecialSquare) square, player1);
-                            System.out.println(i);
-                            return i;
-                        })
+                        .map(square -> harvestService.autoHarvestResources((SpecialSquare) square, player))
                         .collect(Collectors.toList()))
         .collect(Collectors.toList());
         endRound = false;
+    }
+
+    private void buildEntity() {
+        for (int i = 0; i < board.getBoard().size(); i++) {
+            for (int j = 0; j < board.getBoard().get(i).size(); j++) {
+                Entity entity = board.getBoard().get(i).get(j).getContent();
+                if (entity instanceof ProdBuilding && ((ProdBuilding) entity).getIdUser() == player.getId()) {
+                    if (((ProdBuilding) entity).decrementCounter() != null && ((ProdBuilding) entity).getProd().size() > 0) {
+                        if (board.getBoard().get(i+1).get(j+1).getContent() == null) {
+                            board.getBoard().get(i+1).get(j+1).setContent(((ProdBuilding) entity).getProd().get(0));
+                        } else {
+                            ((ProdBuilding) board.getBoard().get(i).get(j).getContent()).getEntities().add(((ProdBuilding) entity).getProd().get(0));
+                        }
+                        player.addEntity(((ProdBuilding) entity).getProd().get(0));
+                        ((ProdBuilding) entity).getProd().remove(0);
+                    }
+                }
+            }
+        }
     }
 
     public void endRound() {
         System.out.println("fin tour");
         for (int i = 0; i < board.getBoard().size(); i++) {
             for (int j = 0; j < board.getBoard().get(i).size(); j++) {
-                if (board.getBoard().get(i).get(j).getContent() instanceof Character && ((Character) board.getBoard().get(i).get(j).getContent()).getMoveLeft() != null) {
+                if (board.getBoard().get(i).get(j).getContent() instanceof Character && ((Character) board.getBoard().get(i).get(j).getContent()).getMoveLeft() != null && ((Character) board.getBoard().get(i).get(j).getContent()).getIdUser() == player.getId()) {
                     Position second = ((Character) board.getBoard().get(i).get(j).getContent()).getMoveLeft();
                     AStarService aStarService = new AStarService(board, new Position(i, j), second);
                     Character character = (Character) board.getBoard().get(i).get(j).getContent();
@@ -79,7 +101,11 @@ public class Game implements Runnable {
                 }
             }
         }
-        player1.maxPa();
+        player.maxPa();
+        if (player.getId() == player1.getId())
+            player = player2;
+        else
+            player = player1;
     }
 
     public boolean nextRound() {

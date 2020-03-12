@@ -32,4 +32,20 @@ export class ChoiceComponent implements OnInit {
   suicide() {
     this.dialog.close('suicide');
   }
+
+  createFarmer() {
+    this.dialog.close('createFarmer');
+  }
+
+  construct() {
+    this.dialog.close('createBarrack');
+  }
+
+  createSoldier() {
+    this.dialog.close('createSoldier');
+  }
+
+  moveSoldier() {
+    this.dialog.close('moveSoldier');
+  }
 }

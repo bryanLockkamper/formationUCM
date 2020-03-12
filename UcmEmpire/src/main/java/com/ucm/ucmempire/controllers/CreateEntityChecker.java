@@ -4,6 +4,7 @@ import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.Player;
 import com.ucm.ucmempire.models.boardPackage.Square;
 import com.ucm.ucmempire.models.buildings.Building;
+import com.ucm.ucmempire.models.resources.ResourceName;
 import com.ucm.ucmempire.models.units.Soldier;
 
 public class CreateEntityChecker {

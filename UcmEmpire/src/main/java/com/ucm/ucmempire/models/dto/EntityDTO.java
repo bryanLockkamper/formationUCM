@@ -28,34 +28,35 @@ public class EntityDTO {
     public EntityDTO() {
     }
 
-    public EntityDTO(Entity entity)
-    {
+    public EntityDTO(Entity entity) {
         this.hp = entity.getHp();
 
-        if (entity instanceof Character)
-        {
+        if (entity instanceof Character) {
             this.pa = ((Character) entity).getPa();
             this.maxPa = ((Character) entity).getMaxPA();
             this.idPlayer = ((Character) entity).getIdUser();
 
             if (entity instanceof Soldier) {
                 this.typeEntity = TypeEntity.SOLDIER.getType();
-                this.damage = ((Soldier) entity).getDamage();}
-            else if (entity instanceof Farmer) { this.typeEntity = TypeEntity.FARMER.getType(); }
-            else this.typeEntity = "CHARACTER";
+                this.damage = ((Soldier) entity).getDamage();
+            } else if (entity instanceof Farmer) {
+                this.typeEntity = TypeEntity.FARMER.getType();
+            } else this.typeEntity = "CHARACTER";
 
-        } else if (entity instanceof Building)
-        {
+        } else if (entity instanceof Building) {
             this.idPlayer = ((Building) entity).getIdUser();
             //TODO DAMIEN : RESSOURCE IN FORUM AND GRANARY
 
-            if (entity instanceof House) { this.typeEntity = TypeEntity.HOUSE.getType();}
-            else if (entity instanceof Granary) { this.typeEntity = TypeEntity.GRANARY.getType();}
-            else if (entity instanceof Forum) { this.typeEntity = TypeEntity.FORUM.getType();}
-            else if (entity instanceof Barracks) { this.typeEntity = TypeEntity.BARACKS.getType();}
-            else this.typeEntity = "BUILDING";
-        } else
-        {
+            if (entity instanceof House) {
+                this.typeEntity = TypeEntity.HOUSE.getType();
+            } else if (entity instanceof Granary) {
+                this.typeEntity = TypeEntity.GRANARY.getType();
+            } else if (entity instanceof Forum) {
+                this.typeEntity = TypeEntity.FORUM.getType();
+            } else if (entity instanceof Barracks) {
+                this.typeEntity = TypeEntity.BARACKS.getType();
+            } else this.typeEntity = "BUILDING";
+        } else {
             this.typeEntity = TypeEntity.RESSOURCE.getType();
 
             this.typeRessource = ((Resource) entity).getResourceName().getType();

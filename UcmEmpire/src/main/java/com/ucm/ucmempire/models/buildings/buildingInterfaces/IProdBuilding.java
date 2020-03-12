@@ -6,8 +6,7 @@ import java.util.List;
 
 public interface IProdBuilding {
 
-    List<Entity> getEntities();
-    Entity decrementCounter();
+    Integer decrementCounter();
 
     void setEntities(List<Entity> entities);
 }

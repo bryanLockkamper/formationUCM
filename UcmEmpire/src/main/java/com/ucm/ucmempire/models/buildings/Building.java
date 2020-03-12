@@ -3,6 +3,7 @@ package com.ucm.ucmempire.models.buildings;
 import com.ucm.ucmempire.models.Entity;
 import com.ucm.ucmempire.models.dto.EntityDTO;
 import com.ucm.ucmempire.models.resources.Resource;
+import com.ucm.ucmempire.models.resources.ResourceName;
 import lombok.EqualsAndHashCode;
 
 import java.util.HashSet;
@@ -25,6 +26,10 @@ public abstract class Building extends Entity {
         this.idUser = entityDTO.getIdPlayer();
     }
 
+    public Building() {
+
+    }
+
     public Integer getIdUser() {
         return idUser;
     }
@@ -37,11 +42,13 @@ public abstract class Building extends Entity {
         return requirement;
     }
 
-    public void setRequirement(HashSet<Resource> requirement) {
-        this.requirement = requirement;
+    public Resource getRequirement(ResourceName resourceName){
+        return requirement.stream()
+                .filter(resource -> resource.getResourceName().equals(resourceName))
+                .findFirst().orElse(null);
     }
 
-    public Entity product(Entity entity) {
-        return entity;
+    public void setRequirement(HashSet<Resource> requirement) {
+        this.requirement = requirement;
     }
 }

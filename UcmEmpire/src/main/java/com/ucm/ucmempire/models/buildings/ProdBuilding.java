@@ -19,10 +19,12 @@ public abstract class ProdBuilding extends Building implements IProdBuilding {
     public static final int SOLDIER_ENTITY =2;
 
     private List<Entity> prod;
+    private List<Entity> entities;
 
     public ProdBuilding(int pv, Integer id, HashSet<Resource> requirement) {
         super(pv, id, requirement);
         prod = new ArrayList<>();
+        entities = new ArrayList<>();
     }
 
     public Entity getUnit(int prodType){
@@ -51,13 +53,8 @@ public abstract class ProdBuilding extends Building implements IProdBuilding {
     }
 
     @Override
-    public List<Entity> getEntities() {
-        return prod;
-    }
-
-    @Override
-    public Entity decrementCounter() {
-        return null;
+    public Integer decrementCounter() {
+        return 0;
     }
 
     @Override
@@ -65,4 +62,19 @@ public abstract class ProdBuilding extends Building implements IProdBuilding {
         this.prod = entities;
     }
 
+    public void product(Entity entity) {
+        prod.add(entity);
+    }
+
+    public List<Entity> getProd() {
+        return prod;
+    }
+
+    public void setProd(List<Entity> prod) {
+        this.prod = prod;
+    }
+
+    public List<Entity> getEntities() {
+        return entities;
+    }
 }

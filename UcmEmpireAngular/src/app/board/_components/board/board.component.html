@@ -1,15 +1,17 @@
-<div style="width: 50%;">
-  <button nbButton routerLink="/home" (click)="deleteBoard()">Quitter</button>
-  <p>
-   C'est à l'équipe xx de jouer
-  </p>
-
-  <button (click)='startTimer()'>Start Timer</button>
+<div class="resource">
   <button nbButton status="danger" (click)='endTurn()'>Fin de tour</button>
-
-  <p>{{timeLeft}} Seconds Left....</p>
+  <button nbButton routerLink="/home" (click)="deleteBoard()">Quitter</button>
 </div>
 
+<div class="resource">
+  <img src="assets/_img/icone_stone.png" alt="wood" width="30px" height="30px"> : {{resources[0]?.quantity}}
+  <img src="assets/_img/icone_wood.png" alt="wood" width="30px" height="30px"> : {{resources[2]?.quantity}}
+  <img src="assets/_img/icone_food.png" alt="wood" width="30px" height="30px"> : {{resources[1]?.quantity}}
+</div>
+
+<div class="resource">
+  <p>{{((timeLeft - (timeLeft % 60)) /60)}} : {{timeLeft%60}}</p>
+</div>
 
 <div class="board">
   <row *ngFor="let row of rows" class="row" [id]="row.id" [dimension]="dimension" [row]="row"

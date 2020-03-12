@@ -55,13 +55,10 @@ public class HarvestService {
                 }
 
                 if (player.getResource(actualResource.getResourceName()).getHp() + harvestTotal <= player.getMaxResources()) {
-                    player.getResources().remove(actualResource);
-                    actualResource.setHp(actualResource.getHp() + harvestTotal);
+                    player.getResource(actualResource.getResourceName()).setHp(actualResource.getHp() + harvestTotal);
                 } else {
-                    player.getResources().remove(actualResource);
-                    actualResource.setHp(player.getMaxResources());
+                    player.getResource(actualResource.getResourceName()).setHp((player.getMaxResources()));
                 }
-                player.getResources().add(actualResource);
             }
         }
 

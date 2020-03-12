@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {UserLogin} from "../../home/_models/user-login";
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {RowModel} from "../_models/row";
-import { UserHasLost } from 'src/app/home/_models/user-haslost';
+import {UserHasLost} from 'src/app/home/_models/user-haslost';
 
 @Injectable({
   providedIn: 'root'
@@ -28,12 +27,10 @@ export class BoardService {
   }
 
   startTimer() {
-
     this.httpClient.get(environment.apiEndPoint + '/timer/start').subscribe();
   }
 
   stopTimer() {
-
     this.httpClient.get(environment.apiEndPoint + '/timer/stop').subscribe();
   }
 
@@ -42,7 +39,7 @@ export class BoardService {
   }
 
   getResource(model){
-    return this.httpClient.get(environment.apiEndPoint+'/player/res/'+ model.user_id)
+    return this.httpClient.get(environment.apiEndPoint+'/player/res/'+ model)
   }
 
   newBoard() : Observable<RowModel[]>
@@ -50,7 +47,19 @@ export class BoardService {
     return this.httpClient.get<RowModel[]>(environment.apiEndPoint+'/newBoard');
   }
 
-  ishaslost(model): Observable<UserHasLost[]>{
-    return this.httpClient.get<UserHasLost[]>(environment.apiEndPoint+'/player/haslost')
+  ishaslost(): Observable<UserHasLost[]>{
+    return this.httpClient.get<UserHasLost[]>(environment.apiEndPoint+'/player/haslost');
+  }
+
+  createFarmer(model) {
+    return this.httpClient.post(environment.apiEndPoint + '/createFarmer', model);
+  }
+
+  createBarrack(model) {
+    return this.httpClient.post(environment.apiEndPoint + '/createBarrack', model);
+  }
+
+  createSoldier(model) {
+    return this.httpClient.post(environment.apiEndPoint + '/createSoldier', model);
   }
 }
