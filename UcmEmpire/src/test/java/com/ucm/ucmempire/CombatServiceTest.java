@@ -24,6 +24,7 @@ public class CombatServiceTest {
     }
 
     @Test
+    // TODO: 18/03/2020 C'est quoi une normal case ? 
     public void fightNormalCase_False() {
 
         //Arrange
@@ -31,7 +32,7 @@ public class CombatServiceTest {
         Soldier defense = new Soldier(10, 2, 10, 5);
         //Act
 
-        Boolean isCorrect = combatService.fight(attack, defense);
+        boolean isCorrect = CombatService.fight(attack, defense);
 
         //Assert
 

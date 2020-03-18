@@ -31,6 +31,7 @@ public class HasLostTest {
         board.setPlayerList(playerArrayList);
 
         //Act
+        // TODO: 18/03/2020 cette fonction retourne toujours false(ce nn'est plus la bonne je pense) 
         boolean result = board.hasLost();
 
 

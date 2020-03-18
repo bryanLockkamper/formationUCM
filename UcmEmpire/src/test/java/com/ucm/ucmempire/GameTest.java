@@ -20,8 +20,9 @@ public class GameTest {
         ((Character) (game.getBoard().getBoard().get(0).get(0).getContent())).setMoveLeft(new Position(0,11));
         game.endRound();
         // TODO BRYAN : FAIRE PLUS DE TESTS AVEC UN PUTAIN DE NOM EXPLICITE
-        Soldier character = new Soldier(0,20,0, 5);
+        Soldier character = new Soldier(0,20,5, 5);
         character.setMoveLeft(new Position(0,11));
+        character.setPa(0);
         assertEquals(character, game.getBoard().getBoard().get(0).get(5).getContent());
     }
 

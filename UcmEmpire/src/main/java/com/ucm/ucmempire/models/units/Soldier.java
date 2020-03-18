@@ -25,7 +25,7 @@ public class Soldier extends Character implements ISoldier {
 
     public Soldier(int user_id, int hp, int pa)
     {
-        super(hp, user_id, pa);
+        super(user_id, hp, pa);
     }
 
     public Soldier(int user_id, int hp,  int pa , int damage)
