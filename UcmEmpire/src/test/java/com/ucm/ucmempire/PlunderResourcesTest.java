@@ -14,15 +14,17 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class PlunderResourcesTest {
-    @Test
-    public void plunderResources_FarmerWithoutResources_true(){
+@Test
+public void plunderResources_FarmerWithoutResources_true(){
         //ARRANGE
         //Setting datas for player 1
-        Player player1 = new Player(1, "killer");
+        Player player1 = new Player();
+        player1.setId(1);
+        player1.setName("killer");
         HashSet<Resource> map2 = new HashSet<>();
 
-        map2.add(new Resource(ResourceName.STONE, 5));
-        map2.add(new Resource(ResourceName.WOOD, 5));
+        map2.add(new Resource(ResourceName.STONE, 0));
+        map2.add(new Resource(ResourceName.WOOD, 0));
         Entity g1 = new Granary(50, 1, map2);
         Entity g2 = new Granary(50, 1, map2);
         Entity g3 = new Granary(50, 1, map2);
@@ -50,7 +52,9 @@ public class PlunderResourcesTest {
         player1.addEntity(f1);
 
         //setting datas for player 2
-        Player player2 = new Player(2, "killed");
+        Player player2 = new Player();
+        player2.setId(2);
+        player2.setName("killed");
         Entity g21 = new Granary(50, 2, map2);
         Entity g22 = new Granary(50, 2, map2);
         Entity g23 = new Granary(50, 2, map2);
@@ -91,11 +95,11 @@ public class PlunderResourcesTest {
         Assert.assertEquals(50, player2.getResource(ResourceName.STONE).getHp());
         Assert.assertEquals(50, player2.getResource(ResourceName.WOOD).getHp());
         Assert.assertEquals(50, player2.getResource(ResourceName.FOOD).getHp());
-    }
+        }
 
 
-    @Test
-    public void plunderResources_FarmerWithMoreResourcesThanHisPlayer_true(){
+@Test
+public void plunderResources_FarmerWithMoreResourcesThanHisPlayer_true(){
         //ARRANGE
         //Setting datas for player 1
         Player player1 = new Player(1, "killer");
@@ -174,10 +178,10 @@ public class PlunderResourcesTest {
         Assert.assertEquals(110, player2.getResource(ResourceName.STONE).getHp());
         Assert.assertEquals(110, player2.getResource(ResourceName.WOOD).getHp());
         Assert.assertEquals(110, player2.getResource(ResourceName.FOOD).getHp());
-    }
+        }
 
-    @Test
-    public void plunderResources_FarmerWithLessResourcesThanHisPlayer_true(){
+@Test
+public void plunderResources_FarmerWithLessResourcesThanHisPlayer_true(){
         //ARRANGE
         //Setting datas for player 1
         Player player1 = new Player(1, "killer");
@@ -256,10 +260,10 @@ public class PlunderResourcesTest {
         Assert.assertEquals(60, player2.getResource(ResourceName.STONE).getHp());
         Assert.assertEquals(60, player2.getResource(ResourceName.WOOD).getHp());
         Assert.assertEquals(60, player2.getResource(ResourceName.FOOD).getHp());
-    }
+        }
 
-    @Test
-    public void plunderResources_FarmerWithMoreResourcesThanTheEnemyPlayerCanHandle_true(){
+@Test
+public void plunderResources_FarmerWithMoreResourcesThanTheEnemyPlayerCanHandle_true(){
         //ARRANGE
         //Setting datas for player 1
         Player player1 = new Player(1, "killer");
@@ -307,8 +311,8 @@ public class PlunderResourcesTest {
         Assert.assertEquals(0, player1.getResource(ResourceName.WOOD).getHp());
         Assert.assertEquals(0, player1.getResource(ResourceName.FOOD).getHp());
 
-        Assert.assertEquals(80, player2.getResource(ResourceName.STONE).getHp());
-        Assert.assertEquals(80, player2.getResource(ResourceName.WOOD).getHp());
-        Assert.assertEquals(80, player2.getResource(ResourceName.FOOD).getHp());
-    }
-}
+        Assert.assertEquals(player2.getMaxResources() - player2.getResource(ResourceName.WOOD).getHp() -player2.getResource(ResourceName.FOOD).getHp() , player2.getResource(ResourceName.STONE).getHp());
+        Assert.assertEquals(player2.getMaxResources() - player2.getResource(ResourceName.STONE).getHp() -player2.getResource(ResourceName.FOOD).getHp(), player2.getResource(ResourceName.WOOD).getHp());
+        Assert.assertEquals(player2.getMaxResources() - player2.getResource(ResourceName.WOOD).getHp() -player2.getResource(ResourceName.STONE).getHp(), player2.getResource(ResourceName.FOOD).getHp());
+        }
+        }

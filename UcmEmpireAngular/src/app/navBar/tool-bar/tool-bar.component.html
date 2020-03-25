@@ -1,0 +1,11 @@
+<nb-actions>
+  <nb-action routerLink="/home">
+    UCM EMPIRE
+  </nb-action>
+
+  <nb-action *ngIf="!isConnected" icon="log-in-outline" routerLink="/login"></nb-action>
+  <nb-action *ngIf="!isConnected" icon="person-add-outline" routerLink="/register"></nb-action>
+
+  <nb-action *ngIf="isConnected"  icon="log-out-outline" (click)="logout()"></nb-action>
+
+</nb-actions>

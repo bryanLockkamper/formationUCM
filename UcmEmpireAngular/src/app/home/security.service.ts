@@ -5,6 +5,7 @@ import { UserLogin } from './_models/user-login';
 import { UserRegister } from './_models/user-register';
 import { HttpClient } from '@angular/common/http';
 import { User } from './_models/user';
+import {UserInfo} from './_models/user-info';
 
 @Injectable({
   providedIn: 'root'
@@ -16,16 +17,16 @@ export class SecurityService {
   ) { }
 
   login(model: UserLogin): Observable<string> {
-    return this.httpClient.post<string>(environment.apiEndPoint + 'login', model);
+    return this.httpClient.post<string>(environment.apiEndPoint + 'user/login', model);
   }
 
   logout() {
-    localStorage.clear();
+    localStorage.removeItem('token');
   }
 
   register(model: UserRegister): Observable<string> {
-    console.log(model);
-    console.log('url : ' + environment.apiEndPoint + 'register');
-    return this.httpClient.post<string>(environment.apiEndPoint + 'register', model);
+    return this.httpClient.post<string>(environment.apiEndPoint + 'user/register', model);
   }
+
+
 }

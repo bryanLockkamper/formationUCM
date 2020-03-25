@@ -1,9 +1,10 @@
 package com.ucm.ucmempire.models.biomes;
 
 import com.ucm.ucmempire.models.boardPackage.Square;
+import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
-
+@EqualsAndHashCode
 public class BiomeDesert implements IBiomes {
 
 
@@ -20,5 +21,8 @@ public class BiomeDesert implements IBiomes {
         return squareEntity;
     }
 
-
+    @Override
+    public String toString() {
+        return "BiomeDesert{}";
+    }
 }

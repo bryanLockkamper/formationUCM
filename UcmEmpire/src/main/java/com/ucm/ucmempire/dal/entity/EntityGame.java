@@ -5,28 +5,45 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table (name = "entity_game")
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode
-@NoArgsConstructor
-@AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class EntityGame implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
+    @Column(name = "id_entity_game")
+    private Integer id;
     @Column(name = "hp_entity" , nullable = false)
-    protected int hp;
+    private Integer hp;
+    @Column(name = "type_entity")
+    private String type;
 
-    public EntityGame(int hp, Integer id) {
-        this.hp = hp;
-        this.id = id;
+    @JoinColumn (name = "player",referencedColumnName = "id_player")
+    @ManyToOne
+    private PlayerEntity playerEntity;
+
+
+    public EntityGame() {
     }
 
+    public EntityGame(Integer hp, String type, PlayerEntity playerEntity) {
+        this.hp = hp;
+        this.type = type;
+        this.playerEntity = playerEntity;
+    }
 
-
+    @Override
+    public String toString() {
+        return "EntityGame{" +
+                "id=" + id +
+                ", hp=" + hp +
+                ", type='" + type + '\'' +
+                ", playerEntity=" + playerEntity +
+                '}';
+    }
 }

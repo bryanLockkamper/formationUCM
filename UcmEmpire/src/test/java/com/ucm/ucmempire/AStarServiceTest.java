@@ -29,7 +29,7 @@ public class AStarServiceTest {
         board.setSquare(new Position(0,0), new Entity(20));
         board.setSquare(new Position(5,5), new Entity(20));
         aStarService = new AStarService(board, new Position(0,0), new Position(5,5));
-        Assert.assertEquals(new Position(0,0), aStarService.run(20).getPosition());
+        Assert.assertEquals(new Position(5,4), aStarService.run(20).getPosition());
     }
 
     @Test
@@ -67,7 +67,7 @@ public class AStarServiceTest {
         board.setSquare(new Position(0,0), new Entity(20));
         board.getBoard().get(3).get(2).setWalkable(false);
         aStarService = new AStarService(board, new Position(0,0), new Position(3,2));
-        Assert.assertEquals(new Position(0,0), aStarService.run(5).getPosition());
+        Assert.assertEquals(new Position(3,1), aStarService.run(5).getPosition());
     }
 
     @Test
@@ -89,7 +89,7 @@ public class AStarServiceTest {
     @Test
     public void run_withFullFinishObstacle_start00_end55_pa10_00() {
         runWithFullFinish();
-        Assert.assertEquals(new Position(0,0), aStarService.run(10).getPosition());
+        Assert.assertEquals(new Position(5,3), aStarService.run(10).getPosition());
     }
 
     @Test
@@ -108,7 +108,7 @@ public class AStarServiceTest {
     }
 
     @Test
-    public void run_withObstacle_start00_end00_pa5_00() {
+    public void run_start00_end00_pa5_00() {
         board.setSquare(new Position(0,0), new Entity(20));
         aStarService = new AStarService(board, new Position(0,0), new Position(0,0));
         Assert.assertEquals(new Position(0,0), aStarService.run(5).getPosition());

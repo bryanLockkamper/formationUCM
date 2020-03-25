@@ -28,5 +28,6 @@ export class RowComponent implements OnInit {
 
   onCellClick(cell) {
     this.cell.emit(cell);
+    console.log(cell);
   }
 }

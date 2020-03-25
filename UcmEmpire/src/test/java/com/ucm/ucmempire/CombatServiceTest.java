@@ -17,17 +17,14 @@ public class CombatServiceTest {
         //Arrange
         Soldier attack = new Soldier(5, 1, 5, 5);
         Soldier defense = new Soldier(5, 2, 5, 5);
-        //Act
 
-        Boolean isCorrect = combatService.fight(attack, defense);
 
-        //Assert
-
-        assertTrue(isCorrect);
+        assertTrue(CombatService.fight(attack, defense));
 
     }
 
     @Test
+    // TODO: 18/03/2020 C'est quoi une normal case ? 
     public void fightNormalCase_False() {
 
         //Arrange
@@ -35,7 +32,7 @@ public class CombatServiceTest {
         Soldier defense = new Soldier(10, 2, 10, 5);
         //Act
 
-        Boolean isCorrect = combatService.fight(attack, defense);
+        boolean isCorrect = CombatService.fight(attack, defense);
 
         //Assert
 

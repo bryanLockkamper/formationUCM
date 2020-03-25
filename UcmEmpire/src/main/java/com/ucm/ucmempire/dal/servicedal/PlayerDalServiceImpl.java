@@ -1,10 +1,12 @@
 package com.ucm.ucmempire.dal.servicedal;
 
+import com.ucm.ucmempire.dal.entity.BoardEntity;
 import com.ucm.ucmempire.dal.entity.PlayerEntity;
 import com.ucm.ucmempire.dal.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,7 +25,28 @@ public class PlayerDalServiceImpl implements PlayerDalService {
     }
 
     @Override
+    public List<PlayerEntity> saveBoard(List<Integer> idPlayersList, BoardEntity boardEntity) {
+
+        List<PlayerEntity> playerEntities = playerRepository.findByIdIn(idPlayersList);
+        playerEntities.stream().forEach(data -> System.out.println(data.getFirstName()));
+
+        playerEntities.stream().forEach(data -> data.setBoardEntity(boardEntity));
+
+        return (List<PlayerEntity>) playerRepository.saveAll(playerEntities);
+    }
+
+    @Override
+    public Optional<PlayerEntity> findById(Integer user_id) {
+        return playerRepository.findById(user_id);
+    }
+
+    @Override
     public PlayerEntity save(PlayerEntity playerEntity) {
         return playerRepository.save(playerEntity);
+    }
+
+    @Override
+    public Optional<PlayerEntity> findByLogin(String login) {
+        return playerRepository.findByLogin(login);
     }
 }

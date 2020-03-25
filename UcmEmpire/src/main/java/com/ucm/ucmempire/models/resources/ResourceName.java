@@ -1,6 +1,7 @@
 package com.ucm.ucmempire.models.resources;
 
 import com.ucm.ucmempire.models.Constants;
+import lombok.EqualsAndHashCode;
 
 public enum ResourceName{
 
@@ -24,4 +25,12 @@ public enum ResourceName{
                 return type;
         }
         public Integer getQuantity() {return quantity;}
+
+        @Override
+        public String toString() {
+                return "ResourceName{" +
+                        "type='" + type + '\'' +
+                        ", quantity=" + quantity +
+                        "} " + super.toString();
+        }
 }

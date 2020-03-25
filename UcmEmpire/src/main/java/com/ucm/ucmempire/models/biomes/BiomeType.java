@@ -1,5 +1,8 @@
 package com.ucm.ucmempire.models.biomes;
 
+import lombok.EqualsAndHashCode;
+
+
 public enum BiomeType {
 
     PLAINS("plains"),
